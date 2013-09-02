@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!--
+        <meta name="format-detection" content="telephone=no" />-->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+        <title>Actual Opportunities</title>
+
+        <script src="js/idangerous.swiper-2.1.min.js"></script>        
+        <link rel="stylesheet" href="css/idangerous.swiper.css">
+        <link rel="stylesheet" href="css/swiper.custom.css">
+</head>
+<body>
+    <div data-role="page" id="swipePage">
+    
+
+<div class="swiper-container">
+<div class="swiper-wrapper">
+<div class="swiper-slide red-slide">
+<div class="title">Slide 1</div>
+</div>
+<div class="swiper-slide blue-slide">
+<div class="title">Slide 2</div>
+</div>
+<div class="swiper-slide orange-slide">
+<div class="title">Slide 3</div>
+</div>
+<div class="swiper-slide green-slide">
+<div class="title">Slide 4</div>
+</div>
+<div class="swiper-slide pink-slide">
+<div class="title">Slide 5</div>
+</div>
+<div class="swiper-slide red-slide">
+<div class="title">Slide 6</div>
+</div>
+<div class="swiper-slide blue-slide">
+<div class="title">Slide 7</div>
+</div>
+<div class="swiper-slide orange-slide">
+<div class="title">Slide 8</div>
+</div>
+</div>
+<div class="pagination"></div>
+</div>
+
+
+<!-- swipe contents -->
+<div id="swipe_content" data-role="content">
+    efqwe qwe rqwe rqwe rqwerqweqweweqwe qweqwe wed we <br>
+    efqwe qwe rqwe rqwe rqwerqweqweweqwe qweqwe wed we <br>
+    efqwe qwe rqwe rqwe rqwerqweqweweqwe qweqwe wed we <br>
+    efqwe qwe rqwe rqwe rqwerqweqweweqwe qweqwe wed we <br>
+    
+</div>
+<!-- end of swipe contents -->
+</div>
+<script type="text/javascript">
+
+    function initSwiper(){
+        var mySwiper = new Swiper('.swiper-container',{
+            pagination: '.pagination',
+            paginationClickable: true,
+            onTouchStart : function() {
+                //Do something when you touch the slide
+                //alert('OMG you touch the slide!');
+            }
+        });
+    }
+
+	$(function () {
+		initSwiper();
+	});
+	
+	//$(document).ready(function () {
+    //        initSwiper();
+    //});
+	
+    //$(document).ready(initSwiper);
+    
+  </script>
+</body>
+</html>
