@@ -62,6 +62,8 @@
 </div><!-- /page -->
 
 <script>
+$(document).bind("mobileinit", function(){ $.support.cors = true; });
+
 $("#hl_page1").click(function() {
     $.mobile.changePage($("#page1"), {
         transition: "slide"
