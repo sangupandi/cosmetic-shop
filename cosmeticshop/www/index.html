@@ -62,7 +62,18 @@
 </div><!-- /page -->
 
 <script>
-$(document).bind("mobileinit", function(){ $.support.cors = true; });
+$(document).bind("mobileinit", function() {
+    $.support.cors=true;
+    $.mobile.allowCrossDomainPages = true;
+    $.mobile.pushStateEnabled = false;
+    $.mobile.touchOverflowEnabled = false;
+    $.mobile.defaultPageTransition = 'slide';
+    $.mobile.defaultDialogTransition = 'pop';
+    $.mobile.transitionFallbacks.slide = 'none';
+    $.mobile.transitionFallbacks.pop = 'none';
+    $.mobile.buttonMarkup.hoverDelay = 0;
+    $.mobile.phonegapNavigationEnabled = true;
+});
 
 $("#hl_page1").click(function() {
     $.mobile.changePage($("#page1"), {
