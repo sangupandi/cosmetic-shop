@@ -67,7 +67,7 @@ $(document).bind("mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
     $.mobile.pushStateEnabled = false;
     $.mobile.touchOverflowEnabled = false;
-    $.mobile.defaultPageTransition = 'slide';
+    $.mobile.defaultPageTransition = 'none';
     $.mobile.defaultDialogTransition = 'pop';
     $.mobile.transitionFallbacks.slide = 'none';
     $.mobile.transitionFallbacks.pop = 'none';
@@ -77,7 +77,7 @@ $(document).bind("mobileinit", function() {
 
 $("#hl_page1").click(function() {
     $.mobile.changePage($("#page1"), {
-        transition: "slide"
+        transition: "fade"
     });
     initSwiperData();
     //initSwiper();
