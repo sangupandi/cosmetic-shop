@@ -15,6 +15,7 @@
     <script src="js/idangerous.swiper-2.1.min.js"></script>
     
     <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
 
@@ -26,8 +27,19 @@
     </div><!-- /header -->
 
     <div data-role="content">
-        
-        <a id="hl_page1" data-role="button" data-icon="gear" data-theme="b">Güncel Fırsatlar</a>
+        <!--<a id="hl_page10" data-role="button" data-icon="gear" data-theme="b">Güncel Fırsatlar</a>-->
+       
+        <div class="ui-grid-b">
+          <div class=ui-block-a><a id="hl_page1" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_07.png" /></a></div>
+          <div class=ui-block-b><a id="hl_page2" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_09.png" /></a></div>
+          <div class=ui-block-c><a id="hl_page3" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_11.png" /></a></div>
+          <div class=ui-block-a><a id="hl_page4" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_16.png" /></a></div>
+          <div class=ui-block-b><a id="hl_page5" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_17.png" /></a></div>
+          <div class=ui-block-c><a id="hl_page6" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_18.png" /></a></div>
+          <div class=ui-block-a><a id="hl_page7" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_22.png" /></a></div>
+          <div class=ui-block-b><a id="hl_page8" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_23.png" /></a></div>
+          <div class=ui-block-c><a id="hl_page9" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_24.png" /></a></div>
+        </div>        
         
     </div><!-- /content -->
 
@@ -68,7 +80,7 @@ $(document).bind("mobileinit", function() {
     $.mobile.pushStateEnabled = false;
     $.mobile.touchOverflowEnabled = false;
     $.mobile.defaultPageTransition = 'none';
-    $.mobile.defaultDialogTransition = 'pop';
+    $.mobile.defaultDialogTransition = 'none';
     $.mobile.transitionFallbacks.slide = 'none';
     $.mobile.transitionFallbacks.pop = 'none';
     $.mobile.buttonMarkup.hoverDelay = 0;
@@ -76,10 +88,10 @@ $(document).bind("mobileinit", function() {
 });
 
 $("#hl_page1").click(function() {
-    $.mobile.changePage($("#page1"), {
-        transition: "fade"
-    });
     initSwiperData();
+    $.mobile.changePage($("#page1"), {
+        transition: "none"
+    });
     //initSwiper();
 });
 </script>
