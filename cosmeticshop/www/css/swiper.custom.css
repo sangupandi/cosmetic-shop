@@ -1,9 +1,13 @@
-#page1{
-	/*height:50px;*/
+.swiper-container-parent{
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	width: 100%;
+	height: 100%;
 }
 .swiper-container {
 	width: 100%;
-	height: 50%;
+	height: 10%;
 	color: #fff;
 	text-align: center;
 }
@@ -54,7 +58,7 @@
 }
 #swipe_content{
 	width:95%;
-	height:35%;
+	height:30%;
 	padding:2%;
 	text-align:center;
 	border:solid 1px #4390EE;

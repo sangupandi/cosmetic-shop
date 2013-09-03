@@ -40,24 +40,12 @@
         <h1>Bar</h1>
     </div><!-- /header -->
 
-    <div data-role="content">
-        
+    <div data-role="content" class="swiper-container-parent">
         <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide red-slide">
-                    <div class="title">
-                        Slide 1
-                    </div>
-                </div>
-                <div class="swiper-slide blue-slide">
-                    <div class="title">
-                        Slide 2
-                    </div>
-                </div>
-            </div>
+            <div id="swipe-data" class="swiper-wrapper"></div>
             <div class="pagination"></div>
         </div>
-
+        <div id="swipe_content" data-role="content"></div>
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
@@ -75,11 +63,11 @@
 
 <script>
 $("#hl_page1").click(function() {
-    
     $.mobile.changePage($("#page1"), {
         transition: "slide"
     });
-    initSwiper();
+    initSwiperData();
+    //initSwiper();
 });
 </script>
 

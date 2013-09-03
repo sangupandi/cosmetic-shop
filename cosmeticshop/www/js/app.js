@@ -12,9 +12,36 @@ function initSwiper(){
     var mySwiper = new Swiper('.swiper-container',{
         pagination: '.pagination',
         paginationClickable: true,
-        onTouchStart : function() {
-            //Do something when you touch the slide
-            //alert('OMG you touch the slide!');
+        loop: true,
+        onSlideChangeEnd : function() {
+            $("#swipe_content").html(mySwiper.activeLoopIndex);
         }
     });
+}
+function initSwiperData(){
+    //$(document).bind('pagebeforeshow', function(e, data){
+    var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
+    $.ajax({url: svcurl,
+        dataType: "jsonp",
+        async: true,
+        success: function (result) {
+            ajax.parseJSONP(result);
+        },
+        error: function (request,error) {
+            alert('Network error has occurred please try again!');
+        }
+    });         
+    //});
+    
+    var ajax = {  
+        parseJSONP:function(result){
+            $.each(result, function(i, row) {
+                var tmp = $('#swipe-data').html();
+                tmp = tmp + '<div class="swiper-slide red-slide"><div class="title">' + row.d + '</div></div>';
+
+                $('#swipe-data').html(tmp);
+            });
+            initSwiper();
+        }
+    };
 }
