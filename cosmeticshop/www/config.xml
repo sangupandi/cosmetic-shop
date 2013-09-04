@@ -57,6 +57,8 @@
     <access origin="http://feeds.delicious.com*" />
     <access origin="http://www.google.com*" />
     <access origin="https://www.google.com*" />
+    <access origin="http://www.google.com.tr*" />
+    <access origin="https://www.google.com.tr*" />
 
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	
