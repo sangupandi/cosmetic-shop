@@ -54,7 +54,7 @@ function initSwiperData(){
 }
 
 function inAppBrowserTest(){
-	var ref = window.open('http://apache.org', '_system', 'enableViewportScale=yes', 'location=no');
+	var ref = window.open('http://apache.org', 'self', 'enableViewportScale=yes', 'location=no');
 	ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
 	ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
 	ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
