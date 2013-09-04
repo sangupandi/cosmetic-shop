@@ -11,7 +11,7 @@
     <preference name="permissions" value="none" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="handset" />
-    <preference name="fullscreen" value="true" />
+    <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
     <preference name="stay-in-webview" value="false" />
@@ -55,4 +55,7 @@
     
     <access origin="http://127.0.0.1*" />
     <access origin="http://feeds.delicious.com*" />
+
+	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	
 </widget>
