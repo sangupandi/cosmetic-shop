@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<!-- Start of first page -->
+<!-- Start of home page -->
 <div data-role="page" id="home_page">
 
     <div data-role="header">
@@ -32,7 +32,7 @@
         <div class="ui-grid-b">
           <div class=ui-block-a><a id="hl_page1" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_07.png" /></a></div>
           <div class=ui-block-b><a id="hl_page2" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_09.png" /></a></div>
-          <div class=ui-block-c><a id="hl_page3" target="self" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_11.png" /></a></div>
+          <div class=ui-block-c><a id="hl_page3" href="#page2" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_11.png" /></a></div>
           <div class=ui-block-a><a id="hl_page4" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_16.png" /></a></div>
           <div class=ui-block-b><a id="hl_page5" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_17.png" /></a></div>
           <div class=ui-block-c><a id="hl_page6" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_18.png" /></a></div>
@@ -41,21 +41,21 @@
           <div class=ui-block-c><a id="hl_page9" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_24.png" /></a></div>
         </div>        
 !-- Open in InAppBrowser -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_blank', 'location=yes');">_blank</a></p>
+<p><a href="#" onclick="window.open('http://www.nhl.com', '_blank', 'location=no');">_blank</a></p>
 <!-- Open in Mobile Safari -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_system', 'location=yes');">_system</a></p>
+<p><a href="#" onclick="window.open('http://www.nhl.com', '_system', 'location=no');">_system</a></p>
 <!-- Open in Same Webview -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_self', 'location=yes');">_self</a></p>
+<p><a href="#" onclick="window.open('http://www.nhl.com', '_self', 'location=no');">_self</a></p>
         
     </div><!-- /content -->
 
 </div><!-- /page -->
 
-<!-- Start of second page -->
+<!-- Start of page 1 -->
 <div data-role="page" id="page1">
 
     <div data-role="header">
-        <h1>Bar</h1>
+        <h1>Güncel Fırsatlar</h1>
     </div><!-- /header -->
 
     <div data-role="content" class="swiper-container-parent">
@@ -72,6 +72,30 @@
             <a id="hlShare" data-role="button">Paylaş</a>
             <a id="hlFilter" data-role="button">Filtrele</a>        
         </div> 
+    </div><!-- /footer -->
+    
+    <script>
+
+    </script>
+</div><!-- /page -->
+
+<!-- Start of page 2 -->
+<div data-role="page" id="page2">
+
+    <div data-role="header">
+        <h1>Güncel Katalog</h1>
+    </div><!-- /header -->
+
+    <div data-role="content" class="pdf-content">
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+        <!--
+        <div data-role="controlgroup" data-type="horizontal">
+            <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+        </div>
+        --> 
     </div><!-- /footer -->
     
     <script>
@@ -104,9 +128,8 @@ $("#hl_page1").click(function() {
 $("#hl_page2").click(function() {
     inAppBrowserTest();
 });
-$("#hl_page3").click(function() {
-    inAppBrowserTest();
-});
+
+$('<iframe src="http://www.google.com" height="100%" width="100%" frameborder="0"></iframe>').appendTo('.pdf-content');
 
 </script>
 
