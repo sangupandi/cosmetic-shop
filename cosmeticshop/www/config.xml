@@ -56,6 +56,7 @@
     <access origin="http://127.0.0.1*" />
     <access origin="http://feeds.delicious.com*" />
     <access origin="http://www.google.com*" />
+    <access origin="https://www.google.com*" />
 
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	
