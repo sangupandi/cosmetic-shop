@@ -23,7 +23,7 @@ function initSwiper(){
 
 function initSwiperData(){
 	if (mySwiper == null) {
-	    //$(document).bind('pagebeforeshow', function(e, data){
+
 	    var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
 	    //var svcurl = "http://127.0.0.1:8020/cosmeticshop/www/svc1.json";      
 	    $.ajax({url: svcurl,
@@ -36,11 +36,11 @@ function initSwiperData(){
 	            alert('Network error has occurred please try again!');
 	        }
 	    });         
-	    //});
 	    
 	    var ajax = {  
 	        parseJSONP:function(result){
 	        	//result = '[{"id":78,"html":"<img src=\"img/svc1a.jpg\" />","desc":"2 adet Max Factor ürünü alana mükemmel kıvırma etkisiyle %300\'e kadar daha dolgun kirpikler sağlayan, parfüm ve fiber içermeyen Max Factor 2000 Calorie maskara hediye. Not: Kampanya hediye ürün stoklarıyla sınırlıdır ve tüm Watsons mağazalarında geçerlidir."},{"id":87,"html":"<img src=\"img/svc1b.jpg\" />","desc":"Sıcaklığa, terlemeye dayanıklı ve dağılmayan mikro esnek formülüyle yeni Maybelline New York AFFINITONE 24H fondöten çeşitlerinde %30 indirim fırsatı Eylül ayı boyunca Watsons mağazalarında sizleri bekliyor."}]';
+				$('#swipe-data').html("");
 	            $.each(result, function(i, row) {
 	                var tmp = $('#swipe-data').html();
 	                tmp = tmp + '<div class="swiper-slide red-slide"><div class="title">' + row.d + '</div></div>';
