@@ -78,6 +78,34 @@ function resizeMyContent() {
 function log(obj){
     $('#map-page div[data-role="header"] h1').html(obj);
 }
+
+// onSuccess Geolocation
+//
+function onSuccess(position) {
+    $('#map-canvas').html(
+		'Latitude: '           + position.coords.latitude              + '<br />' +
+	    'Longitude: '          + position.coords.longitude             + '<br />' +
+	    'Altitude: '           + position.coords.altitude              + '<br />' +
+	    'Accuracy: '           + position.coords.accuracy              + '<br />' +
+	    'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+	    'Heading: '            + position.coords.heading               + '<br />' +
+	    'Speed: '              + position.coords.speed                 + '<br />' +
+	    'Timestamp: '          + position.timestamp                    + '<br />'
+    );
+}
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    $('#map-canvas').html(
+	    'code: '    + error.code    + '\n' +
+	    'message: ' + error.message + '\n'
+    );
+}
+    
+function locationTest(){
+	navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
 /*
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
