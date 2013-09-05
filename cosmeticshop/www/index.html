@@ -120,14 +120,32 @@
 
 <!-- Start of page 7 -->
 <div data-role="page" id="map-page" data-url="map-page">
+
     <div data-role="header" data-theme="c">
         <h1>Maps</h1>
     </div>
+
     <div data-role="content" id="map-canvas">
         <!-- map loads here... -->
     </div>
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="controlgroup" data-type="horizontal">
+            <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+            <a id="nfo" data-role="button" data-icon="icon">info</a>
+        </div>
+    </div><!-- /footer -->
 </div>
 
+<div data-role="dialog" id="map-dialog" class="app-dialog">
+    <div data-role="header">
+        <h3>A dialog</h3>
+    </div>
+    <div id="content" data-role="content">
+        <p>I am a dialog....!</p>
+    </div>
+</div>
+   
 <script>
 $(document).bind("mobileinit", function() {
     $.support.cors = true;
@@ -170,6 +188,11 @@ $("#hl_page7").click(function() {
     $.mobile.changePage($("#map-page"), {
         transition: "slide"
     });
+});
+
+$('#nfo').click(function() {
+    alert("ok");
+    $('#map-page div[data-role="header"] h1').html("tst");
 });
 
 </script>

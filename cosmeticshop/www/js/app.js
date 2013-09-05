@@ -75,6 +75,9 @@ function resizeMyContent() {
 	}
 }
 
+function log(obj){
+    $('#map-page div[data-role="header"] h1').html(obj);
+}
 /*
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
@@ -82,7 +85,8 @@ function resizeMyContent() {
 function initMap(){
 //$( document ).on( "pageinit", "#map-page", function() {
     var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
-    if ( navigator.geolocation ) {
+    log(defaultLatLng==null?"null":"obj");
+    if (navigator.geolocation) {
         function success(pos) {
             // Location found, show map with these coordinates
             drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
