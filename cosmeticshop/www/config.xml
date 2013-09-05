@@ -63,5 +63,6 @@
 
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	
 </widget>

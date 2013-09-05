@@ -30,7 +30,6 @@
     <script type="text/javascript" src="http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/2/main.js"></script>
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.0/src/infobox_packed.js"></script>
     -->
-    <script type="text/javascript" charset="utf-8" src="cordova-2.6.0.js"></script>
     
 </head>
 <body>
@@ -133,7 +132,8 @@
     <div data-role="footer" data-position="fixed">
         <div data-role="controlgroup" data-type="horizontal">
             <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-            <a id="nfo" data-role="button" data-icon="icon">info</a>
+            <a id="nfo1" data-role="button" data-icon="icon">geo</a>
+            <a id="nfo2" data-role="button" data-icon="icon">cam</a>
         </div>
     </div><!-- /footer -->
 </div>
@@ -191,8 +191,12 @@ $("#hl_page7").click(function() {
     });
 });
 
-$('#nfo').click(function() {
-    locationTest();
+$('#nfo1').click(function() {
+    getCurrentPosition();
+});
+
+$('#nfo2').click(function() {
+    cameraTest();
 });
 
 </script>

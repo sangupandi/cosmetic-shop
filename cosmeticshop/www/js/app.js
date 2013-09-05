@@ -94,20 +94,51 @@ function onSuccess(position) {
     );
 }
 
-// onError Callback receives a PositionError object
-//
-function onError(error) {
-    $('#map-canvas').html(
-	    'code: '    + error.code    + '\n' +
-	    'message: ' + error.message + '\n'
-    );
-}
-    
-function locationTest(){
+var getCurrentPosition = function() {
+    var success = function(position) {                
+    	log("success geo");
+	    $('#map-canvas').html(
+			'Latitude: '           + position.coords.latitude              + '<br />' +
+		    'Longitude: '          + position.coords.longitude             + '<br />' +
+		    'Altitude: '           + position.coords.altitude              + '<br />' +
+		    'Accuracy: '           + position.coords.accuracy              + '<br />' +
+		    'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+		    'Heading: '            + position.coords.heading               + '<br />' +
+		    'Speed: '              + position.coords.speed                 + '<br />' +
+		    'Timestamp: '          + position.timestamp                    + '<br />'
+	    );
+    };
+    var fail = function(error) {
+    	log("err:" + error.code);
+	    $('#map-canvas').html(
+		    'code: '    + error.code    + '\n' +
+		    'message: ' + error.message + '\n'
+	    );
+    };
+
     log("testing.....");
-    $('#map-canvas').html("testing....");
-	navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
+    $("#map-canvas").html("Getting geolocation . . .");
+    console.log("Getting geolocation . . .");
+    
+    navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+};
+
+var cameraTest = function() {
+	var success = function (imageData) {
+    	log("success cam");
+	    var image = document.getElementById('myImage');
+	    image.src = "data:image/jpeg;base64," + imageData;
+	};
+	var fail = function (message) {
+    	log("err:" + error.code);
+	    alert('Failed because: ' + message);
+	};
+
+    log("testing.....");
+    $("#map-canvas").html("Getting cam . . .");
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
+};
+
 /*
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
