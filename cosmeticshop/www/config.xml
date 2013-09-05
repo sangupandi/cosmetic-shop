@@ -62,5 +62,6 @@
     <access origin="https://www.google.com.tr*" />
 
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	
 </widget>

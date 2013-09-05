@@ -87,12 +87,11 @@ function initMap(){
     var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
     if (navigator.geolocation) {
         function success(pos) {
-log("Location found");
             // Location found, show map with these coordinates
             drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         }
         function fail(error) {
-log("Failed to find location");
+log(error);
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
