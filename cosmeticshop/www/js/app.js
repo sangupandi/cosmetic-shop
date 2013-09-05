@@ -136,7 +136,7 @@ var cameraTest = function() {
 
     log("testing.....");
     $("#map-canvas").html("Getting cam . . .");
-	navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
+	navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
 };
 
 /*
@@ -144,23 +144,25 @@ var cameraTest = function() {
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
 function initMap(){
-//$( document ).on( "pageinit", "#map-page", function() {
     var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
+
     if (navigator.geolocation) {
         function success(pos) {
+	    	log("success map");
             // Location found, show map with these coordinates
             drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         }
         function fail(error) {
-log(error);
+	    	log("err:" + error.code);
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
         navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
     } else {
-log("No geolocation support");
+		log("No geolocation support");
         drawMap(defaultLatLng);  // No geolocation support, show default map
     }
+
     function drawMap(latlng) {
         var myOptions = {
             zoom: 10,
@@ -175,5 +177,4 @@ log("No geolocation support");
             title: "Greetings!"
         });
     }
-//});
 }
