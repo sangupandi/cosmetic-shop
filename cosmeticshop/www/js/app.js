@@ -104,6 +104,8 @@ function onError(error) {
 }
     
 function locationTest(){
+    log("testing.....");
+    $('#map-canvas').html("testing....");
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
 /*
