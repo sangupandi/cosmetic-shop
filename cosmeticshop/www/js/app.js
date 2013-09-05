@@ -120,7 +120,7 @@ var getCurrentPosition = function() {
     $("#map-canvas").html("Getting geolocation . . .");
     console.log("Getting geolocation . . .");
     
-    navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 500000, timeout: 8000, enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
 };
 
 var cameraTest = function() {
@@ -157,7 +157,7 @@ var initMap = function() {
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
-        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 3000, enableHighAccuracy:true, timeout: 6000});
     } else {
 		log("No geolocation support");
         drawMap(defaultLatLng);  // No geolocation support, show default map
@@ -169,6 +169,7 @@ var initMap = function() {
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+        log($("#map-canvas").height());
         var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
         // Add an overlay to the map of current lat/lng
         var marker = new google.maps.Marker({
