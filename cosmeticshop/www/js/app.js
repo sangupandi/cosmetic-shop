@@ -85,18 +85,20 @@ function log(obj){
 function initMap(){
 //$( document ).on( "pageinit", "#map-page", function() {
     var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
-    log(defaultLatLng==null?"null":"obj");
     if (navigator.geolocation) {
         function success(pos) {
+log("Location found");
             // Location found, show map with these coordinates
             drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         }
         function fail(error) {
+log("Failed to find location");
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
         navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
     } else {
+log("No geolocation support");
         drawMap(defaultLatLng);  // No geolocation support, show default map
     }
     function drawMap(latlng) {
