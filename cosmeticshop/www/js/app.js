@@ -158,9 +158,11 @@ var initMap = function() {
 	    	log("err:" + error.code);
             drawMap(defaultLatLng);  // Failed to find location, show default map
         }
-        log("Finding..");
+        log("navigator ok");
+        //log("Finding..");
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
-        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 3000, enableHighAccuracy:true, timeout: 6000});
+        //navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 3000, enableHighAccuracy:true, timeout: 6000});
+        drawMap(defaultLatLng); 
     } else {
 		log("No geolocation support");
         drawMap(defaultLatLng);  // No geolocation support, show default map
@@ -174,6 +176,7 @@ var initMap = function() {
         };
         //log($("#map-canvas").height());
         var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+        log(map!=null?"not null":"null");
         // Add an overlay to the map of current lat/lng
         var marker = new google.maps.Marker({
             position: latlng,
