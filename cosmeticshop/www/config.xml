@@ -28,9 +28,7 @@
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="http://api.phonegap.com/1.0/network"/>    
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
-	<feature name="Camera">
-	    <param name="android-package" value="org.apache.cordova.CameraLauncher" />
-	</feature>
+	<feature name="http://api.phonegap.com/1.0/camera"/>
 
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
