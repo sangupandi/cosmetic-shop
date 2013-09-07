@@ -28,6 +28,9 @@
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="http://api.phonegap.com/1.0/network"/>    
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="Camera">
+	    <param name="android-package" value="org.apache.cordova.CameraLauncher" />
+	</feature>
 
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
@@ -56,13 +59,11 @@
     
     <access origin="http://127.0.0.1*" />
     <access origin="http://feeds.delicious.com*" />
-    <access origin="http://www.google.com*" />
-    <access origin="https://www.google.com*" />
-    <access origin="http://www.google.com.tr*" />
-    <access origin="https://www.google.com.tr*" />
-
+	<!--
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+	<plugin name="Capture" value="org.apache.cordova.Capture"/>
+	-->
 	
 </widget>
