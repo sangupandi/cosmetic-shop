@@ -137,6 +137,7 @@ function onCamFail(error) {
 var cameraTest = function() {
 
 //    log("testing.....");
+    console.log("Test Log");
  //   $("#map-canvas").html("Getting cam . . .<br>" 
         //navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
         //camera.PictureSourceType.CAMERA //+ "<br>"
