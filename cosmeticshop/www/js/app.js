@@ -124,31 +124,31 @@ var getCurrentPosition = function() {
 };
 
 function onCamSuccess(imageData) {
-    log("success cam");
-    //var image = document.getElementById('myImage');
-    //image.src = "data:image/jpeg;base64," + imageData;
+    //log("success cam");
+    var image = document.getElementById('myImage');
+    image.src = "data:image/jpeg;base64," + imageData;
 };
 
 function onCamFail(error) {
-    log("err:" + error.code);
-    //alert('Failed because: ' + message);
+    //log("err:" + error.code);
+    alert('Failed because: ' + error.code);
 };
 
 var cameraTest = function() {
 
-    log("testing.....");
-    $("#map-canvas").html("Getting cam . . .<br>" 
+//    log("testing.....");
+ //   $("#map-canvas").html("Getting cam . . .<br>" 
         //navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
         //camera.PictureSourceType.CAMERA //+ "<br>"
-    );
+  //  );
 
-    //navigator.camera.sourceType = navigator.camera.PictureSourceType.CAMERA;
+   // navigator.camera.cleanup(onCamSuccess, onCamFail);
     //$("#map-canvas").html("done1 cam . . .<br>");
     //navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
     navigator.camera.getPicture(onCamSuccess, onCamFail, 
-        {quality:50, sourceType:Camera.PictureSourceType.PHOTOLIBRARY, destinationType:Camera.DestinationType.FILE_URI});
+        {quality:25, sourceType:Camera.PictureSourceType.CAMERA, destinationType:Camera.DestinationType.DATA_URL, encodingType:Camera.EncodingType.JPEG});
     //navigator.camera.getPicture(success, fail, { }); 
-    $("#map-canvas").html("done cam . . .<br>");
+   // $("#map-canvas").html("done cam . . .<br>");
 };
 
 /*
