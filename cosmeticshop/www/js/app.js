@@ -135,8 +135,17 @@ var cameraTest = function() {
 	};
 
     log("testing.....");
-    $("#map-canvas").html("Getting cam . . .");
-	navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
+    $("#map-canvas").html(//"Getting cam . . .<br>" 
+        navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
+        //camera.PictureSourceType.CAMERA //+ "<br>"
+    );
+
+    navigator.camera.sourceType = navigator.camera.PictureSourceType.CAMERA;
+    $("#map-canvas").html("done1 cam . . .<br>");
+    //navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
+    navigator.camera.getPicture(success, fail, { }); 
+    $("#map-canvas").html("done cam . . .<br>");
+    
 };
 
 /*

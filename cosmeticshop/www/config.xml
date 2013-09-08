@@ -7,7 +7,6 @@
     <author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">
         GTech Mobile Team
     </author>
-    <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="handset" />
@@ -30,6 +29,8 @@
 	<feature name="http://api.phonegap.com/1.0/network"/>    
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
+	<feature name="http://api.phonegap.com/1.0/file"/>
+	
 
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
