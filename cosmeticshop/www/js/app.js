@@ -123,29 +123,32 @@ var getCurrentPosition = function() {
     navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
 };
 
+function onCamSuccess(imageData) {
+    log("success cam");
+    //var image = document.getElementById('myImage');
+    //image.src = "data:image/jpeg;base64," + imageData;
+};
+
+function onCamFail(error) {
+    log("err:" + error.code);
+    //alert('Failed because: ' + message);
+};
+
 var cameraTest = function() {
-	var success = function (imageData) {
-    	log("success cam");
-	    var image = document.getElementById('myImage');
-	    image.src = "data:image/jpeg;base64," + imageData;
-	};
-	var fail = function (message) {
-    	log("err:" + error.code);
-	    alert('Failed because: ' + message);
-	};
 
     log("testing.....");
-    $("#map-canvas").html(//"Getting cam . . .<br>" 
-        navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
+    $("#map-canvas").html("Getting cam . . .<br>" 
+        //navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
         //camera.PictureSourceType.CAMERA //+ "<br>"
     );
 
-    navigator.camera.sourceType = navigator.camera.PictureSourceType.CAMERA;
-    $("#map-canvas").html("done1 cam . . .<br>");
+    //navigator.camera.sourceType = navigator.camera.PictureSourceType.CAMERA;
+    //$("#map-canvas").html("done1 cam . . .<br>");
     //navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
-    navigator.camera.getPicture(success, fail, { }); 
+    navigator.camera.getPicture(onCamSuccess, onCamFail, 
+        {quality:50, sourceType:Camera.PictureSourceType.PHOTOLIBRARY, destinationType:Camera.DestinationType.FILE_URI});
+    //navigator.camera.getPicture(success, fail, { }); 
     $("#map-canvas").html("done cam . . .<br>");
-    
 };
 
 /*
