@@ -26,12 +26,22 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/2/main.js"></script>
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.0/src/infobox_packed.js"></script>
-    -->
+    --
     <script type="text/javascript" src="js/map/gmap.js"></script>
     <script type="text/javascript" src="js/map/main.js"></script>
     <script type="text/javascript" src="js/map/infobox_packed.js"></script>
-    <script stype="text/javascript" src="phonegap.js"></script> 
+    -->
 
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/MapControl/mapcontrol.ashx?v=6.3c"></script>
+    <script type="text/javascript">
+        var map = null;
+        function GetMap() {
+            map = new VEMap('map-canvas');
+            map.LoadMap();
+        }
+    </script>
+        
+    <script stype="text/javascript" src="phonegap.js"></script> 
 </head>
 
 <body>
@@ -124,6 +134,7 @@
 
     <div data-role="content" id="map-canvas">
         <!-- map loads here... -->
+        
     </div>
 
     <div data-role="footer" data-position="fixed">
@@ -226,6 +237,7 @@ $("#hl_page7").click(function() {
     $.mobile.changePage($("#map-page"), {
         transition: "slide"
     });
+    GetMap();
 });
 
 $("#hl_page8").click(function() {

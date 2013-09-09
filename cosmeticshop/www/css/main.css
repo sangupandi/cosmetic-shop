@@ -1,6 +1,6 @@
 .ui-content {
-	padding: 0; 
-	padding: 0; 
+	padding: 0;
+	padding: 0;
 }
 .menu-button .ui-btn-inner {
 	padding: 0;
@@ -12,26 +12,15 @@
 	width: 98%;
 }
 
-#map-page, #map-canvas { width: 100%; height: 100%; padding: 0; }
+#map-page, #map-canvasqxx {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
 
-.xxxpdf-content { 
-	width: 100%; 
-	margin:0px; 
-	padding: 0px; 
-	position:relative; 
-	overflow:hidden; 
-	}
-.xxxtheiframeid { 
-	height:30000px;
-	width:640px;
-	margin:0px; 
-
-    -ms-zoom: 0.30;
-    -moz-transform: scale(0.30);
-    -moz-transform-origin: 0 0;
-    -o-transform: scale(0.30);
-    -o-transform-origin: 0 0;
-    -webkit-transform: scale(0.30);
-    -webkit-transform-origin: 0 0;
-
+#map-canvas {
+	position: relative;
+	width: 600px;
+	height: 400px;
+	/*margin-left: 15px;*/
 }
