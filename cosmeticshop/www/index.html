@@ -32,18 +32,7 @@
     <script type="text/javascript" src="js/map/infobox_packed.js"></script>
     -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places"></script>
-    
-    <!--
-    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/MapControl/mapcontrol.ashx?v=6.3c"></script>
-    <script type="text/javascript">
-        var map = null;
-        function GetMap() {
-            map = new VEMap('map-canvas');
-            map.LoadMap();
-        }
-    </script>
-    -->
-    
+
     <script stype="text/javascript" src="phonegap.js"></script> 
 </head>
 
@@ -68,7 +57,7 @@
           <div class=ui-block-c><a id="hl_page6" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_18.png" /></a></div>
           <div class=ui-block-a><a id="hl_page7" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_22.png" /></a></div>
           <div class=ui-block-b><a id="hl_page8" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_23.png" /></a></div>
-          <div class=ui-block-c><a id="hl_page9" href="camera.html" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_24.png" /></a></div>
+          <div class=ui-block-c><a id="hl_page9" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_24.png" /></a></div>
         </div>        
         
     </div><!-- /content -->
@@ -90,7 +79,7 @@
         <div id="swipe_content" data-role="content"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
         <div data-role="controlgroup" data-type="horizontal">
             <a id="hlHome" href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
             <a id="hlShare" data-role="button">Paylaş</a>
@@ -114,13 +103,10 @@
         <!-- iframe placeholder -->
     </div><!-- /content -->
 
-    <div data-role="footer" data-position="fixed">
-        <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-        <!--
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
         <div data-role="controlgroup" data-type="horizontal">
             <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
         </div>
-        --> 
     </div><!-- /footer -->
     
     <script>
@@ -135,17 +121,13 @@
         <h1>Maps</h1>
     </div>
 
-    <div data-role="content" id="map-canvas">
+    <div data-role="content" id="map-canvas" data-fullscreen="false">
         <!-- map loads here... -->
-        
     </div>
 
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
         <div data-role="controlgroup" data-type="horizontal">
             <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-            <a id="nfo1" data-role="button" data-icon="icon">geo</a>
-            <a id="nfo2" data-role="button" data-icon="icon">cam</a>
-            <a id="nfo3" data-role="button" data-icon="icon">map</a>
         </div>
     </div><!-- /footer -->
 </div>
@@ -178,44 +160,35 @@ $("#hl_page1").click(function() {
     $.mobile.changePage($("#page1"), {
         transition: "none"
     });
-    //initSwiper();
 });
 
 $("#hl_page2").click(function() {
     alert("pdf iframe");
-    //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    //var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
-    //$('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
-    //<iframe id="theiframeid" class="theiframeid" src="http://www.cardtek.com/files/2013/09/sample.pdf" name="theiframeid" scrolling="yes" frameborder="0"></iframe>
 
     $('<iframe src="http://www.cardtek.com/files/2013/09/sample.pdf" height="400px" width="400px" scrolling="yes" frameborder="0"></iframe>').appendTo('.pdf-content');
+
     $.mobile.changePage($("#page2"), {
         transition: "fade"
     });
-    /*
-    var ref = window.open(url, '_blank', 'location=no');
-    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-    ref.addEventListener('exit', function() { alert(event.type); });
-    */
+
     resizeMyContent();
 });
 
 $("#hl_page3").click(function() {
-    $.support.cors = true;
     alert("pdf _blank");
+    
     var url = "http://www.cardtek.com/files/2013/09/sample.pdf";
-    var ref = window.open(url, '_blank', 'location=no');
+    var ref = window.open(url, '_blank', 'location=no,enableViewPortScale=yes');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
 });
 
 $("#hl_page4").click(function() {
-    $.support.cors = true;
     alert("pdf.js _blank");
+    
     var url = "http://mozilla.github.io/pdf.js/web/viewer.html";
-    var ref = window.open(url, '_blank', 'location=no');
+    var ref = window.open(url, '_blank', 'location=no,enableViewPortScale=yes');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
@@ -229,38 +202,29 @@ $("#hl_page6").click(function() {
     alert("docs _blank");
     // ok
     var url = "https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    var ref = window.open(url, '_blank', 'location=no');
+    var ref = window.open(url, '_blank', 'location=no,enableViewPortScale=yes');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
 });
 
 $("#hl_page7").click(function() {
+    initMap();
     $.mobile.changePage($("#map-page"), {
         transition: "slide"
     });
-    initMap();
-    //GetMap();
+    resizeMyContent();
 });
 
 $("#hl_page8").click(function() {
-    alert("not yet implemented!");
+    cameraTest();
 });
 
 $("#hl_page9").click(function() {
     alert("not yet implemented!");
 });
 
-$('#nfo1').click(function() {
-    getCurrentPosition();
-});
-
 $('#nfo2').click(function() {
-    cameraTest();
-});
-
-$('#nfo3').click(function() {
-    initMap();
 });
 
 </script>
