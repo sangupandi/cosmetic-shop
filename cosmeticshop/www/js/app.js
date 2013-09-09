@@ -129,8 +129,6 @@ var initMap = function() {
     };
     
     navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail);
-    
-
 };
 
 var cameraTest = function() {
