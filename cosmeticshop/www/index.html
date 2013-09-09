@@ -168,6 +168,7 @@ $("#hl_page1").click(function() {
 });
 
 $("#hl_page2").click(function() {
+    alert("pdf iframe");
     //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
     //var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
     //$('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
@@ -187,17 +188,17 @@ $("#hl_page2").click(function() {
 });
 
 $("#hl_page3").click(function() {
+    alert("pdf _blank");
     var url = "http://www.cardtek.com/files/2013/09/sample.pdf";
-     var ref = window.open(url, '_self', 'location=no');
-     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-     ref.addEventListener('exit', function() { alert(event.type); });
+    var ref = window.open(url, '_blank', 'location=no');
+    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+    ref.addEventListener('exit', function() { alert(event.type); });
 });
 
 $("#hl_page4").click(function() {
-    //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
-
+    alert("pdf.js _blank");
+    var url = "http://mozilla.github.io/pdf.js/web/viewer.html";
     var ref = window.open(url, '_blank', 'location=no');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
@@ -205,17 +206,13 @@ $("#hl_page4").click(function() {
 });
 
 $("#hl_page5").click(function() {
-    var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-
-    var ref = window.open(url, '_self', 'location=no');
-    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-    ref.addEventListener('exit', function() { alert(event.type); });
+    alert("not yet implemented!");
 });
 
 $("#hl_page6").click(function() {
-    var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-
+    alert("docs _blank");
+    // ok
+    var url = "https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
     var ref = window.open(url, '_blank', 'location=no');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
@@ -227,6 +224,14 @@ $("#hl_page7").click(function() {
     $.mobile.changePage($("#map-page"), {
         transition: "slide"
     });
+});
+
+$("#hl_page8").click(function() {
+    alert("not yet implemented!");
+});
+
+$("#hl_page9").click(function() {
+    alert("not yet implemented!");
 });
 
 $('#nfo1').click(function() {
