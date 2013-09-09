@@ -31,7 +31,9 @@
     <script type="text/javascript" src="js/map/main.js"></script>
     <script type="text/javascript" src="js/map/infobox_packed.js"></script>
     -->
-
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places"></script>
+    
+    <!--
     <script type="text/javascript" src="http://ecn.dev.virtualearth.net/MapControl/mapcontrol.ashx?v=6.3c"></script>
     <script type="text/javascript">
         var map = null;
@@ -40,7 +42,8 @@
             map.LoadMap();
         }
     </script>
-        
+    -->
+    
     <script stype="text/javascript" src="phonegap.js"></script> 
 </head>
 
@@ -233,11 +236,11 @@ $("#hl_page6").click(function() {
 });
 
 $("#hl_page7").click(function() {
-    //initMap();
     $.mobile.changePage($("#map-page"), {
         transition: "slide"
     });
-    GetMap();
+    initMap();
+    //GetMap();
 });
 
 $("#hl_page8").click(function() {
