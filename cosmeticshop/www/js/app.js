@@ -53,15 +53,6 @@ function initSwiperData(){
     };
 }
 
-function inAppBrowserTest(){
-	var ref = window.open('http://apache.org', 'self', 'enableViewportScale=yes', 'location=no');
-	ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
-	ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
-	ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
-	ref.addEventListener('exit', function(event) { alert(event.type); });
-}
-
-
 function resizeMyContent() {
 	var hhtml = $('html').height();
 	var pageid = $.mobile.activePage.attr('id');
@@ -79,23 +70,8 @@ function log(obj){
     $('#map-page div[data-role="header"] h1').html(obj);
 }
 
-// onSuccess Geolocation
-//
-function onSuccess(position) {
-    $('#map-canvas').html(
-		'Latitude: '           + position.coords.latitude              + '<br />' +
-	    'Longitude: '          + position.coords.longitude             + '<br />' +
-	    'Altitude: '           + position.coords.altitude              + '<br />' +
-	    'Accuracy: '           + position.coords.accuracy              + '<br />' +
-	    'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-	    'Heading: '            + position.coords.heading               + '<br />' +
-	    'Speed: '              + position.coords.speed                 + '<br />' +
-	    'Timestamp: '          + position.timestamp                    + '<br />'
-    );
-}
-
 var getCurrentPosition = function() {
-    var success = function(position) {                
+    var onGeoSuccess = function(position) {                
     	log("success geo");
 	    $('#map-canvas').html(
 			'Latitude: '           + position.coords.latitude              + '<br />' +
@@ -108,7 +84,7 @@ var getCurrentPosition = function() {
 		    'Timestamp: '          + position.timestamp                    + '<br />'
 	    );
     };
-    var fail = function(error) {
+    var onGeoFail = function(error) {
     	log("err:" + error.code);
 	    $('#map-canvas').html(
 		    'code: '    + error.code    + '\n' +
@@ -120,36 +96,29 @@ var getCurrentPosition = function() {
     $("#map-canvas").html("Getting geolocation . . .");
     console.log("Getting geolocation . . .");
     
-    navigator.geolocation.getCurrentPosition(success, fail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
-};
-
-function onCamSuccess(imageData) {
-    //log("success cam");
-    var image = document.getElementById('myImage');
-    image.src = "data:image/jpeg;base64," + imageData;
-};
-
-function onCamFail(error) {
-    //log("err:" + error.code);
-    alert('Failed because: ' + error.code);
+    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
 };
 
 var cameraTest = function() {
+    var onCamSuccess = function (imageData) {
+        log("success cam");
+        //var image = document.getElementById('myImage');
+        //image.src = "data:image/jpeg;base64," + imageData;
+    };
 
-//    log("testing.....");
+    var onCamFail = function (error) {
+        log("err:" + error.code);
+        alert('Failed because: ' + error.code);
+    };
+
+    log("Getting cam...");
     console.log("Test Log");
- //   $("#map-canvas").html("Getting cam . . .<br>" 
-        //navigator.camera.PictureSourceType == null ? "null" : "not null" //+ "<br>" +
-        //camera.PictureSourceType.CAMERA //+ "<br>"
-  //  );
 
    // navigator.camera.cleanup(onCamSuccess, onCamFail);
-    //$("#map-canvas").html("done1 cam . . .<br>");
-    //navigator.camera.getPicture(success, fail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL}); 
     navigator.camera.getPicture(onCamSuccess, onCamFail, 
         {quality:25, sourceType:Camera.PictureSourceType.CAMERA, destinationType:Camera.DestinationType.DATA_URL, encodingType:Camera.EncodingType.JPEG});
-    //navigator.camera.getPicture(success, fail, { }); 
-   // $("#map-canvas").html("done cam . . .<br>");
+
+   $("#map-canvas").html("done cam . . .<br>");
 };
 
 /*

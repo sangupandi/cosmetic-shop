@@ -57,12 +57,6 @@
           <div class=ui-block-b><a id="hl_page8" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_23.png" /></a></div>
           <div class=ui-block-c><a id="hl_page9" href="camera.html" class="menu-button" data-role="button" data-corners="false" data-shadow="false" data-theme="z"><img src="img/menu_24.png" /></a></div>
         </div>        
-!-- Open in InAppBrowser -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_blank', 'location=no');">_blank</a></p>
-<!-- Open in Mobile Safari -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_system', 'location=no');">_system</a></p>
-<!-- Open in Same Webview -->
-<p><a href="#" onclick="window.open('http://www.nhl.com', '_self', 'location=no');">_self</a></p>
         
     </div><!-- /content -->
 
@@ -173,18 +167,17 @@ $("#hl_page1").click(function() {
 });
 
 $("#hl_page2").click(function() {
-    inAppBrowserTest();
-});
-
-$("#hl_page3").click(function() {
     //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    var url ="https://twitter.com/sesli_sozluk";
+    var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
     $('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
     //$('<iframe src="http://www.petkim.com" height="400px" width="400px" frameborder="0"></iframe>').appendTo('.pdf-content');
     $.mobile.changePage($("#page2"), {
         transition: "fade"
     });
     resizeMyContent();
+});
+
+$("#hl_page3").click(function() {
 });
 
 $("#hl_page7").click(function() {
