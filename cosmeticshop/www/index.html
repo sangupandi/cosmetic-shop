@@ -98,6 +98,7 @@
     </div><!-- /header -->
 
     <div data-role="content" class="pdf-content">
+        <!-- iframe placeholder -->
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed">
@@ -168,18 +169,21 @@ $("#hl_page1").click(function() {
 
 $("#hl_page2").click(function() {
     //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
+    //var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
     //$('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
-    //$('<iframe src="http://www.petkim.com" height="400px" width="400px" frameborder="0"></iframe>').appendTo('.pdf-content');
+    //<iframe id="theiframeid" class="theiframeid" src="http://www.cardtek.com/files/2013/09/sample.pdf" name="theiframeid" scrolling="yes" frameborder="0"></iframe>
+
+    $('<iframe src="http://www.cardtek.com/files/2013/09/sample.pdf" height="400px" width="400px" scrolling="yes" frameborder="0"></iframe>').appendTo('.pdf-content');
     $.mobile.changePage($("#page2"), {
         transition: "fade"
     });
+    /*
     var ref = window.open(url, '_blank', 'location=no');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
-
-    //resizeMyContent();
+    */
+    resizeMyContent();
 });
 
 $("#hl_page4").click(function() {

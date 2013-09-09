@@ -117,18 +117,33 @@ var cameraTest = function() {
    // navigator.camera.cleanup(onCamSuccess, onCamFail);
     var cameraPopoverHandle = navigator.camera.getPicture(onCamSuccess, onCamFail, 
         {
-            quality:25, 
+            quality:25,
+            allowEdit:false, 
             sourceType:Camera.PictureSourceType.CAMERA, 
             destinationType:Camera.DestinationType.DATA_URL, 
             encodingType:Camera.EncodingType.JPEG,
-            cameraDirection:Camera.Direction.FRONT
+            cameraDirection:Camera.Direction.FRONT,
+            targetWidth: 80,
+            targetHeight: 80,
+            saveToPhotoAlbum: false
         });
         
-    var cameraPopoverOptions = new CameraPopoverOptions(10, 10, 50, 50, 0);
-    cameraPopoverHandle.setPosition(cameraPopoverOptions);
+    //var cameraPopoverOptions = new CameraPopoverOptions(10, 10, 50, 50, 0);
+    //cameraPopoverHandle.setPosition(cameraPopoverOptions);
     
     $("#map-canvas").html("done cam . . .<br>");
 };
+
+function openInAppBrowser(url)
+{
+    try {
+        ref = window.open(encodeURI(url), '_blank', 'location=no,enableViewPortScale=yes');//encode is for if you have any variables in your link
+    }
+    catch (err)
+    {
+        alert(err);
+    }
+}
 
 /*
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
