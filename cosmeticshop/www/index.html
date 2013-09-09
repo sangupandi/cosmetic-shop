@@ -188,6 +188,7 @@ $("#hl_page2").click(function() {
 });
 
 $("#hl_page3").click(function() {
+    $.support.cors = true;
     alert("pdf _blank");
     var url = "http://www.cardtek.com/files/2013/09/sample.pdf";
     var ref = window.open(url, '_blank', 'location=no');
@@ -197,6 +198,7 @@ $("#hl_page3").click(function() {
 });
 
 $("#hl_page4").click(function() {
+    $.support.cors = true;
     alert("pdf.js _blank");
     var url = "http://mozilla.github.io/pdf.js/web/viewer.html";
     var ref = window.open(url, '_blank', 'location=no');
