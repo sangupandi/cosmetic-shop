@@ -61,8 +61,8 @@
     <access origin="http://feeds.delicious.com*" />
     <access origin="*" />
     -->
-	<!--
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	<!--
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Capture" value="org.apache.cordova.Capture"/>

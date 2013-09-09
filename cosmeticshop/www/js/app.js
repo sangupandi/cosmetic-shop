@@ -115,10 +115,19 @@ var cameraTest = function() {
     console.log("Test Log");
 
    // navigator.camera.cleanup(onCamSuccess, onCamFail);
-    navigator.camera.getPicture(onCamSuccess, onCamFail, 
-        {quality:25, sourceType:Camera.PictureSourceType.CAMERA, destinationType:Camera.DestinationType.DATA_URL, encodingType:Camera.EncodingType.JPEG});
-
-   $("#map-canvas").html("done cam . . .<br>");
+    var cameraPopoverHandle = navigator.camera.getPicture(onCamSuccess, onCamFail, 
+        {
+            quality:25, 
+            sourceType:Camera.PictureSourceType.CAMERA, 
+            destinationType:Camera.DestinationType.DATA_URL, 
+            encodingType:Camera.EncodingType.JPEG,
+            cameraDirection:Camera.Direction.FRONT
+        });
+        
+    var cameraPopoverOptions = new CameraPopoverOptions(10, 10, 50, 50, 0);
+    cameraPopoverHandle.setPosition(cameraPopoverOptions);
+    
+    $("#map-canvas").html("done cam . . .<br>");
 };
 
 /*
