@@ -186,14 +186,19 @@ $("#hl_page2").click(function() {
     resizeMyContent();
 });
 
+$("#hl_page3").click(function() {
+    var url = "http://www.cardtek.com/files/2013/09/sample.pdf";
+     var ref = window.open(url, '_self', 'location=no');
+     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+     ref.addEventListener('exit', function() { alert(event.type); });
+});
+
 $("#hl_page4").click(function() {
     //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
     var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
 
-    $.mobile.changePage($("#page2"), {
-        transition: "fade"
-    });
-    var ref = window.open(url, '_self', 'location=no');
+    var ref = window.open(url, '_blank', 'location=no');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
@@ -201,22 +206,20 @@ $("#hl_page4").click(function() {
 
 $("#hl_page5").click(function() {
     var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
-    //var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
 
-    $.mobile.changePage($("#page2"), {
-        transition: "fade"
-    });
     var ref = window.open(url, '_self', 'location=no');
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
 });
 
-$("#hl_page3").click(function() {
-     var ref = window.open('http://apache.org', '_blank', 'location=yes');
-     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-     ref.addEventListener('exit', function() { alert(event.type); });
+$("#hl_page6").click(function() {
+    var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
+
+    var ref = window.open(url, '_blank', 'location=no');
+    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+    ref.addEventListener('exit', function() { alert(event.type); });
 });
 
 $("#hl_page7").click(function() {
