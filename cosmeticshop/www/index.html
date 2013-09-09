@@ -169,12 +169,43 @@ $("#hl_page1").click(function() {
 $("#hl_page2").click(function() {
     //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
     var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
-    $('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
+    //$('.pdf-content').html('<iframe src="' + url + '" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>');
     //$('<iframe src="http://www.petkim.com" height="400px" width="400px" frameborder="0"></iframe>').appendTo('.pdf-content');
     $.mobile.changePage($("#page2"), {
         transition: "fade"
     });
-    resizeMyContent();
+    var ref = window.open(url, '_blank', 'location=no');
+    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+    ref.addEventListener('exit', function() { alert(event.type); });
+
+    //resizeMyContent();
+});
+
+$("#hl_page4").click(function() {
+    //var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
+    var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
+
+    $.mobile.changePage($("#page2"), {
+        transition: "fade"
+    });
+    var ref = window.open(url, '_self', 'location=no');
+    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+    ref.addEventListener('exit', function() { alert(event.type); });
+});
+
+$("#hl_page5").click(function() {
+    var url ="https://docs.google.com/viewer?url=http://www.axmag.com/download/pdfurl-guide.pdf";
+    //var url ="http://mozilla.github.io/pdf.js/web/viewer.html";
+
+    $.mobile.changePage($("#page2"), {
+        transition: "fade"
+    });
+    var ref = window.open(url, '_self', 'location=no');
+    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+    ref.addEventListener('exit', function() { alert(event.type); });
 });
 
 $("#hl_page3").click(function() {
