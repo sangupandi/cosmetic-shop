@@ -138,8 +138,11 @@ var getCurrentPosition = function() {
  */
 var initMap = function() {
     
-    var onGeoSuccess = function(position) {                
+    var onGeoSuccess = function(position) {
+    	alert("onGeoSuccess");                
+
         var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    	alert("myLocation ok");                
     
         map = new google.maps.Map(document.getElementById('map-canvas'), 
             {
@@ -147,6 +150,7 @@ var initMap = function() {
                 center: myLocation,
                 zoom: 15
             });
+    	alert("map ok");                
             
         // Add an overlay to the map of current lat/lng
         var marker = new google.maps.Marker({
@@ -154,6 +158,7 @@ var initMap = function() {
             map: map,
             title: "Greetings!"
         });
+    	alert("marker ok");                
 
     };
     
