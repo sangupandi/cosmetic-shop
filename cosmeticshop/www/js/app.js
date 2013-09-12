@@ -8,136 +8,23 @@ var startApp = function() {
 	*/
 };
 
-/*
-var serviceHost = "213.74.186.117";
-
-var mySwiper = null;
-var page2SwipeContents = null;
-
-var mySwiper2 = null;
-var page3SwipeContents = null;
-
-
-function initSwiperData(){
-	
-	var initSwiper = function() {
-		mySwiper = new Swiper('#swiper1', {
-			pagination : '#pagination1',
-			paginationClickable : true,
-			loop : true,
-			onSlideChangeEnd : function() {
-	
-				$("#swipe-content").fadeOut(function() {
-	  				$(this).text(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();
-				});
-			}
-		});
-
-		if (page2SwipeContents) {
-			$("#swipe-content").html(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();	
-		}
+function platform_iOS() {
+	if (typeof device === "undefined") {
+		return false;
+	} else {
+		return (device.platform == "iOS");
 	}
-	
-	if (mySwiper == null) {
-
-	    //var svcurl = "http://213.74.186.117/Announcements.ashx";
-	    var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=5";// + categoryId;
-	    $.ajax({
-	    	url: svcurl,
-	        dataType: "jsonp",
-	        async: true,
-	        //crossDomain: true,
-	        success: function (result) {
-	            ajax.parseJSONP(result);
-	        },
-	        error: function (request,error) {
-	            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	        }
-	    });
-
-	    var ajax = {
-	        parseJSONP:function(result){
-
-				$('#swipe-data').html("");
-				page2SwipeContents = new Array();
-
-	            $.each(result, function(i, row) {
-	                var tmp = $('#swipe-data').html();
-	                //tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
-	                tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
-	                $('#swipe-data').html(tmp);
-
-     				page2SwipeContents.push(row.Description);
-	            });
-	            initSwiper();
-	        }
-	    };
-    };
 }
-
-function initSwiperData2(){
-	
-	var initSwiper = function() {
-		mySwiper2 = new Swiper('#swiper2', {
-			pagination : '#pagination2',
-			paginationClickable : true,
-			loop : true,
-			onSlideChangeEnd : function() {
-	
-				$("#swipe-content2").fadeOut(function() {
-	  				$(this).text(page3SwipeContents[mySwiper2.activeLoopIndex]).fadeIn();
-				});
-			}
-		});
-
-		if (page3SwipeContents) {
-			$("#swipe-content2").html(page3SwipeContents[mySwiper2.activeLoopIndex]).fadeIn();	
-		}
-	}
-	
-	if (mySwiper2 == null) {
-
-	    //var svcurl = "http://213.74.186.117/Announcements.ashx";
-	    var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=10";// + categoryId;
-	    $.ajax({
-	    	url: svcurl,
-	        dataType: "jsonp",
-	        async: true,
-	        //crossDomain: true,
-	        success: function (result) {
-	            ajax.parseJSONP(result);
-	        },
-	        error: function (request,error) {
-	            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	        }
-	    });
-
-	    var ajax = {
-	        parseJSONP:function(result){
-
-				$('#swipe-data2').html("");
-				page3SwipeContents = new Array();
-
-	            $.each(result, function(i, row) {
-	                var tmp = $('#swipe-data2').html();
-	                //tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
-	                tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
-	                $('#swipe-data2').html(tmp);
-
-     				page3SwipeContents.push(row.Description);
-	            });
-	            initSwiper();
-	        }
-	    };
-    };
-}
-*/
 
 var serviceHost = "213.74.186.117";
 var swiper1 = null;
 var swiper2 = null;
+var swiper3 = null;
+var swiper4 = null;
 var swipeContentArray1 = null;
 var swipeContentArray2 = null;
+var swipeContentArray3 = null;
+var swipeContentArray4 = null;
 
 function initSwiperData(swiperObject, swiperObjectId, paginationObjectId, swipeDataElementId, swipeContentElementId, swipeContentArray, categoryId){
 	
@@ -198,7 +85,6 @@ function initSwiperData(swiperObject, swiperObjectId, paginationObjectId, swipeD
 	    };
     };
 }
-
 
 function resizeMyContent() {
 	var hhtml = $('html').height();
