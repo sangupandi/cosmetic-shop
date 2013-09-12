@@ -139,10 +139,10 @@ var getCurrentPosition = function() {
 var initMap = function() {
     
     var onGeoSuccess = function(position) {
-    	alert("onGeoSuccess");                
+    	$('#map-page h1').text('onGeoSuccess');
 
         var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    	alert("myLocation ok");                
+    	$('#map-page h1').text('myLocation ok');
     
         map = new google.maps.Map(document.getElementById('map-canvas'), 
             {
@@ -150,7 +150,7 @@ var initMap = function() {
                 center: myLocation,
                 zoom: 15
             });
-    	alert("map ok");                
+    	$('#map-page h1').text('map ok');
             
         // Add an overlay to the map of current lat/lng
         var marker = new google.maps.Marker({
@@ -158,14 +158,15 @@ var initMap = function() {
             map: map,
             title: "Greetings!"
         });
-    	alert("marker ok");                
-
+    	$('#map-page h1').text('marker ok');
     };
     
     var onGeoFail = function(error) {
+    	$('#map-page h1').text("err:" + error.code);
         alert("err:" + error.code);
     };
     
+	$('#map-page h1').text('getCurrentPosition');
     navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail);
 };
 

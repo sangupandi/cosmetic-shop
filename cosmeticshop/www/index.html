@@ -20,11 +20,11 @@
     <script src="js/app.js"></script>
     <link rel="stylesheet" href="css/main.css" />
     
+    <!-- phonegap default -->
+    <script stype="text/javascript" src="phonegap.js"></script>
+     
     <!-- google map files -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places"></script>
-
-    <!-- phonegap default -->
-    <script stype="text/javascript" src="phonegap.js"></script> 
 </head>
 
 <body>
@@ -246,8 +246,11 @@ $("#hl_page6").click(function() {
 });
 
 $("#hl_page7").click(function() {
-    initMap();
+
+    $('#map-page h1').text('initMap');
+
     $.mobile.changePage($("#map-page"), { transition: "slide" });
+    initMap();
     resizeMyContent();
 });
 
