@@ -61,6 +61,7 @@
     <access origin="http://feeds.delicious.com*" />
     -->
     <access origin="*" />
+    <access origin="http://213.74.186.117/files/*" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<!--
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />

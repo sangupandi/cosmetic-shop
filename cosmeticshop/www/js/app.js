@@ -9,16 +9,25 @@ var startApp = function() {
 };
 
 var mySwiper = null;
+var page2SwipeContents;
 
-function initSwiper(){
-    mySwiper = new Swiper('.swiper-container',{
-        pagination: '.pagination',
-        paginationClickable: true,
-        loop: true,
-        onSlideChangeEnd : function() {
-            $("#swipe_content").html(mySwiper.activeLoopIndex);
-        }
-    });
+
+function initSwiper() {
+	mySwiper = new Swiper('.swiper-container', {
+		pagination : '.pagination',
+		paginationClickable : true,
+		loop : true,
+		onSlideChangeEnd : function() {
+			
+			$("#swipe-content").fadeOut(function() {
+  				$(this).text(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();
+			});
+		}
+	});
+	
+	if (page2SwipeContents) {
+		$("#swipe-content").html(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();	
+	}
 }
 
 function initSwiperData(){
@@ -42,12 +51,17 @@ function initSwiperData(){
 	    
 	    var ajax = {
 	        parseJSONP:function(result){
+				
 				$('#swipe-data').html("");
+				page2SwipeContents = new Array();
+				
 	            $.each(result, function(i, row) {
 	                var tmp = $('#swipe-data').html();
-	                tmp = tmp + '<div class="swiper-slide red-slide"><div class="title">' + row.Html + '</div></div>';
-	
+	                //tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
+	                tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
 	                $('#swipe-data').html(tmp);
+	                
+     				page2SwipeContents.push(row.Description);
 	            });
 	            initSwiper();
 	        }

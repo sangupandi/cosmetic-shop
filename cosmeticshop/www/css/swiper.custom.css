@@ -56,10 +56,10 @@
 .swiper-active-switch {
 	background: #fff;
 }
-#swipe_content{
+#swipe-content{
 	width:95%;
 	height:30%;
 	padding:2%;
 	text-align:center;
-	border:solid 1px #4390EE;
+	/*border:solid 1px #4390EE;*/
 }
