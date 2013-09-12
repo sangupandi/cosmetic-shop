@@ -67,7 +67,7 @@
             <div id="swipe-data" class="swiper-wrapper"></div>
             <div class="pagination"></div>
         </div>
-        <div id="swipe-content" data-role="content"></div>
+        <div id="swipe-content" class="swipe-content" data-role="content"></div>
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -104,6 +104,8 @@
 
     </script>
 </div><!-- /page -->
+
+
 
 <!-- Start of page 7 -->
 <div data-role="page" id="map-page" data-url="map-page">
@@ -147,7 +149,8 @@ $(document).bind("mobileinit", function() {
 });
 
 $("#hl_page1").click(function() {
-    initSwiperData();
+    initSwiperData(); //swiper1, "swipe-data", "swipe-content", swipeContentArray1);
+    
     $.mobile.changePage($("#page1"), {
         //transition: "none"
     });
@@ -166,6 +169,10 @@ $("#hl_page2").click(function() {
 });
 
 $("#hl_page3").click(function() {
+    //initSwiperData(swiper2, "swipe-data2", "swipe-content2", swipeContentArray2);
+    
+    //$.mobile.changePage($("#page3"), {});
+/*
     alert("pdf _blank");
     
     var url = "http://www.cardtek.com/files/2013/09/sample.pdf";
@@ -173,6 +180,7 @@ $("#hl_page3").click(function() {
     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
     ref.addEventListener('exit', function() { alert(event.type); });
+*/
 });
 
 $("#hl_page4").click(function() {

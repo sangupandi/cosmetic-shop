@@ -8,6 +8,8 @@ var startApp = function() {
 	*/
 };
 
+var serviceHost = "213.74.186.117";
+
 var mySwiper = null;
 var page2SwipeContents;
 
@@ -18,13 +20,13 @@ function initSwiper() {
 		paginationClickable : true,
 		loop : true,
 		onSlideChangeEnd : function() {
-			
+
 			$("#swipe-content").fadeOut(function() {
   				$(this).text(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();
 			});
 		}
 	});
-	
+
 	if (page2SwipeContents) {
 		$("#swipe-content").html(page2SwipeContents[mySwiper.activeLoopIndex]).fadeIn();	
 	}
@@ -33,9 +35,8 @@ function initSwiper() {
 function initSwiperData(){
 	if (mySwiper == null) {
 
-	    //var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
-	    //var svcurl = "http://91.201.39.21/Announcements.ashx";
 	    var svcurl = "http://213.74.186.117/Announcements.ashx";
+	    //var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=";// + categoryId;
 	    $.ajax({
 	    	url: svcurl,
 	        dataType: "jsonp",
@@ -48,19 +49,19 @@ function initSwiperData(){
 	            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 	        }
 	    });
-	    
+
 	    var ajax = {
 	        parseJSONP:function(result){
-				
+
 				$('#swipe-data').html("");
 				page2SwipeContents = new Array();
-				
+
 	            $.each(result, function(i, row) {
 	                var tmp = $('#swipe-data').html();
 	                //tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
 	                tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
 	                $('#swipe-data').html(tmp);
-	                
+
      				page2SwipeContents.push(row.Description);
 	            });
 	            initSwiper();
@@ -68,6 +69,74 @@ function initSwiperData(){
 	    };
     };
 }
+
+/*
+var serviceHost = "213.74.186.117";
+var swiper1 = null;
+var swiper2 = null;
+var swipeContentArray1 = null;
+var swipeContentArray2 = null;
+
+function initSwiperData(swiperObject, swipeDataElementId, swipeContentElementId, swipeContentArray, categoryId){
+	
+	var initSwiper = function () {
+		swiperObject = $('.swiper-container').swiper({
+			pagination : '.pagination',
+			paginationClickable : true,
+			loop : true,
+			onSlideChangeEnd : function() {
+				
+				$('#' + swipeContentElementId).fadeOut(function() {
+	  				$(this).text(swipeContentArray[swiperObject.activeLoopIndex]).fadeIn();
+				});
+			}
+		});
+		
+		if (swipeContentArray) {
+			//$('#' + swipeContentElementId).html("hay");	
+			$('#' + swipeContentElementId).html(swipeContentArray[swiperObject.activeLoopIndex]).fadeIn();	
+		}
+	}
+	
+	if (swiperObject == null) {
+
+	    //var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
+	    //var svcurl = "http://91.201.39.21/Announcements.ashx";
+	    var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=" + categoryId;
+	    $.ajax({
+	    	url: svcurl,
+	        dataType: "jsonp",
+	        async: true,
+	        //crossDomain: true,
+	        success: function (result) {
+	            ajax.parseJSONP(result);
+	        },
+	        error: function (request, error) {
+	            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+	        }
+	    });
+	    
+	    var ajax = {
+	        parseJSONP:function(result){
+				
+				$('#' + swipeDataElementId).html("");
+				$('#' + swipeContentElementId).html("");
+				swipeContentArray = new Array();
+				
+	            $.each(result, function(i, row) {
+	                var tmp = $('#' + swipeDataElementId).html();
+	                //tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
+	                tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
+	                $('#' + swipeDataElementId).html(tmp);
+	                
+     				swipeContentArray.push(row.Description);
+	            });
+	            initSwiper();
+	        }
+	    };
+    };
+}
+*/
 
 function resizeMyContent() {
 	var hhtml = $('html').height();

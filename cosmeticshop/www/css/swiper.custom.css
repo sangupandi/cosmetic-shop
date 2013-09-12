@@ -35,9 +35,11 @@
 }
 .pagination {
 	position: absolute;
+	width: 100%;
 	z-index: 20;
-	left: 10px;
+	left: 0px;
 	bottom: 10px;
+	text-align: center;
 }
 .swiper-pagination-switch {
 	display: inline-block;
@@ -54,9 +56,9 @@
 	background: #aaa;
 }
 .swiper-active-switch {
-	background: #fff;
+	background: #009F9F;
 }
-#swipe-content{
+#swipe-content {
 	width:95%;
 	height:30%;
 	padding:2%;
