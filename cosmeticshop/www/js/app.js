@@ -24,26 +24,28 @@ function initSwiper(){
 function initSwiperData(){
 	if (mySwiper == null) {
 
-	    var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
-	    //var svcurl = "http://127.0.0.1:8020/cosmeticshop/www/svc1.json";      
-	    $.ajax({url: svcurl,
+	    //var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";      
+	    //var svcurl = "http://91.201.39.21/Announcements.ashx";
+	    var svcurl = "http://213.74.186.117/Announcements.ashx";
+	    $.ajax({
+	    	url: svcurl,
 	        dataType: "jsonp",
 	        async: true,
+	        //crossDomain: true,
 	        success: function (result) {
 	            ajax.parseJSONP(result);
 	        },
 	        error: function (request,error) {
-	            alert('Network error has occurred please try again!');
+	            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 	        }
-	    });         
+	    });
 	    
-	    var ajax = {  
+	    var ajax = {
 	        parseJSONP:function(result){
-	        	//result = '[{"id":78,"html":"<img src=\"img/svc1a.jpg\" />","desc":"2 adet Max Factor ürünü alana mükemmel kıvırma etkisiyle %300\'e kadar daha dolgun kirpikler sağlayan, parfüm ve fiber içermeyen Max Factor 2000 Calorie maskara hediye. Not: Kampanya hediye ürün stoklarıyla sınırlıdır ve tüm Watsons mağazalarında geçerlidir."},{"id":87,"html":"<img src=\"img/svc1b.jpg\" />","desc":"Sıcaklığa, terlemeye dayanıklı ve dağılmayan mikro esnek formülüyle yeni Maybelline New York AFFINITONE 24H fondöten çeşitlerinde %30 indirim fırsatı Eylül ayı boyunca Watsons mağazalarında sizleri bekliyor."}]';
 				$('#swipe-data').html("");
 	            $.each(result, function(i, row) {
 	                var tmp = $('#swipe-data').html();
-	                tmp = tmp + '<div class="swiper-slide red-slide"><div class="title">' + row.d + '</div></div>';
+	                tmp = tmp + '<div class="swiper-slide red-slide"><div class="title">' + row.Html + '</div></div>';
 	
 	                $('#swipe-data').html(tmp);
 	            });
