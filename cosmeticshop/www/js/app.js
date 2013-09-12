@@ -8,6 +8,7 @@ var startApp = function() {
 	*/
 };
 
+/*
 var serviceHost = "213.74.186.117";
 
 var mySwiper = null;
@@ -130,20 +131,22 @@ function initSwiperData2(){
 	    };
     };
 }
-/*
+*/
+
 var serviceHost = "213.74.186.117";
 var swiper1 = null;
 var swiper2 = null;
 var swipeContentArray1 = null;
 var swipeContentArray2 = null;
 
-function initSwiperData(swiperObject, swipeDataElementId, swipeContentElementId, swipeContentArray, categoryId){
+function initSwiperData(swiperObject, swiperObjectId, paginationObjectId, swipeDataElementId, swipeContentElementId, swipeContentArray, categoryId){
 	
 	var initSwiper = function () {
-		swiperObject = $('.swiper-container').swiper({
-			pagination : '.pagination',
+		swiperObject = $('#' + swiperObjectId).swiper({
+			pagination : '#' + paginationObjectId,
 			paginationClickable : true,
 			loop : true,
+			initialSlide : 0,
 			onSlideChangeEnd : function() {
 				
 				$('#' + swipeContentElementId).fadeOut(function() {
@@ -153,8 +156,7 @@ function initSwiperData(swiperObject, swipeDataElementId, swipeContentElementId,
 		});
 		
 		if (swipeContentArray) {
-			//$('#' + swipeContentElementId).html("hay");	
-			$('#' + swipeContentElementId).html(swipeContentArray[swiperObject.activeLoopIndex]).fadeIn();	
+			$('#' + swipeContentElementId).html(swipeContentArray[swiperObject.activeLoopIndex]);	
 		}
 	}
 	
@@ -196,7 +198,7 @@ function initSwiperData(swiperObject, swipeDataElementId, swipeContentElementId,
 	    };
     };
 }
-*/
+
 
 function resizeMyContent() {
 	var hhtml = $('html').height();

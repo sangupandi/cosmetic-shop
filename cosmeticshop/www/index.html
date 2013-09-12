@@ -64,10 +64,10 @@
 
     <div data-role="content" class="swiper-container-parent">
         <div id="swiper1" class="swiper-container">
-            <div id="swipe-data" class="swiper-wrapper"></div>
+            <div id="swipe-data1" class="swiper-wrapper"></div>
             <div id="pagination1" class="pagination"></div>
         </div>
-        <div id="swipe-content" class="swipe-content" data-role="content"></div>
+        <div id="swipe-content1" class="swipe-content" data-role="content"></div>
     </div><!-- /content -->
 
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -174,7 +174,7 @@ $(document).bind("mobileinit", function() {
 });
 
 $("#hl_page1").click(function() {
-    initSwiperData(); //swiper1, "swipe-data1", "swipe-content1", swipeContentArray1);
+    initSwiperData(swiper1, "swiper1", "pagination1", "swipe-data1", "swipe-content1", swipeContentArray1, 5);
     
     $.mobile.changePage($("#page1"), {
         //transition: "none"
@@ -194,7 +194,7 @@ $("#hl_page2").click(function() {
 });
 
 $("#hl_page3").click(function() {
-    initSwiperData2(); //swiper2, "swipe-data2", "swipe-content2", swipeContentArray2);
+    initSwiperData(swiper2, "swiper2", "pagination2", "swipe-data2", "swipe-content2", swipeContentArray2, 10);
     
     $.mobile.changePage($("#page3"), {});
 /*
