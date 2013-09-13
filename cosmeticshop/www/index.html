@@ -279,7 +279,10 @@ $("#hl_page7").click(function() {
 });
 
 $("#hl_page8").click(function() {
-    cameraTest();
+    //cameraTest();
+    $.mobile.changePage($("#map-page"), { transition: "slide" });
+    initMap(true);
+    resizeMyContent();
 });
 
 $("#hl_page9").click(function() {

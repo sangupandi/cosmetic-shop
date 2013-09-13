@@ -217,8 +217,7 @@ function openInAppBrowser(url)
     }
 }
 function goMap(latidute, longitude){
-	$.mobile.changePage($("#map-page"), { transition: "flip" });
-    resizeMyContent();
+	$.mobile.changePage($("#map-page"), { transition: "slide" });
 
     var shopLocation = new google.maps.LatLng(latidute, longitude);
     
@@ -241,6 +240,7 @@ function goMap(latidute, longitude){
 		map.panTo(myLocation);
 		map.setZoom(16);
 		*/
+    resizeMyContent();
 }
 var getShopList = function(){
     var svcurl = "http://" + serviceHost + "/Shops.ashx";
