@@ -25,6 +25,7 @@ var swipeContentArray1 = null;
 var swipeContentArray2 = null;
 var swipeContentArray3 = null;
 var swipeContentArray4 = null;
+var map = null;
 
 function initSwiperData(swiperObject, swiperObjectId, paginationObjectId, swipeDataElementId, swipeContentElementId, swipeContentArray, categoryId){
 	
@@ -45,7 +46,7 @@ function initSwiperData(swiperObject, swiperObjectId, paginationObjectId, swipeD
 		if (swipeContentArray) {
 			$('#' + swipeContentElementId).html(swipeContentArray[swiperObject.activeLoopIndex]);	
 		}
-	}
+	};
 	
 	if (swiperObject == null) {
 
@@ -115,7 +116,7 @@ var getCurrentPosition = function() {
 		    'Heading: '            + position.coords.heading               + '<br />' +
 		    'Speed: '              + position.coords.speed                 + '<br />' +
 		    'Timestamp: '          + position.timestamp                    + '<br />'
-	    );
+	    ).append();
     };
     var onGeoFail = function(error) {
     	log("err:" + error.code);
@@ -127,7 +128,6 @@ var getCurrentPosition = function() {
 
     log("testing.....");
     $("#map-canvas").html("Getting geolocation . . .");
-    console.log("Getting geolocation . . .");
     
     navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
 };
@@ -136,38 +136,36 @@ var getCurrentPosition = function() {
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
-var initMap = function() {
+var initMap = function(highAccuracy) {
     
     var onGeoSuccess = function(position) {
-    	$('#map-page h1').text('onGeoSuccess');
+    	var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    	$('#map-page h1').text('myLocation ok');
-    
-        map = new google.maps.Map(document.getElementById('map-canvas'), 
-            {
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                center: myLocation,
-                zoom: 15
-            });
-    	$('#map-page h1').text('map ok');
-            
         // Add an overlay to the map of current lat/lng
         var marker = new google.maps.Marker({
             position: myLocation,
             map: map,
-            title: "Greetings!"
+            title: "Buradasınız :)"
         });
-    	$('#map-page h1').text('marker ok');
+
+		marker.setMap(map);
+		map.panTo(myLocation);
+		map.setZoom(15);
     };
     
     var onGeoFail = function(error) {
-    	$('#map-page h1').text("err:" + error.code);
-        alert("err:" + error.code);
+        alert('Konum bilginize ulaşılamıyor.');
     };
     
-	$('#map-page h1').text('getCurrentPosition');
-    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail);
+    var initialLocation = new google.maps.LatLng(39.92661, 32.83525);//position.coords.latitude, position.coords.longitude);
+    map = new google.maps.Map(document.getElementById('map-canvas'), 
+        {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: initialLocation,
+            zoom: 11
+        });
+
+    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, { timeout: 5000, enableHighAccuracy: highAccuracy });
 };
 
 var cameraTest = function() {
