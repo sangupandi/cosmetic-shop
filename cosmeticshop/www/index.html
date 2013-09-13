@@ -218,7 +218,7 @@ $("#hl_page1").click(function() {
 
 $("#hl_page2").click(function() {
     var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
-    if(!platform_iOS) { pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl; }
+    if(!platform_iOS()) { pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl; }
     var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
 
     /*
@@ -244,27 +244,24 @@ $("#hl_page5").click(function() {
 });
 
 $("#hl_page6").click(function() {
+    //$.mobile.changePage($("#page4"), { transition: "slide" });
+
+    alert(isPhoneGap() ? "this is PhoneGap" : "this is not PhoneGap");    
+    alert(platform_iOS() ? "this is iOS" : "this is not iOS");    
+    alert(platform_Android() ? "this is Android" : "this is not Android");    
 });
 
 $("#hl_page7").click(function() {
-    $('#map-page h1').text('initMap');
     $.mobile.changePage($("#map-page"), { transition: "slide" });
-    initMap(false);
+    initMap(true);
     resizeMyContent();
 });
 
 $("#hl_page8").click(function() {
-    $('#map-page h1').text('initMap');
-
-    $.mobile.changePage($("#map-page"), { transition: "slide" });
-    initMap(true);
-    resizeMyContent();
-//    cameraTest();
+    cameraTest();
 });
 
 $("#hl_page9").click(function() {
-    $.mobile.changePage($("#map-page"), { transition: "slide" });
-    getCurrentPosition();
     //alert("not yet implemented!");
     //var element = document.getElementById('deviceProperties');
 
@@ -276,15 +273,11 @@ $("#hl_page9").click(function() {
             'Device Version: '  + device.version  + '<br />';
             */
 
-    //alert(device.platform);
-});
-
-$('#nfo2').click(function() {
-    alert(platform_iOS ? "iOS" : "not iOS");
+    alert(device.platform);
 });
 
 $('#map-info').click(function() {
-    alert(map);
+    alert(platform_iOS ? "iOS" : "not iOS");
 });
 
 </script>

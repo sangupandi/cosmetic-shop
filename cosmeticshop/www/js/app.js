@@ -8,12 +8,22 @@ var startApp = function() {
 	*/
 };
 
+function isPhoneGap(){
+	return (!(typeof device === "undefined"));
+}
+function getDeviceType(){
+    var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" 
+        : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" 
+        : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" 
+        : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" 
+        : "null";
+    return deviceType;
+}
 function platform_iOS() {
-	if (typeof device === "undefined") {
-		return false;
-	} else {
-		return (device.platform == "iOS");
-	}
+	return (getDeviceType() == "iPad" || getDeviceType() == "iPhone");
+}
+function platform_Android() {
+	return (getDeviceType() == "Android");
 }
 
 var serviceHost = "213.74.186.117";
