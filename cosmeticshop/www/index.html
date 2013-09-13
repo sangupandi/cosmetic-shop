@@ -169,20 +169,37 @@
 </div><!-- /page -->
 
 
-<!-- Start of page 7 -->
-<div data-role="page" id="map-page" data-url="map-page">
+<!-- Start of page 7a -->
+<div data-role="page" id="page7">
 
-    <div data-role="header" data-theme="c">
-        <h1>Maps</h1>
+    <div data-role="header">
+        <h1>Mağazalarımız</h1>
     </div>
 
-    <div data-role="content" id="map-canvas" data-fullscreen="false">
-        <!-- map loads here... -->
+    <div data-role="content" id='shop-content'>
+        <div class='shop-container'>
+            <div class='shop-title'>Antalya Çarşı</div>
+            <div class='shop-address'>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</div>
+        </div>
     </div>
 
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
         <div data-role="controlgroup" data-type="horizontal">
             <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+        </div>
+    </div><!-- /footer -->
+</div>
+
+<!-- Start of page 7b -->
+<div data-role="page" id="map-page" data-url="map-page">
+
+    <div data-role="content" id="map-canvas" data-fullscreen="false">
+        <!-- map loads here... -->
+    </div>
+
+    <div data-role="footer" data-position="fixed" data-tap-toggle="true">
+        <div data-role="controlgroup" data-type="horizontal">
+            <a href="#page7" data-role="button" data-icon="back" data-iconpos="notext"></a>
             <a id="map-info" data-role="button" data-icon="info" data-iconpos="notext"></a>
         </div>
     </div><!-- /footer -->
@@ -252,9 +269,13 @@ $("#hl_page6").click(function() {
 });
 
 $("#hl_page7").click(function() {
+    getShopList();
+    $.mobile.changePage($("#page7"), { transition: "slide" });
+    /*
     $.mobile.changePage($("#map-page"), { transition: "slide" });
     initMap(true);
     resizeMyContent();
+    */
 });
 
 $("#hl_page8").click(function() {

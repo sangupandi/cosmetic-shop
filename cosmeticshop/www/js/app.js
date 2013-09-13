@@ -114,6 +114,7 @@ function log(obj){
     $('#map-page div[data-role="header"] h1').html(obj);
 }
 
+/*
 var getCurrentPosition = function() {
     var onGeoSuccess = function(position) {                
     	log("success geo");
@@ -141,6 +142,7 @@ var getCurrentPosition = function() {
     
     navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, { maximumAge: 3000, timeout: 8000, enableHighAccuracy: true });
 };
+*/
 
 /*
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
@@ -160,7 +162,7 @@ var initMap = function(highAccuracy) {
 
 		marker.setMap(map);
 		map.panTo(myLocation);
-		map.setZoom(15);
+		map.setZoom(16);
     };
     
     var onGeoFail = function(error) {
@@ -214,4 +216,59 @@ function openInAppBrowser(url)
         alert(err);
     }
 }
+function goMap(latidute, longitude){
+	$.mobile.changePage($("#map-page"), { transition: "flip" });
+    resizeMyContent();
 
+    var shopLocation = new google.maps.LatLng(latidute, longitude);
+    
+    map = new google.maps.Map(document.getElementById('map-canvas'), 
+        {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: shopLocation,
+            zoom: 16
+        });
+        
+        // Add an overlay to the map of current lat/lng
+        var marker = new google.maps.Marker({
+            position: shopLocation,
+            map: map,
+            title: "Cosmetica"
+        });
+
+		marker.setMap(map);
+		/*
+		map.panTo(myLocation);
+		map.setZoom(16);
+		*/
+}
+var getShopList = function(){
+    var svcurl = "http://" + serviceHost + "/Shops.ashx";
+    $.ajax({
+    	url: svcurl,
+        dataType: "jsonp",
+        async: true,
+        success: function (result) {
+            ajax.parseJSONP(result);
+        },
+        error: function (request, error) {
+            alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+        }
+    });
+    
+    var ajax = {
+        parseJSONP:function(result){
+			$('#shop-content').html("");
+
+            $.each(result, function(i, row) {
+                var tmp = $('#shop-content').html();
+                tmp = tmp + "<div class='shop-container' onclick='goMap(" + row.Latitude + "," + row.Longitude + ");'>";                 
+            	tmp = tmp + "<div class='shop-title'>" + row.Caption + "</div>";
+            	tmp = tmp + "<div class='shop-address'>" + row.Address + "</div>";
+        		tmp = tmp + "</div>";
+                
+                $('#shop-content').html(tmp);
+            });
+        }
+    };
+};
