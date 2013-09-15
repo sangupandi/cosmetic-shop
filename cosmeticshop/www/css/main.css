@@ -33,3 +33,85 @@
 .shop-address {
 	font-size: smaller;
 }
+/*---------------*/
+#home_page {
+	background: url(../img/back1.jpg) no-repeat center center fixed;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+body {
+
+}
+.brick1 h4, .brick2 h4  {
+	text-shadow: none;
+	clear: both;
+	display: block;
+	padding: 5px 10px 5px 10px;
+	text-transform: uppercase;
+	font-weight: 300;
+	font-size: 11px;
+	color: #fff;
+	opacity: 0.7;
+	margin: 0px;
+}
+.brick1, .brick2 {
+	width: 100%;
+	border: 8px solid rgba(255, 255, 255, .3);
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.brick1 .area {
+	height: 182px;
+}
+/* ---------- */
+.brick2 .area {
+	height: 132px;
+}
+.brick1.box1 {
+	background-color: rgba(39, 169, 227, .9);
+	border-right: 0px;
+}
+.brick1.box1 .footer {
+	background-color: rgba(32, 141, 190, .9)
+}
+.brick1.box2 {
+	background-color: rgba(40, 183, 121, .9);
+	border-left: 0px;
+}
+.brick1.box2 .footer {
+	background-color: rgba(16, 160, 98, .9);
+}
+
+/* ---------- */
+.brick2{
+	border-top: 0px;
+}
+.brick2.box1 {
+	background-color: rgba(133, 43, 153, .9);
+	border-right: 0px;
+}
+.brick2.box1 .footer {
+	background-color: rgba(110, 24, 129, .9);
+}
+.brick2.box2 {
+	background-color: rgba(255, 184, 72, .9);
+	border-left: 0px;
+	border-right: 0px;
+}
+.brick2.box2 .footer {
+	background-color: rgba(203, 135, 27, .9);
+}
+.brick2.box3 {
+	background-color: rgba(237, 20, 91, .9);
+	border-left: 0px;
+}
+.brick2.box3 .footer {
+	background-color: rgba(237, 20, 91, .9);
+}
+
