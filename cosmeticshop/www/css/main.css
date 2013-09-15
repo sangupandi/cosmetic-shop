@@ -34,15 +34,12 @@
 	font-size: smaller;
 }
 /*---------------*/
-#home_page {
+#shome_page {
 	background: url(../img/back1.jpg) no-repeat center center fixed;
 	background-size: cover;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-}
-body {
-
 }
 .brick1 h4, .brick2 h4  {
 	text-shadow: none;
