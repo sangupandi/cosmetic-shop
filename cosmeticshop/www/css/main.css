@@ -34,14 +34,25 @@
 	font-size: smaller;
 }
 /*---------------*/
-#shome_page {
+#home_page {
 	background: url(../img/back1.jpg) no-repeat center center fixed;
 	background-size: cover;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
+	/*	-webkit-background-size: cover;
+	 -moz-background-size: cover;
+	 -o-background-size: cover;
+	 */
 }
-.brick1 h4, .brick2 h4  {
+.ui-header {
+	background-image: url(../img/cosmetica_logo.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-color: rgba(236, 0, 140, .9);
+	border-style: none;
+	border-bottom: 1px solid rgb(193, 22, 115);
+	height: 43px;
+}
+.brick1 h4, .brick2 h4, .brick3 h4 {
 	text-shadow: none;
 	clear: both;
 	display: block;
@@ -53,7 +64,7 @@
 	opacity: 0.7;
 	margin: 0px;
 }
-.brick1, .brick2 {
+.brick1, .brick2, .brick3 {
 	width: 100%;
 	border: 8px solid rgba(255, 255, 255, .3);
 	-webkit-background-clip: padding-box; /* for Safari */
@@ -63,52 +74,79 @@
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.brick1 .area {
-	height: 182px;
+.brick1 .footer, .brick2 .footer, .brick3 .footer {
+	background-color: rgba(0, 0, 0, .1)
+}
+.brick1 .area, .brick2 .area, .brick3 .area {
+	background-repeat: no-repeat;
+	background-position: center;
 }
 /* ---------- */
+.brick1 .area {
+	height: 162px;
+}
+.brick1.box1 {
+	background-color: rgba(255, 196, 13, .9);
+	border-right: 0px;
+}
+.brick1.box1 .area {
+	background-image: url(../img/heart_64.png);
+}
+.brick1.box2 {
+	background-color: rgba(0, 163, 0, .9);
+	border-left: 0px;
+}
+.brick1.box2 .area {
+	background-image: url(../img/wallet_64.png);
+}
+/* ---------- */
+.brick2 {
+	border-top: 0px;
+}
 .brick2 .area {
 	height: 132px;
 }
-.brick1.box1 {
-	background-color: rgba(39, 169, 227, .9);
-	border-right: 0px;
-}
-.brick1.box1 .footer {
-	background-color: rgba(32, 141, 190, .9)
-}
-.brick1.box2 {
-	background-color: rgba(40, 183, 121, .9);
-	border-left: 0px;
-}
-.brick1.box2 .footer {
-	background-color: rgba(16, 160, 98, .9);
-}
-
-/* ---------- */
-.brick2{
-	border-top: 0px;
-}
 .brick2.box1 {
-	background-color: rgba(133, 43, 153, .9);
+	background-color: rgba(30, 113, 69, .9);
 	border-right: 0px;
 }
-.brick2.box1 .footer {
-	background-color: rgba(110, 24, 129, .9);
+.brick2.box1 .area {
+	background-image: url(../img/star_64.png);
 }
 .brick2.box2 {
-	background-color: rgba(255, 184, 72, .9);
+	background-color: rgba(159, 0, 167, .9);
 	border-left: 0px;
 	border-right: 0px;
 }
-.brick2.box2 .footer {
-	background-color: rgba(203, 135, 27, .9);
+.brick2.box2 .area {
+	background-image: url(../img/alarm_on_64.png);
 }
 .brick2.box3 {
-	background-color: rgba(237, 20, 91, .9);
+	background-color: rgba(227, 162, 26, .9);
 	border-left: 0px;
 }
-.brick2.box3 .footer {
-	background-color: rgba(237, 20, 91, .9);
+.brick2.box3 .area {
+	background-image: url(../img/moving_64.png);
 }
-
+/* ---------- */
+.brick3 {
+	border-top: 0px;
+}
+.brick3 .area {
+	height: 102px;
+}
+.brick3.box1 {
+	background-color: rgba(235, 60, 0, .9);
+	border-right: 0px;
+}
+.brick3.box1 .area {
+	background-image: url(../img/globe_64.png);
+}
+.brick3.box2 {
+	background-color: rgba(153, 180, 51, .9);
+	border-left: 0px;
+}
+.brick3.box2 .area {
+	background-image: url(../img/pencil_64.png);
+}
+/* ---------- */
