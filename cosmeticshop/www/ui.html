@@ -52,7 +52,7 @@
 
                 <div class="ui-grid-a">
                     <div class=ui-block-a>
-                        <div class="brick1 box1">
+                        <div id="hl_page1" class="brick1 box1">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>GÜNCEL FIRSATLAR</h4>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class=ui-block-b>
-                        <div class="brick1 box2">
+                        <div id="hl_page2" class="brick1 box2">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>GÜNCEL KATALOG</h4>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="ui-grid-b">
                     <div class=ui-block-a>
-                        <div class="brick2 box1">
+                        <div id="hl_page3" class="brick2 box1">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>YENİ ÜRÜNLER</h4>
@@ -113,10 +113,116 @@
                         </div>
                     </div>
                 </div>
-
             </div><!-- /content -->
+        </div><!-- /page -->
+
+        <!-- Start of page 1 -->
+        <div data-role="page" id="page1">
+
+            <div data-role="header">
+                <h1>Güncel Fırsatlar</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" class="swiper-container-parent">
+                <div id="swiper1" class="swiper-container">
+                    <div id="swipe-data1" class="swiper-wrapper"></div>
+                    <div id="pagination1" class="pagination"></div>
+                </div>
+                <div id="swipe-content1" class="swipe-content" data-role="content"></div>
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a id="hlHome" href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+                    <a id="hlShare" data-role="button">Paylaş</a>
+                    <a id="hlFilter" data-role="button">Filtrele</a>
+                </div>
+            </div><!-- /footer -->
 
         </div><!-- /page -->
 
+        <!-- Start of page 2 -->
+        <div data-role="page" id="page2">
+
+            <div data-role="header">
+                <h1>Güncel Katalog</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" class="pdf-content">
+                <!-- iframe placeholder -->
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+
+        </div><!-- /page -->
+
+        <!-- Start of page 3 -->
+        <div data-role="page" id="page3">
+
+            <div data-role="header">
+                <h1>Yeni Ürünler</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" class="swiper-container-parent">
+                <div id="swiper2" class="swiper-container">
+                    <div id="swipe-data2" class="swiper-wrapper"></div>
+                    <div id="pagination2" class="pagination"></div>
+                </div>
+                <div id="swipe-content2" class="swipe-content" data-role="content"></div>
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+
+        </div><!-- /page -->
+        <script type="text/javascript">
+			$(document).bind("mobileinit", function() {
+				$.support.cors = true;
+				$.mobile.allowCrossDomainPages = true;
+				$.mobile.pushStateEnabled = false;
+				$.mobile.touchOverflowEnabled = false;
+				$.mobile.defaultPageTransition = 'slide';
+				$.mobile.defaultDialogTransition = 'pop';
+				$.mobile.transitionFallbacks.slide = 'none';
+				$.mobile.transitionFallbacks.pop = 'none';
+				$.mobile.buttonMarkup.hoverDelay = 0;
+				$.mobile.phonegapNavigationEnabled = true;
+			});
+
+			$("#hl_page1").click(function() {
+				initSwiperData(swiper1, "swiper1", "pagination1", "swipe-data1", "swipe-content1", swipeContentArray1, 5);
+				$.mobile.changePage($("#page1"), {
+					transition : "fade"
+				});
+			});
+
+			$("#hl_page2").click(function() {
+				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
+				if (!platform_iOS()) {
+					pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+				}
+				var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+
+				/*
+				 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+				 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+				 ref.addEventListener('exit', function() { alert(event.type); });
+				 */
+			});
+
+			$("#hl_page3").click(function() {
+				initSwiperData(swiper2, "swiper2", "pagination2", "swipe-data2", "swipe-content2", swipeContentArray2, 10);
+				$.mobile.changePage($("#page3"), {
+					transition : "none"
+				});
+			});
+        </script>
     </body>
 </html>
