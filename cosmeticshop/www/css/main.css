@@ -35,9 +35,9 @@
 }
 /*---------------*/
 #home_page {
-	background: url(../img/back1.jpg) no-repeat center center fixed;
-	background-size: cover;
-	/*	-webkit-background-size: cover;
+	background: url(../img/back1.jpg) no-repeat center center fixed !important;
+	/*background-size: cover;
+		-webkit-background-size: cover;
 	 -moz-background-size: cover;
 	 -o-background-size: cover;
 	 */
