@@ -36,11 +36,10 @@
 /*---------------*/
 #home_page {
 	background: url(../img/back1.jpg) no-repeat center center fixed !important;
-	/*background-size: cover;
-		-webkit-background-size: cover;
-	 -moz-background-size: cover;
-	 -o-background-size: cover;
-	 */
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
 }
 .my-header {
 	background-image: url(../img/cosmetica_logo.png);
