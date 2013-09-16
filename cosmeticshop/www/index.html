@@ -183,7 +183,6 @@
 
         </div><!-- /page -->
         <script type="text/javascript">
-alert("11");
 			$(document).bind("mobileinit", function() {
 				$.support.cors = true;
 				$.mobile.allowCrossDomainPages = true;
@@ -196,18 +195,15 @@ alert("11");
 				$.mobile.buttonMarkup.hoverDelay = 0;
 				$.mobile.phonegapNavigationEnabled = true;
 			});
-alert("ww");
+			
 			$("#hl_page1").click(function() {
-alert("ww");
 				initSwiperData(swiper1, "swiper1", "pagination1", "swipe-data1", "swipe-content1", swipeContentArray1, 5);
 				$.mobile.changePage($("#page1"), {
 					transition : "fade"
 				});
 			});
 
-alert("qq");
 			$("#hl_page2").click(function() {
-alert("qq");
 				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
 				if (!platform_iOS()) {
 					pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
