@@ -115,6 +115,13 @@ function resizeMyContent() {
 }
 
 function getRealContentHeight() {
+	var hhtml = $('html').height();
+	var pageid = $.mobile.activePage.attr('id');
+	var hcontent = $('#' + pageid + ' div[data-role="content"]').height();
+	var posycontent = $('#' + pageid + ' div[data-role="content"]').offset().top;
+	var hcontentnew = hhtml - (posycontent * 2);
+	return hcontentnew;
+	/*
 	var header = $.mobile.activePage.find("div[data-role='header']:visible");
 	var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
 	var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
@@ -125,6 +132,7 @@ function getRealContentHeight() {
 		content_height -= (content.outerHeight() - content.height());
 	}
 	return content_height;
+	*/
 }
 
 function log(obj) {

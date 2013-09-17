@@ -60,7 +60,7 @@
 	font-size: smaller;
 }
 /*---------------*/
-#home_page {
+#home_page, #social-page {
 	background: url(../img/back1.jpg) no-repeat center center fixed !important;
 	background-size: cover;
 	-webkit-background-size: cover;
@@ -108,7 +108,6 @@
 .brick1 .area, .brick2 .area, .brick3 .area {
 	background-repeat: no-repeat;
 	background-position: center;
-	cursor: hand;
 }
 /* ---------- */
 .brick1 .area {
@@ -179,3 +178,21 @@
 	background-image: url(../img/pencil_64.png);
 }
 /* ---------- */
+.social {
+	height: 150px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: rgba(0, 0, 0, .3);
+	border: solid 8px rgba(0, 0, 0, .1);
+	margin-bottom: 8px;
+}
+.social.fb {
+	background-image: url(../img/social_fb.png);
+}
+.social.tw {
+	background-image: url(../img/social_tw.png);
+}
+.social.gp {
+	background-image: url(../img/social_gp.png);
+}
+

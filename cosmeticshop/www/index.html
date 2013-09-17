@@ -99,7 +99,7 @@
                 </div>
                 <div class="ui-grid-a">
                     <div class=ui-block-a>
-                        <div class="brick3 box1">
+                        <div id="hl_menu6" class="brick3 box1">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>SOSYAL MEDYA</h4>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class=ui-block-b>
-                        <div class="brick3 box2">
+                        <div id="hl_menu7" class="brick3 box2">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>MÜŞTERİ FORMU</h4>
@@ -206,8 +206,8 @@
 
         </div><!-- /page -->
 
-        <!-- Start of page 7a -->
-        <div data-role="page" id="page7">
+        <!-- Start of page 5a -->
+        <div data-role="page" id="page5">
 
             <div data-role="header">
                 <h1>Mağazalarımız</h1>
@@ -244,7 +244,7 @@
             </div><!-- /footer -->
         </div>
 
-        <!-- Start of page 7b -->
+        <!-- Start of page 5b -->
         <div data-role="page" id="map-page" data-url="map-page">
 
             <div data-role="content" id="map-canvas" data-fullscreen="false">
@@ -253,8 +253,27 @@
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="true">
                 <div data-role="controlgroup" data-type="horizontal">
-                    <a href="#page7" data-role="button" data-icon="back" data-iconpos="notext"></a>
-                    <a id="map-info" data-role="button" data-icon="info" data-iconpos="notext"></a>
+                    <a href="#page5" data-role="button" data-icon="back" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+        </div>
+
+        <!-- Start of page 6 -->
+        <div data-role="page" id="social-page">
+
+            <div class="my-header">
+                <!--<h1>Cosmetic Shop</h1>-->
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <div id="social-fb" class="social fb"></div>
+                <div class="social tw"></div>
+                <div class="social gp"></div>
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="true">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#home_page" data-role="button" data-icon="back" data-iconpos="notext"></a>
                 </div>
             </div><!-- /footer -->
         </div>
@@ -313,7 +332,7 @@
 			$("#hl_menu5").click(function() {
 				detectCurrentLocation();
 				getShopList();
-				$.mobile.changePage($("#page7"), {
+				$.mobile.changePage($("#page5"), {
 					transition : "slide"
 				});
 				/*
@@ -323,6 +342,25 @@
 				 */
 			});
 
+			$("#hl_menu6").click(function() {
+                var h = getRealContentHeight() / 4;
+                console.log(h);
+                $(".social").css({
+                    "height" : h + "px"
+                });
+				$.mobile.changePage($("#social-page"), {
+					transition : "flip"
+				});
+			});
+
+            $("#social-fb").click(function() {
+                var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
+            });
+
+			$("#hl_menu7").click(function() {
+				//console.log(getRealContentHeight());
+			});
+			
         </script>
     </body>
 </html>
