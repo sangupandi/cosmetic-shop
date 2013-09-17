@@ -52,7 +52,7 @@
 
                 <div class="ui-grid-a">
                     <div class=ui-block-a>
-                        <div id="hl_page1" class="brick1 box1">
+                        <div id="hl_menu1" class="brick1 box1">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>GÜNCEL FIRSATLAR</h4>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class=ui-block-b>
-                        <div id="hl_page2" class="brick1 box2">
+                        <div id="hl_menu2" class="brick1 box2">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>GÜNCEL KATALOG</h4>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="ui-grid-b">
                     <div class=ui-block-a>
-                        <div id="hl_page3" class="brick2 box1">
+                        <div id="hl_menu3" class="brick2 box1">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>YENİ ÜRÜNLER</h4>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class=ui-block-b>
-                        <div class="brick2 box2">
+                        <div id="hl_menu4" class="brick2 box2">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>HABERLER</h4>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class=ui-block-c>
-                        <div class="brick2 box3">
+                        <div id="hl_menu5" class="brick2 box3">
                             <div class="area"></div>
                             <div class="footer">
                                 <h4>MAĞAZALAR</h4>
@@ -133,9 +133,7 @@
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="false">
                 <div data-role="controlgroup" data-type="horizontal">
-                    <a id="hlHome" href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-                    <a id="hlShare" data-role="button">Paylaş</a>
-                    <a id="hlFilter" data-role="button">Filtrele</a>
+                    <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
                 </div>
             </div><!-- /footer -->
 
@@ -182,6 +180,75 @@
             </div><!-- /footer -->
 
         </div><!-- /page -->
+
+        <!-- Start of page 4 -->
+        <div data-role="page" id="page4">
+
+            <div data-role="header">
+                <h1>Cosmetica'dan Haberler</h1>
+            </div><!-- /header -->
+
+            <div data-role="content" class="swiper-container-parent">
+                <div id="swiper3" class="swiper-container">
+                    <div id="swipe-data3" class="swiper-wrapper"></div>
+                    <div id="pagination3" class="pagination"></div>
+                </div>
+                <div id="swipe-content3" class="swipe-content" data-role="content"></div>
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+
+        </div><!-- /page -->
+
+        <!-- Start of page 7a -->
+        <div data-role="page" id="page7">
+
+            <div data-role="header">
+                <h1>Mağazalarımız</h1>
+            </div>
+
+            <div data-role="content" id='shop-content'>
+                <ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
+                    <!--
+                    <li data-icon="false">
+                        <a href="#" onclick="goMap(36.887078,30.708367);"><h3>Antalya Çarşı</h3>
+                        <p>
+                            <strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
+                        </p>
+                        <p style="margin-top: 4px;">
+                            0 242 248 85 36
+                        </p><span class="ui-li-count">12 km</span></a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+        </div>
+
+        <!-- Start of page 7b -->
+        <div data-role="page" id="map-page" data-url="map-page">
+
+            <div data-role="content" id="map-canvas" data-fullscreen="false">
+                <!-- map loads here... -->
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="true">
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#page7" data-role="button" data-icon="back" data-iconpos="notext"></a>
+                    <a id="map-info" data-role="button" data-icon="info" data-iconpos="notext"></a>
+                </div>
+            </div><!-- /footer -->
+        </div>
+
         <script type="text/javascript">
 			$(document).bind("mobileinit", function() {
 				$.support.cors = true;
@@ -195,15 +262,17 @@
 				$.mobile.buttonMarkup.hoverDelay = 0;
 				$.mobile.phonegapNavigationEnabled = true;
 			});
-			
-			$("#hl_page1").click(function() {
-				initSwiperData(swiper1, "swiper1", "pagination1", "swipe-data1", "swipe-content1", swipeContentArray1, 5);
+
+			$("#hl_menu1").click(function() {
+				//$.mobile.pageLoading();
+				initSwiperData(swiper1);
 				$.mobile.changePage($("#page1"), {
 					transition : "fade"
 				});
+				$.mobile.pageLoading(true);
 			});
 
-			$("#hl_page2").click(function() {
+			$("#hl_menu2").click(function() {
 				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
 				if (!platform_iOS()) {
 					pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
@@ -217,12 +286,32 @@
 				 */
 			});
 
-			$("#hl_page3").click(function() {
-				initSwiperData(swiper2, "swiper2", "pagination2", "swipe-data2", "swipe-content2", swipeContentArray2, 10);
+			$("#hl_menu3").click(function() {
+				initSwiperData(swiper2);
 				$.mobile.changePage($("#page3"), {
 					transition : "none"
 				});
 			});
+
+			$("#hl_menu4").click(function() {
+				initSwiperData(swiper3);
+				$.mobile.changePage($("#page4"), {
+					transition : "none"
+				});
+			});
+
+			$("#hl_menu5").click(function() {
+				getShopList();
+				$.mobile.changePage($("#page7"), {
+					transition : "slide"
+				});
+				/*
+				 $.mobile.changePage($("#map-page"), { transition: "slide" });
+				 initMap(true);
+				 resizeMyContent();
+				 */
+			});
+
         </script>
     </body>
 </html>

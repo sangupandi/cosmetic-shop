@@ -1,17 +1,20 @@
-.ui-content {
-	padding: 0;
-	padding: 0;
-}
-.menu-button .ui-btn-inner {
-	padding: 0;
-}
-.menu-button.ui-btn {
-	margin: 0;
-}
-.menu-button .ui-btn-inner img {
-	width: 98%;
-}
-
+/*
+ .ui-content {
+ padding: 0;
+ padding: 0;
+ }
+ */
+/*
+ .menu-button .ui-btn-inner {
+ padding: 0;
+ }
+ .menu-button.ui-btn {
+ margin: 0;
+ }
+ .menu-button .ui-btn-inner img {
+ width: 98%;
+ }
+ */
 #map-page, #map-canvas {
 	width: 100%;
 	height: 100%;
@@ -22,10 +25,21 @@
 	margin-left: 0;
 	margin-right: 0;
 }
+
 .shop-container {
 	background-color: #ccc;
 	border-bottom: solid 1px #666;
 	padding: 0.5em;
+}
+#shop-content .ui-li-desc {
+	white-space: normal;
+}
+#shop-list .ui-li-has-count .ui-li-count {
+	top: 80%;
+}​
+ 
+#shop-content.ui-content {
+	background-image: linear-gradient(rgb(236, 0, 140), rgb(193, 22, 114));
 }
 .shop-title {
 	font-size: larger;
@@ -40,6 +54,9 @@
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
+}
+#home_page .ui-content {
+	padding: 0;
 }
 .my-header {
 	background-image: url(../img/cosmetica_logo.png);
