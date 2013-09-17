@@ -38,6 +38,8 @@
 
         <!-- google map files -->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
+
     </head>
 
     <body>
@@ -212,19 +214,27 @@
             </div>
 
             <div data-role="content" id='shop-content'>
-                <ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
-                    <!--
-                    <li data-icon="false">
+                <div data-role="content" id="map-current" data-fullscreen="false">
+                    <!-- map loads here... -->
+                </div>
+                <div id="current-location-msg">
+                    konum bilgisi alınıyor...
+                </div>
+                <div id="shop-container">
+                    <ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
+                        <!--
+                        <li data-icon="false">
                         <a href="#" onclick="goMap(36.887078,30.708367);"><h3>Antalya Çarşı</h3>
                         <p>
-                            <strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
+                        <strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
                         </p>
                         <p style="margin-top: 4px;">
-                            0 242 248 85 36
+                        0 242 248 85 36
                         </p><span class="ui-li-count">12 km</span></a>
-                    </li>
-                    -->
-                </ul>
+                        </li>
+                        -->
+                    </ul>
+                </div>
             </div>
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -269,7 +279,7 @@
 				$.mobile.changePage($("#page1"), {
 					transition : "fade"
 				});
-				$.mobile.pageLoading(true);
+				//$.mobile.pageLoading(true);
 			});
 
 			$("#hl_menu2").click(function() {
@@ -301,6 +311,7 @@
 			});
 
 			$("#hl_menu5").click(function() {
+				detectCurrentLocation();
 				getShopList();
 				$.mobile.changePage($("#page7"), {
 					transition : "slide"

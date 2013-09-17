@@ -26,17 +26,9 @@ function platform_Android() {
 }
 
 var serviceHost = "213.74.186.117";
-/*
- var swiper1 = null;
- var swiper2 = null;
- var swiper3 = null;
- var swiper4 = null;
- var swipeContentArray1 = null;
- var swipeContentArray2 = null;
- var swipeContentArray3 = null;
- var swipeContentArray4 = null;
- */
 var map = null;
+var mapCurrent = null;
+var myLocation = null;
 
 function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
 	this.swiperObject = null;
@@ -173,36 +165,38 @@ function log(obj) {
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
-var initMap = function(highAccuracy) {
+var detectCurrentLocation = function(highAccuracy) {
 
 	var onGeoSuccess = function(position) {
-		var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		$("#current-location-msg").html("");
+		myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 		// Add an overlay to the map of current lat/lng
 		var marker = new google.maps.Marker({
 			position : myLocation,
-			map : map,
+			map : mapCurrent,
 			title : "Buradasınız :)"
 		});
 
-		marker.setMap(map);
-		map.panTo(myLocation);
-		map.setZoom(16);
+		marker.setMap(mapCurrent);
+		mapCurrent.panTo(myLocation);
+		mapCurrent.setZoom(8);
 	};
 
 	var onGeoFail = function(error) {
-		alert('Konum bilginize ulaşılamıyor.');
+		$("#current-location-msg").html("Konum bilginize ulaşılamıyor.");
 	};
 
 	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
 	//position.coords.latitude, position.coords.longitude);
-	map = new google.maps.Map(document.getElementById('map-canvas'), {
+	mapCurrent = new google.maps.Map(document.getElementById('map-current'), {
 		mapTypeId : google.maps.MapTypeId.ROADMAP,
 		center : initialLocation,
-		zoom : 11
+		zoom : 8
 	});
 
 	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
+		maximumAge : 8000,
 		timeout : 5000,
 		enableHighAccuracy : highAccuracy
 	});
@@ -214,7 +208,8 @@ var cameraTest = function() {
 	};
 
 	var onCamFail = function(error) {
-		alert('Kamera kullanılamıyor (' + error.code + ')');
+		/* No action required */
+		//alert('Kamera kullanılamıyor (' + error.code + ')');
 	};
 
 	//navigator.camera.cleanup(onCamSuccess, onCamFail);
@@ -286,16 +281,30 @@ var getShopList = function() {
 
 	var ajax = {
 		parseJSONP : function(result) {
+			var formatDistance = function(value) {
+
+				if ( typeof value === undefined) {
+					return "---";
+				} else {
+					return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
+				}
+			};
+
 			$('#shop-list').html("");
 
 			$.each(result, function(i, row) {
 				var tmp = $('#shop-list').html();
-				
+
+				if (myLocation != null) {
+					var latLngB = new google.maps.LatLng(row.Latitude, row.Longitude);
+					var distance = google.maps.geometry.spherical.computeDistanceBetween(myLocation, latLngB);
+				}
+
 				tmp = tmp + "<li data-icon='false'>";
 				tmp = tmp + "<a href='#' onclick='goMap(" + row.Latitude + "," + row.Longitude + ");'><h3>" + row.Caption + "</h3>";
 				tmp = tmp + "<p><strong>" + row.Address + "</strong></p>";
 				tmp = tmp + "<p style='margin-top: 4px;'>" + row.Phone;
-				tmp = tmp + "</p><span class='ui-li-count'>12 km</span></a></li>";
+				tmp = tmp + "</p><span class='ui-li-count'>" + formatDistance(distance) + "</span></a></li>";
 
 				$('#shop-list').html(tmp);
 			});
