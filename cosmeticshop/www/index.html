@@ -21,7 +21,7 @@
         <!-- jquery files -->
         <link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.css" />
         <link rel="stylesheet" href="css/jquery.mobile.theme-1.3.2.css" />
-        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery-1.9.1.js"></script>
         <script src="js/jquery.mobile-1.3.2.min.js"></script>
 
         <!-- swiper files -->
@@ -34,11 +34,14 @@
         <link rel="stylesheet" href="css/main.css" />
 
         <!-- phonegap default -->
+        <script type="text/javascript" src="js/index.js"></script>
         <script stype="text/javascript" src="phonegap.js"></script>
 
-        <!-- google map files -->
+        <!-- google map files -->        
+        <!--
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
+        -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&sensor=true&libraries=geometry"></script>
 
     </head>
 
@@ -267,8 +270,8 @@
 
             <div data-role="content">
                 <div id="social-fb" class="social fb"></div>
-                <div class="social tw"></div>
-                <div class="social gp"></div>
+                <div id="social-tw" class="social tw"></div>
+                <div id="social-gp" class="social gp"></div>
             </div>
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="true">
@@ -279,6 +282,8 @@
         </div>
 
         <script type="text/javascript">
+            app.initialize();
+
 			$(document).bind("mobileinit", function() {
 				$.support.cors = true;
 				$.mobile.allowCrossDomainPages = true;
@@ -355,6 +360,12 @@
 
             $("#social-fb").click(function() {
                 var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
+            });
+            $("#social-tw").click(function() {
+                var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
+            });
+            $("#social-gp").click(function() {
+                var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
             });
 
 			$("#hl_menu7").click(function() {

@@ -17,33 +17,48 @@
  * under the License.
  */
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+	// Application Constructor
+	initialize : function() {
+		this.bindEvents();
+	},
+	// Bind Event Listeners
+	//
+	// Bind any events that are required on startup. Common events are:
+	// 'load', 'deviceready', 'offline', and 'online'.
+	bindEvents : function() {
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+	},
+	// deviceready Event Handler
+	//
+	// The scope of 'this' is the event. In order to call the 'receivedEvent'
+	// function, we must explicity call 'app.receivedEvent(...);'
+	onDeviceReady : function() {
+		app.receivedEvent('deviceready');
+	},
+	// Update DOM on a Received Event
+	receivedEvent : function(id) {
+		var h = getRealContentHeight();
+		var line1 = 459 * 162 / h;
+		var line2 = 459 * 132 / h;
+		var line3 = 459 * 102 / h;
+		$(".brick1 .area").css({
+			"height" : line1 + "px"
+		});
+		$(".brick2 .area").css({
+			"height" : line2 + "px"
+		});
+		$(".brick3 .area").css({
+			"height" : line3 + "px"
+		});
+		/*
+		 var parentElement = document.getElementById(id);
+		 var listeningElement = parentElement.querySelector('.listening');
+		 var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+		 listeningElement.setAttribute('style', 'display:none;');
+		 receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
-    }
+		 console.log('Received Event: ' + id);
+		 */
+	}
 };
