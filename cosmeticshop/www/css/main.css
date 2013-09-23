@@ -195,4 +195,30 @@
 .social.gp {
 	background-image: url(../img/social_gp.png);
 }
+/* ---------- */
+#ani-page {
+	background: url(../img/pembezemin.png) no-repeat center center fixed !important;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	padding: 0;
+}
 
+#ani-page div.ui-content {
+	padding:0;
+}
+#ani-c {
+	background: url(../img/cc.png) no-repeat;
+	background-position-y:bottom;
+	background-size: 100%;
+	height: 230px;
+	position:relative;
+	top:-240px;
+}
+#ani-logo {
+	background: url(../img/cosmetica-logo.png) no-repeat top center;
+	height: 230px;
+	background-size: 80%;
+}
+/* ---------- */

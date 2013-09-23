@@ -37,6 +37,11 @@ var app = {
 	},
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
+		
+		resizeMyContent();
+		$('#ani-c').transition({ y: '250px' }, 1000, 'ease');
+		$('#ani-c').transition({ y: '230px' }, 1000, 'ease');
+		
 		var h = getRealContentHeight();
 		var line1 = 459 * 162 / h;
 		var line2 = 459 * 132 / h;
