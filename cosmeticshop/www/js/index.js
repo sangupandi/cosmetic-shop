@@ -43,7 +43,6 @@ var app = {
 
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
-		//navigator.splashscreen.hide();
 
 		var initMenu = function(menuId) {
 			$(menuId).bind('vmousedown', function(event, ui) {
@@ -81,21 +80,13 @@ var app = {
 
 		initMenu("#m4");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 		console.log("h : " + $('#m1 img').attr("height"));
 		console.log("w : " + $('#m1 img').attr("width"));
-
 
 		if (!isPhoneGap()) {
 			navigator.splashscreen.hide();
 		};
-=======
-		if (!isPhoneGap()) { navigator.splashscreen.hide(); };
->>>>>>> 9ac52b8ac3e769c10b1cd8c2f75a2a5e5b5adcf0
-=======
-		if (!isPhoneGap()) { navigator.splashscreen.hide(); };
->>>>>>> 9ac52b8ac3e769c10b1cd8c2f75a2a5e5b5adcf0
+
 		this.startAnim();
 	}
 };

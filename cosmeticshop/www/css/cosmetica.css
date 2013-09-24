@@ -6,7 +6,6 @@
 	-o-background-size: cover;
 	padding: 0;
 }
-
 #ani-page div.ui-content {
 	padding: 0;
 	overflow: hidden;
@@ -46,7 +45,6 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 #hp-header {
 	position: absolute;
 	right: 0;
