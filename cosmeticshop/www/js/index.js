@@ -38,7 +38,7 @@ var app = {
 			 transition : "fade"
 			 });
 			 */
-		}, 2000);
+		}, 3000);
 	},
 
 	// Update DOM on a Received Event
@@ -81,7 +81,13 @@ var app = {
 
 		initMenu("#m4");
 
-		alert("okko");
+		console.log("h : " + $('#m1 img').attr("height"));
+		console.log("w : " + $('#m1 img').attr("width"));
+
+
+		if (!isPhoneGap()) {
+			navigator.splashscreen.hide();
+		};
 		this.startAnim();
 	}
 };
