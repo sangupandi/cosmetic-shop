@@ -87,6 +87,11 @@ var app = {
 			navigator.splashscreen.hide();
 		};
 
-		this.startAnim();
+		$('#btnTest').click(function(){
+			$('#btnTest').css({"display": "none"});
+			app.startAnim();
+		});
+		//this.startAnim();
+		
 	}
 };
