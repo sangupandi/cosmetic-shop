@@ -18,22 +18,7 @@ var app = {
 		app.receivedEvent('deviceready');
 	},
 
-	// Update DOM on a Received Event
-	receivedEvent : function(id) {
-
-		var initMenu = function(menuId) {
-			$(menuId).bind('vmousedown', function(event, ui) {
-				//alert("binding");
-				var src = $(menuId + " img").attr("src");
-				var src2 = $(menuId + " img").attr("src2");
-				$(menuId + " img").attr ("src", src2);
-				$(menuId + " img").attr("src2", src);
-			});
-		};
-
-		/* enlarge content size*/
-		resizeMyContent();
-
+	startAnim : function() {
 		/* starting animation */
 		$('#ani-c').transition({
 			y : '250px'
@@ -44,8 +29,38 @@ var app = {
 		$('#ani-logo').fadeIn(800);
 		/* end of animation */
 
+		/* show home page with fadein effect */
+		setTimeout(function() {
+			$('#ani-page').fadeOut(500);
+			$('#home_page').fadeIn(500);
+			/*
+			 $.mobile.changePage($("#home_page"), {
+			 transition : "fade"
+			 });
+			 */
+		}, 2000);
+	},
+
+	// Update DOM on a Received Event
+	receivedEvent : function(id) {
+		//navigator.splashscreen.hide();
+
+		var initMenu = function(menuId) {
+			$(menuId).bind('vmousedown', function(event, ui) {
+				//alert("binding");
+				var src = $(menuId + " img").attr("src");
+				var src2 = $(menuId + " img").attr("src2");
+				$(menuId + " img").attr("src", src2);
+				$(menuId + " img").attr("src2", src);
+			});
+		};
+
+		/* enlarge content size*/
+		resizeMyContent();
+
 		/* set home page menu size */
-		var menuWidth = ($(window).height() * 106 / 900) * 147 / 106;
+		var contentHeight = getRealContentHeight();
+		var menuWidth = (contentHeight * 106 / 900) * 147 / 106;
 		$("#left-menu").css({
 			"width" : menuWidth + "px"
 		});
@@ -58,23 +73,15 @@ var app = {
 
 		/* set big picture container height */
 		var homeLogoHeight = homeLogoWidth * 108 / 457;
-		var pictureContainerHeight = $(window).height() - homeLogoHeight;
+		var pictureContainerHeight = contentHeight - homeLogoHeight;
 		$("#hp-pic").css({
 			"height" : pictureContainerHeight + "px",
 			"top" : homeLogoHeight + "px"
 		});
 
-		/* show home page with fadein effect */
-		setTimeout(function() {
-			$('#ani-page').fadeOut(500);
-			$('#home_page').fadeIn(500);
-			/*
-			 $.mobile.changePage($("#home_page"), {
-			 transition : "fade"
-			 });
-			 */
-		}, 500);
-
 		initMenu("#m4");
+
+		alert("okko");
+		this.startAnim();
 	}
 };
