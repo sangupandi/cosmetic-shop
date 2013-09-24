@@ -13,15 +13,12 @@
 #ani-c {
 	background: url(../img/cc.png);
 	background-size: cover;
-	height: 480px;
 	position: relative;
-	top: -480px;
 }
 #ani-logo {
 	display: none;
 	text-align: center;
 	position: relative;
-	top: -250px;
 }
 /* ------------------------- */
 #home_page {
@@ -53,4 +50,10 @@
 }
 #hp-pic {
 	position: relative;
+}
+#btnTest{
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 99;
 }

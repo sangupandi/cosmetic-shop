@@ -19,14 +19,16 @@ var app = {
 	},
 
 	startAnim : function() {
+		var contentHeight = getRealContentHeight();
+
 		/* starting animation */
 		$('#ani-c').transition({
-			y : '250px'
+			y : contentHeight / 2 + 'px'
 		}, 1000, 'ease').transition({
-			y : '230px'
+			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
 		}, 1000, 'ease');
 
-		$('#ani-logo').fadeIn(800);
+		$('#ani-logo').fadeIn(1000);
 		/* end of animation */
 
 		/* show home page with fadein effect */
@@ -87,11 +89,28 @@ var app = {
 			navigator.splashscreen.hide();
 		};
 
-		$('#btnTest').click(function(){
-			$('#btnTest').css({"display": "none"});
+		// 923x1391 c.png
+		// 640x1136 iPhone5
+		var cWidth = $(window).width();
+		var cHeight = cWidth * 1391 / 923;
+		
+		$('#ani-c').css({
+			"width" : cWidth + "px",
+			"height" : cHeight + "px",
+			"top" : "-" + cHeight + "px"
+		});
+		
+		$('#ani-logo').css({
+			"top" : "-" + (cHeight / 2) + "px"
+			//"display":"block"
+		});
+	
+		$('#btnTest').click(function() {
+			$('#btnTest').css({
+				"display" : "none"
+			});
 			app.startAnim();
 		});
 		//this.startAnim();
-		
 	}
 };
