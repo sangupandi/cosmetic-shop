@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 var app = {
 	// Application Constructor
 	initialize : function() {
@@ -35,35 +17,64 @@ var app = {
 	onDeviceReady : function() {
 		app.receivedEvent('deviceready');
 	},
+
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
-		
+
+		var initMenu = function(menuId) {
+			$(menuId).bind('vmousedown', function(event, ui) {
+				//alert("binding");
+				var src = $(menuId + " img").attr("src");
+				var src2 = $(menuId + " img").attr("src2");
+				$(menuId + " img").attr ("src", src2);
+				$(menuId + " img").attr("src2", src);
+			});
+		};
+
+		/* enlarge content size*/
 		resizeMyContent();
-		$('#ani-c').transition({ y: '250px' }, 1000, 'ease');
-		$('#ani-c').transition({ y: '230px' }, 1000, 'ease');
-		
-		var h = getRealContentHeight();
-		var line1 = 459 * 162 / h;
-		var line2 = 459 * 132 / h;
-		var line3 = 459 * 102 / h;
-		$(".brick1 .area").css({
-			"height" : line1 + "px"
-		});
-		$(".brick2 .area").css({
-			"height" : line2 + "px"
-		});
-		$(".brick3 .area").css({
-			"height" : line3 + "px"
-		});
-		/*
-		 var parentElement = document.getElementById(id);
-		 var listeningElement = parentElement.querySelector('.listening');
-		 var receivedElement = parentElement.querySelector('.received');
 
-		 listeningElement.setAttribute('style', 'display:none;');
-		 receivedElement.setAttribute('style', 'display:block;');
+		/* starting animation */
+		$('#ani-c').transition({
+			y : '250px'
+		}, 1000, 'ease').transition({
+			y : '230px'
+		}, 1000, 'ease');
 
-		 console.log('Received Event: ' + id);
-		 */
+		$('#ani-logo').fadeIn(800);
+		/* end of animation */
+
+		/* set home page menu size */
+		var menuWidth = ($(window).height() * 106 / 900) * 147 / 106;
+		$("#left-menu").css({
+			"width" : menuWidth + "px"
+		});
+
+		/* set home page logo size */
+		var homeLogoWidth = $(window).width() * 457 / 601;
+		$("#hp-header img").css({
+			"width" : homeLogoWidth + "px"
+		});
+
+		/* set big picture container height */
+		var homeLogoHeight = homeLogoWidth * 108 / 457;
+		var pictureContainerHeight = $(window).height() - homeLogoHeight;
+		$("#hp-pic").css({
+			"height" : pictureContainerHeight + "px",
+			"top" : homeLogoHeight + "px"
+		});
+
+		/* show home page with fadein effect */
+		setTimeout(function() {
+			$('#ani-page').fadeOut(500);
+			$('#home_page').fadeIn(500);
+			/*
+			 $.mobile.changePage($("#home_page"), {
+			 transition : "fade"
+			 });
+			 */
+		}, 500);
+
+		initMenu("#m4");
 	}
 };

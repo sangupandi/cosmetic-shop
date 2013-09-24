@@ -1,0 +1,52 @@
+#ani-page {
+	background: url(../img/pembezemin.png) no-repeat center center fixed !important;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	padding: 0;
+}
+
+#ani-page div.ui-content {
+	padding: 0;
+	overflow: hidden;
+}
+#ani-c {
+	background: url(../img/cc.png);
+	background-size: cover;
+	height: 480px;
+	position: relative;
+	top: -480px;
+}
+#ani-logo {
+	display: none;
+	text-align: center;
+	position: relative;
+	top: -250px;
+}
+/* ------------------------- */
+#home_page {
+	background-color: #000;
+	overflow: hidden;
+}
+#left-menu {
+	position: absolute;
+	left:0;
+	top:0;
+	width: 147px;
+	z-index: 99;
+}
+#left-menu div {
+	margin: 0;
+	padding: 0;
+	display: -webkit-flex;
+}
+#hp-header {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 99;
+}
+#hp-pic{
+	position: relative;
+}
