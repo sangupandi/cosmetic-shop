@@ -35,12 +35,9 @@
 #left-menu div {
 	margin: 0;
 	padding: 0;
-	display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+}
+#left-menu div img {
+	display: -webkit-box;
 }
 #hp-header {
 	position: absolute;
@@ -51,9 +48,9 @@
 #hp-pic {
 	position: relative;
 }
-#btnTest{
+#btnTest {
 	position: absolute;
-	top:0;
-	left:0;
+	top: 0;
+	left: 0;
 	z-index: 99;
 }
