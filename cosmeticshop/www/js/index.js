@@ -28,7 +28,7 @@ var app = {
 			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
 		}, 1000, 'ease');
 
-		$('#ani-logo').fadeIn(1000);
+		$('#ani-logo').fadeIn(2000);
 		/* end of animation */
 
 		/* show home page with fadein effect */
@@ -113,7 +113,7 @@ var app = {
 		});
 		
 		setTimeout(function() {
-			app.startAnim();
+			//app.startAnim();
 		}, 1000);
 		
 		//this.startAnim();
