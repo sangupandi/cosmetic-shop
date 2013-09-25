@@ -32,7 +32,7 @@ function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId,
 
 var swiper1 = new SwiperObject("swiper1", "pagination1", "swipe-data1", "swipe-content1", 5);
 var swiper2 = new SwiperObject("swiper2", "pagination2", "swipe-data2", "swipe-content2", 10);
-var swiper3 = new SwiperObject("swiper3", "pagination3", "swipe-data3", "swipe-content3", 10);
+var swiper3 = new SwiperObject("swiper3", "pagination3", "swipe-data3", "swipe-content3", 11);
 
 function initSwiperData(_swiper) {
 

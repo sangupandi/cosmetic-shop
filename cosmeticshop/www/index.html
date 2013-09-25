@@ -62,49 +62,50 @@
 		<!-- Start of home page -->
 		<div data-role="page" id="home_page">
 
-			<div data-role="content">
+			<div id="hp-header"><img id="i1" src="img/hp-sag-ust.png"/>
+			</div>
 
-				<div id="hp-header"><img id="i1" src="img/hp-sag-ust.png"/>
+			<div id="left-menu">
+				<div id="m1"><img src="img/menu_01.png" src2="img/menu-pressed_01.png" width="100%"/>
 				</div>
+				<div id="m2"><img src="img/menu_02.png" src2="img/menu-pressed_02.png" width="100%"/>
+				</div>
+				<div id="m3"><img src="img/menu_03.png" src2="img/menu-pressed_03.png" width="100%"/>
+				</div>
+				<div id="m4"><img src="img/menu_04.png" src2="img/menu-pressed_04.png" width="100%"/>
+				</div>
+				<div id="m5"><img src="img/menu_05.png" src2="img/menu-pressed_05.png" width="100%"/>
+				</div>
+				<div id="m6"><img src="img/menu_06.png" src2="img/menu-pressed_06.png" width="100%"/>
+				</div>
+				<div id="m7"><img src="img/menu_07.png" src2="img/menu-pressed_07.png" width="100%"/>
+				</div>
+				<div id="m8"><img src="img/menu_08.png" src2="img/menu-pressed_08.png" width="100%"/>
+				</div>
+				<div id="m9"><img src="img/menu_09.png" src2="img/menu-pressed_09.png" width="100%"/>
+				</div>
+			</div>
 
+			<div xdata-role="content"class="home-content">
 				<div id="hp-pic"><img src="img/hp_pic_03.png" height="100%"/>
 				</div>
-
-				<div id="left-menu">
-					<div id="m1"><img src="img/menu_01.png" width="100%"/>
-					</div>
-					<div id="m2"><img src="img/menu_02.png" width="100%"/>
-					</div>
-					<div id="m3"><img src="img/menu_03.png" width="100%"/>
-					</div>
-					<div id="m4"><img src="img/menu_04.png" src2="img/menu_04p.png" width="100%"/>
-					</div>
-					<div id="m5"><img src="img/menu_05.png" width="100%"/>
-					</div>
-					<div id="m6"><img src="img/menu_06.png" width="100%"/>
-					</div>
-					<div id="m7"><img src="img/menu_07.png" width="100%"/>
-					</div>
-					<div id="m8"><img src="img/menu_08.png" width="100%"/>
-					</div>
-					<div id="m9"><img src="img/menu_09.png" width="100%"/>
-					</div>
-				</div>
-
+				<!--
 				<div id="swiper1" class="swiper-container">
-					<div id="swipe-data1" class="swiper-wrapper"></div>
-					<div id="pagination1" class="pagination"></div>
+				<div id="swipe-data1" class="swiper-wrapper"></div>
+				<div id="pagination1" class="pagination"></div>
 				</div>
 				<div id="swipe-content1" class="swipe-content" data-role="content"></div>
+				-->
 
 			</div><!-- /content -->
+
 		</div><!-- /page -->
 
-		<!-- Start of page 1 -->
-		<div data-role="page" id="page1">
+		<!-- Start of page -->
+		<div data-role="page" id="page-yeniurun">
 
 			<div data-role="header">
-				<h1>Güncel Fırsatlar</h1>
+				<img src="img/header_09.png" width="100%"/>
 			</div><!-- /header -->
 
 			<div data-role="content" class="swiper-container-parent">
@@ -116,37 +117,25 @@
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-				</div>
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div><!-- /footer -->
 
 		</div><!-- /page -->
 
-		<!-- Start of page 2 -->
-		<div data-role="page" id="page2">
+		<!-- Start of page -->
+		<div data-role="page" id="page-firsat">
 
 			<div data-role="header">
-				<h1>Güncel Katalog</h1>
-			</div><!-- /header -->
-
-			<div data-role="content" class="pdf-content">
-				<!-- iframe placeholder -->
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-				</div>
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page 3 -->
-		<div data-role="page" id="page3">
-
-			<div data-role="header">
-				<h1>Yeni Ürünler</h1>
+				<img src="img/header_11.png" width="100%"/>
 			</div><!-- /header -->
 
 			<div data-role="content" class="swiper-container-parent">
@@ -158,41 +147,157 @@
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-				</div>
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div><!-- /footer -->
 
 		</div><!-- /page -->
 
-		<!-- Start of page 4 -->
-		<div data-role="page" id="page4">
+		<!-- Start of page -->
+		<div data-role="page" id="page-bildirim">
 
 			<div data-role="header">
-				<h1>Cosmetica'dan Haberler</h1>
+				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" class="swiper-container-parent">
-				<div id="swiper3" class="swiper-container">
-					<div id="swipe-data3" class="swiper-wrapper"></div>
-					<div id="pagination3" class="pagination"></div>
-				</div>
-				<div id="swipe-content3" class="swipe-content" data-role="content"></div>
+			<div data-role="content">
+
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-				</div>
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div><!-- /footer -->
 
 		</div><!-- /page -->
 
-		<!-- Start of page 5a -->
-		<div data-role="page" id="page5">
+		<!-- Start of page -->
+		<div data-role="page" id="page-katalog">
 
 			<div data-role="header">
-				<h1>Mağazalarımız</h1>
+				<img src="img/header_14.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div data-role="content" class="pdf-content">
+				<!-- iframe content -->
+			</div><!-- /content -->
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div><!-- /page -->
+
+		<!-- Start of page -->
+		<div data-role="page" id="page-sosyal">
+
+			<div class="my-header">
+				<img src="img/header_16.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="social-fb" class="social fb"></div>
+				<div id="social-tw" class="social tw"></div>
+				<div id="social-gp" class="social gp"></div>
+			</div>
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div>
+
+		<!-- Start of page apps -->
+		<div data-role="page" id="page-uygulama">
+
+			<div class="my-header">
+				<img src="img/header_18.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+			</div>
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div>
+
+		<!-- Start of page form -->
+		<div data-role="page" id="page-form">
+
+			<div class="my-header">
+				<img src="img/header_20.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div data-role="content">
+
+			</div>
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div>
+
+		<!-- Start of page map a -->
+		<div data-role="page" id="page-harita">
+
+			<div data-role="header">
+				<img src="img/header_22.png" width="100%"/>
 			</div>
 
 			<div data-role="content" id='shop-content'>
@@ -220,76 +325,97 @@
 			</div>
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="home" data-iconpos="notext"></a>
-				</div>
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div><!-- /footer -->
+
 		</div>
 
-		<!-- Start of page 5b -->
+		<!-- Start of page map b -->
 		<div data-role="page" id="map-page" data-url="map-page">
+
+			<div data-role="header">
+				<img src="img/header_22.png" width="100%"/>
+			</div>
 
 			<div data-role="content" id="map-canvas" data-fullscreen="false">
 				<!-- map loads here... -->
 			</div>
 
-			<div data-role="footer" data-position="fixed" data-tap-toggle="true">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#page5" data-role="button" data-icon="back" data-iconpos="notext"></a>
-				</div>
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div><!-- /footer -->
-		</div>
 
-		<!-- Start of page 6 -->
-		<div data-role="page" id="social-page">
-
-			<div class="my-header">
-				<!--<h1>Cosmetic Shop</h1>-->
-			</div><!-- /header -->
-
-			<div data-role="content">
-				<div id="social-fb" class="social fb"></div>
-				<div id="social-tw" class="social tw"></div>
-				<div id="social-gp" class="social gp"></div>
-			</div>
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="true">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#home_page" data-role="button" data-icon="back" data-iconpos="notext"></a>
-				</div>
-			</div><!-- /footer -->
 		</div>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				app.startAnim();//$('#page_effect').fadeIn(2000);
+				app.startAnim();
+				//$('#page_effect').fadeIn(2000);
 			});
 
 			app.initialize();
 
 			$(document).bind("mobileinit", function() {
+				alert('mobileinit fired');
 				$.support.cors = true;
 				$.mobile.allowCrossDomainPages = true;
 				$.mobile.pushStateEnabled = false;
 				$.mobile.touchOverflowEnabled = false;
-				$.mobile.defaultPageTransition = 'slide';
-				$.mobile.defaultDialogTransition = 'pop';
+				$.mobile.defaultPageTransition = 'none';
+				$.mobile.defaultDialogTransition = 'none';
 				$.mobile.transitionFallbacks.slide = 'none';
 				$.mobile.transitionFallbacks.pop = 'none';
 				$.mobile.buttonMarkup.hoverDelay = 0;
 				$.mobile.phonegapNavigationEnabled = true;
 			});
 
-			$("#hl_menu1").click(function() {
-				//$.mobile.pageLoading();
-				initSwiperData(swiper1);
-				$.mobile.changePage($("#page1"), {
+			$("#m1 img").bind('tap', function(event, ui) {
+
+				$.mobile.changePage($("#page-yeniurun"), {
 					transition : "fade"
 				});
-				//$.mobile.pageLoading(true);
+				//resizeMyContent();
+				initSwiperData(swiper1);
+
 			});
 
-			$("#hl_menu2").click(function() {
+			$("#m2 img").click(function() {
+				initSwiperData(swiper2);
+				$.mobile.changePage($("#page-firsat"), {
+					transition : "none"
+				});
+			});
+
+			$("#m3 img").click(function() {
+				initSwiperData(swiper3);
+				$.mobile.changePage($("#page-bildirim"), {
+					transition : "none"
+				});
+			});
+
+			$("#m4 img").click(function() {
+				$.mobile.changePage($("#page-katalog"), {
+					transition : "none"
+				});
+				
 				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
 				if (!platform_iOS()) {
 					pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
@@ -303,24 +429,36 @@
 				 */
 			});
 
-			$("#hl_menu3").click(function() {
-				initSwiperData(swiper2);
-				$.mobile.changePage($("#page3"), {
-					transition : "none"
+			$("#m5 img").click(function() {
+				/*
+				var h = getRealContentHeight() / 4;
+				console.log(h);
+				$(".social").css({
+					"height" : h + "px"
+				});
+				*/
+				$.mobile.changePage($("#page-sosyal"), {
+					transition : "flip"
+				});
+
+			});
+
+			$("#m6 img").click(function() {
+				$.mobile.changePage($("#page-uygulama"), {
+					transition : "flip"
 				});
 			});
 
-			$("#hl_menu4").click(function() {
-				initSwiperData(swiper3);
-				$.mobile.changePage($("#page4"), {
-					transition : "none"
+			$("#m7 img").click(function() {
+				$.mobile.changePage($("#page-form"), {
+					transition : "flip"
 				});
 			});
 
-			$("#hl_menu5").click(function() {
+			$("#m8 img").click(function() {
 				detectCurrentLocation();
 				getShopList();
-				$.mobile.changePage($("#page5"), {
+				$.mobile.changePage($("#page-harita"), {
 					transition : "slide"
 				});
 				/*
@@ -328,17 +466,6 @@
 				 initMap(true);
 				 resizeMyContent();
 				 */
-			});
-
-			$("#hl_menu6").click(function() {
-				var h = getRealContentHeight() / 4;
-				console.log(h);
-				$(".social").css({
-					"height" : h + "px"
-				});
-				$.mobile.changePage($("#social-page"), {
-					transition : "flip"
-				});
 			});
 
 			$("#social-fb").click(function() {
@@ -349,10 +476,6 @@
 			});
 			$("#social-gp").click(function() {
 				var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
-			});
-
-			$("#hl_menu7").click(function() {
-				//console.log(getRealContentHeight());
 			});
 
 		</script>

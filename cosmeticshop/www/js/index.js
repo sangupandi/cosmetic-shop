@@ -31,28 +31,30 @@ var app = {
 		$('#ani-logo').fadeIn(2000);
 		/* end of animation */
 
-		/* show home page with fadein effect */
+		/* show home page */
 		setTimeout(function() {
-			$('#ani-page').fadeOut(500);
-			$('#home_page').fadeIn(500);
-			/*
-			 $.mobile.changePage($("#home_page"), {
-			 transition : "fade"
-			 });
-			 */
+			$.mobile.changePage($("#home_page"), {
+				transition : "fade"
+			});
 		}, 3000);
+
 	},
 
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 
-		var initMenu = function(menuId) {
-			$(menuId).bind('vmousedown', function(event, ui) {
-				//alert("binding");
-				var src = $(menuId + " img").attr("src");
-				var src2 = $(menuId + " img").attr("src2");
-				$(menuId + " img").attr("src", src2);
-				$(menuId + " img").attr("src2", src);
+		var initMenu = function(menuSelector) {
+
+			var mousefunc = function(event, ui) {
+				var src = $(this).attr("src");
+				var src2 = $(this).attr("src2");
+				$(this).attr("src", src2);
+				$(this).attr("src2", src);
+			};
+
+			$(menuSelector).each(function() {
+				$(this).bind('vmousedown', mousefunc);
+				$(this).bind('vmouseup', mousefunc);
 			});
 		};
 
@@ -80,10 +82,16 @@ var app = {
 			"top" : homeLogoHeight + "px"
 		});
 
-		initMenu("#m4");
+		initMenu('#left-menu img');
+		initMenu('.fm');
 
-		console.log("h : " + $('#m1 img').attr("height"));
-		console.log("w : " + $('#m1 img').attr("width"));
+		$('.f1').each(function() {
+			$(this).bind('tap', function() {
+				$.mobile.changePage($("#home_page"), {
+					transition : ""
+				});
+			});
+		});
 
 		if (!isPhoneGap()) {
 			navigator.splashscreen.hide();
@@ -111,11 +119,6 @@ var app = {
 			});
 			app.startAnim();
 		});
-		
-		setTimeout(function() {
-			//app.startAnim();
-		}, 1000);
-		
-		//this.startAnim();
+
 	}
 };

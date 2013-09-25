@@ -1,4 +1,4 @@
-.swiper-container-parent{
+.swiper-container-parent {
 	padding-left: 0;
 	padding-right: 0;
 	padding-top: 0;
@@ -7,7 +7,7 @@
 }
 .swiper-container {
 	width: 100%;
-	height: 60%;
+	height: 50%;
 	color: #fff;
 	text-align: center;
 }
@@ -46,22 +46,24 @@
 	width: 8px;
 	height: 8px;
 	border-radius: 8px;
-	background: #222;
+	background: #a4a4a4;
 	margin-right: 5px;
 	opacity: 0.8;
-	border: 1px solid #fff;
+	border-style: none;
 	cursor: pointer;
 }
 .swiper-visible-switch {
-	background: #AAAAAA;
+	background: #a4a4a4;
 }
 .swiper-active-switch {
-	background: #009F9F;
+	background: #e32086;
 }
-#swipe-content {
-	width:95%;
-	height:30%;
-	padding:2%;
-	text-align:center;
-	/*border:solid 1px #4390EE;*/
+.swipe-content {
+	width: 95%;
+	height: 40%;
+	overflow: scroll;
+	padding: 2%;
+	text-align: center;
+	text-shadow: none !important;
+	color: #FFFFFF;
 }
