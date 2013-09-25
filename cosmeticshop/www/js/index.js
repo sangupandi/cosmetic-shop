@@ -93,24 +93,29 @@ var app = {
 		// 640x1136 iPhone5
 		var cWidth = $(window).width();
 		var cHeight = cWidth * 1391 / 923;
-		
+
 		$('#ani-c').css({
 			"width" : cWidth + "px",
 			"height" : cHeight + "px",
 			"top" : "-" + cHeight + "px"
 		});
-		
+
 		$('#ani-logo').css({
 			"top" : "-" + (cHeight / 2) + "px"
 			//"display":"block"
 		});
-	
+
 		$('#btnTest').click(function() {
 			$('#btnTest').css({
 				"display" : "none"
 			});
 			app.startAnim();
 		});
+		
+		setTimeout(function() {
+			app.startAnim();
+		}, 1000);
+		
 		//this.startAnim();
 	}
 };
