@@ -307,28 +307,37 @@
 				<img src="img/header_22.png" width="100%"/>
 			</div>
 
-			<div data-role="content" id='shop-content'>
-				<div data-role="content" id="map-current" data-fullscreen="false">
+			<div data-role="content">
+				<div class="ui-grid-a">
+					<div class="ui-block-a"><img class="fm f1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/mag_36.png" src2="img/magp_36.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+
+				<div id="map-current">
 					<!-- map loads here... -->
 				</div>
 				<div id="current-location-msg">
 					konum bilgisi alınıyor...
 				</div>
+				<!--
 				<div id="shop-container">
-					<ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
-						<!--
-						<li data-icon="false">
-						<a href="#" onclick="goMap(36.887078,30.708367);"><h3>Antalya Çarşı</h3>
-						<p>
-						<strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
-						</p>
-						<p style="margin-top: 4px;">
-						0 242 248 85 36
-						</p><span class="ui-li-count">12 km</span></a>
-						</li>
-						-->
-					</ul>
+				<ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
+				<!--
+				<li data-icon="false">
+				<a href="#" onclick="goMap(36.887078,30.708367);"><h3>Antalya Çarşı</h3>
+				<p>
+				<strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
+				</p>
+				<p style="margin-top: 4px;">
+				0 242 248 85 36
+				</p><span class="ui-li-count">12 km</span></a>
+				</li>
+				--
+				</ul>
 				</div>
+				-->
 			</div>
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -374,14 +383,13 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				console.log('$(document).ready fired');
+				
+				app.initialize();
 				app.startAnim();
-				//$('#page_effect').fadeIn(2000);
-			});
 
-			app.initialize();
-
-			$(document).bind("mobileinit", function() {
-				alert('mobileinit fired');
+				//$(document).bind("mobileinit", function() {
+				//console.log('mobileinit fired');
 				$.support.cors = true;
 				$.mobile.allowCrossDomainPages = true;
 				$.mobile.pushStateEnabled = false;
@@ -392,105 +400,109 @@
 				$.mobile.transitionFallbacks.pop = 'none';
 				$.mobile.buttonMarkup.hoverDelay = 0;
 				$.mobile.phonegapNavigationEnabled = true;
-			});
+				//});
 
-			$("#m1 img").bind('tap', function(event, ui) {
-				initSwiperData(swiper1);
-				$.mobile.changePage($("#page-yeniurun"), {
-					transition : "fade"
+				$("#m1 img").bind('tap', function(event, ui) {
+					initSwiperData(swiper1);
+					$.mobile.changePage($("#page-yeniurun"), {
+						transition : "fade"
+					});
+					resizeMyContent();
 				});
-				resizeMyContent();
-			});
 
-			$("#m2 img").click(function() {
-				initSwiperData(swiper2);
-				$.mobile.changePage($("#page-firsat"), {
-					transition : "none"
+				$("#m2 img").click(function() {
+					initSwiperData(swiper2);
+					$.mobile.changePage($("#page-firsat"), {
+						transition : "none"
+					});
+					resizeMyContent();
 				});
-				resizeMyContent();
-			});
 
-			$("#m3 img").click(function() {
-				initSwiperData(swiper3);
-				$.mobile.changePage($("#page-bildirim"), {
-					transition : "none"
+				$("#m3 img").click(function() {
+					//initSwiperData(swiper3);
+					$.mobile.changePage($("#page-bildirim"), {
+						transition : "none"
+					});
+					resizeMyContent();
 				});
-				resizeMyContent();
-			});
 
-			$("#m4 img").click(function() {
-				$.mobile.changePage($("#page-katalog"), {
-					transition : "none"
+				$("#m4 img").click(function() {
+					$.mobile.changePage($("#page-katalog"), {
+						transition : "none"
+					});
+					resizeMyContent();
+
+					var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
+					if (!platform_iOS()) {
+						pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+					}
+					var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+
+					/*
+					 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+					 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+					 ref.addEventListener('exit', function() { alert(event.type); });
+					 */
 				});
-				resizeMyContent();
-				
-				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
-				if (!platform_iOS()) {
-					pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-				}
-				var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
 
-				/*
-				 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-				 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-				 ref.addEventListener('exit', function() { alert(event.type); });
-				 */
-			});
-
-			$("#m5 img").click(function() {
-				/*
-				var h = getRealContentHeight() / 4;
-				console.log(h);
-				$(".social").css({
-					"height" : h + "px"
+				$("#m5 img").click(function() {
+					$.mobile.changePage($("#page-sosyal"), {
+						transition : "flip"
+					});
+					resizeMyContent();
 				});
-				*/
-				$.mobile.changePage($("#page-sosyal"), {
-					transition : "flip"
+
+				$("#m6 img").click(function() {
+					$.mobile.changePage($("#page-uygulama"), {
+						transition : "flip"
+					});
+					resizeMyContent();
 				});
-				resizeMyContent();
-			});
 
-			$("#m6 img").click(function() {
-				$.mobile.changePage($("#page-uygulama"), {
-					transition : "flip"
+				$("#m7 img").click(function() {
+					$.mobile.changePage($("#page-form"), {
+						transition : "flip"
+					});
+					resizeMyContent();
 				});
-				resizeMyContent();
-			});
 
-			$("#m7 img").click(function() {
-				$.mobile.changePage($("#page-form"), {
-					transition : "flip"
+				$("#m8 img").click(function() {
+					//getShopList();
+					$.mobile.changePage($("#page-harita"), {
+						transition : "none"
+					});
+					resizeMyContent();
+
+					var posycontent = $('#page-harita div[data-role="content"]').offset().top;
+					console.log(posycontent);
+					var h = getRealContentHeight() - posycontent;
+					console.log(h);
+					$('#map-current').css({
+						"height" : h + "px"
+					});
+
+					detectCurrentLocation();
+
+					/*
+					 $.mobile.changePage($("#map-page"), { transition: "slide" });
+					 initMap(true);
+					 resizeMyContent();
+					 */
 				});
-				resizeMyContent();
-			});
 
-			$("#m8 img").click(function() {
-				detectCurrentLocation();
-				getShopList();
-				$.mobile.changePage($("#page-harita"), {
-					transition : "slide"
+				$('.sfb').bind('tap', function() {
+					var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
 				});
-				/*
-				 $.mobile.changePage($("#map-page"), { transition: "slide" });
-				 initMap(true);
-				 resizeMyContent();
-				 */
+				$('.stw').bind('tap', function() {
+					var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
+				});
+				$('.sgp').bind('tap', function() {
+					var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
+				});
+				$('.sfs').bind('tap', function() {
+					var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
+				});
 			});
-
-			$('.sfb').bind('tap', function() {
-				var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
-			});
-			$('.stw').bind('tap', function() {
-				var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
-			});
-			$('.sgp').bind('tap', function() {
-				var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
-			});
-			$('.sfs').bind('tap', function() {
-				var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
-			});
-
 		</script>
 	</body>
 </html>

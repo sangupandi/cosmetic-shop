@@ -105,11 +105,11 @@ function resizeMyContent() {
 }
 
 function getRealContentHeight() {
-	var hhtml = $('html').height();
-	var pageid = $.mobile.activePage.attr('id');
-	var hcontent = $('#' + pageid + ' div[data-role="content"]').height();
-	var posycontent = $('#' + pageid + ' div[data-role="content"]').offset().top;
-	var hcontentnew = hhtml - (posycontent * 2);
+	var hhtml = $('html').height(); console.log("hhtml :" + hhtml);
+	var pageid = $.mobile.activePage.attr('id'); console.log("pageid :" + pageid);
+	var hcontent = $('#' + pageid + ' div[data-role="content"]').height(); console.log("hcontent :" + hcontent);
+	var posycontent = $('#' + pageid + ' div[data-role="content"]').offset().top; console.log("posycontent :" + posycontent);
+	var hcontentnew = hhtml - (posycontent * 2); console.log("hcontentnew :" + hcontentnew);
 	return hcontentnew;
 	/*
 	var header = $.mobile.activePage.find("div[data-role='header']:visible");

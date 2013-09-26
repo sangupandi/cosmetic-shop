@@ -1,10 +1,11 @@
 .ui-page {
-    -webkit-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	background-color: #000000;
 }
 .ui-content {
 	background-color: #000000;
 }
-#ani-page, #ani-page .ui-content {
+#ani-page {
 	background-color: #FF8604;
 	background: url(../img/pembezemin.png) no-repeat center center fixed !important;
 	background-size: cover;
@@ -14,6 +15,7 @@
 	padding: 0;
 }
 #ani-page div.ui-content {
+	background-color: transparent;
 	padding: 0;
 	overflow: hidden;
 }
@@ -70,7 +72,26 @@
 	left: 0;
 	z-index: 99;
 }
-#page-sosyal div[data-role="content"]{
-	padding:15px;
+#page-sosyal div[data-role="content"] {
+	padding: 15px;
 	vertical-align: middle;
+}
+#page-harita  div[data-role="content"] {
+	padding: 0;
+	overflow: hidden;
+}
+#map-current {
+	height: 100%;
+}
+#page-harita .ui-grid-a img {
+	display: block;
+}
+
+div[data-role="footer"] img {
+	display: block;
+}
+#current-location-msg{
+	height:40px;
+	overflow: hidden;
+	background-color: #4390EE;
 }
