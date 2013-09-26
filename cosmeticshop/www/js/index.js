@@ -33,6 +33,7 @@ var app = {
 
 		/* show home page */
 		setTimeout(function() {
+			enlargeContent("home_page");
 			$.mobile.changePage($("#home_page"), {
 				transition : "fade"
 			});
@@ -42,22 +43,30 @@ var app = {
 
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
-
 		var initMenu = function(menuSelector) {
-
 			var mousefunc = function(event, ui) {
 				var src = $(this).attr("src");
 				var src2 = $(this).attr("src2");
 				$(this).attr("src", src2);
 				$(this).attr("src2", src);
 			};
-
 			$(menuSelector).each(function() {
 				$(this).bind('vmousedown', mousefunc);
 				$(this).bind('vmouseup', mousefunc);
 			});
 		};
-
+		
+		$.support.cors = true;
+		$.mobile.allowCrossDomainPages = true;
+		$.mobile.pushStateEnabled = false;
+		$.mobile.touchOverflowEnabled = false;
+		$.mobile.defaultPageTransition = 'none';
+		$.mobile.defaultDialogTransition = 'none';
+		$.mobile.transitionFallbacks.slide = 'none';
+		$.mobile.transitionFallbacks.pop = 'none';
+		$.mobile.buttonMarkup.hoverDelay = 0;
+		$.mobile.phonegapNavigationEnabled = true;
+	
 		/* enlarge content size*/
 		resizeMyContent();
 
@@ -120,6 +129,6 @@ var app = {
 			//"display":"block"
 		});
 
-		test();
+		startupSteps();
 	}
 };

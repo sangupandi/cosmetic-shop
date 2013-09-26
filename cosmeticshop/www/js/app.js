@@ -92,37 +92,48 @@ function initSwiperData(_swiper) {
 }
 
 function resizeMyContent() {
-	var hhtml = $('html').height();
-	var pageid = $.mobile.activePage.attr('id');
-	var hcontent = $('#' + pageid + ' div[data-role="content"]').height();
-	var posycontent = $('#' + pageid + ' div[data-role="content"]').offset().top;
-	var hcontentnew = hhtml - (posycontent * 2);
-	if (hcontent < hcontentnew) {
-		$('#' + pageid + ' div[data-role="content"]').css({
-			'height' : hcontentnew + 'px'
-		});
-	}
+	var pageId = $.mobile.activePage.attr('id');
+	enlargeContent(pageId);
 }
 
-function getRealContentHeight() {
-	var hhtml = $('html').height(); console.log("hhtml :" + hhtml);
-	var pageid = $.mobile.activePage.attr('id'); console.log("pageid :" + pageid);
-	var hcontent = $('#' + pageid + ' div[data-role="content"]').height(); console.log("hcontent :" + hcontent);
-	var posycontent = $('#' + pageid + ' div[data-role="content"]').offset().top; console.log("posycontent :" + posycontent);
-	var hcontentnew = hhtml - (posycontent * 2); console.log("hcontentnew :" + hcontentnew);
-	return hcontentnew;
-	/*
-	var header = $.mobile.activePage.find("div[data-role='header']:visible");
-	var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
-	var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
-	var viewport_height = $(window).height();
+function enlargeContent(pageId) {
+	$('#' + pageId + ' div[data-role="content"]').css({
+		'height' : getRealContentHeight(pageId) + 'px'
+	});
+}
 
-	var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
-	if ((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewport_height) {
-		content_height -= (content.outerHeight() - content.height());
+function getRealContentHeight(pageId) {
+	if (!pageId)
+		pageId = $.mobile.activePage.attr('id');
+	var contentTopOffset = $('#' + pageId + ' div[data-role="content"]').offset().top;
+	var f = $('#' + pageId + ' div[data-role="footer"]').offset();
+	var footerTopOffset = f ? f.top : 0;
+	var contentHeight;
+	if (footerTopOffset > 0) {
+		contentHeight = footerTopOffset - contentTopOffset;
+	} else {
+		var htmlHeight = $('html').height();
+		contentHeight = htmlHeight - contentTopOffset;
 	}
-	return content_height;
-	*/
+
+	console.log("pageid :" + pageId);
+	console.log("contentTopOffset :" + contentTopOffset);
+	console.log("footerTopOffset :" + footerTopOffset);
+	console.log("contentHeight :" + contentHeight);
+
+	return contentHeight;
+	/*
+	 var header = $.mobile.activePage.find("div[data-role='header']:visible");
+	 var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
+	 var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
+	 var viewport_height = $(window).height();
+
+	 var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+	 if ((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewport_height) {
+	 content_height -= (content.outerHeight() - content.height());
+	 }
+	 return content_height;
+	 */
 }
 
 function log(obj) {
@@ -309,3 +320,100 @@ var getShopList = function() {
 		}
 	};
 };
+function startupSteps() {
+	app.startAnim();
+
+
+	$("#m1 img").bind('tap', function(event, ui) {
+		enlargeContent("page-yeniurun");
+		initSwiperData(swiper1);
+		$.mobile.changePage($("#page-yeniurun"), {
+			transition : "fade"
+		});
+
+	});
+
+	$("#m2 img").click(function() {
+		initSwiperData(swiper2);
+		$.mobile.changePage($("#page-firsat"), {
+			transition : "none"
+		});
+		resizeMyContent();
+	});
+
+	$("#m3 img").click(function() {
+		//initSwiperData(swiper3);
+		$.mobile.changePage($("#page-bildirim"), {
+			transition : "none"
+		});
+		resizeMyContent();
+	});
+
+	$("#m4 img").click(function() {
+		$.mobile.changePage($("#page-katalog"), {
+			transition : "none"
+		});
+		resizeMyContent();
+
+		var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
+		if (!platform_iOS()) {
+			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+		}
+		var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+
+		/*
+		 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+		 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+		 ref.addEventListener('exit', function() { alert(event.type); });
+		 */
+	});
+
+	$("#m5 img").click(function() {
+		$.mobile.changePage($("#page-sosyal"), {
+			transition : "flip"
+		});
+		resizeMyContent();
+	});
+
+	$("#m6 img").click(function() {
+		$.mobile.changePage($("#page-uygulama"), {
+			transition : "flip"
+		});
+		resizeMyContent();
+	});
+
+	$("#m7 img").click(function() {
+		$.mobile.changePage($("#page-form"), {
+			transition : "flip"
+		});
+		resizeMyContent();
+	});
+
+	$("#m8 img").click(function() {
+		//getShopList();
+		enlargeContent("page-harita");
+		$.mobile.changePage($("#page-harita"), {
+			transition : "none"
+		});
+		detectCurrentLocation();
+
+		/*
+		 $.mobile.changePage($("#map-page"), { transition: "slide" });
+		 initMap(true);
+		 resizeMyContent();
+		 */
+	});
+
+	$('.sfb').bind('tap', function() {
+		var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
+	});
+	$('.stw').bind('tap', function() {
+		var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
+	});
+	$('.sgp').bind('tap', function() {
+		var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
+	});
+	$('.sfs').bind('tap', function() {
+		var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
+	});
+}
