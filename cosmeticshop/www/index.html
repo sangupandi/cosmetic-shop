@@ -382,14 +382,13 @@
 		</div>
 
 		<script type="text/javascript">
-			$(document).ready(function() {
-				console.log('$(document).ready fired');
-				
-				app.initialize();
+			app.initialize();
+
+			function test() {
 				app.startAnim();
 
 				//$(document).bind("mobileinit", function() {
-				//console.log('mobileinit fired');
+				console.log('test fired');
 				$.support.cors = true;
 				$.mobile.allowCrossDomainPages = true;
 				$.mobile.pushStateEnabled = false;
@@ -502,7 +501,7 @@
 				$('.sfs').bind('tap', function() {
 					var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
 				});
-			});
+			}
 		</script>
 	</body>
 </html>

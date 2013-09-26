@@ -102,9 +102,7 @@ var app = {
 			});
 		});
 
-		if (!isPhoneGap()) {
-			navigator.splashscreen.hide();
-		};
+		//if (!isPhoneGap()) navigator.splashscreen.hide();
 
 		// 923x1391 c.png
 		// 640x1136 iPhone5
@@ -122,12 +120,6 @@ var app = {
 			//"display":"block"
 		});
 
-		$('#btnTest').click(function() {
-			$('#btnTest').css({
-				"display" : "none"
-			});
-			app.startAnim();
-		});
-
+		test();
 	}
 };
