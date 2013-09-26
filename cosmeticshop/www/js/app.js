@@ -194,7 +194,6 @@ var detectCurrentLocation = function(highAccuracy) {
 	});
 
 	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
-		maximumAge : 8000,
 		timeout : 5000,
 		enableHighAccuracy : highAccuracy
 	});
