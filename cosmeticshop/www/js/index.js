@@ -84,6 +84,15 @@ var app = {
 
 		initMenu('#left-menu img');
 		initMenu('.fm');
+		initMenu('.sm');
+
+		$('.f1').each(function() {
+			$(this).bind('tap', function() {
+				$.mobile.changePage($("#home_page"), {
+					transition : ""
+				});
+			});
+		});
 
 		$('.f1').each(function() {
 			$(this).bind('tap', function() {

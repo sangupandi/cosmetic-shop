@@ -68,10 +68,10 @@
 	<access origin="http://213.74.186.117/files/*" />
 
 	<!--
-	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Capture" value="org.apache.cordova.Capture"/>
 	-->
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 
 </widget>

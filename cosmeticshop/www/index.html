@@ -216,14 +216,21 @@
 		<!-- Start of page -->
 		<div data-role="page" id="page-sosyal">
 
-			<div class="my-header">
+			<div data-role="header">
 				<img src="img/header_16.png" width="100%"/>
 			</div><!-- /header -->
 
 			<div data-role="content">
-				<div id="social-fb" class="social fb"></div>
-				<div id="social-tw" class="social tw"></div>
-				<div id="social-gp" class="social gp"></div>
+				<div class="ui-grid-a">
+					<div class="ui-block-a"><img class="sm sfb" src="img/social_35.png" src2="img/social_35.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="sm stw" src="img/social_37.png" src2="img/social_37.png" width="100%"/>
+					</div>
+					<div class="ui-block-a"><img class="sm sgp" src="img/social_43.png" src2="img/social_43.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="sm sfs" src="img/social_45.png" src2="img/social_45.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
 			</div>
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -244,7 +251,7 @@
 		<!-- Start of page apps -->
 		<div data-role="page" id="page-uygulama">
 
-			<div class="my-header">
+			<div data-role="header">
 				<img src="img/header_18.png" width="100%"/>
 			</div><!-- /header -->
 
@@ -270,7 +277,7 @@
 		<!-- Start of page form -->
 		<div data-role="page" id="page-form">
 
-			<div class="my-header">
+			<div data-role="header">
 				<img src="img/header_20.png" width="100%"/>
 			</div><!-- /header -->
 
@@ -388,13 +395,11 @@
 			});
 
 			$("#m1 img").bind('tap', function(event, ui) {
-
+				initSwiperData(swiper1);
 				$.mobile.changePage($("#page-yeniurun"), {
 					transition : "fade"
 				});
-				//resizeMyContent();
-				initSwiperData(swiper1);
-
+				resizeMyContent();
 			});
 
 			$("#m2 img").click(function() {
@@ -402,6 +407,7 @@
 				$.mobile.changePage($("#page-firsat"), {
 					transition : "none"
 				});
+				resizeMyContent();
 			});
 
 			$("#m3 img").click(function() {
@@ -409,12 +415,14 @@
 				$.mobile.changePage($("#page-bildirim"), {
 					transition : "none"
 				});
+				resizeMyContent();
 			});
 
 			$("#m4 img").click(function() {
 				$.mobile.changePage($("#page-katalog"), {
 					transition : "none"
 				});
+				resizeMyContent();
 				
 				var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
 				if (!platform_iOS()) {
@@ -440,19 +448,21 @@
 				$.mobile.changePage($("#page-sosyal"), {
 					transition : "flip"
 				});
-
+				resizeMyContent();
 			});
 
 			$("#m6 img").click(function() {
 				$.mobile.changePage($("#page-uygulama"), {
 					transition : "flip"
 				});
+				resizeMyContent();
 			});
 
 			$("#m7 img").click(function() {
 				$.mobile.changePage($("#page-form"), {
 					transition : "flip"
 				});
+				resizeMyContent();
 			});
 
 			$("#m8 img").click(function() {
@@ -468,14 +478,17 @@
 				 */
 			});
 
-			$("#social-fb").click(function() {
+			$('.sfb').bind('tap', function() {
 				var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
 			});
-			$("#social-tw").click(function() {
+			$('.stw').bind('tap', function() {
 				var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
 			});
-			$("#social-gp").click(function() {
+			$('.sgp').bind('tap', function() {
 				var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
+			});
+			$('.sfs').bind('tap', function() {
+				var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
 			});
 
 		</script>

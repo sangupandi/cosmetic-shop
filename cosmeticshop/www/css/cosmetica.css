@@ -1,3 +1,6 @@
+.ui-page {
+    -webkit-backface-visibility: hidden;
+}
 .ui-content {
 	background-color: #000000;
 }
@@ -66,4 +69,8 @@
 	top: 0;
 	left: 0;
 	z-index: 99;
+}
+#page-sosyal div[data-role="content"]{
+	padding:15px;
+	vertical-align: middle;
 }
