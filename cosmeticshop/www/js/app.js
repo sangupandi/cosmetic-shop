@@ -114,11 +114,11 @@ function getRealContentHeight(pageId) {
 	}
 
 	/*
-	 console.log("pageid :" + pageId);
-	 console.log("contentTopOffset :" + contentTopOffset);
-	 console.log("footerTopOffset :" + footerTopOffset);
-	 console.log("contentHeight :" + contentHeight);
-	 */
+	console.log("pageid :" + pageId);
+	console.log("contentTopOffset :" + contentTopOffset);
+	console.log("footerTopOffset :" + footerTopOffset);
+	console.log("contentHeight :" + contentHeight);
+	*/
 	//return Math.ceil(contentHeight);
 	return contentHeight;
 	/*
@@ -262,7 +262,7 @@ function goMap(latitude, longitude) {
 			map : map,
 			title : "Cosmetica"
 		});
-		
+
 		marker.setMap(map);
 		/*
 		 map.panTo(any location);
@@ -382,10 +382,12 @@ function startupSteps() {
 	});
 
 	$("#m6 img").click(function() {
-		$('#swiper4 div').each(function() {
-			$(this).css({
-				"width" : "auto"
-			});
+		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+
+		scanner.scan(function(result) {
+			alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+		}, function(error) {
+			alert("Scanning failed: " + error);
 		});
 		/*
 		 $.mobile.changePage($("#page-uygulama"), {

@@ -73,5 +73,7 @@
 	-->
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	<gap:plugin name="com.phonegap.plugins.childbrowser" />
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 
 </widget>
