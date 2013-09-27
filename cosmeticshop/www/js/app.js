@@ -135,10 +135,6 @@ function getRealContentHeight(pageId) {
 	 */
 }
 
-function log(obj) {
-	$('#map-page div[data-role="header"] h1').html(obj);
-}
-
 /*
  var getCurrentPosition = function() {
  var onGeoSuccess = function(position) {
@@ -425,7 +421,7 @@ function startupSteps() {
 			"height" : h + "px"
 		});
 
-		detectCurrentLocation();
+		detectCurrentLocation(true);
 		getShopList();
 
 		/*
