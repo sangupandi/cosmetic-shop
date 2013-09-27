@@ -119,7 +119,8 @@ function getRealContentHeight(pageId) {
 	 console.log("footerTopOffset :" + footerTopOffset);
 	 console.log("contentHeight :" + contentHeight);
 	 */
-	return Math.ceil(contentHeight);
+	//return Math.ceil(contentHeight);
+	return contentHeight;
 	/*
 	 var header = $.mobile.activePage.find("div[data-role='header']:visible");
 	 var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
@@ -328,9 +329,11 @@ function startupSteps() {
 		initSwiperData(swiper4);
 	});
 	$("#page-yeniurun").bind("pageshow", function(event) {
+		enlargeContent("page-yeniurun");
 		initSwiperData(swiper2);
 	});
 	$("#page-firsat").bind("pageshow", function(event) {
+		//enlargeContent("page-yeniurun");
 		resizeMyContent();
 		initSwiperData(swiper1);
 	});
@@ -338,17 +341,14 @@ function startupSteps() {
 	app.startAnim();
 
 	$("#m1 img").bind('tap', function(event, ui) {
-		//enlargeContent("page-yeniurun");
-		//initSwiperData(swiper2);
 		$.mobile.changePage($("#page-yeniurun"), {
-			transition : "flip"
+			transition : "none"
 		});
-		resizeMyContent();
 	});
 
 	$("#m2 img").click(function() {
 		$.mobile.changePage($("#page-firsat"), {
-			transition : "slide"
+			transition : "none"
 		});
 	});
 
@@ -356,12 +356,7 @@ function startupSteps() {
 		$.mobile.changePage($("#page-bildirim"), {
 			transition : "none"
 		});
-		$('#page-bildirim div[data-role="header"]').css({
-			"top" : "0px",
-			"left" : "0px"
-		});
 		resizeMyContent();
-
 	});
 
 	$("#m4 img").click(function() {

@@ -15,6 +15,12 @@ div[data-role="footer"] {
 .ui-content {
 	background-color: #000000;
 	overflow: hidden;
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
 }
 #ani-page {
 	background-color: #FF8604;
