@@ -166,7 +166,9 @@ function log(obj) {
 var detectCurrentLocation = function(highAccuracy) {
 
 	var onGeoSuccess = function(position) {
-		$("#current-location-msg").html("");
+		$("#location-info").html("Konum bilginiz saptandı.");
+		$("#location-info").fadeOut(2500);
+		
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 		// Add an overlay to the map of current lat/lng
@@ -182,7 +184,8 @@ var detectCurrentLocation = function(highAccuracy) {
 	};
 
 	var onGeoFail = function(error) {
-		$("#current-location-msg").html("Konum bilginize ulaşılamıyor.");
+		$("#location-info").fadeIn(500);
+		$("#location-info").html("Konum bilginize ulaşılamıyor.");
 	};
 
 	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
@@ -277,10 +280,12 @@ var getShopList = function() {
 		url : svcurl,
 		dataType : "jsonp",
 		async : true,
-		success : function(result) {
-			$('#shop-list .info').css({
-				"display" : "none"
-			});
+		success : function(result) {/*
+			 $('#shop-list .info').css({
+			 "display" : "none"
+			 });
+			 */
+			$('#shop-list .info').html('Mağaza listesi güncellendi.').fadeOut(5000);
 			ajax.parseJSONP(result);
 		},
 		error : function(request, error) {
@@ -328,13 +333,12 @@ function startupSteps() {
 
 	$("#m3 img").click(function() {
 		//initSwiperData(swiper3);
+		$.mobile.changePage($("#page-bildirim"), {
+			transition : "none"
+		});
 		$('#page-bildirim div[data-role="header"]').css({
 			"top" : "0px",
 			"left" : "0px"
-		});
-
-		$.mobile.changePage($("#page-bildirim"), {
-			transition : "none"
 		});
 		resizeMyContent();
 	});

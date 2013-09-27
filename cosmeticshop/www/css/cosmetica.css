@@ -121,8 +121,14 @@ div[data-role="footer"] img {
 	color: #FFFFFF;
 }
 #shop-list .info {
+	position: absolute;
+width: 100%;
 	text-align: center;
-	padding-top: 20px;
+	padding: 5px;
+	z-index: 198;
+	border: 1px solid rgba(0,0,0, .8);
+	display: block;
+	background-color: rgba(0,0,0,.7);
 }
 #shop-list .liste {
 	padding: 8px;
@@ -130,10 +136,22 @@ div[data-role="footer"] img {
 #shop-list .liste div {
 	text-shadow: rgb(0, 0, 0) 2px 2px 2px;
 }
-#shop-list .liste .item{
-	margin-bottom:8px;
+#shop-list .liste .item {
+	margin-bottom: 8px;
 	border-bottom: 1px solid rgba(255,255,255, .5);
 }
-#shop-list .liste .distance{
+#shop-list .liste .distance {
 	text-align: right;
+}
+#location-info {
+	position:absolute;
+	width:100%;
+	margin-top:20px;
+	text-align: center;
+	padding: 5px;
+	z-index: 198;
+	border: 1px solid rgba(236, 0, 140, 3);
+	display: block;
+	background-color: rgba(236, 0, 140, 3);
+	color:#FFFFFF;
 }
