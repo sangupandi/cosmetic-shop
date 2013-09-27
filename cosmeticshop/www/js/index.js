@@ -40,23 +40,26 @@ var app = {
 
 	shopList : [],
 	shopListTemplate : "",
-	//isLoadedShopList : false,
+	nearestShop : null,
 	currentLocation : null,
 	currentLocationMap : null,
 
 	recalculateDistances : function() {
 		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
+			app.nearestShop = null;
 			$.each(app.shopList, function() {
-
 				var latLngB = new google.maps.LatLng(this.latitude, this.longitude);
 				this.distance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, latLngB);
+				if (app.nearestShop == null || app.nearestShop.distance > this.distance) {
+					app.nearestShop = this;
+				}
 			});
 		}
 	},
-
 	renderShopList : function(selector) {
 		var formatDistance = function(value) {
-			if ( typeof value === undefined) {
+			//if ( typeof value === undefined) {
+			if (value == null) {
 				return "---";
 			} else {
 				return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
@@ -71,7 +74,6 @@ var app = {
 			});
 		}
 	},
-
 	startAnim : function() {
 		var contentHeight = getRealContentHeight();
 
@@ -156,7 +158,7 @@ var app = {
 				});
 			});
 		});
-		
+
 		$('.f5').each(function() {
 			$(this).bind('tap', function() {
 				$.mobile.changePage($("#page-harita"), {
@@ -164,7 +166,6 @@ var app = {
 				});
 			});
 		});
-
 
 		//if (!isPhoneGap()) navigator.splashscreen.hide();
 

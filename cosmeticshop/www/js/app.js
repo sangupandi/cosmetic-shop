@@ -168,7 +168,7 @@ var detectCurrentLocation = function(highAccuracy) {
 	var onGeoSuccess = function(position) {
 		$("#location-info").html("Konum bilginiz saptandı.");
 		$("#location-info").fadeOut(2500);
-		
+
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 		// Add an overlay to the map of current lat/lng
@@ -280,11 +280,7 @@ var getShopList = function() {
 		url : svcurl,
 		dataType : "jsonp",
 		async : true,
-		success : function(result) {/*
-			 $('#shop-list .info').css({
-			 "display" : "none"
-			 });
-			 */
+		success : function(result) {
 			$('#shop-list .info').html('Mağaza listesi güncellendi.').fadeOut(5000);
 			ajax.parseJSONP(result);
 		},
@@ -426,7 +422,26 @@ function startupSteps() {
 	});
 
 	$('#page-harita div[data-role="content"] .b1').bind('tap', function() {
-		$('#shop-list').fadeIn(500);
+		if ($('#shop-list').is(":visible")) {
+			$('#shop-list').fadeOut(500);
+		} else {
+			$('#shop-list').fadeIn(500);
+		}
+	});
+	$('#page-harita div[data-role="content"] .b2').bind('tap', function() {
+		var displayError = true;
+		if (app.currentLocation != null) {
+			if (app.nearestShop == null)
+				app.recalculateDistances();
+
+			if (app.nearestShop != null) {
+				displayError = false;
+				goMap(app.nearestShop.latitude, app.nearestShop.longitude);
+			}
+		}
+
+		if (displayError)
+			alert("Konum bilginiz saptanamadı.");
 	});
 
 }
