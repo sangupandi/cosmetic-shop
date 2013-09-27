@@ -142,7 +142,13 @@ var app = {
 		/* set big picture container height */
 		var homeLogoHeight = homeLogoWidth * 108 / 457;
 		var pictureContainerHeight = contentHeight - homeLogoHeight;
+
 		$("#hp-pic").css({
+			"height" : pictureContainerHeight + "px",
+			"top" : homeLogoHeight + "px"
+		});
+
+		$("#swiper4").css({
 			"height" : pictureContainerHeight + "px",
 			"top" : homeLogoHeight + "px"
 		});
