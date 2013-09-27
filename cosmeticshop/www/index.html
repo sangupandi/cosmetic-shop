@@ -30,12 +30,13 @@
 		<script src="js/idangerous.swiper-2.1.min.js"></script>
 
 		<!-- custom files -->
+		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
+		<script type="text/javascript" src="js/String.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
 
 		<!-- phonegap default -->
-		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="phonegap.js"></script>
 
 		<!-- google map files -->
@@ -309,59 +310,34 @@
 
 			<div data-role="content">
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><img class="fm f1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
+					<div class="ui-block-a"><img class="fm b1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
 					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/mag_36.png" src2="img/magp_36.png" width="100%"/>
+					<div class="ui-block-b"><img class="fm b2" src="img/mag_36.png" src2="img/magp_36.png" width="100%"/>
 					</div>
 				</div><!-- /grid-c -->
+
+				<div id="shop-list">
+					<div class="info">
+						Mağaza listesi alınıyor...
+					</div>
+
+					<div class="liste">
+						<div class="item" onclick="goMap({3},{4});">
+							<div class="desc">
+								<strong>{0}</strong>
+								{1}
+							</div>
+							<div class="distance">
+								{2}
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div id="map-current">
 					<div id="current-location-msg">
 						konum bilgisi alınıyor...
-						<!-- map loads here... -->
 					</div>
-					<!--
-					<div id="shop-container">
-					<ul id="shop-list" data-role="listview" data-inset="true" data-filter="false">
-					<!--
-					<li data-icon="false">
-					<a href="#" onclick="goMap(36.887078,30.708367);"><h3>Antalya Çarşı</h3>
-					<p>
-					<strong>Sinan Mah. Atatürk Cad. 1252. Sok. No:10 Muratpaşa ANTALYA</strong>
-					</p>
-					<p style="margin-top: 4px;">
-					0 242 248 85 36
-					</p><span class="ui-li-count">12 km</span></a>
-					</li>
-					--
-					</ul>
-					</div>
-					-->
-				</div>
-
-				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-					<div class="ui-grid-c">
-						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-						</div>
-						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-						</div>
-						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-						</div>
-						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-						</div>
-					</div><!-- /grid-c -->
-				</div><!-- /footer -->
-
-			</div>
-
-			<!-- Start of page map b -->
-			<div data-role="page" id="map-page" data-url="map-page">
-
-				<div data-role="header">
-					<img src="img/header_22.png" width="100%"/>
-				</div>
-
-				<div data-role="content" id="map-canvas" data-fullscreen="false">
 					<!-- map loads here... -->
 				</div>
 
@@ -379,10 +355,37 @@
 				</div><!-- /footer -->
 
 			</div>
+		</div>
 
-			<script type="text/javascript">
-				app.initialize();
+		<!-- Start of page map b -->
+		<div data-role="page" id="map-page" data-url="map-page">
 
-			</script>
+			<div data-role="header">
+				<img src="img/header_22.png" width="100%"/>
+			</div>
+
+			<div data-role="content" id="map-canvas">
+				<!-- map loads here... -->
+			</div>
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f5" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div>
+
+		<script type="text/javascript">
+			app.initialize();
+
+		</script>
 	</body>
 </html>

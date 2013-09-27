@@ -17,18 +17,6 @@ function platform_Android() {
 
 var serviceHost = "213.74.186.117";
 var map = null;
-var mapCurrent = null;
-var myLocation = null;
-
-function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
-	this.swiperObject = null;
-	this.swiperObjectId = _swiperObjectId;
-	this.paginationObjectId = _paginationObjectId;
-	this.swipeDataElementId = _swipeDataElementId;
-	this.swipeContentElementId = _swipeContentElementId;
-	this.swipeContentArray = null;
-	this.categoryId = _categoryId;
-}
 
 var swiper1 = new SwiperObject("swiper1", "pagination1", "swipe-data1", "swipe-content1", 5);
 var swiper2 = new SwiperObject("swiper2", "pagination2", "swipe-data2", "swipe-content2", 10);
@@ -116,12 +104,13 @@ function getRealContentHeight(pageId) {
 		contentHeight = htmlHeight - contentTopOffset;
 	}
 
-	console.log("pageid :" + pageId);
-	console.log("contentTopOffset :" + contentTopOffset);
-	console.log("footerTopOffset :" + footerTopOffset);
-	console.log("contentHeight :" + contentHeight);
-
-	return contentHeight;
+	/*
+	 console.log("pageid :" + pageId);
+	 console.log("contentTopOffset :" + contentTopOffset);
+	 console.log("footerTopOffset :" + footerTopOffset);
+	 console.log("contentHeight :" + contentHeight);
+	 */
+	return Math.ceil(contentHeight);
 	/*
 	 var header = $.mobile.activePage.find("div[data-role='header']:visible");
 	 var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
@@ -178,18 +167,18 @@ var detectCurrentLocation = function(highAccuracy) {
 
 	var onGeoSuccess = function(position) {
 		$("#current-location-msg").html("");
-		myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 		// Add an overlay to the map of current lat/lng
 		var marker = new google.maps.Marker({
-			position : myLocation,
-			map : mapCurrent,
+			position : app.currentLocation,
+			map : app.currentLocationMap,
 			title : "Buradasınız :)"
 		});
 
-		marker.setMap(mapCurrent);
-		mapCurrent.panTo(myLocation);
-		mapCurrent.setZoom(8);
+		marker.setMap(app.currentLocationMap);
+		app.currentLocationMap.panTo(app.currentLocation);
+		app.currentLocationMap.setZoom(13);
 	};
 
 	var onGeoFail = function(error) {
@@ -198,7 +187,7 @@ var detectCurrentLocation = function(highAccuracy) {
 
 	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
 	//position.coords.latitude, position.coords.longitude);
-	mapCurrent = new google.maps.Map(document.getElementById('map-current'), {
+	app.currentLocationMap = new google.maps.Map(document.getElementById('map-current'), {
 		mapTypeId : google.maps.MapTypeId.ROADMAP,
 		center : initialLocation,
 		zoom : 8
@@ -245,12 +234,14 @@ function openInAppBrowser(url) {
 	}
 }
 
-function goMap(latidute, longitude) {
+function goMap(latitude, longitude) {
 	$.mobile.changePage($("#map-page"), {
-		transition : "slide"
+		transition : "none"
 	});
-
-	var shopLocation = new google.maps.LatLng(latidute, longitude);
+	$('#map-page').css({
+		"height" : getRealContentHeight() + "px"
+	});
+	var shopLocation = new google.maps.LatLng(latitude, longitude);
 
 	map = new google.maps.Map(document.getElementById('map-canvas'), {
 		mapTypeId : google.maps.MapTypeId.ROADMAP,
@@ -267,62 +258,56 @@ function goMap(latidute, longitude) {
 
 	marker.setMap(map);
 	/*
-	 map.panTo(myLocation);
+	 map.panTo(any location);
 	 map.setZoom(16);
 	 */
 	resizeMyContent();
 }
 
 var getShopList = function() {
+	if (app.shopList.length > 0) {
+		return;
+	}
+	var selector = "#shop-list .liste";
+	app.shopListTemplate = $(selector).html();
+	$(selector).html("");
+
 	var svcurl = "http://" + serviceHost + "/Shops.ashx";
 	$.ajax({
 		url : svcurl,
 		dataType : "jsonp",
 		async : true,
 		success : function(result) {
+			$('#shop-list .info').css({
+				"display" : "none"
+			});
 			ajax.parseJSONP(result);
 		},
 		error : function(request, error) {
-			alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			$('#shop-list .info').html('Bağlantı hatası oluştu tekrar deneyiniz!').fadeIn(200);
 		}
 	});
 
 	var ajax = {
 		parseJSONP : function(result) {
-			var formatDistance = function(value) {
-
-				if ( typeof value === undefined) {
-					return "---";
-				} else {
-					return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
-				}
-			};
-
-			$('#shop-list').html("");
-
 			$.each(result, function(i, row) {
-				var tmp = $('#shop-list').html();
-
-				if (myLocation != null) {
-					var latLngB = new google.maps.LatLng(row.Latitude, row.Longitude);
-					var distance = google.maps.geometry.spherical.computeDistanceBetween(myLocation, latLngB);
-				}
-
-				tmp = tmp + "<li data-icon='false'>";
-				tmp = tmp + "<a href='#' onclick='goMap(" + row.Latitude + "," + row.Longitude + ");'><h3>" + row.Caption + "</h3>";
-				tmp = tmp + "<p><strong>" + row.Address + "</strong></p>";
-				tmp = tmp + "<p style='margin-top: 4px;'>" + row.Phone;
-				tmp = tmp + "</p><span class='ui-li-count'>" + formatDistance(distance) + "</span></a></li>";
-
-				$('#shop-list').html(tmp);
+				app.shopList.push({
+					'caption' : row.Caption,
+					'address' : row.Address,
+					'phone' : row.Phone,
+					'latitude' : row.Latitude,
+					'longitude' : row.Longitude,
+					'active' : row.Active,
+					'distance' : null
+				});
 			});
-			$('#shop-list').listview('refresh');
+			app.recalculateDistances();
+			app.renderShopList(selector);
 		}
 	};
 };
 function startupSteps() {
 	app.startAnim();
-
 
 	$("#m1 img").bind('tap', function(event, ui) {
 		enlargeContent("page-yeniurun");
@@ -343,6 +328,11 @@ function startupSteps() {
 
 	$("#m3 img").click(function() {
 		//initSwiperData(swiper3);
+		$('#page-bildirim div[data-role="header"]').css({
+			"top" : "0px",
+			"left" : "0px"
+		});
+
 		$.mobile.changePage($("#page-bildirim"), {
 			transition : "none"
 		});
@@ -355,7 +345,7 @@ function startupSteps() {
 		});
 		resizeMyContent();
 
-		var pdfUrl = 'http://www.cardtek.com/files/2013/09/sample.pdf';
+		var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
 		if (!platform_iOS()) {
 			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
 		}
@@ -391,11 +381,25 @@ function startupSteps() {
 
 	$("#m8 img").click(function() {
 		//getShopList();
-		enlargeContent("page-harita");
 		$.mobile.changePage($("#page-harita"), {
 			transition : "none"
 		});
+		enlargeContent("page-harita");
+
+		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
+		var t2 = $('#map-current').offset().top;
+		var h = getRealContentHeight("page-harita") - (t2 - t1);
+		$('#map-current').css({
+			"height" : h + "px"
+		});
+
+		$('#shop-list').css({
+			"top" : t2 + "px",
+			"height" : h + "px"
+		});
+
 		detectCurrentLocation();
+		getShopList();
 
 		/*
 		 $.mobile.changePage($("#map-page"), { transition: "slide" });
@@ -416,4 +420,9 @@ function startupSteps() {
 	$('.sfs').bind('tap', function() {
 		var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
 	});
+
+	$('#page-harita div[data-role="content"] .b1').bind('tap', function() {
+		$('#shop-list').fadeIn(500);
+	});
+
 }

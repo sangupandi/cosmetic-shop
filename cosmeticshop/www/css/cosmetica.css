@@ -1,12 +1,12 @@
 div[data-role="header"] {
-	background-image:none;
+	background-image: none;
 	background-color: #000;
-	border:none;
+	border: none;
 }
 div[data-role="footer"] {
-	background-image:none;
+	background-image: none;
 	background-color: #000;
-	border:none;
+	border: none;
 }
 .ui-page {
 	-webkit-backface-visibility: hidden;
@@ -68,9 +68,9 @@ div[data-role="footer"] {
 	display: block;
 }
 #hp-header {
-	background-image:none;
+	background-image: none;
 	background-color: #000;
-	border:none;
+	border: none;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -103,8 +103,37 @@ div[data-role="footer"] {
 div[data-role="footer"] img {
 	display: block;
 }
-#current-location-msg{
-	height:40px;
+#current-location-msg {
+	height: 40px;
 	overflow: hidden;
 	background-color: #4390EE;
+}
+#shop-list {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(236, 0, 140, .9);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	display: none;
+	overflow: scroll;
+	color: #FFFFFF;
+}
+#shop-list .info {
+	text-align: center;
+	padding-top: 20px;
+}
+#shop-list .liste {
+	padding: 8px;
+}
+#shop-list .liste div {
+	text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}
+#shop-list .liste .item{
+	margin-bottom:8px;
+	border-bottom: 1px solid rgba(255,255,255, .5);
+}
+#shop-list .liste .distance{
+	text-align: right;
 }

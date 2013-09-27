@@ -1,3 +1,23 @@
+function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
+	this.swiperObject = null;
+	this.swiperObjectId = _swiperObjectId;
+	this.paginationObjectId = _paginationObjectId;
+	this.swipeDataElementId = _swipeDataElementId;
+	this.swipeContentElementId = _swipeContentElementId;
+	this.swipeContentArray = null;
+	this.categoryId = _categoryId;
+}
+
+function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _distance) {
+	this.caption = _caption;
+	this.address = _address;
+	this.phone = _phone;
+	this.latitude = _latitude;
+	this.longitude = _longitude;
+	this.active = _active;
+	this.distance = _distance;
+}
+
 var app = {
 	// Application Constructor
 	initialize : function() {
@@ -16,6 +36,40 @@ var app = {
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
 		app.receivedEvent('deviceready');
+	},
+
+	shopList : [],
+	shopListTemplate : "",
+	//isLoadedShopList : false,
+	currentLocation : null,
+	currentLocationMap : null,
+
+	recalculateDistances : function() {
+		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
+			$.each(app.shopList, function() {
+
+				var latLngB = new google.maps.LatLng(this.latitude, this.longitude);
+				this.distance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, latLngB);
+			});
+		}
+	},
+
+	renderShopList : function(selector) {
+		var formatDistance = function(value) {
+			if ( typeof value === undefined) {
+				return "---";
+			} else {
+				return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
+			}
+		};
+		$(selector).html();
+		if (app.shopList.length > 0) {
+			var tmp = '';
+			$.each(app.shopList, function() {
+				tmp = tmp + String.format(app.shopListTemplate, this.caption, this.address, formatDistance(this.distance), this.latitude, this.longitude);
+				$(selector).html(tmp);
+			});
+		}
 	},
 
 	startAnim : function() {
@@ -55,7 +109,7 @@ var app = {
 				$(this).bind('vmouseup', mousefunc);
 			});
 		};
-		
+
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
@@ -66,7 +120,7 @@ var app = {
 		$.mobile.transitionFallbacks.pop = 'none';
 		$.mobile.buttonMarkup.hoverDelay = 0;
 		$.mobile.phonegapNavigationEnabled = true;
-	
+
 		/* enlarge content size*/
 		resizeMyContent();
 
@@ -102,14 +156,15 @@ var app = {
 				});
 			});
 		});
-
-		$('.f1').each(function() {
+		
+		$('.f5').each(function() {
 			$(this).bind('tap', function() {
-				$.mobile.changePage($("#home_page"), {
+				$.mobile.changePage($("#page-harita"), {
 					transition : ""
 				});
 			});
 		});
+
 
 		//if (!isPhoneGap()) navigator.splashscreen.hide();
 
