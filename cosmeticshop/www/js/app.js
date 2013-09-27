@@ -360,15 +360,18 @@ function startupSteps() {
 			transition : "none"
 		});
 		resizeMyContent();
-		
-		var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		if (!platform_iOS()) {
-			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-		}
- 		$('#page-katalog div[data-role="content"]').load(pdfUrl);
-		//var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-
+		$('.theiframeid').css({
+			"height" : $(window).width + "px"
+		});
 		/*
+		 var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		 if (!platform_iOS()) {
+		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+		 }
+		 $('#page-katalog div[data-role="content"]').load(pdfUrl);
+		 //var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+
+		 /*
 		 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
 		 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
 		 ref.addEventListener('exit', function() { alert(event.type); });

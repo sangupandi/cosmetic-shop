@@ -171,3 +171,26 @@ label.ui-input-text {
 .ui-corner-all, .ui-checkbox .ui-btn, .ui-radio .ui-btn {
 	border-radius: 0 !important;
 }
+
+.theiframewrap { 
+	width: 100%; 
+	margin:0px; 
+	padding: 0px; 
+	position:relative; 
+	overflow:hidden; 
+	}
+.theiframeid { 
+	height:30000px;
+	width:100%;
+	margin:0px; 
+
+    -ms-zoom: 0.30;
+    -moz-transform: scale(0.30);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.30);
+    -o-transform-origin: 0 0;
+/*    -webkit-transform: scale(0.30);
+    -webkit-transform-origin: 0 0;
+*/
+}
+
