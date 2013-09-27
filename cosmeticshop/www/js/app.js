@@ -341,14 +341,14 @@ function startupSteps() {
 		//enlargeContent("page-yeniurun");
 		//initSwiperData(swiper2);
 		$.mobile.changePage($("#page-yeniurun"), {
-			transition : "none"
+			transition : "flip"
 		});
 		resizeMyContent();
 	});
 
 	$("#m2 img").click(function() {
 		$.mobile.changePage($("#page-firsat"), {
-			transition : "none"
+			transition : "slide"
 		});
 	});
 
