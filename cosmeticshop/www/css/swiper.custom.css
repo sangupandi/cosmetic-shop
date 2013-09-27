@@ -34,11 +34,13 @@
 	line-height: 45px;
 }
 .pagination {
+	text-align: center;
+}
+#pagination4.pagination {
 	position: absolute;
-	width: 100%;
-	z-index: 20;
-	left: 0px;
-	bottom: 10px;
+	bottom:10px;
+	width:100%;
+	z-index:20;
 	text-align: center;
 }
 .swiper-pagination-switch {
