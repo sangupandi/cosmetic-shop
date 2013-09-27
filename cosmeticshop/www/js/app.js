@@ -247,33 +247,40 @@ function openInAppBrowser(url) {
 }
 
 function goMap(latitude, longitude) {
+	var drawMap = function() {
+		$('#map-canvas').css({
+			"height" : getRealContentHeight() + "px"
+		});
+		var shopLocation = new google.maps.LatLng(latitude, longitude);
+
+		map = new google.maps.Map(document.getElementById('map-canvas'), {
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			center : shopLocation,
+			zoom : 16
+		});
+
+		// Add an overlay to the map of current lat/lng
+		var marker = new google.maps.Marker({
+			position : shopLocation,
+			map : map,
+			title : "Cosmetica"
+		});
+		
+		marker.setMap(map);
+		/*
+		 map.panTo(any location);
+		 map.setZoom(16);
+		 */
+
+	};
+
+	$("#map-page").unbind("pageshow", drawMap);
+	$("#map-page").bind("pageshow", drawMap);
+
 	$.mobile.changePage($("#map-page"), {
 		transition : "none"
 	});
-	$('#map-page').css({
-		"height" : getRealContentHeight() + "px"
-	});
-	var shopLocation = new google.maps.LatLng(latitude, longitude);
-
-	map = new google.maps.Map(document.getElementById('map-canvas'), {
-		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		center : shopLocation,
-		zoom : 16
-	});
-
-	// Add an overlay to the map of current lat/lng
-	var marker = new google.maps.Marker({
-		position : shopLocation,
-		map : map,
-		title : "Cosmetica"
-	});
-
-	marker.setMap(map);
-	/*
-	 map.panTo(any location);
-	 map.setZoom(16);
-	 */
-	resizeMyContent();
+	//resizeMyContent();
 }
 
 var getShopList = function() {
@@ -320,12 +327,19 @@ function startupSteps() {
 	$("#home_page").bind("pageshow", function(event) {
 		initSwiperData(swiper4);
 	});
+	$("#page-yeniurun").bind("pageshow", function(event) {
+		initSwiperData(swiper2);
+	});
+	$("#page-firsat").bind("pageshow", function(event) {
+		resizeMyContent();
+		initSwiperData(swiper1);
+	});
 
 	app.startAnim();
 
 	$("#m1 img").bind('tap', function(event, ui) {
 		//enlargeContent("page-yeniurun");
-		initSwiperData(swiper2);
+		//initSwiperData(swiper2);
 		$.mobile.changePage($("#page-yeniurun"), {
 			transition : "none"
 		});
@@ -333,11 +347,9 @@ function startupSteps() {
 	});
 
 	$("#m2 img").click(function() {
-		initSwiperData(swiper1);
 		$.mobile.changePage($("#page-firsat"), {
 			transition : "none"
 		});
-		resizeMyContent();
 	});
 
 	$("#m3 img").click(function() {

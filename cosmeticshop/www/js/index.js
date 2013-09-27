@@ -167,6 +167,7 @@ var app = {
 
 		$('.f5').each(function() {
 			$(this).bind('tap', function() {
+				$('#map-canvas').html('');
 				$.mobile.changePage($("#page-harita"), {
 					transition : ""
 				});
