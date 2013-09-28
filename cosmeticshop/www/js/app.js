@@ -76,7 +76,6 @@ function initSwiperData(_swiper) {
 
 				$.each(result, function(i, row) {
 					var tmp = $('#' + _swiper.swipeDataElementId).html();
-					//tmp = tmp + '<div class="swiper-slide"><div class="title">' + row.Html + '</div></div>';
 					tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
 					$('#' + _swiper.swipeDataElementId).html(tmp);
 
@@ -169,14 +168,16 @@ function getRealContentHeight(pageId) {
  * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
  * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
  */
-var detectCurrentLocation = function(highAccuracy) {
+var showCurrentLocation = function() {
+	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
+	//position.coords.latitude, position.coords.longitude);
+	app.currentLocationMap = new google.maps.Map(document.getElementById('map-current'), {
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		center : initialLocation,
+		zoom : 8
+	});
 
-	var onGeoSuccess = function(position) {
-		$("#location-info").html("Konum bilginiz saptandı.");
-		$("#location-info").fadeOut(2500);
-
-		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+	if (app.currentLocation != null) {
 		// Add an overlay to the map of current lat/lng
 		var marker = new google.maps.Marker({
 			position : app.currentLocation,
@@ -187,6 +188,16 @@ var detectCurrentLocation = function(highAccuracy) {
 		marker.setMap(app.currentLocationMap);
 		app.currentLocationMap.panTo(app.currentLocation);
 		app.currentLocationMap.setZoom(13);
+	}
+};
+
+var detectCurrentLocation = function(highAccuracy) {
+
+	var onGeoSuccess = function(position) {
+		$("#location-info").html("Konum bilginiz saptandı.");
+		$("#location-info").fadeOut(2500);
+
+		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	};
 
 	var onGeoFail = function(error) {
@@ -194,21 +205,13 @@ var detectCurrentLocation = function(highAccuracy) {
 		$("#location-info").html("Konum bilginize ulaşılamıyor.");
 	};
 
-	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-	//position.coords.latitude, position.coords.longitude);
-	app.currentLocationMap = new google.maps.Map(document.getElementById('map-current'), {
-		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		center : initialLocation,
-		zoom : 8
-	});
-
 	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
 		timeout : 5000,
 		enableHighAccuracy : highAccuracy
 	});
 };
 
-var cameraTest = function() {
+var openFrontCamera = function() {
 	var onCamSuccess = function(imageData) {
 		/* No action required */
 	};
@@ -230,8 +233,6 @@ var cameraTest = function() {
 		targetHeight : 80,
 		saveToPhotoAlbum : false
 	});
-
-	$("#map-canvas").html("done cam . . .<br>");
 };
 
 function openInAppBrowser(url) {
@@ -268,7 +269,6 @@ function goMap(latitude, longitude) {
 		 map.panTo(any location);
 		 map.setZoom(16);
 		 */
-
 	};
 
 	$("#map-page").unbind("pageshow", drawMap);
@@ -277,7 +277,6 @@ function goMap(latitude, longitude) {
 	$.mobile.changePage($("#map-page"), {
 		transition : "none"
 	});
-	//resizeMyContent();
 }
 
 var getShopList = function() {
@@ -321,20 +320,19 @@ var getShopList = function() {
 	};
 };
 function startupSteps() {
+	detectCurrentLocation(true);
+
 	$("#home_page").bind("pageshow", function(event) {
 		initSwiperData(swiper4);
 	});
+
 	$("#page-yeniurun").bind("pageshow", function(event) {
-		//enlargeContent("page-yeniurun");
 		initSwiperData(swiper2);
 	});
+
 	$("#page-firsat").bind("pageshow", function(event) {
-		//enlargeContent("page-yeniurun");
-		//resizeMyContent();
 		initSwiperData(swiper1);
 	});
-
-	app.startAnim();
 
 	$("#m1 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-yeniurun"), {
@@ -352,14 +350,12 @@ function startupSteps() {
 		$.mobile.changePage($("#page-bildirim"), {
 			transition : "none"
 		});
-		//resizeMyContent();
 	});
 
 	$("#m4 img").click(function() {
 		$.mobile.changePage($("#page-katalog"), {
 			transition : "none"
 		});
-		//resizeMyContent();
 		$('.theiframeid').css({
 			"height" : $(window).width + "px"
 		});
@@ -382,38 +378,24 @@ function startupSteps() {
 		$.mobile.changePage($("#page-sosyal"), {
 			transition : "flip"
 		});
-		//resizeMyContent();
 	});
 
 	$("#m6 img").click(function() {
-		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-		scanner.scan(function(result) {
-			alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
-		}, function(error) {
-			alert("Scanning failed: " + error);
+		$.mobile.changePage($("#page-uygulama"), {
+			transition : "flip"
 		});
-		/*
-		 $.mobile.changePage($("#page-uygulama"), {
-		 transition : "flip"
-		 });
-		 resizeMyContent();
-		 */
 	});
 
 	$("#m7 img").click(function() {
 		$.mobile.changePage($("#page-form"), {
 			transition : "flip"
 		});
-		//resizeMyContent();
 	});
 
 	$("#m8 img").click(function() {
-		//getShopList();
 		$.mobile.changePage($("#page-harita"), {
 			transition : "none"
 		});
-		//enlargeContent("page-harita");
 
 		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
 		var t2 = $('#map-current').offset().top;
@@ -427,14 +409,10 @@ function startupSteps() {
 			"height" : h + "px"
 		});
 
-		detectCurrentLocation(true);
+		//detectCurrentLocation(true);
+		showCurrentLocation();
 		getShopList();
 
-		/*
-		 $.mobile.changePage($("#map-page"), { transition: "slide" });
-		 initMap(true);
-		 resizeMyContent();
-		 */
 	});
 
 	$('.sfb').bind('tap', function() {
@@ -473,4 +451,20 @@ function startupSteps() {
 			alert("Konum bilginiz saptanamadı.");
 	});
 
+	$('#page-uygulama div[data-role="content"] .app1').each(function() {
+		$(this).bind('tap', function() {
+			var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+			scanner.scan(function(result) {
+				alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+			}, function(error) {
+				alert("Scanning failed: " + error);
+			});
+		});
+	});
+
+	$('#page-uygulama div[data-role="content"] .app2').each(function() {
+		$(this).bind('tap', function() {
+			openFrontCamera();
+		});
+	});
 }

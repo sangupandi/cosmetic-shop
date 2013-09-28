@@ -143,6 +143,21 @@ var app = {
 			});
 		});
 
+		/* set size of headers */
+		$('div[data-role="header"]').each(function() {
+			$(this).css({
+				"height" : app.headerHeight + "px"
+			});
+		});
+
+		/* set position of header's image *
+		 $('div[data-role="header"] img').each(function() {
+		 $(this).css({
+		 "width" : $(window).width + "px"
+		 });
+		 });
+		 */
+
 		/* set #ani-page content size */
 		$('#ani-page div[data-role="content"]').css({
 			"height" : $(window).height() + "px"
@@ -207,8 +222,6 @@ var app = {
 			});
 		});
 
-		//if (!isPhoneGap()) navigator.splashscreen.hide();
-
 		// 923x1391 c.png
 		// 640x1136 iPhone5
 		var cWidth = $(window).width();
@@ -226,5 +239,6 @@ var app = {
 		});
 
 		startupSteps();
+		app.startAnim();
 	}
 };
