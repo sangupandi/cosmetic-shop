@@ -242,6 +242,7 @@ var app = {
 			//"display":"block"
 		});
 
+
 		startupSteps();
 		app.startAnim();
 	}

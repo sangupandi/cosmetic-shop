@@ -27,10 +27,7 @@ function initSwiperData(_swiper) {
 
 	var initSwiper = function() {
 		if (_swiper.swiperObjectId == 'swiper4' && $('#hp-pic').is(":visible")) {
-			$('#hp-pic').css({
-				"position" : "absolute",
-				"z-index" : 89
-			}).fadeOut(500);
+			$('#hp-pic').fadeOut(1500);
 		}
 		_swiper.swiperObject = $('#' + _swiper.swiperObjectId).swiper({
 			pagination : '#' + _swiper.paginationObjectId,
@@ -40,7 +37,7 @@ function initSwiperData(_swiper) {
 			onSlideChangeEnd : function() {
 				if (_swiper.swiperObjectId != 'swiper4') {
 					$('#' + _swiper.swipeContentElementId).fadeOut(function() {
-						$(this).text(_swiper.swipeContentArray[_swiper.swiperObject.activeLoopIndex]).fadeIn();
+						$('#' + _swiper.swipeContentElementId).text(_swiper.swipeContentArray[_swiper.swiperObject.activeLoopIndex]).fadeIn();
 					});
 				}
 			}
@@ -340,6 +337,18 @@ function startupSteps() {
 
 	$("#page-firsat").bind("pageshow", function(event) {
 		initSwiperData(swiper1);
+	});
+
+	$("#page-bildirim").bind("pageshow", function(event) {
+		var h = $('#page-bildirim div[data-role="header"]');
+		var p = $('#page-bildirim div[data-role="header"] img');
+
+		var s = "h top: " + h.offset().top;
+		s = s + "\rh left: " + h.offset().left;
+		s = s + "\rp top: " + p.offset().top;
+		s = s + "\rp left: " + p.offset().left;
+
+		alert(s);
 	});
 
 	$("#m1 img").bind('tap', function(event, ui) {

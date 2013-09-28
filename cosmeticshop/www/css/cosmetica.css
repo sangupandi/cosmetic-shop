@@ -91,7 +91,8 @@ div[data-role="header"] img {
 	left: auto;
 }
 #hp-pic {
-	position: relative;
+	position: absolute;
+	right:0;
 }
 #btnTest {
 	position: absolute;
@@ -204,4 +205,6 @@ label.ui-input-text {
 	padding-top: 2em;
 	font-size: larger;
 }
-
+#page-form div[data-role="content"]{
+	overflow: scroll;
+}
