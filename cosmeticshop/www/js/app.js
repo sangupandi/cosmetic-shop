@@ -325,12 +325,12 @@ function startupSteps() {
 		initSwiperData(swiper4);
 	});
 	$("#page-yeniurun").bind("pageshow", function(event) {
-		enlargeContent("page-yeniurun");
+		//enlargeContent("page-yeniurun");
 		initSwiperData(swiper2);
 	});
 	$("#page-firsat").bind("pageshow", function(event) {
 		//enlargeContent("page-yeniurun");
-		resizeMyContent();
+		//resizeMyContent();
 		initSwiperData(swiper1);
 	});
 
@@ -352,14 +352,14 @@ function startupSteps() {
 		$.mobile.changePage($("#page-bildirim"), {
 			transition : "none"
 		});
-		resizeMyContent();
+		//resizeMyContent();
 	});
 
 	$("#m4 img").click(function() {
 		$.mobile.changePage($("#page-katalog"), {
 			transition : "none"
 		});
-		resizeMyContent();
+		//resizeMyContent();
 		$('.theiframeid').css({
 			"height" : $(window).width + "px"
 		});
@@ -382,7 +382,7 @@ function startupSteps() {
 		$.mobile.changePage($("#page-sosyal"), {
 			transition : "flip"
 		});
-		resizeMyContent();
+		//resizeMyContent();
 	});
 
 	$("#m6 img").click(function() {
@@ -405,7 +405,7 @@ function startupSteps() {
 		$.mobile.changePage($("#page-form"), {
 			transition : "flip"
 		});
-		resizeMyContent();
+		//resizeMyContent();
 	});
 
 	$("#m8 img").click(function() {
@@ -413,7 +413,7 @@ function startupSteps() {
 		$.mobile.changePage($("#page-harita"), {
 			transition : "none"
 		});
-		enlargeContent("page-harita");
+		//enlargeContent("page-harita");
 
 		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
 		var t2 = $('#map-current').offset().top;

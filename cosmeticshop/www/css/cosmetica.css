@@ -78,13 +78,17 @@ div[data-role="footer"] {
 	background-image: none;
 	background-color: #000;
 	border: none;
+	/*
 	position: absolute;
 	right: 0;
 	top: 0;
 	z-index: 99;
+	*/
+	text-align: right;
+	overflow: hidden;
 }
 #hp-header img {
-	display: block;
+	/*display: block;*/
 }
 #hp-pic {
 	position: relative;

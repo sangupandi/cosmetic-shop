@@ -38,6 +38,10 @@ var app = {
 		app.receivedEvent('deviceready');
 	},
 
+	headerHeight : 0,
+	footerHeight : 0,
+	contentHeight : 0,
+
 	shopList : [],
 	shopListTemplate : "",
 	nearestShop : null,
@@ -123,34 +127,63 @@ var app = {
 		$.mobile.buttonMarkup.hoverDelay = 0;
 		$.mobile.phonegapNavigationEnabled = true;
 
-		/* enlarge content size*/
-		resizeMyContent();
+		/* header height (size: 565x107) */
+		app.headerHeight = $(window).width() * 107 / 565;
 
-		/* set home page menu size */
-		var contentHeight = getRealContentHeight();
-		var menuWidth = (contentHeight * 106 / 900) * 147 / 106;
+		/* footer height (size: 600x80) */
+		app.footerHeight = $(window).width() * 80 / 600;
+
+		/* content height */
+		app.contentHeight = $(window).height() - app.headerHeight - app.footerHeight;
+
+		/* enlarge contents size */
+		$('div[data-role="content"]').each(function() {
+			$(this).css({
+				"height" : app.contentHeight + "px"
+			});
+		});
+
+		/* set #ani-page content size */
+		$('#ani-page div[data-role="content"]').css({
+			"height" : $(window).height() + "px"
+		});
+
+		/* set #home_page menu size (size: 147x901) */
+		//var contentHeight = getRealContentHeight();
+		//var menuWidth = ($(window).height() * 106 / 901) * 147 / 106;
+		var menuWidth = $(window).height() * 147 / 901;
 		$("#left-menu").css({
 			"width" : menuWidth + "px"
 		});
 
-		/* set home page logo size */
+		/* set #home_page logo size (size: 457x108) (design width: 601px)*/
 		var homeLogoWidth = $(window).width() * 457 / 601;
 		$("#hp-header img").css({
 			"width" : homeLogoWidth + "px"
 		});
 
-		/* set big picture container height */
+		/* set #home_page content size */
 		var homeLogoHeight = homeLogoWidth * 108 / 457;
-		var pictureContainerHeight = contentHeight - homeLogoHeight;
-
-		$("#hp-pic").css({
-			"height" : pictureContainerHeight + "px",
-			"top" : homeLogoHeight + "px"
+		var homeContentHeight = $(window).height() - homeLogoHeight;
+		$('#home_page div[data-role="content"]').css({
+			"height" : homeContentHeight + "px"
 		});
 
+		/* set big picture container height */
+		$("#hp-pic").css({
+			//"top" : homeLogoHeight + "px",
+			"height" : homeContentHeight + "px"
+		});
+
+		/* set swiper container height */
 		$("#swiper4").css({
-			"height" : pictureContainerHeight + "px",
-			"top" : homeLogoHeight + "px"
+			//"top" : homeLogoHeight + "px",
+			"height" : homeContentHeight + "px"
+		});
+
+		/* set #home_page header size */
+		$('#home_page div[data-role="header"]').css({
+			"height" : homeLogoHeight + "px"
 		});
 
 		initMenu('#left-menu img');
