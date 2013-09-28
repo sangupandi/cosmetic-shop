@@ -44,9 +44,29 @@ var app = {
 
 	shopList : [],
 	shopListTemplate : "",
+	shopListSelector : "#shop-list .liste",
 	nearestShop : null,
 	currentLocation : null,
 	currentLocationMap : null,
+
+	renderShopList : function() {
+		var formatDistance = function(value) {
+			//if ( typeof value === undefined) {
+			if (value == null) {
+				return "---";
+			} else {
+				return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
+			}
+		};
+		$(app.shopListSelector).html();
+		if (app.shopList.length > 0) {
+			var tmp = '';
+			$.each(app.shopList, function() {
+				tmp = tmp + String.format(app.shopListTemplate, this.caption, this.address, formatDistance(this.distance), this.latitude, this.longitude);
+				$(app.shopListSelector).html(tmp);
+			});
+		}
+	},
 
 	recalculateDistances : function() {
 		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
@@ -58,26 +78,10 @@ var app = {
 					app.nearestShop = this;
 				}
 			});
+			app.renderShopList();
 		}
 	},
-	renderShopList : function(selector) {
-		var formatDistance = function(value) {
-			//if ( typeof value === undefined) {
-			if (value == null) {
-				return "---";
-			} else {
-				return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
-			}
-		};
-		$(selector).html();
-		if (app.shopList.length > 0) {
-			var tmp = '';
-			$.each(app.shopList, function() {
-				tmp = tmp + String.format(app.shopListTemplate, this.caption, this.address, formatDistance(this.distance), this.latitude, this.longitude);
-				$(selector).html(tmp);
-			});
-		}
-	},
+
 	startAnim : function() {
 		var contentHeight = getRealContentHeight();
 
@@ -177,8 +181,13 @@ var app = {
 			"width" : homeLogoWidth + "px"
 		});
 
-		/* set #home_page content size */
+		/* set #home_page header size */
 		var homeLogoHeight = homeLogoWidth * 108 / 457;
+		$('#home_page div[data-role="header"]').css({
+			"height" : homeLogoHeight + "px"
+		});
+
+		/* set #home_page content size */
 		var homeContentHeight = $(window).height() - homeLogoHeight;
 		$('#home_page div[data-role="content"]').css({
 			"height" : homeContentHeight + "px"
@@ -194,11 +203,6 @@ var app = {
 		$("#swiper4").css({
 			//"top" : homeLogoHeight + "px",
 			"height" : homeContentHeight + "px"
-		});
-
-		/* set #home_page header size */
-		$('#home_page div[data-role="header"]').css({
-			"height" : homeLogoHeight + "px"
 		});
 
 		initMenu('#left-menu img');

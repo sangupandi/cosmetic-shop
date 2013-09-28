@@ -198,6 +198,9 @@ var detectCurrentLocation = function(highAccuracy) {
 		$("#location-info").fadeOut(2500);
 
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		if (app.shopList.length > 0) {
+			app.recalculateDistances();
+		}
 	};
 
 	var onGeoFail = function(error) {
@@ -283,7 +286,7 @@ var getShopList = function() {
 	if (app.shopList.length > 0) {
 		return;
 	}
-	var selector = "#shop-list .liste";
+	var selector = app.shopListSelector;
 	app.shopListTemplate = $(selector).html();
 	$(selector).html("");
 
@@ -315,7 +318,7 @@ var getShopList = function() {
 				});
 			});
 			app.recalculateDistances();
-			app.renderShopList(selector);
+			app.renderShopList();
 		}
 	};
 };
@@ -323,6 +326,11 @@ function startupSteps() {
 	detectCurrentLocation(true);
 
 	$("#home_page").bind("pageshow", function(event) {
+		// bu contentSize niye şaşıyor? bulamadım..
+		$('#home_page div[data-role="content"]').css({
+			"height" : "auto"
+		});
+
 		initSwiperData(swiper4);
 	});
 
@@ -409,7 +417,9 @@ function startupSteps() {
 			"height" : h + "px"
 		});
 
-		//detectCurrentLocation(true);
+		if (app.currentLocation == null) {
+			detectCurrentLocation(true);
+		}
 		showCurrentLocation();
 		getShopList();
 
