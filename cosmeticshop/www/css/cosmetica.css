@@ -92,7 +92,7 @@ div[data-role="header"] img {
 }
 #hp-pic {
 	position: absolute;
-	right:0;
+	right: 0;
 }
 #btnTest {
 	position: absolute;
@@ -170,13 +170,13 @@ div[data-role="footer"] img {
 	background-color: rgba(236, 0, 140, 3);
 	color: #FFFFFF;
 }
-label.ui-input-text {
+label {
 	color: #FFFFFF;
 }
+
 .ui-corner-all, .ui-checkbox .ui-btn, .ui-radio .ui-btn {
 	border-radius: 0 !important;
 }
-
 .theiframewrap {
 	width: 100%;
 	margin: 0px;
@@ -205,6 +205,6 @@ label.ui-input-text {
 	padding-top: 2em;
 	font-size: larger;
 }
-#page-form div[data-role="content"]{
+#page-form div[data-role="content"] {
 	overflow: scroll;
 }

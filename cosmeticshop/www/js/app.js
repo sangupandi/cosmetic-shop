@@ -340,15 +340,6 @@ function startupSteps() {
 	});
 
 	$("#page-bildirim").bind("pageshow", function(event) {
-		var h = $('#page-bildirim div[data-role="header"]');
-		var p = $('#page-bildirim div[data-role="header"] img');
-
-		var s = "h top: " + h.offset().top;
-		s = s + "\rh left: " + h.offset().left;
-		s = s + "\rp top: " + p.offset().top;
-		s = s + "\rp left: " + p.offset().left;
-
-		alert(s);
 		
 	}).trigger( 'updatelayout' );;
 
