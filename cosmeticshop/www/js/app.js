@@ -321,6 +321,7 @@ var getShopList = function() {
 };
 function startupSteps() {
 	detectCurrentLocation(true);
+	$.mobile.loading('show');
 
 	$("#home_page").bind("pageshow", function(event) {
 		// bu contentSize niye şaşıyor? bulamadım..
@@ -332,7 +333,14 @@ function startupSteps() {
 	});
 
 	$("#page-yeniurun").bind("pageshow", function(event) {
+		$.mobile.loader.prototype.options.text = "loading";
+		$.mobile.loader.prototype.options.textVisible = false;
+		$.mobile.loader.prototype.options.theme = "a";
+		$.mobile.loader.prototype.options.html = "";
+
 		initSwiperData(swiper2);
+
+		$.mobile.loading('hide');
 	});
 
 	$("#page-firsat").bind("pageshow", function(event) {
@@ -340,8 +348,9 @@ function startupSteps() {
 	});
 
 	$("#page-bildirim").bind("pageshow", function(event) {
-		
-	}).trigger( 'updatelayout' );;
+
+	}).trigger('updatelayout');
+	;
 
 	$("#m1 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-yeniurun"), {
