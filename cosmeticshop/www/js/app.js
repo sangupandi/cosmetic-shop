@@ -349,7 +349,8 @@ function startupSteps() {
 		s = s + "\rp left: " + p.offset().left;
 
 		alert(s);
-	});
+		
+	}).trigger( 'updatelayout' );;
 
 	$("#m1 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-yeniurun"), {
