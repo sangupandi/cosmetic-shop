@@ -359,10 +359,13 @@ function startupSteps() {
 			$('#page-katalog div[data-role="content"]').load(pdfUrl);
 		} else {
 			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+			var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+			/*
 			$('.theiframeid').css({
 				"width" : $(window).width + "px"
 			});
 			$('.theiframeid').attr("src", pdfUrl);
+			*/
 		}
 	});
 

@@ -96,19 +96,21 @@ var app = {
 
 		var contentHeight = getRealContentHeight();
 
-		setTimeout(function() {
-			/* starting animation */
-			$('#ani-c').transition({
-				y : contentHeight / 2 + 'px'
-			}, 1000, 'ease').transition({
-				y : (contentHeight / 2) - (contentHeight / 15) + 'px'
-			}, 1000, 'ease');
-		}, 1);
-
-		$('#ani-logo').fadeTo(3000, 1, function() {
+		$('#ani-logo').fadeTo(2000, 1, function() {
 			//debugFunc();
-			$.mobile.changePage($("#home_page"), { transition : "fade" });
+			setTimeout(function() {
+				$.mobile.changePage($("#home_page"), {
+					transition : "fade"
+				});
+			}, 2000);
 		});
+
+		/* starting animation */
+		$('#ani-c').transition({
+			y : contentHeight / 2 + 'px'
+		}, 1000, 'ease').transition({
+			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
+		}, 1000, 'ease');
 
 		/* end of animation */
 
