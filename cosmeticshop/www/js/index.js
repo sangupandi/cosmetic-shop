@@ -141,7 +141,7 @@ var app = {
 		$.mobile.transitionFallbacks.slide = 'none';
 		$.mobile.transitionFallbacks.pop = 'none';
 		$.mobile.buttonMarkup.hoverDelay = 0;
-		$.mobile.phonegapNavigationEnabled = true;
+		$.mobile.phonegapNavigationEnabled = false;
 
 		/* header height (size: 565x107) */
 		app.headerHeight = $(window).width() * 107 / 565;
