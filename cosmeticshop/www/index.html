@@ -65,7 +65,7 @@
 		<div data-role="page" id="ani-page">
 			<!--
 			<div class="pembezemin-container">
-				<img class="pembezemin" src="img/pembezemin.png" width="100%" height="100%" />
+			<img class="pembezemin" src="img/pembezemin.png" width="100%" height="100%" />
 			</div>
 			-->
 			<div data-role="content">
@@ -155,7 +155,7 @@
 				<img src="img/header_11.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" class="xswiper-container-parent">
+			<div data-role="content" class="swiper-container-parent">
 				<div id="swiper1" class="swiper-container">
 					<div id="swipe-data1" class="swiper-wrapper"></div>
 				</div>
@@ -185,8 +185,12 @@
 				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
-
+			<div data-role="content" class="swiper-container-parent">
+				<div id="swiper3" class="swiper-container">
+					<div id="swipe-data3" class="swiper-wrapper"></div>
+				</div>
+				<div id="pagination3" class="pagination"></div>
+				<div id="swipe-content3" class="swipe-content"></div>
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -323,13 +327,13 @@
 				<input type="number" pattern="[0-9]*" id="tbTel" value="" data-theme="b" />
 
 				<label for="cbxSms">Sms ile bilgilendir</label>
-				<input type="checkbox" id="cbxSms" data-theme="b" data-mini="true" data-iconpos="right" />
+				<input type="checkbox" id="cbxSms" data-theme="b" data-mini="true" data-iconpos="right" checked="checked"/>
 
 				<label for="tbEmail">E-mail adresi</label>
 				<input type="email" id="tbEmail" value="" data-theme="b" />
 
 				<label for="cbxEmail">E-mail ile bilgilendir</label>
-				<input type="checkbox" id="cbxEmail"  data-theme="b" data-mini="true" data-iconpos="right" />
+				<input type="checkbox" id="cbxEmail"  data-theme="b" data-mini="true" data-iconpos="right" checked="checked"/>
 				<p>
 					<input type="button" value="Gönder" data-theme="a" />
 				</p>
@@ -441,6 +445,36 @@
 			</div><!-- /header -->
 
 			<div data-role="content">
+
+				<div>
+					<label> Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
+				</div>
+
+				<div class="settings-container">
+					<div data-role="fieldcontain">
+						<label for="ayar1">Yeni Ürünler:</label>
+						<select name="slider" id="ayar1" data-role="slider" onclick="app.putSetting('news', this.value);">
+							<option value="no">Hayır</option>
+							<option value="yes" selected="selected">Evet</option>
+						</select>
+					</div>
+
+					<div data-role="fieldcontain">
+						<label for="ayar2">Güncel Fırsatlar:</label>
+						<select name="slider" id="ayar2" data-role="slider">
+							<option value="no">Hayır</option>
+							<option value="yes" selected="selected">Evet</option>
+						</select>
+					</div>
+
+					<div data-role="fieldcontain">
+						<label for="ayar3">Güzellik Sırları:</label>
+						<select name="slider" id="ayar3" data-role="slider">
+							<option value="no">Hayır</option>
+							<option value="yes" selected="selected">Evet</option>
+						</select>
+					</div>
+				</div>
 
 			</div><!-- /content -->
 

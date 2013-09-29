@@ -75,6 +75,7 @@
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="SoftKeyBoard" value="com.phonegap.plugins.SoftKeyboard.SoftKeyBoard" />
+	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<gap:plugin name="com.phonegap.plugins.childbrowser" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />

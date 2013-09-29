@@ -125,6 +125,15 @@ var app = {
 
 	},
 
+	putSetting : function(key, value) {
+		console.log(key + " : " + value);
+		window.localStorage.setItem(key, value);
+	},
+
+	getSetting : function(key) {
+		return window.localStorage.getItem(key);
+	},
+
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		var initMenu = function(menuSelector) {

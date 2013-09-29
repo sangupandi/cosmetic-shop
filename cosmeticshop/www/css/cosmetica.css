@@ -225,3 +225,6 @@ label {
 #page-form div[data-role="content"] {
 	overflow: scroll;
 }
+.settings-container{
+	text-align: center;
+}

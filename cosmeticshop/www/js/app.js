@@ -353,6 +353,10 @@ function startupSteps() {
 		initSwiperData(swiper1);
 	});
 
+	$("#page-bildirim").bind("pageshow", function(event) {
+		initSwiperData(swiper3);
+	});
+
 	$("#page-katalog").bind("pageshow", function(event) {
 		var pdfUrl = 'http://' + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
 		if (platform_iOS()) {
