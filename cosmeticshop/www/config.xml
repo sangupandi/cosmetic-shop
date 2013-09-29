@@ -77,5 +77,6 @@
 	<plugin name="SoftKeyBoard" value="com.phonegap.plugins.SoftKeyboard.SoftKeyBoard" />
 	<gap:plugin name="com.phonegap.plugins.childbrowser" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 
 </widget>

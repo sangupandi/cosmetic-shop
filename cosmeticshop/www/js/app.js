@@ -325,6 +325,7 @@ var getShopList = function() {
 		}
 	};
 };
+
 function startupSteps() {
 	//$.mobile.loading('show');
 

@@ -229,6 +229,36 @@ var app = {
 			});
 		});
 
+		$('.f2').each(function() {
+			$(this).bind('tap', function() {
+				window.plugins.socialsharing.available(function(isAvailable) {
+					if (isAvailable) {/*
+						 // use a local image from inside the www folder:
+						 window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
+						 // succes/error callback params may be added as 4th and 5th param
+						 // .. or a local image from anywhere else (if permitted):
+						 // local-iOS:
+						 window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', '/Users/username/Library/Application Support/iPhone/6.1/Applications/25A1E7CF-079F-438D-823B-55C6F8CD2DC0/Documents/.nl.x-services.appname/pics/img.jpg');
+						 // local-Android:
+						 window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'file:///storage/emulated/0/nl.xservices.testapp/5359/Photos/16832/Thumb.jpg');
+						 // .. or an image from the internet:
+						 window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'http://domain.com/image.jpg');
+						 // .. or only text:
+						 window.plugins.socialsharing.share('My text');
+						 // .. (or like this):
+						 window.plugins.socialsharing.share('My text', null, null);
+						 // use '' instead of null for pre-2.0 versions of this plugin
+						 */
+						 window.plugins.socialsharing.share(
+					 		'My text with a link: http://' + serviceHost, 
+					 		'My subject', 
+					 		'http://'+ serviceHost + '/image.jpg'
+					 		);
+					}
+				});
+			});
+		});
+
 		$('.f3').each(function() {
 			$(this).bind('tap', function() {
 				//$('#map-canvas').html('');
