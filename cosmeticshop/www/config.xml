@@ -19,7 +19,6 @@
 	<preference name="disable-cursor" value="false" />
 	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
-	<preference name="android-windowSoftInputMode" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
 
 	<!-- to enable individual permissions use the following examples -->
@@ -75,6 +74,7 @@
 	-->
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	<plugin name="SoftKeyBoard" value="com.phonegap.plugins.SoftKeyboard.SoftKeyBoard" />
 	<gap:plugin name="com.phonegap.plugins.childbrowser" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 
