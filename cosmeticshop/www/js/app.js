@@ -167,10 +167,9 @@ function getRealContentHeight(pageId) {
  */
 var showCurrentLocation = function() {
 	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-	//position.coords.latitude, position.coords.longitude);
 	app.currentLocationMap = new google.maps.Map(document.getElementById('map-current'), {
 		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		center : initialLocation,
+		center : (app.currentLocation == null) ? initialLocation : app.currentLocation,
 		zoom : 8
 	});
 
@@ -181,7 +180,6 @@ var showCurrentLocation = function() {
 			map : app.currentLocationMap,
 			title : "Buradasınız :)"
 		});
-
 		marker.setMap(app.currentLocationMap);
 		app.currentLocationMap.panTo(app.currentLocation);
 		app.currentLocationMap.setZoom(13);
@@ -195,6 +193,7 @@ var detectCurrentLocation = function(highAccuracy) {
 		$("#location-info").fadeOut(2500);
 
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		showCurrentLocation();
 		if (app.shopList.length > 0) {
 			app.recalculateDistances();
 		}
@@ -275,7 +274,7 @@ function goMap(latitude, longitude) {
 	$("#map-page").bind("pageshow", drawMap);
 
 	$.mobile.changePage($("#map-page"), {
-		transition : "none"
+		transition : "flip"
 	});
 }
 
@@ -320,7 +319,6 @@ var getShopList = function() {
 	};
 };
 function startupSteps() {
-	detectCurrentLocation(true);
 	$.mobile.loading('show');
 
 	$("#home_page").bind("pageshow", function(event) {
@@ -347,33 +345,48 @@ function startupSteps() {
 		initSwiperData(swiper1);
 	});
 
-	$("#page-bildirim").bind("pageshow", function(event) {
-
-	}).trigger('updatelayout');
-	;
-
-	$("#m1 img").bind('tap', function(event, ui) {
-		$.mobile.changePage($("#page-yeniurun"), {
-			transition : "none"
+	$("#page-harita").bind("pageshow", function(event) {
+		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
+		var t2 = $('#map-current').offset().top;
+		var h = getRealContentHeight("page-harita") - (t2 - t1);
+		$('#map-current').css({
+			"height" : h + "px"
 		});
+
+		$('#shop-list').css({
+			"top" : t2 + "px",
+			"height" : h + "px"
+		});
+
+		if (app.currentLocation == null) {
+			detectCurrentLocation(true);
+		}
+
+		if (app.updateCurrentMap) {
+			showCurrentLocation();
+		}
+		getShopList();
+	});
+	
+	$("#page-ayarlar").bind("pageshow", function(event) {
+		//app.backPageId
+
+	});
+	
+	$("#m1 img").bind('tap', function(event, ui) {
+		$.mobile.changePage($("#page-yeniurun"));
 	});
 
 	$("#m2 img").click(function() {
-		$.mobile.changePage($("#page-firsat"), {
-			transition : "none"
-		});
+		$.mobile.changePage($("#page-firsat"));
 	});
 
 	$("#m3 img").click(function() {
-		$.mobile.changePage($("#page-bildirim"), {
-			transition : "none"
-		});
+		$.mobile.changePage($("#page-bildirim"));
 	});
 
 	$("#m4 img").click(function() {
-		$.mobile.changePage($("#page-katalog"), {
-			transition : "none"
-		});
+		$.mobile.changePage($("#page-katalog"));
 		$('.theiframeid').css({
 			"height" : $(window).width + "px"
 		});
@@ -393,46 +406,22 @@ function startupSteps() {
 	});
 
 	$("#m5 img").click(function() {
-		$.mobile.changePage($("#page-sosyal"), {
-			transition : "flip"
-		});
+		$.mobile.changePage($("#page-sosyal"));
 	});
 
 	$("#m6 img").click(function() {
-		$.mobile.changePage($("#page-uygulama"), {
-			transition : "flip"
-		});
+		$.mobile.changePage($("#page-uygulama"));
 	});
 
 	$("#m7 img").click(function() {
-		$.mobile.changePage($("#page-form"), {
-			transition : "flip"
-		});
+		$.mobile.changePage($("#page-form"));
 	});
 
 	$("#m8 img").click(function() {
-		$.mobile.changePage($("#page-harita"), {
-			transition : "none"
-		});
-
-		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
-		var t2 = $('#map-current').offset().top;
-		var h = getRealContentHeight("page-harita") - (t2 - t1);
-		$('#map-current').css({
-			"height" : h + "px"
-		});
-
-		$('#shop-list').css({
-			"top" : t2 + "px",
-			"height" : h + "px"
-		});
-
-		if (app.currentLocation == null) {
-			detectCurrentLocation(true);
-		}
-		showCurrentLocation();
-		getShopList();
-
+		$.mobile.changePage($("#page-harita"));
+	});
+	$("#m9 img").click(function() {
+		$.mobile.changePage($("#page-ayarlar"));
 	});
 
 	$('.sfb').bind('tap', function() {

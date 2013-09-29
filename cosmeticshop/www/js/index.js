@@ -48,6 +48,11 @@ var app = {
 	nearestShop : null,
 	currentLocation : null,
 	currentLocationMap : null,
+	updateCurrentMap : true,
+	backPageId : "",
+	currentPageId : function() {
+		return $.mobile.activePage.attr('id');
+	},
 
 	renderShopList : function() {
 		var formatDistance = function(value) {
@@ -124,7 +129,7 @@ var app = {
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
 		$.mobile.touchOverflowEnabled = false;
-		$.mobile.defaultPageTransition = 'none';
+		$.mobile.defaultPageTransition = 'flip';
 		$.mobile.defaultDialogTransition = 'none';
 		$.mobile.transitionFallbacks.slide = 'none';
 		$.mobile.transitionFallbacks.pop = 'none';
@@ -211,18 +216,34 @@ var app = {
 
 		$('.f1').each(function() {
 			$(this).bind('tap', function() {
-				$.mobile.changePage($("#home_page"), {
-					transition : ""
-				});
+				$.mobile.changePage($("#home_page"));
 			});
 		});
 
-		$('.f5').each(function() {
+		$('.f3').each(function() {
 			$(this).bind('tap', function() {
-				$('#map-canvas').html('');
-				$.mobile.changePage($("#page-harita"), {
-					transition : ""
-				});
+				//$('#map-canvas').html('');
+				app.updateCurrentMap = true;
+				$.mobile.changePage($("#page-harita"));
+			});
+		});
+
+		$('.fback').each(function() {
+			$(this).bind('tap', function() {
+				//$('#map-canvas').html('');
+				if (app.backPageId == "page-harita") {
+					app.updateCurrentMap = false;
+				}
+				var pageId = (app.backPageId != "") ? app.backPageId : "home_page";
+				app.backPageId = "";
+				$.mobile.changePage($("#" + pageId));
+			});
+		});
+
+		$('.f4').each(function() {
+			$(this).bind('tap', function() {
+				app.backPageId = app.currentPageId();
+				$.mobile.changePage($("#page-ayarlar"));
 			});
 		});
 
@@ -242,8 +263,8 @@ var app = {
 			//"display":"block"
 		});
 
-
 		startupSteps();
 		app.startAnim();
+		//detectCurrentLocation(true);
 	}
 };
