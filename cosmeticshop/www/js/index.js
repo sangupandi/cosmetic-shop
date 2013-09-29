@@ -257,6 +257,7 @@ var app = {
 					 		'My subject', 
 					 		'http://'+ serviceHost + '/image.jpg'
 					 		);
+					 		 window.plugins.socialsharing.share('My text');
 						alert("share screen closed");
 					}
 				});
