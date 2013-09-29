@@ -7,7 +7,7 @@
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
 	<preference name="fullscreen" value="true" />
-	<preference name="webviewbounce" value="true" />
+	<preference name="webviewbounce" value="false" />
 	<preference name="prerendered-icon" value="true" />
 	<preference name="stay-in-webview" value="true" />
 	<preference name="ios-statusbarstyle" value="black-opaque" />
@@ -19,6 +19,8 @@
 	<preference name="disable-cursor" value="false" />
 	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
+	<preference name="android-windowSoftInputMode" value="auto" />
+	<preference name="DisallowOverscroll" value="true" />
 
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="http://api.phonegap.com/1.0/device"/>
