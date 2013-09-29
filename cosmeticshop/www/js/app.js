@@ -48,6 +48,11 @@ function initSwiperData(_swiper) {
 	};
 
 	if (_swiper.swiperObject == null) {
+		$.mobile.loader.prototype.options.text = "loading";
+		$.mobile.loader.prototype.options.textVisible = false;
+		$.mobile.loader.prototype.options.theme = "a";
+		$.mobile.loader.prototype.options.html = "";
+
 		//var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";
 		//var svcurl = "http://91.201.39.21/Announcements.ashx";
 		var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=" + _swiper.categoryId;
@@ -57,9 +62,11 @@ function initSwiperData(_swiper) {
 			async : true,
 			//crossDomain: true,
 			success : function(result) {
+				$.mobile.loading('hide');
 				ajax.parseJSONP(result);
 			},
 			error : function(request, error) {
+				$.mobile.loading('hide');
 				alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 			}
 		});
@@ -319,7 +326,11 @@ var getShopList = function() {
 	};
 };
 function startupSteps() {
-	$.mobile.loading('show');
+	//$.mobile.loading('show');
+
+	$("#ani-page").bind("pageshow", function(event) {
+		//app.startAnim();
+	});
 
 	$("#home_page").bind("pageshow", function(event) {
 		// bu contentSize niye şaşıyor? bulamadım..
@@ -331,14 +342,7 @@ function startupSteps() {
 	});
 
 	$("#page-yeniurun").bind("pageshow", function(event) {
-		$.mobile.loader.prototype.options.text = "loading";
-		$.mobile.loader.prototype.options.textVisible = false;
-		$.mobile.loader.prototype.options.theme = "a";
-		$.mobile.loader.prototype.options.html = "";
-
 		initSwiperData(swiper2);
-
-		$.mobile.loading('hide');
 	});
 
 	$("#page-firsat").bind("pageshow", function(event) {
@@ -367,12 +371,11 @@ function startupSteps() {
 		}
 		getShopList();
 	});
-	
+
 	$("#page-ayarlar").bind("pageshow", function(event) {
 		//app.backPageId
-
 	});
-	
+
 	$("#m1 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-yeniurun"));
 	});

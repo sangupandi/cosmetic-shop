@@ -88,6 +88,7 @@ var app = {
 	},
 
 	startAnim : function() {
+		console.log("anim");
 		var contentHeight = getRealContentHeight();
 
 		/* starting animation */
@@ -97,16 +98,22 @@ var app = {
 			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
 		}, 1000, 'ease');
 
-		$('#ani-logo').fadeIn(2000);
-		/* end of animation */
-
-		/* show home page */
-		setTimeout(function() {
-			enlargeContent("home_page");
+		$('#ani-logo').fadeTo(2000, 1, function() {
+			console.log("opacity end");
 			$.mobile.changePage($("#home_page"), {
 				transition : "fade"
 			});
-		}, 3000);
+		});
+		/* end of animation */
+
+		/* show home page *
+		 setTimeout(function() {
+		 //enlargeContent("home_page");
+		 $.mobile.changePage($("#home_page"), {
+		 transition : "fade"
+		 });
+		 }, 3000);
+		 */
 
 	},
 
