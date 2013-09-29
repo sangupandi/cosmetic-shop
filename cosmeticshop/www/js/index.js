@@ -271,6 +271,10 @@ var app = {
 		});
 
 		startupSteps();
+
+		if (isPhoneGap())
+			navigator.splashscreen.hide();
+			
 		app.startAnim();
 		//detectCurrentLocation(true);
 	}
