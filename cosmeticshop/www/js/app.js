@@ -26,9 +26,6 @@ var swiper4 = new SwiperObject("swiper4", "pagination4", "swipe-data4", "swipe-c
 function initSwiperData(_swiper) {
 
 	var initSwiper = function() {
-		if (_swiper.swiperObjectId == 'swiper4' && $('#hp-pic').is(":visible")) {
-			$('#hp-pic').fadeOut(1500);
-		}
 		_swiper.swiperObject = $('#' + _swiper.swiperObjectId).swiper({
 			pagination : '#' + _swiper.paginationObjectId,
 			paginationClickable : true,
@@ -44,6 +41,11 @@ function initSwiperData(_swiper) {
 		});
 		if (_swiper.swipeContentArray && _swiper.swiperObjectId != 'swiper4') {
 			$('#' + _swiper.swipeContentElementId).html(_swiper.swipeContentArray[_swiper.swiperObject.activeLoopIndex]);
+		}
+		if (_swiper.swiperObjectId == 'swiper4' && $('#hp-pic').is(":visible")) {
+			$('#hp-pic').css({
+				"display" : "none"
+			});
 		}
 	};
 
@@ -252,6 +254,8 @@ function openInAppBrowser(url) {
 
 function goMap(latitude, longitude) {
 	var drawMap = function() {
+		app.backPageId = "page-harita";
+
 		$('#map-canvas').css({
 			"height" : getRealContentHeight() + "px"
 		});
@@ -350,17 +354,16 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
-		$('.theiframeid').css({
-			"width" : $(window).width + "px"
-		});
-
-		var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		if (!platform_iOS()) {
+		var pdfUrl = 'http://' + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		if (platform_iOS()) {
+			$('#page-katalog div[data-role="content"]').load(pdfUrl);
+		} else {
 			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+			$('.theiframeid').css({
+				"width" : $(window).width + "px"
+			});
+			$('.theiframeid').attr("src", pdfUrl);
 		}
-		$('.theiframeid').attr("src", pdfUrl);
-		
-		//$('#page-katalog div[data-role="content"]').load(pdfUrl);
 	});
 
 	$("#page-harita").bind("pageshow", function(event) {
