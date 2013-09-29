@@ -91,12 +91,14 @@ var app = {
 		console.log("anim");
 		var contentHeight = getRealContentHeight();
 
-		/* starting animation */
-		$('#ani-c').transition({
-			y : contentHeight / 2 + 'px'
-		}, 1000, 'ease').transition({
-			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
-		}, 1000, 'ease');
+		setTimeout(function() {
+			/* starting animation */
+			$('#ani-c').transition({
+				y : contentHeight / 2 + 'px'
+			}, 1000, 'ease').transition({
+				y : (contentHeight / 2) - (contentHeight / 15) + 'px'
+			}, 1000, 'ease');
+		}, 1);
 
 		$('#ani-logo').fadeTo(2000, 1, function() {
 			console.log("opacity end");
@@ -272,9 +274,9 @@ var app = {
 
 		startupSteps();
 
-		if (isPhoneGap())
+		if (! typeof navigator === "undefined")
 			navigator.splashscreen.hide();
-			
+
 		app.startAnim();
 		//detectCurrentLocation(true);
 	}
