@@ -106,8 +106,8 @@ var app = {
 		}, 1);
 
 		$('#ani-logo').fadeTo(3000, 1, function() {
-			//$.mobile.changePage($("#home_page"), { transition : "fade" });
-			debugFunc();
+			//debugFunc();
+			$.mobile.changePage($("#home_page"), { transition : "fade" });
 		});
 
 		/* end of animation */
