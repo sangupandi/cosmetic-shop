@@ -231,7 +231,9 @@ var app = {
 
 		$('.f2').each(function() {
 			$(this).bind('tap', function() {
+				alert("window.plugins.socialsharing.available");
 				window.plugins.socialsharing.available(function(isAvailable) {
+					alert("isAvailable:" + isAvailable ? "true": "false");
 					if (isAvailable) {/*
 						 // use a local image from inside the www folder:
 						 window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
@@ -249,11 +251,13 @@ var app = {
 						 window.plugins.socialsharing.share('My text', null, null);
 						 // use '' instead of null for pre-2.0 versions of this plugin
 						 */
+						alert("share screen showing");
 						 window.plugins.socialsharing.share(
 					 		'My text with a link: http://' + serviceHost, 
 					 		'My subject', 
 					 		'http://'+ serviceHost + '/image.jpg'
 					 		);
+						alert("share screen closed");
 					}
 				});
 			});
