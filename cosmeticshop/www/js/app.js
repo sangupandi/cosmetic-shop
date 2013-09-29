@@ -350,7 +350,7 @@ function startupSteps() {
 
 	$("#page-katalog").bind("pageshow", function(event) {
 		$('.theiframeid').css({
-			"height" : $(window).width + "px"
+			"width" : $(window).width + "px"
 		});
 
 		var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
