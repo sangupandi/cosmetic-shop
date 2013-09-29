@@ -450,31 +450,14 @@
 					<label> Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
 				</div>
 
-				<div class="settings-container">
-					<div data-role="fieldcontain">
-						<label for="ayar1">Yeni Ürünler:</label>
-						<select name="slider" id="ayar1" data-role="slider" onclick="app.putSetting('news', this.value);">
-							<option value="no">Hayır</option>
-							<option value="yes" selected="selected">Evet</option>
-						</select>
-					</div>
+				<label for="cbxSetting1">Yeni Ürünler</label>
+				<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
 
-					<div data-role="fieldcontain">
-						<label for="ayar2">Güncel Fırsatlar:</label>
-						<select name="slider" id="ayar2" data-role="slider">
-							<option value="no">Hayır</option>
-							<option value="yes" selected="selected">Evet</option>
-						</select>
-					</div>
+				<label for="cbxSetting2">Güncel Fırsatlar</label>
+				<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
 
-					<div data-role="fieldcontain">
-						<label for="ayar3">Güzellik Sırları:</label>
-						<select name="slider" id="ayar3" data-role="slider">
-							<option value="no">Hayır</option>
-							<option value="yes" selected="selected">Evet</option>
-						</select>
-					</div>
-				</div>
+				<label for="cbxSetting3">Güzellik Sırları</label>
+				<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
 
 			</div><!-- /content -->
 

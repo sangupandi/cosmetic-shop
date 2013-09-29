@@ -130,8 +130,9 @@ var app = {
 		window.localStorage.setItem(key, value);
 	},
 
-	getSetting : function(key) {
-		return window.localStorage.getItem(key);
+	getSetting : function(key, defaultValue) {
+		var ret = window.localStorage.getItem(key);
+		return (ret != null) ? ret : defaultValue;
 	},
 
 	// Update DOM on a Received Event
@@ -314,6 +315,10 @@ var app = {
 		});
 
 		startupSteps();
+
+		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
+		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
+		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
 
 		if (! typeof navigator === "undefined")
 			navigator.splashscreen.hide();
