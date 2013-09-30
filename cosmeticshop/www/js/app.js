@@ -335,6 +335,8 @@ function startupSteps() {
 
 	$("#ani-page").bind("pageshow", function(event) {
 		//app.startAnim();
+		if (! typeof navigator === "undefined")
+			navigator.splashscreen.hide();
 	});
 
 	$("#home_page").bind("pageshow", function(event) {

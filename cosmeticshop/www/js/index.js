@@ -325,9 +325,6 @@ var app = {
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
 		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
 
-		if (! typeof navigator === "undefined")
-			navigator.splashscreen.hide();
-
 		//$('#home_page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 
