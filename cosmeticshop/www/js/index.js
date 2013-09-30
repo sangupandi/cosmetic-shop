@@ -376,7 +376,7 @@ var app = {
 				"display" : "none",
 				"visibility" : "visible"
 			});
-			$('#swiper-home').fadeTo(500, 1);
+			$('#swiper-home').fadeTo(100, 1);
 			/*
 			 if ($('#hp-pic').is(":visible")) {
 
