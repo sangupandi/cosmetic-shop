@@ -333,8 +333,11 @@ var getShopList = function() {
 function startupSteps() {
 	//$.mobile.loading('show');
 	$("#ani-page").bind("pageshow", function(event) {
-		if (! typeof navigator === "undefined")
+		try {
+			//if (! typeof navigator === "undefined")
 			navigator.splashscreen.hide();
+		} catch(e) {
+		}
 		app.startAnim();
 	});
 
