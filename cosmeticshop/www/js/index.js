@@ -233,6 +233,13 @@ var app = {
 		 });
 		 */
 
+		/* set swiper image size (size: 535x332)*/
+		var swHeight = $(window).width() * 332 / 535;
+		$('.swiper-container').each(function() {
+			$(this).css({
+				"height" : swHeight + "px"
+			});
+		});
 		/* set swiper container height */
 		$("#swiper-home").css({
 			//"top" : "-" + homeLogoHeight + "px",
@@ -324,6 +331,7 @@ var app = {
 		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
 		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
+		$('#cbxSetting4').attr('checked', app.getSetting('set4', 'true') == 'true');
 
 		//$('#home_page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
