@@ -337,6 +337,7 @@ function startupSteps() {
 			//if (! typeof navigator === "undefined")
 			navigator.splashscreen.hide();
 		} catch(e) {
+			alert("hide error");
 		}
 		app.startAnim();
 	});
