@@ -332,11 +332,17 @@ var getShopList = function() {
 
 function startupSteps() {
 	//$.mobile.loading('show');
-
 	$("#ani-page").bind("pageshow", function(event) {
-		//app.startAnim();
-		if (! typeof navigator === "undefined")
+		try {
+			//if (! typeof navigator === "undefined")
+			console.log("closing");
+			alert("closing");
 			navigator.splashscreen.hide();
+		} catch(e) {
+			alert("close error");
+			console.log("close error");
+		}
+		app.startAnim();
 	});
 
 	$("#home_page").bind("pageshow", function(event) {

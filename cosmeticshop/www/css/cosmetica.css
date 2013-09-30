@@ -31,7 +31,10 @@ div[data-role="header"] img {
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
-#ani-page {
+#first-page div{
+	background-color: transparent;
+}
+#ani-page, #first-page {
 	background: #ec008c; /* Old browsers */
 	background: -moz-linear-gradient(top,  #ec008c 1%, #c11672 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ec008c), color-stop(100%,#c11672)); /* Chrome,Safari4+ */

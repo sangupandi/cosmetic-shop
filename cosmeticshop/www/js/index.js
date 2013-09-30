@@ -328,7 +328,10 @@ var app = {
 		//$('#home_page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 
-		app.startAnim();
+		$.mobile.changePage($("#ani-page"), {
+			transition : "none"
+		});
+
 		//detectCurrentLocation(true);
 	},
 
