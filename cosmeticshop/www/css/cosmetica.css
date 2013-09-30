@@ -32,7 +32,13 @@ div[data-role="header"] img {
 	box-sizing: border-box;
 }
 #ani-page {
-	 background-color: rgb(236, 0, 140);
+	background: #ec008c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ec008c 1%, #c11672 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ec008c), color-stop(100%,#c11672)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ec008c 1%,#c11672 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ec008c 1%,#c11672 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ec008c 1%,#c11672 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ec008c 1%,#c11672 100%); /* W3C */
 	/*
 	 background-color: #FF8604;
 	 background: url(../img/pembezemin.png) no-repeat center center fixed !important;
@@ -111,7 +117,7 @@ div[data-role="header"] img {
 #hp-pic {
 	position: absolute;
 	right: 0;
-	display:none;
+	display: none;
 }
 #btnTest {
 	position: absolute;
@@ -227,6 +233,6 @@ label {
 #page-form div[data-role="content"] {
 	overflow: scroll;
 }
-.settings-container{
+.settings-container {
 	text-align: center;
 }
