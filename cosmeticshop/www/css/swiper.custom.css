@@ -21,10 +21,18 @@
 	margin-bottom: 0;
 	line-height: 45px;
 }
+#swiper-home{
+	position: absolute;
+	top:0px;
+	z-index: 90;
+	visibility: hidden;
+	/*display: none;*/
+
+}
 .pagination {
 	text-align: center;
 }
-#pagination4.pagination {
+#pagination-home.pagination {
 	position: absolute;
 	bottom:10px;
 	width:100%;

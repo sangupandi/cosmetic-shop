@@ -342,7 +342,8 @@ function startupSteps() {
 		$('#home_page div[data-role="content"]').css({
 			"height" : "auto"
 		});
-		initSwiperData(swiper4);
+		app.initHomeSwiper();
+		//initSwiperData(swiper4);
 	});
 
 	$("#page-yeniurun").bind("pageshow", function(event) {
@@ -366,11 +367,11 @@ function startupSteps() {
 			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
 			var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
 			/*
-			$('.theiframeid').css({
-				"width" : $(window).width + "px"
-			});
-			$('.theiframeid').attr("src", pdfUrl);
-			*/
+			 $('.theiframeid').css({
+			 "width" : $(window).width + "px"
+			 });
+			 $('.theiframeid').attr("src", pdfUrl);
+			 */
 		}
 	});
 

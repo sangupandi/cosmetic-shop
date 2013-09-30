@@ -106,10 +106,12 @@ div[data-role="header"] img {
 #home-header-pic {
 	right: 0;
 	left: auto;
+	z-index: 99;
 }
 #hp-pic {
 	position: absolute;
 	right: 0;
+	display:none;
 }
 #btnTest {
 	position: absolute;

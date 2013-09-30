@@ -54,6 +54,8 @@ var app = {
 		return $.mobile.activePage.attr('id');
 	},
 
+	swHome : null,
+
 	renderShopList : function() {
 		var formatDistance = function(value) {
 			//if ( typeof value === undefined) {
@@ -96,21 +98,21 @@ var app = {
 
 		var contentHeight = getRealContentHeight();
 
-		$('#ani-logo').fadeTo(2000, 1, function() {
+		$('#ani-logo').fadeTo(1000, 1, function() {
 			//debugFunc();
 			setTimeout(function() {
 				$.mobile.changePage($("#home_page"), {
 					transition : "fade"
 				});
-			}, 2000);
+			}, 600);
 		});
 
 		/* starting animation */
 		$('#ani-c').transition({
 			y : contentHeight / 2 + 'px'
-		}, 1000, 'ease').transition({
+		}, 800, 'ease').transition({
 			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
-		}, 1000, 'ease');
+		}, 600, 'ease');
 
 		/* end of animation */
 
@@ -224,15 +226,17 @@ var app = {
 		});
 
 		/* set big picture container height */
-		$("#hp-pic").css({
-			//"top" : homeLogoHeight + "px",
-			"height" : homeContentHeight + "px"
-		});
+		/*
+		 $("#hp-pic").css({
+		 //"top" : homeLogoHeight + "px",
+		 "height" : homeContentHeight + "px"
+		 });
+		 */
 
 		/* set swiper container height */
-		$("#swiper4").css({
-			//"top" : homeLogoHeight + "px",
-			"height" : homeContentHeight + "px"
+		$("#swiper-home").css({
+			//"top" : "-" + homeLogoHeight + "px",
+			"height" : $(window).height() + "px"
 		});
 
 		initMenu('#left-menu img');
@@ -333,10 +337,11 @@ var app = {
 
 	localNotificationTrigger : function() {
 		var d = new Date();
-		d = d.getTime() + (60 * 1000)/10; // 6 second
+		d = d.getTime() + (60 * 1000) / 10;
+		// 6 second
 		//60 seconds from now
 		d = new Date(d);
-		
+
 		$('#debugLabel').html("adding notification");
 		window.plugins.localNotification.add({
 			date : d, // your set date object
@@ -357,5 +362,32 @@ var app = {
 			$('#debugLabel').html("I WAS IN THE BACKGROUND ID=" + id);
 		}
 
+	},
+
+	initHomeSwiper : function() {
+		if (app.swHome == null) {
+			app.swHome = $('#swiper-home').swiper({
+				pagination : '#pagination-home',
+				paginationClickable : true,
+				loop : true,
+				initialSlide : 0,
+			});
+			$('#swiper-home').css({
+				"display" : "none",
+				"visibility" : "visible"
+			});
+			$('#swiper-home').fadeTo(500, 1);
+			/*
+			 if ($('#hp-pic').is(":visible")) {
+
+			 $('#hp-pic').fadeTo(200, 0, function() {
+			 $('#swiper-home').css({
+			 "display" : "none",
+			 "visibility" : "visible"
+			 });
+			 $('#swiper-home').fadeTo(500, 1);
+			 });
+			 }*/
+		}
 	}
 };
