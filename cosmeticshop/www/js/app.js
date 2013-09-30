@@ -199,7 +199,7 @@ var detectCurrentLocation = function(highAccuracy) {
 
 	var onGeoSuccess = function(position) {
 		$("#location-info").html("Konum bilginiz saptandı.");
-		$("#location-info").fadeOut(2500);
+		$("#location-info").fadeOut(1000);
 
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		showCurrentLocation();
@@ -209,12 +209,12 @@ var detectCurrentLocation = function(highAccuracy) {
 	};
 
 	var onGeoFail = function(error) {
-		$("#location-info").fadeIn(500);
+		$("#location-info").fadeIn(200);
 		$("#location-info").html("Konum bilginize ulaşılamıyor.");
 	};
 
 	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
-		timeout : 5000,
+		timeout : 8000,
 		enableHighAccuracy : highAccuracy
 	});
 };
@@ -303,7 +303,7 @@ var getShopList = function() {
 		dataType : "jsonp",
 		async : true,
 		success : function(result) {
-			$('#shop-list .info').html('Mağaza listesi güncellendi.').fadeOut(5000);
+			$('#shop-list .info').html('Mağaza listesi güncellendi.').fadeOut(1000);
 			ajax.parseJSONP(result);
 		},
 		error : function(request, error) {
@@ -465,9 +465,9 @@ function startupSteps() {
 
 	$('#page-harita div[data-role="content"] .b1').bind('tap', function() {
 		if ($('#shop-list').is(":visible")) {
-			$('#shop-list').fadeOut(500);
+			$('#shop-list').fadeOut(200);
 		} else {
-			$('#shop-list').fadeIn(500);
+			$('#shop-list').fadeIn(200);
 		}
 	});
 	$('#page-harita div[data-role="content"] .b2').bind('tap', function() {
