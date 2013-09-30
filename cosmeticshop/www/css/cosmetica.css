@@ -31,7 +31,7 @@ div[data-role="header"] img {
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
-#first-page div{
+#first-page div {
 	background-color: transparent;
 }
 #ani-page, #first-page {
@@ -201,7 +201,6 @@ div[data-role="footer"] img {
 label {
 	color: #FFFFFF;
 }
-
 .ui-corner-all, .ui-checkbox .ui-btn, .ui-radio .ui-btn {
 	border-radius: 0 !important;
 }
@@ -231,7 +230,7 @@ label {
 #page-uygulama div[data-role="content"] .ui-block-b {
 	color: #fff;
 	padding-top: 2em;
-	font-size: larger;
+	/*font-size: larger;*/
 }
 #page-form div[data-role="content"] {
 	overflow: scroll;

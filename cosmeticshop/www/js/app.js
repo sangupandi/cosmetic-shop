@@ -330,6 +330,10 @@ var getShopList = function() {
 	};
 };
 
+function goPage(pageId) {
+	$.mobile.changePage($("#" + pageId));
+}
+
 function startupSteps() {
 	//$.mobile.loading('show');
 	$("#ani-page").bind("pageshow", function(event) {

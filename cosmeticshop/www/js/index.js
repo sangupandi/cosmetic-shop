@@ -326,8 +326,6 @@ var app = {
 			//"display":"block"
 		});
 
-		startupSteps();
-
 		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
 		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
@@ -336,6 +334,9 @@ var app = {
 		//$('#home_page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 
+		startupSteps();
+
+		/* start animation */
 		$.mobile.changePage($("#ani-page"), {
 			transition : "none"
 		});
@@ -379,6 +380,9 @@ var app = {
 				paginationClickable : true,
 				loop : true,
 				initialSlide : 0,
+				onSlideClick: function(control){
+					goPage(control.clickedSlide.getAttribute('page-id'));
+				}
 			});
 			$('#swiper-home').css({
 				"display" : "none",

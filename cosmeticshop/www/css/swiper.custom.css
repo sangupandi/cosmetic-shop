@@ -7,9 +7,8 @@
 }
 .swiper-container {
 	width: 100%;
-	height: 40%;
 	color: #fff;
-	text-align: center;	
+	text-align: center;
 }
 .swiper-slide {
 	height: auto;
@@ -21,9 +20,9 @@
 	margin-bottom: 0;
 	line-height: 45px;
 }
-#swiper-home{
+#swiper-home {
 	position: absolute;
-	top:0px;
+	top: 0px;
 	z-index: 90;
 	visibility: hidden;
 	/*display: none;*/
@@ -34,9 +33,9 @@
 }
 #pagination-home.pagination {
 	position: absolute;
-	bottom:10px;
-	width:100%;
-	z-index:20;
+	bottom: 10px;
+	width: 100%;
+	z-index: 20;
 	text-align: center;
 }
 .swiper-pagination-switch {
