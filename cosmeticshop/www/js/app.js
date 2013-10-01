@@ -309,6 +309,7 @@ function goPage(pageId) {
 }
 
 function startupSteps() {
+	console.log("startupSteps");
 	//$.mobile.loading('show');
 	$("#ani-page").bind("pageshow", function(event) {
 		try {
@@ -506,7 +507,6 @@ function startupSteps() {
 		});
 
 	} catch(e) {
-		console.warn(e);
 	}
 	
 	function startDl() {

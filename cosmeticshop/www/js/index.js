@@ -184,7 +184,7 @@ var app = {
 				$(this).bind('vmouseup', mousefunc);
 			});
 		};
-
+		console.log('receivedEvent :' + id);
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;

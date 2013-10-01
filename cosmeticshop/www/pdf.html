@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<!-- In production, only one script (pdf.js) is necessary -->
+		<!-- In production, change the content of PDFJS.workerSrc below -->
+		<script type="text/javascript" src="js/src/shared/util.js"></script>
+		<script type="text/javascript" src="js/src/shared/colorspace.js"></script>
+		<script type="text/javascript" src="js/src/shared/pattern.js"></script>
+		<script type="text/javascript" src="js/src/shared/function.js"></script>
+		<script type="text/javascript" src="js/src/shared/annotation.js"></script>
+		<script type="text/javascript" src="js/src/display/api.js"></script>
+		<script type="text/javascript" src="js/src/display/metadata.js"></script>
+		<script type="text/javascript" src="js/src/display/canvas.js"></script>
+		<script type="text/javascript" src="js/src/display/font_loader.js"></script>
+
+		<script type="text/javascript">
+			// Specify the main script used to create a new PDF.JS web worker.
+			// In production, change this to point to the combined `pdf.js` file.
+			PDFJS.workerSrc = 'js/src/worker_loader.js';
+		</script>
+		
+		<script type="text/javascript">
+			/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+			/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
+
+			//
+			// See README for overview
+			//
+
+			'use strict';
+
+			//
+			// Fetch the PDF document from the URL using promises
+			//
+			PDFJS.getDocument('cosmetica-insert-eylul.pdf').then(function(pdf) {
+				// Using promise to fetch the page
+				pdf.getPage(1).then(function(page) {
+					var scale = 1.5;
+					var viewport = page.getViewport(scale);
+
+					//
+					// Prepare canvas using PDF page dimensions
+					//
+					var canvas = document.getElementById('the-canvas');
+					var context = canvas.getContext('2d');
+					canvas.height = viewport.height;
+					canvas.width = viewport.width;
+
+					//
+					// Render PDF page into canvas context
+					//
+					var renderContext = {
+						canvasContext : context,
+						viewport : viewport
+					};
+					page.render(renderContext);
+				});
+			});
+
+		</script>
+	</head>
+
+	<body>
+		<canvas id="the-canvas" style="border:1px solid black;"></canvas>
+	</body>
+
+</html>
