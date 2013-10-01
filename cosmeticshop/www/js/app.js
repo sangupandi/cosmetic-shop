@@ -170,55 +170,6 @@ function getRealContentHeight(pageId) {
  };
  */
 
-/*
- * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
- * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
- */
-var showCurrentLocation = function() {
-	var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-	app.currentLocationMap = new google.maps.Map(document.getElementById('map-current'), {
-		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		center : (app.currentLocation == null) ? initialLocation : app.currentLocation,
-		zoom : 8
-	});
-
-	if (app.currentLocation != null) {
-		// Add an overlay to the map of current lat/lng
-		var marker = new google.maps.Marker({
-			position : app.currentLocation,
-			map : app.currentLocationMap,
-			title : "Buradasınız :)"
-		});
-		marker.setMap(app.currentLocationMap);
-		app.currentLocationMap.panTo(app.currentLocation);
-		app.currentLocationMap.setZoom(13);
-	}
-};
-
-var detectCurrentLocation = function(highAccuracy) {
-
-	var onGeoSuccess = function(position) {
-		$("#location-info").html("Konum bilginiz saptandı.");
-		$("#location-info").fadeOut(1000);
-
-		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		showCurrentLocation();
-		if (app.shopList.length > 0) {
-			app.recalculateDistances();
-		}
-	};
-
-	var onGeoFail = function(error) {
-		$("#location-info").fadeIn(200);
-		$("#location-info").html("Konum bilginize ulaşılamıyor.");
-	};
-
-	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
-		timeout : 8000,
-		enableHighAccuracy : highAccuracy
-	});
-};
-
 var openFrontCamera = function() {
 	var onCamSuccess = function(imageData) {
 		/* No action required */
@@ -252,41 +203,60 @@ function openInAppBrowser(url) {
 	}
 }
 
-function goMap(latitude, longitude) {
-	var drawMap = function() {
-		app.backPageId = "page-harita";
+var showCurrentLocation = function() {
+	try {
+		//console.log(app.currentLocation);
+		//$('#map').gmap({ 'center': app.currentLocation.lat() + ',' + app.currentLocation.lng() });
+		$('#map').gmap('option', 'center', app.currentLocation);
+		$('#map').gmap('option', 'zoom', 13);
+	} catch(e) {
+		console.warn(e);
+	}
+};
 
-		$('#map-canvas').css({
-			"height" : getRealContentHeight() + "px"
+var detectCurrentLocation = function(highAccuracy) {
+
+	var onGeoSuccess = function(position) {
+		$("#location-info").html("Konum bilginiz saptandı.");
+		$("#location-info").fadeOut(1000);
+
+		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var markers = $("#map").gmap('get', 'markers');
+		$('#map').gmap('get', 'markers > markerCurrent').setMap(null);
+
+		$('#map').gmap('addMarker', {
+			'id' : 'markerCurrent',
+			'position' : app.currentLocation.lat() + ',' + app.currentLocation.lng(),
+			'bounds' : false
+		}).click(function() {
+			self.openInfoWindow({
+				'content' : ''
+			}, this);
 		});
-		var shopLocation = new google.maps.LatLng(latitude, longitude);
 
-		map = new google.maps.Map(document.getElementById('map-canvas'), {
-			mapTypeId : google.maps.MapTypeId.ROADMAP,
-			center : shopLocation,
-			zoom : 16
-		});
-
-		// Add an overlay to the map of current lat/lng
-		var marker = new google.maps.Marker({
-			position : shopLocation,
-			map : map,
-			title : "Cosmetica"
-		});
-
-		marker.setMap(map);
-		/*
-		 map.panTo(any location);
-		 map.setZoom(16);
-		 */
+		showCurrentLocation();
+		app.recalculateDistances();
 	};
 
-	$("#map-page").unbind("pageshow", drawMap);
-	$("#map-page").bind("pageshow", drawMap);
+	var onGeoFail = function(error) {
+		$("#location-info").fadeIn(200);
+		$("#location-info").html("Konum bilginize ulaşılamıyor.");
+	};
 
-	$.mobile.changePage($("#map-page"), {
-		transition : "flip"
+	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
+		timeout : 8000,
+		enableHighAccuracy : highAccuracy
 	});
+};
+
+function goMap(latitude, longitude) {
+	if ($('#shop-list').is(":visible")) {
+		$('#shop-list').fadeOut(200);
+	}
+
+	var location = new google.maps.LatLng(latitude, longitude);
+	$('#map').gmap('option', 'center', location);
+	$('#map').gmap('option', 'zoom', 13);
 }
 
 var getShopList = function() {
@@ -386,9 +356,9 @@ function startupSteps() {
 
 	$("#page-harita").bind("pageshow", function(event) {
 		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
-		var t2 = $('#map-current').offset().top;
+		var t2 = $('#map').offset().top;
 		var h = getRealContentHeight("page-harita") - (t2 - t1);
-		$('#map-current').css({
+		$('#map').css({
 			"height" : h + "px"
 		});
 
@@ -397,13 +367,15 @@ function startupSteps() {
 			"height" : h + "px"
 		});
 
+		$('#map').gmap('refresh');
+
 		if (app.currentLocation == null) {
 			detectCurrentLocation(true);
 		}
-
-		if (app.updateCurrentMap) {
-			showCurrentLocation();
-		}
+		/*
+		 if (app.updateCurrentMap) {
+		 showCurrentLocation();
+		 }*/
 		getShopList();
 	});
 

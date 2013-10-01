@@ -136,9 +136,6 @@ div[data-role="header"] img {
 	padding: 0;
 	overflow: hidden;
 }
-#map-current {
-	height: 100%;
-}
 #page-harita .ui-grid-a img {
 	display: block;
 }

@@ -48,6 +48,8 @@ var app = {
 	nearestShop : null,
 	currentLocation : null,
 	currentLocationMap : null,
+	map : null,
+	mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
 	updateCurrentMap : true,
 	backPageId : "",
 	currentPageId : function() {
@@ -55,6 +57,26 @@ var app = {
 	},
 
 	swHome : null,
+
+	addMarkers : function() {
+		if (app.shopList.length > 0) {
+			$.each(app.shopList, function() {
+				//var markers = $("#map").gmap('get', 'markers');
+				$('#map').gmap('addMarker', {
+					//'id' : 'markerCurrent',
+					'position' : this.latitude + ',' + this.longitude,
+					'bounds' : false,
+					'title' : this.caption,
+					'icon' : 'http://' + serviceHost + '/files/cosmetica_marker.png'
+				}).click(function() {
+					self.openInfoWindow({
+						'content' : ''//this.caption
+					}, this);
+				});
+			});
+
+		}
+	},
 
 	renderShopList : function() {
 		var formatDistance = function(value) {
@@ -72,6 +94,8 @@ var app = {
 				tmp = tmp + String.format(app.shopListTemplate, this.caption, this.address, formatDistance(this.distance), this.latitude, this.longitude);
 				$(app.shopListSelector).html(tmp);
 			});
+
+			app.addMarkers();
 		}
 	},
 
@@ -104,6 +128,26 @@ var app = {
 				$.mobile.changePage($("#home_page"), {
 					transition : "fade"
 				});
+
+				// init map first time
+				var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
+				$('#map').gmap({
+					'center' : initialLocation
+				});
+				//console.log(initialLocation);
+
+				$('#map').gmap().bind('init', function(ev, map) {
+					$('#map').gmap('addMarker', {
+						'id' : 'markerCurrent',
+						'position' : initialLocation.lat() + ',' + initialLocation.lng(),
+						'bounds' : false
+					}).click(function() {
+						self.openInfoWindow({
+							'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
+						}, this);
+					});
+				});
+
 			}, 600);
 		});
 
@@ -113,22 +157,11 @@ var app = {
 		}, 800, 'ease').transition({
 			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
 		}, 600, 'ease');
-
 		/* end of animation */
-
-		/* show home page *
-		 setTimeout(function() {
-		 //enlargeContent("home_page");
-		 $.mobile.changePage($("#home_page"), {
-		 transition : "fade"
-		 });
-		 }, 3000);
-		 */
-
 	},
 
 	putSetting : function(key, value) {
-		console.log(key + " : " + value);
+		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
 	},
 

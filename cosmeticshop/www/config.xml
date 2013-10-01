@@ -63,7 +63,8 @@
 	-->
 	<access origin="*" />
 	<access origin="http://213.74.186.117/files/*" />
-
+	<access origin="http://auth.cloudmade.com/token/* />
+	
 	<!--
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Capture" value="org.apache.cordova.Capture"/>
