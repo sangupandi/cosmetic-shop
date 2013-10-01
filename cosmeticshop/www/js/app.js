@@ -533,6 +533,8 @@ function startupSteps() {
 
 		ft.download(uri, downloadPath, function(entry) {
 			statusDom.innerHTML = "Downloaded<br />" + downloadPath;
+			$('#page-katalog div[data-role="content"]').load(downloadPath);
+			
 			/*
 			var media = new Media(entry.fullPath, null, function(e) {
 				alert(JSON.stringify(e));
