@@ -161,7 +161,7 @@ var app = {
 		$.mobile.transitionFallbacks.slide = 'none';
 		$.mobile.transitionFallbacks.pop = 'none';
 		$.mobile.buttonMarkup.hoverDelay = 0;
-		$.mobile.phonegapNavigationEnabled = false;
+		$.mobile.phonegapNavigationEnabled = true;
 
 		/* header height (size: 565x107) */
 		app.headerHeight = $(window).width() * 107 / 565;
@@ -293,13 +293,20 @@ var app = {
 
 		$('.fback').each(function() {
 			$(this).bind('tap', function() {
-				//$('#map-canvas').html('');
-				if (app.backPageId == "page-harita") {
-					app.updateCurrentMap = false;
+				/*
+				 //$('#map-canvas').html('');
+				 if (app.backPageId == "page-harita") {
+				 app.updateCurrentMap = false;
+				 }
+				 var pageId = (app.backPageId != "") ? app.backPageId : "home_page";
+				 app.backPageId = "";
+				 $.mobile.changePage($("#" + pageId));
+				 */
+				try {
+					navigator.app.backHistory();
+				} catch(e) {
+					window.history.back();
 				}
-				var pageId = (app.backPageId != "") ? app.backPageId : "home_page";
-				app.backPageId = "";
-				$.mobile.changePage($("#" + pageId));
 			});
 		});
 
@@ -380,7 +387,7 @@ var app = {
 				paginationClickable : true,
 				loop : true,
 				initialSlide : 0,
-				onSlideClick: function(control){
+				onSlideClick : function(control) {
 					goPage(control.clickedSlide.getAttribute('page-id'));
 				}
 			});
