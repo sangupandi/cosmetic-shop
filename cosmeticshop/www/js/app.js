@@ -532,11 +532,13 @@ function startupSteps() {
 		};
 
 		ft.download(uri, downloadPath, function(entry) {
-			statusDom.innerHTML = "";
+			statusDom.innerHTML = "Downloaded<br />" + downloadPath;
+			/*
 			var media = new Media(entry.fullPath, null, function(e) {
 				alert(JSON.stringify(e));
 			});
 			media.play();
+			*/
 
 		}, function(error) {
 			alert('Crap something went wrong...');
