@@ -35,9 +35,13 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		app.receivedEvent('deviceready');
+		myApp.receivedEvent('deviceready');
 	},
-
+	// Update DOM on a Received Event
+	receivedEvent : function(id) {
+		console.log("content deviceready");
+	},
+	
 	headerHeight : 0,
 	footerHeight : 0,
 	contentHeight : 0,
@@ -123,8 +127,7 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
-	// Update DOM on a Received Event
-	receivedEvent : function(id) {
+	start : function() {
 		var initMenu = function(menuSelector) {
 			var mousefunc = function(event, ui) {
 				var src = $(this).attr("src");
@@ -137,7 +140,6 @@ var app = {
 				$(this).bind('vmouseup', mousefunc);
 			});
 		};
-		console.log('receivedEvent :' + id);
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
@@ -312,11 +314,11 @@ var app = {
 		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 
 		startupSteps();
-
+		/*
 		$.mobile.changePage($("#home_page"), {
-			transition : "fade"
+		transition : "fade"
 		});
-
+		*/
 		// init map first time
 		var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
 		$('#map').gmap({

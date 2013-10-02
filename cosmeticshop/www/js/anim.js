@@ -1,4 +1,4 @@
-var app = {
+var myApp = {
 	// Application Constructor
 	initialize : function() {
 		this.bindEvents();
@@ -15,11 +15,11 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		app.receivedEvent('deviceready');
+		myApp.receivedEvent('deviceready');
 	},
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
-		console.log('receivedEvent :' + id);
+		console.log("anim deviceready");
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
@@ -51,7 +51,7 @@ var app = {
 			"top" : (cHeight / 2) + "px"
 		});
 
-		app.startAnim();
+		myApp.startAnim();
 	},
 
 	startAnim : function() {
@@ -64,7 +64,11 @@ var app = {
 		}, 600, 'ease');
 		/* end of animation */
 		$('#ani-logo').fadeTo(1000, 1, function() {
-			setTimeout("window.location.href='content.html';", 1000);
+			setTimeout(function() {
+				window.location.href = "content.html";
+				//$.mobile.changePage("content.html", {				transition : "fade"				});
+				
+			}, 1000);
 		});
 	}
 };
