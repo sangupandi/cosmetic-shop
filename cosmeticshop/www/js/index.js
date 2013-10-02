@@ -122,9 +122,12 @@ var app = {
 
 		var contentHeight = getRealContentHeight();
 
+		console.log("started ani-logo fade");
 		$('#ani-logo').fadeTo(1000, 1, function() {
+			console.log("finished ani-logo fade");
 			//debugFunc();
 			setTimeout(function() {
+				console.log("changing home_page");
 				$.mobile.changePage($("#home_page"), {
 					transition : "fade"
 				});
@@ -147,16 +150,19 @@ var app = {
 						}, this);
 					});
 				});
+				console.log("finished init map first time");
 
 			}, 600);
 		});
 
 		/* starting animation */
+		console.log("started ani-c transition");
 		$('#ani-c').transition({
 			y : contentHeight / 2 + 'px'
 		}, 800, 'ease').transition({
 			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
 		}, 600, 'ease');
+		console.log("finished ani-c transition");
 		/* end of animation */
 	},
 
@@ -184,7 +190,174 @@ var app = {
 				$(this).bind('vmouseup', mousefunc);
 			});
 		};
+
+		var initAnimPageLayout = function() {
+			/* set #ani-page content size */
+			$('#ani-page div[data-role="content"]').css({
+				"height" : $(window).height() + "px"
+			});
+			// 923x1391 c.png
+			// 640x1136 iPhone5
+			var cWidth = $(window).width();
+			var cHeight = cWidth * 1391 / 923;
+
+			$('#ani-c').css({
+				"width" : cWidth + "px",
+				"height" : cHeight + "px",
+				"top" : "-" + cHeight + "px"
+			});
+
+			$('#ani-logo').css({
+				"top" : "-" + (cHeight / 2) + "px"
+				//"display":"block"
+			});
+
+		};
+
+		var initLayoutSizes = function() {
+			/* header height (size: 565x107) */
+			app.headerHeight = $(window).width() * 107 / 565;
+
+			/* footer height (size: 600x80) */
+			app.footerHeight = $(window).width() * 80 / 600;
+
+			/* content height */
+			app.contentHeight = $(window).height() - app.headerHeight - app.footerHeight;
+
+			/* enlarge contents size */
+			$('div[data-role="content"]').each(function() {
+				$(this).css({
+					"height" : app.contentHeight + "px"
+				});
+			});
+
+			/* set size of headers */
+			$('div[data-role="header"]').each(function() {
+				$(this).css({
+					"height" : app.headerHeight + "px"
+				});
+			});
+
+			/* set #home_page menu size (size: 147x901) */
+			//var contentHeight = getRealContentHeight();
+			//var menuWidth = ($(window).height() * 106 / 901) * 147 / 106;
+			var menuWidth = $(window).height() * 147 / 901;
+			$("#left-menu").css({
+				"width" : menuWidth + "px"
+			});
+
+			/* set #home_page logo size (size: 457x108) (design width: 601px)*/
+			var homeLogoWidth = $(window).width() * 457 / 601;
+			$("#hp-header img").css({
+				"width" : homeLogoWidth + "px"
+			});
+
+			/* set #home_page header size */
+			var homeLogoHeight = homeLogoWidth * 108 / 457;
+			$('#home_page div[data-role="header"]').css({
+				"height" : homeLogoHeight + "px"
+			});
+
+			/* set #home_page content size */
+			var homeContentHeight = $(window).height() - homeLogoHeight;
+			$('#home_page div[data-role="content"]').css({
+				"height" : homeContentHeight + "px"
+			});
+
+			/* set big picture container height */
+			/*
+			 $("#hp-pic").css({
+			 //"top" : homeLogoHeight + "px",
+			 "height" : homeContentHeight + "px"
+			 });
+			 */
+
+			/* set swiper image size (size: 535x332)*/
+			var swHeight = $(window).width() * 332 / 535;
+			$('.swiper-container').each(function() {
+				$(this).css({
+					"height" : swHeight + "px"
+				});
+			});
+			/* set swiper container height */
+			$("#swiper-home").css({
+				//"top" : "-" + homeLogoHeight + "px",
+				"height" : $(window).height() + "px"
+			});
+		};
+
+		var initFooterMenuTapActions = function() {
+			$('.f1').each(function() {
+				$(this).bind('tap', function() {
+					$.mobile.changePage($("#home_page"));
+				});
+			});
+
+			$('.f2').each(function() {
+				$(this).bind('tap', function() {
+					window.plugins.socialsharing.available(function(isAvailable) {
+						if (isAvailable) {/*
+							// use a local image from inside the www folder:
+							window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
+							// succes/error callback params may be added as 4th and 5th param
+							// .. or a local image from anywhere else (if permitted):
+							// local-iOS:
+							window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', '/Users/username/Library/Application Support/iPhone/6.1/Applications/25A1E7CF-079F-438D-823B-55C6F8CD2DC0/Documents/.nl.x-services.appname/pics/img.jpg');
+							// local-Android:
+							window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'file:///storage/emulated/0/nl.xservices.testapp/5359/Photos/16832/Thumb.jpg');
+							// .. or an image from the internet:
+							window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'http://domain.com/image.jpg');
+							// .. or only text:
+							window.plugins.socialsharing.share('My text');
+							// .. (or like this):
+							window.plugins.socialsharing.share('My text', null, null);
+							// use '' instead of null for pre-2.0 versions of this plugin
+							*/
+							//window.plugins.socialsharing.share('My text with a link: http://' + serviceHost);
+							window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+						}
+					});
+				});
+			});
+
+			$('.f3').each(function() {
+				$(this).bind('tap', function() {
+					//$('#map-canvas').html('');
+					app.updateCurrentMap = true;
+					$.mobile.changePage($("#page-harita"));
+				});
+			});
+
+			$('.fback').each(function() {
+				$(this).bind('tap', function() {
+					/*
+					 //$('#map-canvas').html('');
+					 if (app.backPageId == "page-harita") {
+					 app.updateCurrentMap = false;
+					 }
+					 var pageId = (app.backPageId != "") ? app.backPageId : "home_page";
+					 app.backPageId = "";
+					 $.mobile.changePage($("#" + pageId));
+					 */
+					try {
+						navigator.app.backHistory();
+					} catch(e) {
+						window.history.back();
+					}
+				});
+			});
+
+			$('.f4').each(function() {
+				$(this).bind('tap', function() {
+					app.backPageId = app.currentPageId();
+					$.mobile.changePage($("#page-ayarlar"));
+				});
+			});
+		};
+
+		// receivedEvent ------------------------------------------------------------------------------
 		console.log('receivedEvent :' + id);
+
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
@@ -196,191 +369,35 @@ var app = {
 		$.mobile.buttonMarkup.hoverDelay = 0;
 		$.mobile.phonegapNavigationEnabled = true;
 
-		/* header height (size: 565x107) */
-		app.headerHeight = $(window).width() * 107 / 565;
-
-		/* footer height (size: 600x80) */
-		app.footerHeight = $(window).width() * 80 / 600;
-
-		/* content height */
-		app.contentHeight = $(window).height() - app.headerHeight - app.footerHeight;
-
-		/* enlarge contents size */
-		$('div[data-role="content"]').each(function() {
-			$(this).css({
-				"height" : app.contentHeight + "px"
+		initAnimPageLayout();
+		setTimeout(function() {
+			/* close splashScreen and start animation */
+			$.mobile.changePage($("#ani-page"), {
+				transition : "none"
 			});
-		});
+		}, 0);
 
-		/* set size of headers */
-		$('div[data-role="header"]').each(function() {
-			$(this).css({
-				"height" : app.headerHeight + "px"
-			});
-		});
-
-		/* set position of header's image *
-		 $('div[data-role="header"] img').each(function() {
-		 $(this).css({
-		 "width" : $(window).width + "px"
-		 });
-		 });
-		 */
-
-		/* set #ani-page content size */
-		$('#ani-page div[data-role="content"]').css({
-			"height" : $(window).height() + "px"
-		});
-
-		/* set #home_page menu size (size: 147x901) */
-		//var contentHeight = getRealContentHeight();
-		//var menuWidth = ($(window).height() * 106 / 901) * 147 / 106;
-		var menuWidth = $(window).height() * 147 / 901;
-		$("#left-menu").css({
-			"width" : menuWidth + "px"
-		});
-
-		/* set #home_page logo size (size: 457x108) (design width: 601px)*/
-		var homeLogoWidth = $(window).width() * 457 / 601;
-		$("#hp-header img").css({
-			"width" : homeLogoWidth + "px"
-		});
-
-		/* set #home_page header size */
-		var homeLogoHeight = homeLogoWidth * 108 / 457;
-		$('#home_page div[data-role="header"]').css({
-			"height" : homeLogoHeight + "px"
-		});
-
-		/* set #home_page content size */
-		var homeContentHeight = $(window).height() - homeLogoHeight;
-		$('#home_page div[data-role="content"]').css({
-			"height" : homeContentHeight + "px"
-		});
-
-		/* set big picture container height */
-		/*
-		 $("#hp-pic").css({
-		 //"top" : homeLogoHeight + "px",
-		 "height" : homeContentHeight + "px"
-		 });
-		 */
-
-		/* set swiper image size (size: 535x332)*/
-		var swHeight = $(window).width() * 332 / 535;
-		$('.swiper-container').each(function() {
-			$(this).css({
-				"height" : swHeight + "px"
-			});
-		});
-		/* set swiper container height */
-		$("#swiper-home").css({
-			//"top" : "-" + homeLogoHeight + "px",
-			"height" : $(window).height() + "px"
-		});
+		initLayoutSizes();
+		console.log("finish initLayoutSizes");
 
 		initMenu('#left-menu img');
 		initMenu('.fm');
 		initMenu('.sm');
+		console.log("finish initMenu");
 
-		$('.f1').each(function() {
-			$(this).bind('tap', function() {
-				$.mobile.changePage($("#home_page"));
-			});
-		});
-
-		$('.f2').each(function() {
-			$(this).bind('tap', function() {
-				window.plugins.socialsharing.available(function(isAvailable) {
-					if (isAvailable) {/*
-						// use a local image from inside the www folder:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
-						// succes/error callback params may be added as 4th and 5th param
-						// .. or a local image from anywhere else (if permitted):
-						// local-iOS:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', '/Users/username/Library/Application Support/iPhone/6.1/Applications/25A1E7CF-079F-438D-823B-55C6F8CD2DC0/Documents/.nl.x-services.appname/pics/img.jpg');
-						// local-Android:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'file:///storage/emulated/0/nl.xservices.testapp/5359/Photos/16832/Thumb.jpg');
-						// .. or an image from the internet:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'http://domain.com/image.jpg');
-						// .. or only text:
-						window.plugins.socialsharing.share('My text');
-						// .. (or like this):
-						window.plugins.socialsharing.share('My text', null, null);
-						// use '' instead of null for pre-2.0 versions of this plugin
-						*/
-						//window.plugins.socialsharing.share('My text with a link: http://' + serviceHost);
-						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
-					}
-				});
-			});
-		});
-
-		$('.f3').each(function() {
-			$(this).bind('tap', function() {
-				//$('#map-canvas').html('');
-				app.updateCurrentMap = true;
-				$.mobile.changePage($("#page-harita"));
-			});
-		});
-
-		$('.fback').each(function() {
-			$(this).bind('tap', function() {
-				/*
-				 //$('#map-canvas').html('');
-				 if (app.backPageId == "page-harita") {
-				 app.updateCurrentMap = false;
-				 }
-				 var pageId = (app.backPageId != "") ? app.backPageId : "home_page";
-				 app.backPageId = "";
-				 $.mobile.changePage($("#" + pageId));
-				 */
-				try {
-					navigator.app.backHistory();
-				} catch(e) {
-					window.history.back();
-				}
-			});
-		});
-
-		$('.f4').each(function() {
-			$(this).bind('tap', function() {
-				app.backPageId = app.currentPageId();
-				$.mobile.changePage($("#page-ayarlar"));
-			});
-		});
-
-		// 923x1391 c.png
-		// 640x1136 iPhone5
-		var cWidth = $(window).width();
-		var cHeight = cWidth * 1391 / 923;
-
-		$('#ani-c').css({
-			"width" : cWidth + "px",
-			"height" : cHeight + "px",
-			"top" : "-" + cHeight + "px"
-		});
-
-		$('#ani-logo').css({
-			"top" : "-" + (cHeight / 2) + "px"
-			//"display":"block"
-		});
+		initFooterMenuTapActions();
+		console.log("finish initFooterMenuTapActions");
 
 		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
 		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
 		$('#cbxSetting4').attr('checked', app.getSetting('set4', 'true') == 'true');
+		console.log("finish app.getSetting(s)");
 
 		//$('#home_page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
-		$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
+		//$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
 
 		startupSteps();
-
-		/* start animation */
-		$.mobile.changePage($("#ani-page"), {
-			transition : "none"
-		});
-
 		//detectCurrentLocation(true);
 	},
 
