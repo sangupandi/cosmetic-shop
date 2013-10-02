@@ -312,26 +312,48 @@
 				<img src="img/header_20.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
-				<label for="tbAdSoyad" data-theme="b" >Adı Soyadı</label>
-				<input type="text" id="tbAdSoyad" value="" data-theme="b" />
+			<div class="customer-form" data-role="content">
 
-				<label for="tbDogumTar">Doğum Tarihi</label>
-				<input type="date" id="tbDogumTar" value="" data-theme="b" />
+				<div class="customer-field">
+					<label for="tbAdSoyad" data-theme="b" >Adı Soyadı</label>
+					<input type="text" id="tbAdSoyad" value="" data-enhance="false" data-role="none"/>
+				</div>
 
-				<label for="tbTel">Gsm/Tel No</label>
-				<input type="number" pattern="[0-9]*" id="tbTel" value="" data-theme="b" />
+				<div class="customer-field">
+					<label for="tbDogumTar">Doğum Tarihi</label>
+					<input type="date" id="tbDogumTar" value="" data-enhance="false" data-role="none"/>
+				</div>
 
-				<label for="cbxSms">Sms ile bilgilendir</label>
-				<input type="checkbox" id="cbxSms" data-theme="b" data-mini="true" data-iconpos="right" checked="checked"/>
+				<div class="customer-field">
+					<label for="tbTel">Gsm/Tel No</label>
+					<input type="number" pattern="[0-9]*" id="tbTel" value="" data-enhance="false" data-role="none"/>
 
-				<label for="tbEmail">E-mail adresi</label>
-				<input type="email" id="tbEmail" value="" data-theme="b" />
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label for="cbxSms">Sms ile bilgilendir</label>
+						</div>
+						<div class="ui-block-b">
+							<input type="checkbox" id="cbxSms" data-enhance="false" data-role="none" data-role="none" checked="checked"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div>
 
-				<label for="cbxEmail">E-mail ile bilgilendir</label>
-				<input type="checkbox" id="cbxEmail"  data-theme="b" data-mini="true" data-iconpos="right" checked="checked"/>
+				<div class="customer-field">
+					<label for="tbEmail">E-mail adresi</label>
+					<input type="email" id="tbEmail" value="" data-enhance="false" data-role="none"/>
+
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label for="cbxEmail">E-mail ile bilgilendir</label>
+						</div>
+						<div class="ui-block-b">
+							<input type="checkbox" id="cbxEmail"  data-enhance="false" data-role="none" checked="checked"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div>
+
 				<p>
-					<input type="button" value="Gönder" data-theme="a" />
+					<input type="button" value="Gönder" data-theme="b" />
 				</p>
 			</div>
 

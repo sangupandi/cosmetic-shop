@@ -229,16 +229,38 @@ label {
 	padding-top: 2em;
 	/*font-size: larger;*/
 }
-#page-form div[data-role="content"] {
-	overflow: scroll;
-}
 .settings-container {
 	text-align: center;
 }
 
-#status{
-	color:#4390EE;
+#status {
+	color: #4390EE;
 }
-#pdfObject{
-	display:none;
+#pdfObject {
+	display: none;
+}
+.customer-form {
+	text-shadow: none;
+	overflow: scroll;
+}
+.customer-form input {
+	width: 100%;
+}
+.customer-form label {
+	white-space: nowrap;
+	margin-bottom: 2px;
+}
+.customer-form .ui-block-a label {
+	color: #A4A4A4;
+	font-size: smaller;
+}
+.customer-form .ui-block-b {
+	text-align: right;
+}
+.customer-form .ui-block-b input {
+	width: auto;
+}
+.customer-field {
+	width:100%;
+	margin-bottom: 8px;
 }
