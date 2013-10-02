@@ -34,7 +34,7 @@ div[data-role="header"] img {
 #first-page div {
 	background-color: transparent;
 }
-#ani-page, #first-page {
+#first-page {
 	background: #ec008c; /* Old browsers */
 	background: -moz-linear-gradient(top,  #ec008c 1%, #c11672 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ec008c), color-stop(100%,#c11672)); /* Chrome,Safari4+ */
@@ -42,41 +42,8 @@ div[data-role="header"] img {
 	background: -o-linear-gradient(top,  #ec008c 1%,#c11672 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #ec008c 1%,#c11672 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #ec008c 1%,#c11672 100%); /* W3C */
-	/*
-	 background-color: #FF8604;
-	 background: url(../img/pembezemin.png) no-repeat center center fixed !important;
-	 background-size: cover;
-	 -webkit-background-size: cover;
-	 -moz-background-size: cover;
-	 -o-background-size: cover;
-	 */
 	padding: 0;
 	border-style: none;
-}
-.pembezemin-container {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #009F9F;
-}
-#ani-page div.ui-content {
-	background-color: transparent;
-	padding: 0;
-	margin: 0;
-	overflow: hidden;
-	border-style: none;
-}
-#ani-c {
-	background: url(../img/cc.png);
-	background-size: cover;
-	position: relative;
-}
-#ani-logo {
-	display: none;
-	text-align: center;
-	position: relative;
 }
 /* ------------------------- */
 #home_page {

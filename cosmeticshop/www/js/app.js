@@ -308,26 +308,20 @@ function goPage(pageId) {
 	$.mobile.changePage($("#" + pageId));
 }
 
+function homeInit() {
+	// bu contentSize niye şaşıyor? bulamadım..
+	$('#home_page div[data-role="content"]').css({
+		"height" : "auto"
+	});
+	app.initHomeSwiper();
+}
+
 function startupSteps() {
 	console.log("startupSteps");
 	//$.mobile.loading('show');
-	$("#ani-page").bind("pageshow", function(event) {
-		try {
-			//if (! typeof navigator === "undefined")
-			navigator.splashscreen.hide();
-		} catch(e) {
-			//alert("hide error");
-		}
-		app.startAnim();
-	});
 
 	$("#home_page").bind("pageshow", function(event) {
-		// bu contentSize niye şaşıyor? bulamadım..
-		$('#home_page div[data-role="content"]').css({
-			"height" : "auto"
-		});
-		app.initHomeSwiper();
-		//initSwiperData(swiper4);
+		homeInit();
 	});
 
 	$("#page-yeniurun").bind("pageshow", function(event) {
@@ -344,21 +338,21 @@ function startupSteps() {
 
 	$("#page-katalog").bind("pageshow", function(event) {
 		/*
-		var pdfUrl = 'http://' + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		if (platform_iOS()) {
-			var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-			//$('#page-katalog div[data-role="content"]').load(pdfUrl);
-		} else {
-			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-			var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-			/*
-			 $('.theiframeid').css({
-			 "width" : $(window).width + "px"
-			 });
-			 $('.theiframeid').attr("src", pdfUrl);
-			 *
-		}
-		*/
+		 var pdfUrl = 'http://' + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		 if (platform_iOS()) {
+		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+		 //$('#page-katalog div[data-role="content"]').load(pdfUrl);
+		 } else {
+		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+		 /*
+		 $('.theiframeid').css({
+		 "width" : $(window).width + "px"
+		 });
+		 $('.theiframeid').attr("src", pdfUrl);
+		 *
+		 }
+		 */
 	});
 
 	$("#page-harita").bind("pageshow", function(event) {
@@ -508,7 +502,7 @@ function startupSteps() {
 
 	} catch(e) {
 	}
-	
+
 	function startDl() {
 		buttonDom.setAttribute("disabled", "disabled");
 
@@ -534,13 +528,13 @@ function startupSteps() {
 		ft.download(uri, downloadPath, function(entry) {
 			statusDom.innerHTML = "Downloaded<br />" + downloadPath;
 			$('#page-katalog div[data-role="content"]').load(downloadPath);
-			
+
 			/*
-			var media = new Media(entry.fullPath, null, function(e) {
-				alert(JSON.stringify(e));
-			});
-			media.play();
-			*/
+			 var media = new Media(entry.fullPath, null, function(e) {
+			 alert(JSON.stringify(e));
+			 });
+			 media.play();
+			 */
 
 		}, function(error) {
 			alert('Crap something went wrong...');
