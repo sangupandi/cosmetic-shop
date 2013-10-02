@@ -113,53 +113,6 @@ var app = {
 		}
 	},
 
-	startAnim : function() {
-		var debugFunc = function() {
-			var c = $('#ani-page div[data-role="content"]');
-			var s = '[h:' + c.height() + ' , w:' + c.width() + '] [sh:' + $(window).height() + ' , sw:' + $(window).width() + ']';
-			alert(s);
-		};
-
-		var contentHeight = getRealContentHeight();
-
-		$('#ani-logo').fadeTo(1000, 1, function() {
-			//debugFunc();
-			setTimeout(function() {
-				$.mobile.changePage($("#home_page"), {
-					transition : "fade"
-				});
-
-				// init map first time
-				var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-				$('#map').gmap({
-					'center' : initialLocation
-				});
-				//console.log(initialLocation);
-
-				$('#map').gmap().bind('init', function(ev, map) {
-					$('#map').gmap('addMarker', {
-						'id' : 'markerCurrent',
-						'position' : initialLocation.lat() + ',' + initialLocation.lng(),
-						'bounds' : false
-					}).click(function() {
-						self.openInfoWindow({
-							'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
-						}, this);
-					});
-				});
-
-			}, 600);
-		});
-
-		/* starting animation */
-		$('#ani-c').transition({
-			y : contentHeight / 2 + 'px'
-		}, 800, 'ease').transition({
-			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
-		}, 600, 'ease');
-		/* end of animation */
-	},
-
 	putSetting : function(key, value) {
 		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
@@ -220,17 +173,12 @@ var app = {
 		});
 
 		/* set position of header's image *
-		 $('div[data-role="header"] img').each(function() {
-		 $(this).css({
-		 "width" : $(window).width + "px"
-		 });
-		 });
-		 */
-
-		/* set #ani-page content size */
-		$('#ani-page div[data-role="content"]').css({
-			"height" : $(window).height() + "px"
+		$('div[data-role="header"] img').each(function() {
+		$(this).css({
+		"width" : $(window).width + "px"
 		});
+		});
+		*/
 
 		/* set #home_page menu size (size: 147x901) */
 		//var contentHeight = getRealContentHeight();
@@ -355,17 +303,6 @@ var app = {
 		var cWidth = $(window).width();
 		var cHeight = cWidth * 1391 / 923;
 
-		$('#ani-c').css({
-			"width" : cWidth + "px",
-			"height" : cHeight + "px",
-			"top" : "-" + cHeight + "px"
-		});
-
-		$('#ani-logo').css({
-			"top" : "-" + (cHeight / 2) + "px"
-			//"display":"block"
-		});
-
 		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
 		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
@@ -376,9 +313,27 @@ var app = {
 
 		startupSteps();
 
-		/* start animation */
-		$.mobile.changePage($("#ani-page"), {
-			transition : "none"
+		$.mobile.changePage($("#home_page"), {
+			transition : "fade"
+		});
+
+		// init map first time
+		var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
+		$('#map').gmap({
+			'center' : initialLocation
+		});
+		//console.log(initialLocation);
+
+		$('#map').gmap().bind('init', function(ev, map) {
+			$('#map').gmap('addMarker', {
+				'id' : 'markerCurrent',
+				'position' : initialLocation.lat() + ',' + initialLocation.lng(),
+				'bounds' : false
+			}).click(function() {
+				self.openInfoWindow({
+					'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
+				}, this);
+			});
 		});
 
 		//detectCurrentLocation(true);

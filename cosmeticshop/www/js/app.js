@@ -311,15 +311,6 @@ function goPage(pageId) {
 function startupSteps() {
 	console.log("startupSteps");
 	//$.mobile.loading('show');
-	$("#ani-page").bind("pageshow", function(event) {
-		try {
-			//if (! typeof navigator === "undefined")
-			navigator.splashscreen.hide();
-		} catch(e) {
-			//alert("hide error");
-		}
-		app.startAnim();
-	});
 
 	$("#home_page").bind("pageshow", function(event) {
 		// bu contentSize niye şaşıyor? bulamadım..
