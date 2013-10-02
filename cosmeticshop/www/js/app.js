@@ -346,6 +346,7 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
+		
 		$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight);
 		try {
 			//step one is to request a file system
@@ -402,7 +403,9 @@ function startupSteps() {
 				});
 
 				//$('#page-katalog div[data-role="content"]').load(downloadPath);
-				$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight).attr('data', downloadPath);
+				var ref = window.open(downloadPath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
+
+				//$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight).attr('data', downloadPath);
 
 				/*
 				 var media = new Media(entry.fullPath, null, function(e) {
@@ -416,21 +419,21 @@ function startupSteps() {
 		}
 
 		/*
-		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		 if (platform_iOS()) {
-		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-		 //$('#page-katalog div[data-role="content"]').load(pdfUrl);
-		 } else {
-		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-		 /*
-		 $('.theiframeid').css({
-		 "width" : $(window).width + "px"
-		 });
-		 $('.theiframeid').attr("src", pdfUrl);
-		 *
-		 }
-		 */
+		var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		if (platform_iOS()) {
+			//var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+			//$('#page-katalog div[data-role="content"]').load(pdfUrl);
+		} else {
+			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+			/*
+			 $('.theiframeid').css({
+			 "width" : $(window).width + "px"
+			 });
+			 $('.theiframeid').attr("src", pdfUrl);
+			 *-/
+		}
+		var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
+		*/
 	});
 
 	$("#page-harita").bind("pageshow", function(event) {
