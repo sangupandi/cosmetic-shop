@@ -239,3 +239,6 @@ label {
 #status{
 	color:#4390EE;
 }
+#pdfObject{
+	display:none;
+}

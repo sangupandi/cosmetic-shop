@@ -19,7 +19,7 @@ function platform_Android() {
 	return (getDeviceType() == "Android");
 }
 
-var serviceHost = "213.74.186.114";
+var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var map = null;
 
 var swiper1 = new SwiperObject("swiper1", "pagination1", "swipe-data1", "swipe-content1", 5);
@@ -61,7 +61,7 @@ function initSwiperData(_swiper) {
 
 		//var svcurl = "http://feeds.delicious.com/v2/json/popular?callback=hello";
 		//var svcurl = "http://91.201.39.21/Announcements.ashx";
-		var svcurl = "http://" + serviceHost + "/Announcements.ashx?cat=" + _swiper.categoryId;
+		var svcurl = serviceHost + "/Announcements.ashx?cat=" + _swiper.categoryId;
 		$.ajax({
 			url : svcurl,
 			dataType : "jsonp",
@@ -271,7 +271,7 @@ var getShopList = function() {
 	app.shopListTemplate = $(selector).html();
 	$(selector).html("");
 
-	var svcurl = "http://" + serviceHost + "/Shops.ashx";
+	var svcurl = serviceHost + "/Shops.ashx";
 	$.ajax({
 		url : svcurl,
 		dataType : "jsonp",
@@ -350,6 +350,7 @@ function startupSteps() {
 		try {
 			//step one is to request a file system
 			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fs) {
+				$('#download-container').fadeTo(100, 1);
 				fileSystem = fs;
 
 				buttonDom = document.querySelector('#startDl');
@@ -363,13 +364,17 @@ function startupSteps() {
 			});
 
 		} catch(e) {
+			$('#download-container').fadeTo(1000, 0).css({
+				"display" : "none"
+			});
+
 		}
 
 		function startDl() {
 			buttonDom.setAttribute("disabled", "disabled");
 
 			var ft = new FileTransfer();
-			var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+			var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
 			var uri = encodeURI(pdfUrl);
 
 			var downloadPath = fileSystem.root.fullPath + "/eylul.pdf";
@@ -392,7 +397,9 @@ function startupSteps() {
 			ft.download(uri, downloadPath, function(entry) {
 				statusDom.innerHTML = "Downloaded<br />" + downloadPath;
 
-				$('#download-container').fadeTo(100, 0);
+				$('#download-container').fadeTo(100, 0).css({
+					"display" : "none"
+				});
 
 				//$('#page-katalog div[data-role="content"]').load(downloadPath);
 				$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight).attr('data', downloadPath);
@@ -409,7 +416,7 @@ function startupSteps() {
 		}
 
 		/*
-		 var pdfUrl = 'http://' + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
 		 if (platform_iOS()) {
 		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
 		 //$('#page-katalog div[data-role="content"]').load(pdfUrl);
@@ -470,7 +477,7 @@ function startupSteps() {
 	$("#m4 img").click(function() {
 		$.mobile.changePage($("#page-katalog"));
 		/*
-		 var pdfUrl = "http://" + serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
 		 if (!platform_iOS()) {
 		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
 		 }
