@@ -43,26 +43,13 @@
 	<gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
 	<gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
 	<gap:splash gap:platform="ios" height="640" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="1136" />
-	<!--
-	<gap:splash gap:platform="ios" height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
-	<gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
-	-->
 
-	<!--
-	<gap:platform name="webos" />
-	<gap:platform name="symbian" />
-	<gap:platform name="blackberry" />
-	<gap:platform name="winphone" />
-	-->
 	<gap:platform name="android" />
 	<gap:platform name="ios" />
 
-	<!--
 	<access origin="http://127.0.0.1*" />
-	<access origin="http://feeds.delicious.com*" />
-	-->
-	<access origin="*" />
 	<access origin="http://213.74.186.117/files/*" />
+	<access origin="*" />
 	
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<!--<plugin name="Capture" value="org.apache.cordova.Capture"/>-->
