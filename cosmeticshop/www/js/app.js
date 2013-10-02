@@ -19,7 +19,7 @@ function platform_Android() {
 	return (getDeviceType() == "Android");
 }
 
-var serviceHost = "213.74.186.117";
+var serviceHost = "213.74.186.114";
 var map = null;
 
 var swiper1 = new SwiperObject("swiper1", "pagination1", "swipe-data1", "swipe-content1", 5);
@@ -346,6 +346,7 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
+		$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight);
 		try {
 			//step one is to request a file system
 			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fs) {
@@ -376,6 +377,8 @@ function startupSteps() {
 			ft.onprogress = function(progressEvent) {
 				if (progressEvent.lengthComputable) {
 					var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+					if (platform_Android())
+						perc = perc / 2;
 					statusDom.innerHTML = perc + "% loaded...";
 				} else {
 					if (statusDom.innerHTML == "") {
@@ -388,7 +391,11 @@ function startupSteps() {
 
 			ft.download(uri, downloadPath, function(entry) {
 				statusDom.innerHTML = "Downloaded<br />" + downloadPath;
-				$('#page-katalog div[data-role="content"]').load(downloadPath);
+
+				$('#download-container').fadeTo(100, 0);
+
+				//$('#page-katalog div[data-role="content"]').load(downloadPath);
+				$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight).attr('data', downloadPath);
 
 				/*
 				 var media = new Media(entry.fullPath, null, function(e) {

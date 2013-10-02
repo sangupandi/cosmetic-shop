@@ -5,7 +5,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="myerli">
 		<meta charset="utf-8">
-		
+
 		<!--<meta name="viewport" content="width=device-width; initial-scale=1.0">-->
 		<!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -202,7 +202,7 @@
 			<div data-role="content" class="xxpdf-content theiframewrap">
 
 				<!-- download pdf -->
-				<div>
+				<div id="download-container">
 					<img src="img/Adobe-PDF.gif" width="30%">
 					<p>
 						<button id="startDl" disabled>
@@ -211,7 +211,7 @@
 					</p>
 					<div id="status"></div>
 				</div>
-
+				<object id="pdfObject" width="400" height="400" data="cosmetica-insert-eylul.pdf"></object>
 				<!-- iframe content --
 				<iframe id="theiframeid" class="theiframeid" src="" name="theiframeid" scrolling="yes" frameborder="0"></iframe>
 				-->
@@ -475,7 +475,7 @@
 
 		</div><!-- /page -->
 
-		<script type="text/javascript">		
+		<script type="text/javascript">
 			app.initialize();
 		</script>
 	</body>
