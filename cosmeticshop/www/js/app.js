@@ -100,6 +100,7 @@ function initSwiperData(_swiper) {
 function refreshCatalogueArea() {
 	try {
 		var cataloguePath = app.getSetting("cataloguePath", "");
+		alert(cataloguePath);
 
 		var openPdf = function() {
 			window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
@@ -147,6 +148,7 @@ function initCatalogueDownload() {
 
 		ft.download(uri, downloadPath, function(entry) {
 			// download finished
+			alert(downloadPath);
 			app.setSetting("cataloguePath", downloadPath);
 			refreshCatalogueArea();
 			/*
