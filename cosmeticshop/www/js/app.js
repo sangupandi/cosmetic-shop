@@ -98,21 +98,25 @@ function initSwiperData(_swiper) {
 }
 
 function refreshCatalogueArea() {
-	var cataloguePath = app.getSetting("cataloguePath", "");
+	try {
+		var cataloguePath = app.getSetting("cataloguePath", "");
 
-	var openPdf = function() {
-		window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
-	};
+		var openPdf = function() {
+			window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
+		};
 
-	$('#show-catalogue img').unbind("tap", openPdf);
+		$('#show-catalogue img').unbind("tap", openPdf);
 
-	if (cataloguePath == "") {
-		$('#download-catalogue').show();
-		$('#show-catalogue').hide();
-	} else {
-		$('#download-catalogue').hide();
-		$('#show-catalogue').show();
-		$('#show-catalogue img').bind("tap", openPdf);
+		if (cataloguePath == "") {
+			$('#download-catalogue').show();
+			$('#show-catalogue').hide();
+		} else {
+			$('#download-catalogue').hide();
+			$('#show-catalogue').show();
+			$('#show-catalogue img').bind("tap", openPdf);
+		}
+	} catch(e) {
+		alert(e);
 	}
 }
 
