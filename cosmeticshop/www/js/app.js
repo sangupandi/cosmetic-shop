@@ -100,7 +100,7 @@ function initSwiperData(_swiper) {
 function refreshCatalogueArea() {
 	try {
 		var cataloguePath = app.getSetting("cataloguePath", "");
-		alert(cataloguePath);
+		//lert(cataloguePath);
 
 		var openPdf = function() {
 			window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
@@ -148,8 +148,8 @@ function initCatalogueDownload() {
 
 		ft.download(uri, downloadPath, function(entry) {
 			// download finished
-			alert(downloadPath);
-			app.setSetting("cataloguePath", downloadPath);
+			//alert(downloadPath);
+			app.putSetting("cataloguePath", downloadPath);
 			refreshCatalogueArea();
 			/*
 			 var media = new Media(entry.fullPath, null, function(e) {
