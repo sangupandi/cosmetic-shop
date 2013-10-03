@@ -97,6 +97,85 @@ function initSwiperData(_swiper) {
 	};
 }
 
+function refreshCatalogueArea() {
+	var cataloguePath = app.getSetting("cataloguePath", "");
+
+	var openPdf = function() {
+		window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
+	};
+
+	$('#show-catalogue img').unbind("tap", openPdf);
+
+	if (cataloguePath == "") {
+		$('#download-catalogue').show();
+		$('#show-catalogue').hide();
+	} else {
+		$('#download-catalogue').hide();
+		$('#show-catalogue').show();
+		$('#show-catalogue img').bind("tap", openPdf);
+	}
+}
+
+function initCatalogueDownload() {
+	var startDl = function() {
+		buttonDom.setAttribute("disabled", "disabled");
+
+		var ft = new FileTransfer();
+		var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		var uri = encodeURI(pdfUrl);
+
+		var downloadPath = fileSystem.root.fullPath + "/eylul.pdf";
+
+		ft.onprogress = function(progressEvent) {
+			if (progressEvent.lengthComputable) {
+				var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+				if (platform_Android())
+					perc = perc / 2;
+				statusDom.innerHTML = perc + "% loaded...";
+			} else {
+				if (statusDom.innerHTML == "") {
+					statusDom.innerHTML = "Loading";
+				} else {
+					statusDom.innerHTML += ".";
+				}
+			}
+		};
+
+		ft.download(uri, downloadPath, function(entry) {
+			// download finished
+			app.setSetting("cataloguePath", downloadPath);
+			refreshCatalogueArea();
+			/*
+			 var media = new Media(entry.fullPath, null, function(e) {
+			 alert(JSON.stringify(e));
+			 });
+			 media.play();
+			 */
+		}, function(error) {
+			alert('Crap something went wrong...');
+			refreshCatalogueArea();
+		});
+	};
+
+	try {
+		//step one is to request a file system
+		window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fs) {
+			fileSystem = fs;
+
+			buttonDom = document.querySelector('#startDl');
+			buttonDom.addEventListener('touchend', startDl, false);
+			buttonDom.removeAttribute("disabled");
+
+			statusDom = document.querySelector('#status');
+		}, function(e) {
+			alert('failed to get fs');
+			alert(JSON.stringify(e));
+		});
+	} catch(e) {
+		alert(e);
+	}
+}
+
 function resizeMyContent() {
 	var pageId = $.mobile.activePage.attr('id');
 	enlargeContent(pageId);
@@ -346,94 +425,24 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
-		
-		$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight);
-		try {
-			//step one is to request a file system
-			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fs) {
-				$('#download-container').fadeTo(100, 1);
-				fileSystem = fs;
-
-				buttonDom = document.querySelector('#startDl');
-				buttonDom.addEventListener('touchend', startDl, false);
-				buttonDom.removeAttribute("disabled");
-
-				statusDom = document.querySelector('#status');
-			}, function(e) {
-				alert('failed to get fs');
-				alert(JSON.stringify(e));
-			});
-
-		} catch(e) {
-			$('#download-container').fadeTo(1000, 0).css({
-				"display" : "none"
-			});
-
-		}
-
-		function startDl() {
-			buttonDom.setAttribute("disabled", "disabled");
-
-			var ft = new FileTransfer();
-			var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-			var uri = encodeURI(pdfUrl);
-
-			var downloadPath = fileSystem.root.fullPath + "/eylul.pdf";
-
-			ft.onprogress = function(progressEvent) {
-				if (progressEvent.lengthComputable) {
-					var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-					if (platform_Android())
-						perc = perc / 2;
-					statusDom.innerHTML = perc + "% loaded...";
-				} else {
-					if (statusDom.innerHTML == "") {
-						statusDom.innerHTML = "Loading";
-					} else {
-						statusDom.innerHTML += ".";
-					}
-				}
-			};
-
-			ft.download(uri, downloadPath, function(entry) {
-				statusDom.innerHTML = "Downloaded<br />" + downloadPath;
-
-				$('#download-container').fadeTo(100, 0).css({
-					"display" : "none"
-				});
-
-				//$('#page-katalog div[data-role="content"]').load(downloadPath);
-				var ref = window.open(downloadPath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
-
-				//$('#pdfObject').attr('width', $(window).width()).attr('height', app.contentHeight).attr('data', downloadPath);
-
-				/*
-				 var media = new Media(entry.fullPath, null, function(e) {
-				 alert(JSON.stringify(e));
-				 });
-				 media.play();
-				 */
-			}, function(error) {
-				alert('Crap something went wrong...');
-			});
-		}
+		refreshCatalogueArea();
 
 		/*
-		var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		if (platform_iOS()) {
-			//var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-			//$('#page-katalog div[data-role="content"]').load(pdfUrl);
-		} else {
-			pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-			/*
-			 $('.theiframeid').css({
-			 "width" : $(window).width + "px"
-			 });
-			 $('.theiframeid').attr("src", pdfUrl);
-			 *-/
-		}
-		var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
-		*/
+		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
+		 if (platform_iOS()) {
+		 //var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
+		 //$('#page-katalog div[data-role="content"]').load(pdfUrl);
+		 } else {
+		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
+		 /*
+		 $('.theiframeid').css({
+		 "width" : $(window).width + "px"
+		 });
+		 $('.theiframeid').attr("src", pdfUrl);
+		 *-/
+		 }
+		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
+		 */
 	});
 
 	$("#page-harita").bind("pageshow", function(event) {
@@ -566,4 +575,5 @@ function startupSteps() {
 		});
 	});
 
+	initCatalogueDownload();
 }

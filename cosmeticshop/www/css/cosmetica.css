@@ -261,6 +261,10 @@ label {
 	width: auto;
 }
 .customer-field {
-	width:100%;
+	width: 100%;
 	margin-bottom: 8px;
+}
+#download-catalogue, #show-catalogue {
+	display: none;
+	text-align: center;
 }
