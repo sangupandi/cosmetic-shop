@@ -98,6 +98,8 @@ function initSwiperData(_swiper) {
 }
 
 function refreshCatalogueArea() {
+	//if ios then download else use googleDocs
+
 	try {
 		var cataloguePath = app.getSetting("cataloguePath", "");
 		//lert(cataloguePath);
@@ -178,7 +180,8 @@ function initCatalogueDownload() {
 			alert(JSON.stringify(e));
 		});
 	} catch(e) {
-		alert(e);
+		//alert(e);
+		console.warn(e);
 	}
 }
 
@@ -394,6 +397,8 @@ function goPage(pageId) {
 }
 
 function startupSteps() {
+	glog.step('startupSteps');
+
 	console.log("startupSteps");
 	//$.mobile.loading('show');
 
@@ -581,5 +586,18 @@ function startupSteps() {
 		});
 	});
 
-	initCatalogueDownload();
+	if (platform_iOS()) {
+		initCatalogueDownload();
+	}
+	glog.step('startupSteps');
+}
+
+function shareDebugLog() {
+	console.log($('#tbDebugger').val());
+	window.plugins.socialsharing.available(function(isAvailable) {
+		if (isAvailable) {
+			//window.plugins.socialsharing.share('My text with a link: serviceHost);
+			window.plugins.socialsharing.share("Debugger :" + $('#tbDebugger').val() + ":<br/>" + glog.logString);
+		}
+	});
 }

@@ -470,16 +470,21 @@
 				</div>
 
 				<label for="cbxSetting1">Yeni Ürünler</label>
-				<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
+				<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
 
 				<label for="cbxSetting2">Güncel Fırsatlar</label>
-				<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
+				<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
 
 				<label for="cbxSetting3">Güzellik Sırları</label>
-				<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
+				<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
 
 				<label for="cbxSetting4">İndirim Kataloğu</label>
-				<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="true" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
+				<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
+
+				<label for="tbDebugger">Adınız</label>
+				<input type="text" id="tbDebugger" data-theme="b" data-mini="false"/>
+
+				<button onclick="shareDebugLog();">Send Debug Log</button>
 
 			</div><!-- /content -->
 

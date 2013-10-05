@@ -18,24 +18,75 @@ function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _di
 	this.distance = _distance;
 }
 
+var glog = {
+	durations : {},
+	
+	logString: "",
+
+	getDuration : function(processName) {
+		var dateStart = glog.durations[processName + "_s"];
+		var dateFinish = glog.durations[processName + "_e"];
+		return dateFinish - dateStart;
+	},
+
+	fmtDate : function(dateValue) {
+		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", 
+			dateValue.getFullYear(),
+			dateValue.getMonth() + 1,
+			dateValue.getDate(),
+			dateValue.getHours(),
+			dateValue.getMinutes(),
+			dateValue.getSeconds(),
+			dateValue.getMilliseconds()
+			);
+	},
+
+	step : function(processName) {
+		if (glog.durations[processName + "_s"] == null) {
+			glog.durations[processName + "_s"] = new Date();
+			glog.log(processName + "STARTED at " + glog.fmtDate(glog.durations[processName + "_s"]));
+		} else {
+			glog.durations[processName + "_e"] = new Date();
+			glog.log(processName + "FINISHED at " + glog.fmtDate(glog.durations[processName + "_e"]));
+			glog.warn(processName + "DURATIONS : " + glog.getDuration(processName) + "(ms)");
+		}
+	},
+
+	log : function(msg) {
+		glog.logString += msg + "<br/>";
+		console.log(msg);
+	},
+	
+	warn: function(msg) {
+		glog.logString += msg + "<br/>";
+		console.warn(msg);
+	}
+};
+
 var app = {
 	// Application Constructor
 	initialize : function() {
+		glog.step("initialize");
 		this.bindEvents();
+		glog.step("initialize");
 	},
 	// Bind Event Listeners
 	//
 	// Bind any events that are required on startup. Common events are:
 	// 'load', 'deviceready', 'offline', and 'online'.
 	bindEvents : function() {
+		glog.step("bindEvents");
 		document.addEventListener('deviceready', this.onDeviceReady, false);
+		glog.step("bindEvents");
 	},
 	// deviceready Event Handler
 	//
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
+		glog.step("onDeviceReady");
 		app.receivedEvent('deviceready');
+		glog.step("onDeviceReady");
 	},
 
 	headerHeight : 0,
@@ -59,6 +110,7 @@ var app = {
 	swHome : null,
 
 	addMarkers : function() {
+		glog.step("addMarkers");
 		if (app.shopList.length > 0) {
 			$.each(app.shopList, function() {
 				//var markers = $("#map").gmap('get', 'markers');
@@ -74,11 +126,12 @@ var app = {
 					}, this);
 				});
 			});
-
 		}
+		glog.step("addMarkers");
 	},
 
 	renderShopList : function() {
+		glog.step("renderShopList");
 		var formatDistance = function(value) {
 			//if ( typeof value === undefined) {
 			if (value == null) {
@@ -97,9 +150,11 @@ var app = {
 
 			app.addMarkers();
 		}
+		glog.step("renderShopList");
 	},
 
 	recalculateDistances : function() {
+		glog.step("recalculateDistances");
 		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
 			app.nearestShop = null;
 			$.each(app.shopList, function() {
@@ -111,9 +166,11 @@ var app = {
 			});
 			app.renderShopList();
 		}
+		glog.step("recalculateDistances");
 	},
 
 	startAnim : function() {
+		glog.step("startAnim");
 		var debugFunc = function() {
 			var c = $('#ani-page div[data-role="content"]');
 			var s = '[h:' + c.height() + ' , w:' + c.width() + '] [sh:' + $(window).height() + ' , sw:' + $(window).width() + ']';
@@ -127,12 +184,15 @@ var app = {
 			console.log("finished ani-logo fade");
 			//debugFunc();
 			setTimeout(function() {
+				glog.step("--changing home_page");
 				console.log("changing home_page");
 				$.mobile.changePage($("#home_page"), {
 					transition : "fade"
 				});
+				glog.step("--changing home_page");
 
 				// init map first time
+				glog.step("--init map first time");
 				var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
 				$('#map').gmap({
 					'center' : initialLocation
@@ -151,7 +211,7 @@ var app = {
 					});
 				});
 				console.log("finished init map first time");
-
+				glog.step("--init map first time");
 			}, 600);
 		});
 
@@ -164,6 +224,7 @@ var app = {
 		}, 600, 'ease');
 		console.log("finished ani-c transition");
 		/* end of animation */
+		glog.step("startAnim");
 	},
 
 	putSetting : function(key, value) {
@@ -179,6 +240,8 @@ var app = {
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		var initMenu = function(menuSelector) {
+			glog.step("initMenu");
+
 			var mousefunc = function(event, ui) {
 				var src = $(this).attr("src");
 				var src2 = $(this).attr("src2");
@@ -189,9 +252,11 @@ var app = {
 				$(this).bind('vmousedown', mousefunc);
 				$(this).bind('vmouseup', mousefunc);
 			});
+			glog.step("initMenu");
 		};
 
 		var initAnimPageLayout = function() {
+			glog.step("initAnimPageLayout");
 			/* set #ani-page content size */
 			$('#ani-page div[data-role="content"]').css({
 				"height" : $(window).height() + "px"
@@ -211,10 +276,11 @@ var app = {
 				"top" : "-" + (cHeight / 2) + "px"
 				//"display":"block"
 			});
-
+			glog.step("initAnimPageLayout");
 		};
 
 		var initLayoutSizes = function() {
+			glog.step("initLayoutSizes");
 			/* header height (size: 565x107) */
 			app.headerHeight = $(window).width() * 107 / 565;
 
@@ -284,9 +350,11 @@ var app = {
 				//"top" : "-" + homeLogoHeight + "px",
 				"height" : $(window).height() + "px"
 			});
+			glog.step("initLayoutSizes");
 		};
 
 		var initFooterMenuTapActions = function() {
+			glog.step("initFooterMenuTapActions");
 			$('.f1').each(function() {
 				$(this).bind('tap', function() {
 					$.mobile.changePage($("#home_page"));
@@ -353,9 +421,11 @@ var app = {
 					$.mobile.changePage($("#page-ayarlar"));
 				});
 			});
+			glog.step("initFooterMenuTapActions");
 		};
 
 		// receivedEvent ------------------------------------------------------------------------------
+		glog.step('receivedEvent :' + id);
 		console.log('receivedEvent :' + id);
 
 		$.support.cors = true;
@@ -399,6 +469,7 @@ var app = {
 
 		startupSteps();
 		//detectCurrentLocation(true);
+		glog.step('receivedEvent :' + id);
 	},
 
 	localNotificationTrigger : function() {
@@ -431,6 +502,7 @@ var app = {
 	},
 
 	initHomeSwiper : function() {
+		glog.step('initHomeSwiper');
 		if (app.swHome == null) {
 			app.swHome = $('#swiper-home').swiper({
 				pagination : '#pagination-home',
@@ -458,5 +530,6 @@ var app = {
 			 });
 			 }*/
 		}
+		glog.step('initHomeSwiper');
 	}
 };
