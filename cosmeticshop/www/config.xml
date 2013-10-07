@@ -9,6 +9,7 @@
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">
 		GTech Mobile Team
 	</author>
+	<preference name="phonegap-version" value="3.0.0" />
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
