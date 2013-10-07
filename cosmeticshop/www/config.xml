@@ -9,7 +9,7 @@
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">
 		GTech Mobile Team
 	</author>
-	<preference name="phonegap-version" value="3.0.0" />
+	<preference name="phonegap-version" value="2.9.0" />
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
@@ -36,13 +36,13 @@
 	<feature name="SplashScreen" value="org.apache.cordova.core.SplashScreen" />
 	<feature name="InAppBrowser" value="org.apache.cordova.core.InAppBrowser" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="org.apache.cordova.core.device-orientation" />
-	<!--
 	<gap:plugin name="nl.x-services.plugins.socialsharing"/>
-	<gap:plugin name="nl.x-services.plugins.socialsharing" version="3.0" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
-	<plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+	<!--
+	<gap:plugin name="org.apache.cordova.core.device-orientation" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="3.0" />
+	<plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
