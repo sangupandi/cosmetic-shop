@@ -18,10 +18,42 @@ function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _di
 	this.distance = _distance;
 }
 
+var preloadImages = {
+	//images : {},
+	load : function() {
+		var svcurl = serviceHost + "/Preload.ashx";
+		$.ajax({
+			url : svcurl,
+			dataType : "jsonp",
+			async : true,
+			success : function(result) {
+				$.mobile.loading('hide');
+				ajax.parseJSONP(result);
+			},
+			error : function(request, error) {
+				$.mobile.loading('hide');
+				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			}
+		});
+
+		var ajax = {
+			parseJSONP : function(result) {
+				//var image = new Image();
+				$.each(result, function(i, row) {
+					//var preload = ['/stackoverflow/1.jpg', '/stackoverflow/2.jpg'];
+					var image = new Image();
+					image.src = row.Url;
+				});
+			}
+		};
+
+	}
+};
+
 var glog = {
 	durations : {},
-	
-	logString: "",
+
+	logString : "",
 
 	getDuration : function(processName) {
 		var dateStart = glog.durations[processName + "_s"];
@@ -30,15 +62,7 @@ var glog = {
 	},
 
 	fmtDate : function(dateValue) {
-		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", 
-			dateValue.getFullYear(),
-			dateValue.getMonth() + 1,
-			dateValue.getDate(),
-			dateValue.getHours(),
-			dateValue.getMinutes(),
-			dateValue.getSeconds(),
-			dateValue.getMilliseconds()
-			);
+		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", dateValue.getFullYear(), dateValue.getMonth() + 1, dateValue.getDate(), dateValue.getHours(), dateValue.getMinutes(), dateValue.getSeconds(), dateValue.getMilliseconds());
 	},
 
 	step : function(processName) {
@@ -56,8 +80,8 @@ var glog = {
 		glog.logString += msg + "<br/>";
 		console.log(msg);
 	},
-	
-	warn: function(msg) {
+
+	warn : function(msg) {
 		glog.logString += msg + "<br/>";
 		console.warn(msg);
 	}
@@ -107,6 +131,52 @@ var app = {
 		return $.mobile.activePage.attr('id');
 	},
 
+	firstInit : true,
+	firstInitialize : function() {
+		if (!app.firstInit) {
+			return;
+		}
+		app.firstInit = true;
+
+		preloadImages.load();
+		
+		if (app.mapApiReady && !app.mapInitialized)
+			app.initMap();
+
+		// get online scripts
+		//getScript('https://maps.googleapis.com/maps/api/js?v=3&sensor=true&libraries=geometry', app.mapApiReady);
+	},
+
+	mapInitialized : false,
+	mapApiReady : false,
+	onMapApiLoad : function() {
+		mapApiReady = true;
+	},
+	initMap : function() {
+		// init map first time
+		glog.step("--init map first time");
+		if (mapApiReady) {
+			var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
+			$('#map').gmap({
+				'center' : initialLocation
+			});
+
+			$('#map').gmap().bind('init', function(ev, map) {
+				$('#map').gmap('addMarker', {
+					'id' : 'markerCurrent',
+					'position' : initialLocation.lat() + ',' + initialLocation.lng(),
+					'bounds' : false
+				}).click(function() {
+					self.openInfoWindow({
+						'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
+					}, this);
+				});
+			});
+		} else {
+			glog.warn("******googleMap is not ready");
+		}
+		glog.step("--init map first time");
+	},
 	swHome : null,
 
 	addMarkers : function() {
@@ -129,7 +199,6 @@ var app = {
 		}
 		glog.step("addMarkers");
 	},
-
 	renderShopList : function() {
 		glog.step("renderShopList");
 		var formatDistance = function(value) {
@@ -152,7 +221,6 @@ var app = {
 		}
 		glog.step("renderShopList");
 	},
-
 	recalculateDistances : function() {
 		glog.step("recalculateDistances");
 		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
@@ -168,7 +236,6 @@ var app = {
 		}
 		glog.step("recalculateDistances");
 	},
-
 	startAnim : function() {
 		glog.step("startAnim");
 		var debugFunc = function() {
@@ -185,33 +252,10 @@ var app = {
 			//debugFunc();
 			setTimeout(function() {
 				glog.step("--changing home_page");
-				console.log("changing home_page");
 				$.mobile.changePage($("#home_page"), {
 					transition : "fade"
 				});
 				glog.step("--changing home_page");
-
-				// init map first time
-				glog.step("--init map first time");
-				var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-				$('#map').gmap({
-					'center' : initialLocation
-				});
-				//console.log(initialLocation);
-
-				$('#map').gmap().bind('init', function(ev, map) {
-					$('#map').gmap('addMarker', {
-						'id' : 'markerCurrent',
-						'position' : initialLocation.lat() + ',' + initialLocation.lng(),
-						'bounds' : false
-					}).click(function() {
-						self.openInfoWindow({
-							'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
-						}, this);
-					});
-				});
-				console.log("finished init map first time");
-				glog.step("--init map first time");
 			}, 600);
 		});
 
@@ -226,12 +270,10 @@ var app = {
 		/* end of animation */
 		glog.step("startAnim");
 	},
-
 	putSetting : function(key, value) {
 		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
 	},
-
 	getSetting : function(key, defaultValue) {
 		var ret = window.localStorage.getItem(key);
 		return (ret != null) ? ret : defaultValue;
@@ -471,7 +513,6 @@ var app = {
 		//detectCurrentLocation(true);
 		glog.step('receivedEvent :' + id);
 	},
-
 	localNotificationTrigger : function() {
 		var d = new Date();
 		d = d.getTime() + (60 * 1000) / 10;
@@ -500,7 +541,6 @@ var app = {
 		}
 
 	},
-
 	initHomeSwiper : function() {
 		glog.step('initHomeSwiper');
 		if (app.swHome == null) {

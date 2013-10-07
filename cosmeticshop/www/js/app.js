@@ -313,8 +313,10 @@ var detectCurrentLocation = function(highAccuracy) {
 		$("#location-info").fadeOut(1000);
 
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		var markers = $("#map").gmap('get', 'markers');
-		$('#map').gmap('get', 'markers > markerCurrent').setMap(null);
+		//var markers = $("#map").gmap('get', 'markers');
+		var marker = $('#map').gmap('get', 'markers > markerCurrent');
+		if (marker != null)
+			marker.setMap(null);
 
 		$('#map').gmap('addMarker', {
 			'id' : 'markerCurrent',
@@ -399,7 +401,7 @@ function goPage(pageId) {
 function startupSteps() {
 	glog.step('startupSteps');
 
-	console.log("startupSteps");
+	//console.log("startupSteps");
 	//$.mobile.loading('show');
 
 	$("#ani-page").bind("pageshow", function(event) {
@@ -420,7 +422,7 @@ function startupSteps() {
 			"height" : "auto"
 		});
 		app.initHomeSwiper();
-		//initSwiperData(swiper4);
+		app.firstInitialize();
 	});
 
 	$("#page-yeniurun").bind("pageshow", function(event) {
@@ -489,15 +491,15 @@ function startupSteps() {
 		$.mobile.changePage($("#page-yeniurun"));
 	});
 
-	$("#m2 img").click(function() {
+	$("#m2 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-firsat"));
 	});
 
-	$("#m3 img").click(function() {
+	$("#m3 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-bildirim"));
 	});
 
-	$("#m4 img").click(function() {
+	$("#m4 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-katalog"));
 		/*
 		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
@@ -514,22 +516,22 @@ function startupSteps() {
 		 */
 	});
 
-	$("#m5 img").click(function() {
+	$("#m5 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-sosyal"));
 	});
 
-	$("#m6 img").click(function() {
+	$("#m6 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-uygulama"));
 	});
 
-	$("#m7 img").click(function() {
+	$("#m7 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-form"));
 	});
 
-	$("#m8 img").click(function() {
+	$("#m8 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-harita"));
 	});
-	$("#m9 img").click(function() {
+	$("#m9 img").bind('tap', function(event, ui) {
 		$.mobile.changePage($("#page-ayarlar"));
 	});
 
@@ -569,27 +571,32 @@ function startupSteps() {
 			alert("Konum bilginiz saptanamadı.");
 	});
 
-	$('#page-uygulama div[data-role="content"] .app1').each(function() {
-		$(this).bind('tap', function() {
-			var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-			scanner.scan(function(result) {
-				alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
-			}, function(error) {
-				alert("Scanning failed: " + error);
-			});
+	$('#page-uygulama div[data-role="content"] .app1').bind('tap', function() {
+		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		scanner.scan(function(result) {
+			alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+		}, function(error) {
+			alert("Scanning failed: " + error);
 		});
 	});
 
-	$('#page-uygulama div[data-role="content"] .app2').each(function() {
-		$(this).bind('tap', function() {
-			openFrontCamera();
-		});
+	$('#page-uygulama div[data-role="content"] .app2').bind('tap', function() {
+		openFrontCamera();
 	});
 
-	if (platform_iOS()) {
-		initCatalogueDownload();
-	}
+	/*
+	 if (platform_iOS()) {
+	 initCatalogueDownload();
+	 }
+	 */
 	glog.step('startupSteps');
+}
+
+function loadMapScript(callbackFunctionName) {
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=geometry&' + 'callback=' + callbackFunctionName;
+	document.body.appendChild(script);
 }
 
 function shareDebugLog() {
