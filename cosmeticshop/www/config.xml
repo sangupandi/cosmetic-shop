@@ -35,11 +35,11 @@
 	<feature name="File" value="org.apache.cordova.core.FileUtils" />
 	<feature name="SplashScreen" value="org.apache.cordova.core.SplashScreen" />
 	<feature name="InAppBrowser" value="org.apache.cordova.core.InAppBrowser" />
-	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="3.0" />
 	<gap:plugin name="org.apache.cordova.core.device-orientation" />
 	<!--
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
