@@ -22,11 +22,14 @@
 	<preference name="DisallowOverscroll" value="true" />
 
 	<!-- to enable individual permissions use the following examples -->
-	<feature name="http://api.phonegap.com/1.0/device"/>
-	<feature name="http://api.phonegap.com/1.0/network"/>
-	<feature name="http://api.phonegap.com/1.0/geolocation"/>
-	<feature name="http://api.phonegap.com/1.0/camera"/>
-	<feature name="http://api.phonegap.com/1.0/file"/>
+	<feature name="Device" value="org.apache.cordova.core.Device"/>
+	<feature name="NetworkStatus" value="org.apache.cordova.core.NetworkManager" />
+	<feature name="Geolocation" value="org.apache.cordova.core.GeoBroker" />
+	<feature name="Camera" value="org.apache.cordova.core.CameraLauncher" />
+	<feature name="File" value="org.apache.cordova.core.FileUtils" />
+	<feature name="SplashScreen" value="org.apache.cordova.core.SplashScreen" />
+	<feature name="InAppBrowser" value="org.apache.cordova.core.InAppBrowser" />
+	
 	<icon src="icon.png" />
 	<icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
 	<icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
@@ -51,17 +54,16 @@
 	<access origin="http://213.74.186.117/files/*" />
 	<access origin="*" />
 	
-	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
-	<gap:plugin name="org.apache.cordova.core.device-orientation" />
 
 	<!--
 	<plugin name="Capture" value="org.apache.cordova.Capture"/>
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
+	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	
 	-->
 	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
