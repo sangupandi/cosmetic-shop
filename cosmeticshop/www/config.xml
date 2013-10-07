@@ -52,16 +52,15 @@
 	<access origin="*" />
 	
 	<gap:plugin name="org.apache.cordova.core.camera" />
-	<gap:plugin name="org.apache.cordova.core.geolocation" />
 	<gap:plugin name="org.apache.cordova.core.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.core.splashscreen" />
 	<gap:plugin name="org.apache.cordova.core.device-orientation" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<!--
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
-	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	-->
