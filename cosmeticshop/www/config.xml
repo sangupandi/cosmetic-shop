@@ -51,14 +51,14 @@
 	<access origin="http://213.74.186.117/files/*" />
 	<access origin="*" />
 	
-	<gap:plugin name="org.apache.cordova.core.device-orientation" />
-	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<gap:plugin name="org.apache.cordova.core.device-orientation" />
 	<!--<plugin name="Capture" value="org.apache.cordova.Capture"/>-->
 	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
 	<!--<gap:plugin name="com.phonegap.plugins.childbrowser" />-->
