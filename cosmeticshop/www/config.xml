@@ -1,15 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.gtech.cosmeticshop" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-	<name>
-		CosmeticShop
-	</name>
-	<description>
-		Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.
-	</description>
-	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">
-		GTech Mobile Team
-	</author>
-	<preference name="phonegap-version" value="2.9.0" />
+	<name>CosmeticShop</name>
+	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
+	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
@@ -27,28 +20,13 @@
 	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
+
 	<!-- to enable individual permissions use the following examples -->
-	<feature name="Device" value="org.apache.cordova.core.Device"/>
-	<feature name="NetworkStatus" value="org.apache.cordova.core.NetworkManager" />
-	<feature name="Geolocation" value="org.apache.cordova.core.GeoBroker" />
-	<feature name="Camera" value="org.apache.cordova.core.CameraLauncher" />
-	<feature name="File" value="org.apache.cordova.core.FileUtils" />
-	<feature name="SplashScreen" value="org.apache.cordova.core.SplashScreen" />
-	<feature name="InAppBrowser" value="org.apache.cordova.core.InAppBrowser" />
-	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing"/>
-	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
-	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
-	<!--
-	<gap:plugin name="org.apache.cordova.core.device-orientation" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" version="3.0" />
-	<plugin name="Capture" value="org.apache.cordova.Capture"/>
-	<plugin name="Storage" value="org.apache.cordova.Storage" />
-	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
-	-->
-	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
-	<!--<gap:plugin name="com.phonegap.plugins.childbrowser" />-->
+	<feature name="http://api.phonegap.com/1.0/device"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/camera"/>
+	<feature name="http://api.phonegap.com/1.0/file"/>
 	<icon src="icon.png" />
 	<icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
 	<icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
@@ -65,9 +43,23 @@
 	<gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
 	<gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
 	<gap:splash gap:platform="ios" height="640" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="1136" />
+
 	<gap:platform name="android" />
 	<gap:platform name="ios" />
+
 	<access origin="http://127.0.0.1*" />
 	<access origin="http://213.74.186.117/files/*" />
 	<access origin="*" />
+	
+	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+	<!--<plugin name="Capture" value="org.apache.cordova.Capture"/>-->
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+	<plugin name="Storage" value="org.apache.cordova.Storage" />
+	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
+	<!--<gap:plugin name="com.phonegap.plugins.childbrowser" />-->
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+
 </widget>
