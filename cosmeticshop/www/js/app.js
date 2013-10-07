@@ -608,3 +608,7 @@ function shareDebugLog() {
 		}
 	});
 }
+
+function testOrientation(){
+	navigator.screenOrientation.set('landscape');	
+}

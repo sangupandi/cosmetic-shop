@@ -268,3 +268,7 @@ label {
 	display: none;
 	text-align: center;
 }
+#page-ayarlar div[data-role="content"]{
+	background-color: #996633;
+	overflow: scroll;
+}
