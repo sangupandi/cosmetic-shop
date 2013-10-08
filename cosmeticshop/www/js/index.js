@@ -139,7 +139,7 @@ var app = {
 		app.firstInit = true;
 
 		preloadImages.load();
-		
+
 		if (app.mapApiReady && !app.mapInitialized)
 			app.initMap();
 
@@ -299,6 +299,39 @@ var app = {
 
 		var initAnimPageLayout = function() {
 			glog.step("initAnimPageLayout");
+			/* ani-page background-image */
+			var h = $(window).height();
+			var w = $(window).width();
+			var deviceDimension = w + "x" + h;
+			var bgUrl = "";
+			switch (deviceDimension) {
+				case "320x480":
+					// iPhone3G/3Gs
+					bgUrl = "../img/screen-iphone-portrait.png";
+					break;
+				case "640x960":
+					// iPhone4/4s
+					bgUrl = "../img/screen-iphone-portrait-2x.png";
+					break;
+				case "640x1136":
+					// iPhone5/5s/5c
+					bgUrl = "../img/screen-iphone-portrait-568h-2x.png";
+					break;
+				default:
+					// android detect
+					if (w < 320) {
+						bgUrl = "../img/screen-ldpi-portrait.png";
+					} else if (w < 480) {
+						bgUrl = "../img/screen-mdpi-portrait.png";
+					} else if (w < 720) {
+						bgUrl = "../img/screen-hdpi-portrait.png";
+					} else {// if (w >= 720)
+						bgUrl = "../img/screen-xhdpi-portrait.png";
+					}
+					break;
+			}
+			//#ani-page, #first-page
+
 			/* set #ani-page content size */
 			$('#ani-page div[data-role="content"]').css({
 				"height" : $(window).height() + "px"
@@ -323,6 +356,7 @@ var app = {
 
 		var initLayoutSizes = function() {
 			glog.step("initLayoutSizes");
+
 			/* header height (size: 565x107) */
 			app.headerHeight = $(window).width() * 107 / 565;
 
