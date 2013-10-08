@@ -247,25 +247,39 @@ var app = {
 		var contentHeight = getRealContentHeight();
 
 		console.log("started ani-logo fade");
-		$('#ani-logo').fadeTo(1000, 1, function() {
-			console.log("finished ani-logo fade");
-			//debugFunc();
-			setTimeout(function() {
-				glog.step("--changing home_page");
-				$.mobile.changePage($("#home_page"), {
-					transition : "fade"
-				});
-				glog.step("--changing home_page");
-			}, 600);
-		});
+		/*
+		 $('#ani-logo').fadeTo(1000, 1, function() {
+		 console.log("finished ani-logo fade");
+		 //debugFunc();
+		 setTimeout(function() {
+		 glog.step("--changing home_page");
+		 $.mobile.changePage($("#home_page"), {
+		 transition : "fade"
+		 });
+		 glog.step("--changing home_page");
+		 }, 600);
+		 });
+		 */
 
 		/* starting animation */
 		console.log("started ani-c transition");
+		var t1 = 447 * 480 / 960;
+		var t2 = 422 * 480 / 960;
+		//alert(t1 + "px, " + t2 + "px");
 		$('#ani-c').transition({
-			y : contentHeight / 2 + 'px'
+			y : t1 + 'px'
 		}, 800, 'ease').transition({
-			y : (contentHeight / 2) - (contentHeight / 15) + 'px'
-		}, 600, 'ease');
+			y : t2 + 'px'
+		}, 800, 'ease');
+
+		setTimeout(function() {
+			glog.step("--changing home_page");
+			$.mobile.changePage($("#home_page"), {
+				transition : "fade"
+			});
+			glog.step("--changing home_page");
+		}, 2000);
+
 		console.log("finished ani-c transition");
 		/* end of animation */
 		glog.step("startAnim");
@@ -299,40 +313,37 @@ var app = {
 
 		var initAnimPageLayout = function() {
 			glog.step("initAnimPageLayout");
-			/* ani-page background-image */
-			var h = $(window).height();
-			var w = $(window).width();
-			var deviceDimension = w + "x" + h;
-			var bgUrl = "";
-			switch (deviceDimension) {
-				case "320x480":
-					// iPhone3G/3Gs
-					bgUrl = "../img/screen-iphone-portrait.png";
-					break;
-				case "640x960":
-					// iPhone4/4s
-					bgUrl = "../img/screen-iphone-portrait-2x.png";
-					break;
-				case "640x1136":
-					// iPhone5/5s/5c
-					bgUrl = "../img/screen-iphone-portrait-568h-2x.png";
-					break;
-				default:
-					// android detect
-					if (w < 320) {
-						bgUrl = "../img/screen-ldpi-portrait.png";
-					} else if (w < 480) {
-						bgUrl = "../img/screen-mdpi-portrait.png";
-					} else if (w < 720) {
-						bgUrl = "../img/screen-hdpi-portrait.png";
-					} else {// if (w >= 720)
-						bgUrl = "../img/screen-xhdpi-portrait.png";
-					}
-					break;
-			}
-			//#ani-page, #first-page
+			/* ani-page background-image *
+			 var h = $(window).height();
+			 var w = $(window).width();
+			 //alert("res: " + w + "x" + h);
+			 var bgUrl = "";
+			 var prefix = "../www/res/screen/";
+			 if (platform_iOS()) {
+			 if (w == 320) {// 320x480  iPhone3G/3Gs
+			 bgUrl = prefix + "ios/screen-iphone-portrait.png";
+			 } else if (w == 640) {// 640x960  iPhone4/4s
+			 bgUrl = prefix + "ios/screen-iphone-portrait-2x.png";
+			 } else if (w == 640) {// 640x1136 iPhone5/5s/5c
+			 bgUrl = prefix + "ios/screen-iphone-portrait-568h-2x.png";
+			 }
+			 } else {
+			 // android detect
+			 if (w < 320) {
+			 bgUrl = prefix + "android/screen-ldpi-portrait.png";
+			 } else if (w < 480) {
+			 bgUrl = prefix + "android/screen-mdpi-portrait.png";
+			 } else if (w < 720) {
+			 bgUrl = prefix + "android/screen-hdpi-portrait.png";
+			 } else {// if (w >= 720)
+			 bgUrl = prefix + "android/screen-xhdpi-portrait.png";
+			 }
+			 }
+			 $('#ani-page, #first-page').css({
+			 "background" : "url(" + bgUrl + ") no-repeat center center fixed"
+			 });
 
-			/* set #ani-page content size */
+			 /* set #ani-page content size */
 			$('#ani-page div[data-role="content"]').css({
 				"height" : $(window).height() + "px"
 			});
