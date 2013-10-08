@@ -78,12 +78,12 @@ var glog = {
 
 	log : function(msg) {
 		glog.logString += msg + "<br/>";
-		console.log(msg);
+		//console.log(msg);
 	},
 
 	warn : function(msg) {
 		glog.logString += msg + "<br/>";
-		console.warn(msg);
+		//console.warn(msg);
 	}
 };
 
@@ -112,6 +112,8 @@ var app = {
 		app.receivedEvent('deviceready');
 		glog.step("onDeviceReady");
 	},
+
+	sx : 0,
 
 	headerHeight : 0,
 	footerHeight : 0,
@@ -262,10 +264,10 @@ var app = {
 		 */
 
 		/* starting animation */
+		var aniC = $('#ani-c');
 		console.log("started ani-c transition");
 		var t1 = 447 * 480 / 960;
 		var t2 = 422 * 480 / 960;
-		//alert(t1 + "px, " + t2 + "px");
 		$('#ani-c').transition({
 			y : t1 + 'px'
 		}, 800, 'ease').transition({
@@ -437,6 +439,113 @@ var app = {
 				//"top" : "-" + homeLogoHeight + "px",
 				"height" : $(window).height() + "px"
 			});
+
+			/* gs = "güzellik sırları" */
+			w = $(window).width();
+			h = app.contentHeight;
+
+			gsPadding = 10;
+			gsPaddingLeft = 10;
+			gsSpacing = 3;
+
+			bw = (w - (gsPadding * 2) - (gsSpacing * 2)) / 3;
+			bh = (h - (gsPadding * 3) - (gsSpacing * 3)) / 4;
+
+			if (bw * 4 > h) {
+				gsBrickSize = bh;
+				gsPaddingLeft = (w - (gsBrickSize * 3) - (gsSpacing * 2)) / 2;
+			} else {
+				gsBrickSize = bw;
+			}
+
+			//alert(h + "px, " + bw * 4 + "px");
+			//alert(w + "px, " + bh * 3 + "px");
+			//gsBrickSize = (w - (gsPadding * 2) - (gsSpacing * 2)) / 3;
+
+			$("#page-guzellik .brick").css({
+				"width" : gsBrickSize + "px",
+				"height" : gsBrickSize + "px"
+			});
+			// col 1
+			$(".b1-1, .b2-1, .b3-1, .b4-1").css({
+				"left" : gsPaddingLeft + "px"
+			});
+			// col 2
+			$(".b1-2, .b2-2, .b3-2, .b4-2").css({
+				"left" : gsPaddingLeft + gsBrickSize + gsSpacing + "px"
+			});
+			// col 3
+			$(".b1-3, .b2-3, .b3-3, .b4-3").css({
+				"left" : gsPaddingLeft + (gsBrickSize * 2) + (gsSpacing * 2) + "px"
+			});
+			// row 1
+			$(".b1-1, .b1-2, .b1-3").css({
+				"top" : app.headerHeight + gsPadding + "px"
+			});
+			// row 2
+			$(".b2-1, .b2-2, .b2-3").css({
+				"top" : app.headerHeight + gsPadding + gsBrickSize + gsSpacing + "px"
+			});
+			// row 3
+			$(".b3-1, .b3-2, .b3-3").css({
+				"top" : app.headerHeight + gsPadding + (gsBrickSize * 2) + (gsSpacing * 2) + "px"
+			});
+			// row 4
+			$(".b4-1, .b4-2, .b4-3").css({
+				"top" : app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + "px"
+			});
+
+			$('.b1-1, .b2-1, .b3-1').each(function() {
+				$(this).bind("tap", function() {
+					$.mobile.changePage($('#page-guzellik-b'), {
+						transition : "slide"
+					});
+				});
+			});
+
+			//var gsbConPad = 16;
+			//var gsbImgH = (app.contentHeight - (gsbConPad*2))/ 3;
+			var gsbImgH = 200 * w / 565;
+			$("#page-guzellik-b .ui-grid-a img").css({
+				"height" : gsbImgH + "px",
+				"width" : "auto"
+			});
+
+			//app.bricks[".b1-1"]=$(".b1-1").css
+
+			app.sx = app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + gsBrickSize;
+			console.log("sx:" + app.sx);
+			/*
+			 $('#page-guzellik div[data-role="header"]').bind("tap", function() {
+			 /*
+			 $("#page-guzellik .brick").css({
+			 "display" : "none"
+			 });
+			 *
+
+			 $(".b4-1, .b4-2, .b4-3").each(function() {
+			 var lf = $(this).css("left").replace("px","");
+
+			 console.log("sx:" + app.sx);
+			 console.log(this.className + ", lf: " + lf + ", lf-sx: " + (lf - app.sx));
+
+			 $(this).css({
+			 "left" : (lf - app.sx) + "px",
+			 "display" : "block"
+			 });
+
+			 //setTimeout(function() {
+			 $(this).transition({
+			 x : lf + 'px'
+			 }, 'slow', function() {
+			 });
+			 //}, 1000);
+
+			 });
+
+			 });
+			 */
+
 			glog.step("initLayoutSizes");
 		};
 

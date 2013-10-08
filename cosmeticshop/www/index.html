@@ -8,7 +8,7 @@
 
 		<!--<meta name="viewport" content="width=device-width; initial-scale=1.0">-->
 		<!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=yes">
 
 		<!-- jquery files -->
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-beta.1.min.css">
@@ -164,18 +164,82 @@
 		</div><!-- /page -->
 
 		<!-- Start of page -->
-		<div data-role="page" id="page-bildirim">
+		<div data-role="page" id="page-guzellik">
 
 			<div data-role="header">
 				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" class="swiper-container-parent">
-				<div id="swiper3" class="swiper-container">
-					<div id="swipe-data3" class="swiper-wrapper"></div>
+			<div data-role="content">
+				<div class="brick b1-1"><img src="img/goz.png" width="100%"/>
 				</div>
-				<div id="pagination3" class="pagination"></div>
-				<div id="swipe-content3" class="swipe-content"></div>
+				<div class="brick b1-2"><img src="img/1.png" width="100%"/>
+				</div>
+				<div class="brick b1-3"><img src="img/8.png" width="100%"/>
+				</div>
+				<div class="brick b2-1"><img src="img/yuz.png" width="100%"/>
+				</div>
+				<div class="brick b2-2"><img src="img/2.png" width="100%"/>
+				</div>
+				<div class="brick b2-3"><img src="img/7.png" width="100%"/>
+				</div>
+				<div class="brick b3-1"><img src="img/dudak.png" width="100%"/>
+				</div>
+				<div class="brick b3-2"><img src="img/3.png" width="100%"/>
+				</div>
+				<div class="brick b3-3"><img src="img/6.png" width="100%"/>
+				</div>
+				<div class="brick b4-1"><img src="img/tirnak.png" width="100%"/>
+				</div>
+				<div class="brick b4-2"><img src="img/4.png" width="100%"/>
+				</div>
+				<div class="brick b4-3"><img src="img/5.png" width="100%"/>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div><!-- /page -->
+
+		<!-- Start of page -->
+		<div data-role="page" id="page-guzellik-b">
+
+			<div data-role="header">
+				<img src="img/header_06.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div id="gsbContent" data-role="content">
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<img src="img/guzsirri_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b">
+						Text area
+					</div>
+					<div class="ui-block-a">
+						<img src="img/guzsirri_06.png" width="100%"/>
+					</div>
+					<div class="ui-block-b">
+						Text area
+					</div>
+					<div class="ui-block-a">
+						<img src="img/guzsirri_08.png" width="100%"/>
+					</div>
+					<div class="ui-block-b">
+						Text area
+					</div>
+				</div>
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -488,7 +552,7 @@
 				<button onclick="shareDebugLog();">
 					Send Debug Log
 				</button>
-				
+
 				<button onclick="testOrientation();">
 					testOrientation
 				</button>
@@ -529,6 +593,7 @@
 						break;
 				}
 			}
+
 			//window.addEventListener('orientationchange', doOnOrientationChange);
 			// Initial execution if needed
 			//doOnOrientationChange();

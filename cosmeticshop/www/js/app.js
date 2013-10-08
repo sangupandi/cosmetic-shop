@@ -2,6 +2,13 @@ var buttomDom;
 var statusDom;
 var fileSystem;
 
+
+/*
+var bricks = {
+
+};
+*/
+
 function isPhoneGap() {
 	return (!( typeof device === "undefined"));
 }
@@ -398,6 +405,10 @@ function goPage(pageId) {
 	$.mobile.changePage($("#" + pageId));
 }
 
+function startGuzellikSirriAnimation() {
+	console.warn("startGuzellikSirriAnimation");
+}
+
 function startupSteps() {
 	glog.step('startupSteps');
 
@@ -433,8 +444,8 @@ function startupSteps() {
 		initSwiperData(swiper1);
 	});
 
-	$("#page-bildirim").bind("pageshow", function(event) {
-		initSwiperData(swiper3);
+	$("#page-guzellik").bind("pageshow", function(event) {
+		startGuzellikSirriAnimation();
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
@@ -496,7 +507,7 @@ function startupSteps() {
 	});
 
 	$("#m3 img").bind('tap', function(event, ui) {
-		$.mobile.changePage($("#page-bildirim"));
+		$.mobile.changePage($("#page-guzellik"));
 	});
 
 	$("#m4 img").bind('tap', function(event, ui) {
@@ -609,6 +620,6 @@ function shareDebugLog() {
 	});
 }
 
-function testOrientation(){
-	navigator.screenOrientation.set('landscape');	
+function testOrientation() {
+	navigator.screenOrientation.set('landscape');
 }
