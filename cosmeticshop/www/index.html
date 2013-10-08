@@ -25,8 +25,9 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
-		<script type="application/javascript" src="js/iscroll.js"></script>
+		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
+		<link rel="stylesheet" href="css/katalog.css" />
 
 		<!-- phonegap default -->
 		<script type="text/javascript" src="phonegap.js"></script>
@@ -43,21 +44,24 @@
 		<script type="text/javascript">
 			var myScroll;
 			function loaded() {
-				myScroll = new iScroll('wrapper', {
+				myScroll = new IScroll('#wrapper', {
 					zoom : true,
-					zoomMax : 4
+					//zoomMax : 4,
+					scrollX : true,
+					scrollY : true,
+					mouseWheel : true,
+					wheelAction : 'zoom'
 				});
 			}
 
 
-			document.addEventListener('DOMContentLoaded', loaded, false);
+			document.addEventListener('touchmove', function(e) {
+				e.preventDefault();
+			}, false);
+
+			//document.addEventListener('DOMContentLoaded', loaded, false);
 		</script>
 
-		<style type="text/css">
-			div#wrapper img {
-				-webkit-transform: translate3d(0,0,0)
-			}
-		</style>
 	</head>
 
 	<body>
@@ -285,10 +289,11 @@
 			</div><!-- /header -->
 
 			<div data-role="content" id="katalog-content">
-				<div id="wrapper" style="width:100%">
-					<img src="img/cosmetica-insert-eylul1.jpg" width="800" alt="" style="max-width:100%; height:auto;">
-					<img src="img/cosmetica-insert-eylul2.jpg" width="800" alt="" style="max-width:100%; height:auto;">
-					
+				<div id="wrapper">
+					<div id="scroller">
+						<img src="img/cosmetica-insert-eylul1.jpg" width="800" alt="" style="max-width:100%; height:auto;">
+						<img src="img/cosmetica-insert-eylul2.jpg" width="800" alt="" style="max-width:100%; height:auto;">
+					</div>
 				</div>
 			</div><!-- /content -->
 
