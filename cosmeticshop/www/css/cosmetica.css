@@ -291,3 +291,7 @@ label {
 }
 
 
+#katalog-content{
+	padding:0;
+	overflow: scroll;
+}
