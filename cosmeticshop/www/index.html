@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
+		<script type="application/javascript" src="js/iscroll.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
 
 		<!-- phonegap default -->
@@ -38,6 +39,25 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=true&libraries=geometry" type="text/javascript"></script>
 		-->
 		<script src="js/jq-map/jquery.ui.map.full.min.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			var myScroll;
+			function loaded() {
+				myScroll = new iScroll('wrapper', {
+					zoom : true,
+					zoomMax : 4
+				});
+			}
+
+
+			document.addEventListener('DOMContentLoaded', loaded, false);
+		</script>
+
+		<style type="text/css">
+			div#wrapper img {
+				-webkit-transform: translate3d(0,0,0)
+			}
+		</style>
 	</head>
 
 	<body>
@@ -265,22 +285,9 @@
 			</div><!-- /header -->
 
 			<div data-role="content">
-
-				<!-- download pdf -->
-				<div id="download-catalogue">
-					<img src="img/Adobe-PDF.gif" width="30%">
-					<p>
-						<button id="startDl" disabled>
-							Güncel kataloğu indir
-						</button>
-					</p>
-					<div id="status"></div>
+				<div id="wrapper" style="width:100%">
+					<img src="img/b03.jpg" width="800" alt="" style="max-width:100%; height:auto;">
 				</div>
-
-				<div id="show-catalogue">
-					<img src="img/Adobe_PDF_Icon.png" width="30%">
-				</div>
-
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -599,5 +606,8 @@
 			//doOnOrientationChange();
 		</script>
 
+		<script>
+			loaded();
+		</script>
 	</body>
 </html>
