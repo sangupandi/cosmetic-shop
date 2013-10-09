@@ -635,7 +635,7 @@ function startupSteps() {
 			wheelAction : 'zoom'
 		});
 		elem.bind('onScrollEnd', function(e, iscroll) {
-			alert($(this).attr('id') + ' - ' + iscroll);
+			console.log($(this).attr('id') + ' - ' + iscroll);
 		});
 	});
 
