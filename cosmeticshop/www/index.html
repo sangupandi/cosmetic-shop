@@ -25,10 +25,10 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
-		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
+		<script type="application/javascript" src="js/iscroll.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
 		<link rel="stylesheet" href="css/katalog.css" />
-		
+
 		<!-- phonegap default -->
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="barcodescanner.js"></script>
@@ -44,26 +44,18 @@
 		<script type="text/javascript">
 			var myScroll = null;
 			function loaded() {
-				myScroll = new IScroll('#wrapper', {
+				myScroll = new iScroll('#wrapper', {
 					zoom : true,
-					zoomMax : 4,
-					momentum : true,
-					snap : false,
-					scrollX : true,
-					scrollY : true,
-					mouseWheel : true,
-					wheelAction : 'zoom'
+					zoomMax : 4
 				});
 			}
 
 
-			/*
 			document.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false);
-			*/
-			
-			//document.addEventListener('DOMContentLoaded', loaded, false);
+
+			document.addEventListener('DOMContentLoaded', loaded, false);
 		</script>
 
 	</head>
@@ -597,18 +589,18 @@
 				<label for="cbxSetting4">İndirim Kataloğu</label>
 				<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
 
-<!--
+				<!--
 				<label for="tbDebugger">Adınız</label>
 				<input type="text" id="tbDebugger" data-theme="b" data-mini="false"/>
 
 				<button onclick="shareDebugLog();">
-					Send Debug Log
+				Send Debug Log
 				</button>
 
 				<button onclick="testOrientation();">
-					testOrientation
+				testOrientation
 				</button>
--->
+				-->
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">

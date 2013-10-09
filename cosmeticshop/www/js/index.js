@@ -47,7 +47,7 @@ var catalogue = {
 				//var image = new Image();
 				var content = "";
 				$.each(result, function(i, row) {
-					content += String.format('<img src="{0}" alt="">', row.Url);
+					content += String.format('<img src="{0}" width="100%" alt=".">', row.Url);
 				});
 				$("#scroller").html(content);
 			}

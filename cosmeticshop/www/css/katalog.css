@@ -4,7 +4,7 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
---*/
+
 html {
 	-ms-touch-action: none;
 }
@@ -19,7 +19,7 @@ div#wrapper img {
 	 bottom: 50px;
 	 left: 50px;
 	 right: 50px;
-	 background: #ccc;*/
+	 background: #ccc;*
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -27,7 +27,7 @@ div#wrapper img {
 
 #scroller {
 	/*position: absolute;
-	 z-index: 1;*/
+	 z-index: 1;*
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	width: 100%;
 	-webkit-transform: translateZ(0);
@@ -46,8 +46,29 @@ div#wrapper img {
 	-o-text-size-adjust: none;
 	text-size-adjust: none;
 }
+*/
+#wrapper {/*
+	position:absolute; z-index:1;
+	top:45px; bottom:48px; left:0;
+	*/
+	width:100%;
+	height:100%;
+	background:#aaa;
+	overflow:auto;
+}
+
+#scroller {
+	position:relative;
+/*	-webkit-touch-callout:none;*/
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+
+	width:100%;
+	padding:0;
+	background:#fff;
+}
 
 #scroller img {
+	width: 100%;
 	max-width: 100%;
 	height: auto;
 }

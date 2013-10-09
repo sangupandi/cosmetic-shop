@@ -462,8 +462,7 @@ function startupSteps() {
 	$("#page-katalog").bind("pageshow", function(event) {
 
 		catalogue.load();
-		if (myScroll == null)
-			loaded();
+		//if (myScroll == null) loaded();
 
 		//refreshCatalogueArea();
 
