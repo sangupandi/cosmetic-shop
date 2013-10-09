@@ -187,6 +187,9 @@ var app = {
 	mapApiReady : false,
 	onMapApiLoad : function() {
 		app.mapApiReady = true;
+		if (!app.mapInitialized) {
+			app.initMap();
+		}
 	},
 	initMap : function() {
 		// init map first time
