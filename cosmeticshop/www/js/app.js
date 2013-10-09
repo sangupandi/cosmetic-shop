@@ -449,7 +449,11 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
-		refreshCatalogueArea();
+
+		catalogue.load();
+		loaded();
+		
+		//refreshCatalogueArea();
 
 		/*
 		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';

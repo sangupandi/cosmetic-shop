@@ -18,6 +18,43 @@ function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _di
 	this.distance = _distance;
 }
 
+var catalogue = {
+	initialized : false,
+
+	load : function() {
+		if (catalogue.initialized)
+			return;
+
+		var svcurl = serviceHost + "/Catalogue.ashx";
+		$.ajax({
+			url : svcurl,
+			dataType : "jsonp",
+			async : true,
+			success : function(result) {
+				$.mobile.loading('hide');
+				ajax.parseJSONP(result);
+			},
+			error : function(request, error) {
+				$.mobile.loading('hide');
+				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			}
+		});
+
+		var ajax = {
+			parseJSONP : function(result) {
+				catalogue.initialized = true;
+
+				//var image = new Image();
+				var content = "";
+				$.each(result, function(i, row) {
+					content += String.format('<img src="{0}" alt="">', row.Url);
+				});
+				$("#scroller").html(content);
+			}
+		};
+	}
+};
+
 var preloadImages = {
 	//images : {},
 	load : function() {
