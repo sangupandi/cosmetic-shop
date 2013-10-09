@@ -623,6 +623,17 @@ function startupSteps() {
 	 initCatalogueDownload();
 	 }
 	 */
+
+	$(function() {
+		var elem = $('#wrapper');
+		elem.iscroll({
+			zoom : true,
+			zoomMax : 4
+		});
+		elem.bind('onScrollEnd', function(e, iscroll) {
+			alert($(this).attr('id') + ' - ' + iscroll);
+		});
+	});
 	glog.step('startupSteps');
 }
 
