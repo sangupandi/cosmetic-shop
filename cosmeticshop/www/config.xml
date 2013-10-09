@@ -20,6 +20,7 @@
 	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
+	<preference name="android-windowSoftInputMode" value="adjustResize" />
 
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="http://api.phonegap.com/1.0/device"/>
