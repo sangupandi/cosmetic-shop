@@ -2,12 +2,11 @@ var buttomDom;
 var statusDom;
 var fileSystem;
 
-
 /*
-var bricks = {
+ var bricks = {
 
-};
-*/
+ };
+ */
 
 function isPhoneGap() {
 	return (!( typeof device === "undefined"));
@@ -302,38 +301,40 @@ function openInAppBrowser(url) {
 	}
 }
 
-var showCurrentLocation = function() {
-	try {
-		//console.log(app.currentLocation);
-		//$('#map').gmap({ 'center': app.currentLocation.lat() + ',' + app.currentLocation.lng() });
-		$('#map').gmap('option', 'center', app.currentLocation);
-		$('#map').gmap('option', 'zoom', 13);
-	} catch(e) {
-		console.warn(e);
-	}
-};
-
 var detectCurrentLocation = function(highAccuracy) {
 
 	var onGeoSuccess = function(position) {
+		var map = app.map;
 		$("#location-info").html("Konum bilginiz saptandı.");
 		$("#location-info").fadeOut(1000);
 
 		app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		//var markers = $("#map").gmap('get', 'markers');
-		var marker = $('#map').gmap('get', 'markers > markerCurrent');
-		if (marker != null)
-			marker.setMap(null);
 
-		$('#map').gmap('addMarker', {
-			'id' : 'markerCurrent',
-			'position' : app.currentLocation.lat() + ',' + app.currentLocation.lng(),
-			'bounds' : false
-		}).click(function() {
-			self.openInfoWindow({
-				'content' : ''
-			}, this);
+		if (app.currentLocationMarker != null) {
+			app.currentLocationMarker.setMap(null);
+		}
+
+		app.currentLocationMarker = new google.maps.Marker({
+			position : app.currentLocation,
+			map : map,
+			bounds : false,
+			title : 'Buradasınız',
+			icon : serviceHost + '/files/50px-Wikimap-blue-dot.png',
+			animation : google.maps.Animation.BOUNCE
 		});
+		var marker = app.currentLocationMarker;
+
+		google.maps.event.addListener(marker, 'click', function() {
+			map.setZoom(8);
+			map.setCenter(marker.getPosition());
+		});
+
+		/*
+		 self.openInfoWindow({
+		 'content' : ''
+		 }, this);
+		 */
 
 		showCurrentLocation();
 		app.recalculateDistances();
@@ -350,14 +351,24 @@ var detectCurrentLocation = function(highAccuracy) {
 	});
 };
 
+var showCurrentLocation = function() {
+	try {
+		var map = app.map;
+		map.setCenter(app.currentLocation);
+		map.setZoom(13);
+	} catch(e) {
+		console.warn(e);
+	}
+};
+
 function goMap(latitude, longitude) {
 	if ($('#shop-list').is(":visible")) {
 		$('#shop-list').fadeOut(200);
 	}
-
+	var map = app.map;
 	var location = new google.maps.LatLng(latitude, longitude);
-	$('#map').gmap('option', 'center', location);
-	$('#map').gmap('option', 'zoom', 13);
+	map.setCenter(location);
+	map.setZoom(13);
 }
 
 var getShopList = function() {
@@ -451,8 +462,9 @@ function startupSteps() {
 	$("#page-katalog").bind("pageshow", function(event) {
 
 		catalogue.load();
-		loaded();
-		
+		if (myScroll == null)
+			loaded();
+
 		//refreshCatalogueArea();
 
 		/*
@@ -486,10 +498,18 @@ function startupSteps() {
 			"height" : h + "px"
 		});
 
-		$('#map').gmap('refresh');
+		//$('#map').gmap('refresh');
+
+		if (app.mapApiReady) {
+			google.maps.event.trigger(app.map, 'resize');
+		}
 
 		if (app.currentLocation == null) {
-			detectCurrentLocation(true);
+			if (app.mapApiReady) {
+				detectCurrentLocation(true);
+			} else {
+				alert("Map API is not loaded!..");
+			}
 		}
 		/*
 		 if (app.updateCurrentMap) {

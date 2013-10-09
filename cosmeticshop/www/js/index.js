@@ -161,7 +161,6 @@ var app = {
 	shopListSelector : "#shop-list .liste",
 	nearestShop : null,
 	currentLocation : null,
-	currentLocationMap : null,
 	map : null,
 	mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
 	updateCurrentMap : true,
@@ -181,36 +180,34 @@ var app = {
 
 		if (app.mapApiReady && !app.mapInitialized)
 			app.initMap();
-
-		// get online scripts
-		//getScript('https://maps.googleapis.com/maps/api/js?v=3&sensor=true&libraries=geometry', app.mapApiReady);
 	},
 
+	currentLocationMarker : null,
 	mapInitialized : false,
 	mapApiReady : false,
 	onMapApiLoad : function() {
-		mapApiReady = true;
+		app.mapApiReady = true;
 	},
 	initMap : function() {
 		// init map first time
 		glog.step("--init map first time");
-		if (mapApiReady) {
-			var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-			$('#map').gmap({
-				'center' : initialLocation
-			});
+		if (app.mapApiReady) {
 
-			$('#map').gmap().bind('init', function(ev, map) {
-				$('#map').gmap('addMarker', {
-					'id' : 'markerCurrent',
-					'position' : initialLocation.lat() + ',' + initialLocation.lng(),
-					'bounds' : false
-				}).click(function() {
-					self.openInfoWindow({
-						'content' : 'TEXT_AND_HTML_IN_INFOWINDOW'
-					}, this);
-				});
-			});
+			var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
+
+			google.maps.visualRefresh = true;
+
+			var mapOptions = {
+				zoom : 13,
+				center : initialLocation,
+				rotateControl : false,
+				streetViewControl : false,
+				mapTypeControl : false,
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			};
+			app.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+			app.mapInitialized = true;
 		} else {
 			glog.warn("******googleMap is not ready");
 		}
@@ -221,19 +218,20 @@ var app = {
 	addMarkers : function() {
 		glog.step("addMarkers");
 		if (app.shopList.length > 0) {
+			var map = app.map;
 			$.each(app.shopList, function() {
-				//var markers = $("#map").gmap('get', 'markers');
-				$('#map').gmap('addMarker', {
-					//'id' : 'markerCurrent',
-					'position' : this.latitude + ',' + this.longitude,
-					'bounds' : false,
-					'title' : this.caption,
-					'icon' : serviceHost + '/files/cosmetica_marker.png'
-				}).click(function() {
-					self.openInfoWindow({
-						'content' : ''//this.caption
-					}, this);
+
+				var shopLocation = new google.maps.LatLng(this.latitude, this.longitude);
+
+				var marker = new google.maps.Marker({
+					position : shopLocation,
+					map : map,
+					bounds : false,
+					title : this.Caption,
+					icon : serviceHost + '/files/cosmetica_marker.png',
+					animation : google.maps.Animation.DROP
 				});
+
 			});
 		}
 		glog.step("addMarkers");
@@ -256,13 +254,15 @@ var app = {
 				$(app.shopListSelector).html(tmp);
 			});
 
-			app.addMarkers();
+			if (app.mapApiReady) {
+				app.addMarkers();
+			}
 		}
 		glog.step("renderShopList");
 	},
 	recalculateDistances : function() {
 		glog.step("recalculateDistances");
-		if ((app.shopList.length > 0) && (app.currentLocation != null)) {
+		if (app.mapApiReady && (app.shopList.length > 0) && (app.currentLocation != null)) {
 			app.nearestShop = null;
 			$.each(app.shopList, function() {
 				var latLngB = new google.maps.LatLng(this.latitude, this.longitude);
@@ -532,7 +532,7 @@ var app = {
 				"top" : app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + "px"
 			});
 
-			$('.b1-1, .b2-1, .b3-1').each(function() {
+			$('.b1-1, .b2-1, .b3-1, .b4-1').each(function() {
 				$(this).bind("tap", function() {
 					$.mobile.changePage($('#page-guzellik-b'), {
 						transition : "slide"
@@ -546,6 +546,14 @@ var app = {
 			$("#page-guzellik-b .ui-grid-a img").css({
 				"height" : gsbImgH + "px",
 				"width" : "auto"
+			});
+
+			$("#page-guzellik-b .ui-grid-a").each(function() {
+				$(this).bind("tap", function() {
+					$.mobile.changePage($('#page-guzellik-c'), {
+						transition : "slide"
+					});
+				});
 			});
 
 			//app.bricks[".b1-1"]=$(".b1-1").css
@@ -641,6 +649,7 @@ var app = {
 					 $.mobile.changePage($("#" + pageId));
 					 */
 					try {
+
 						navigator.app.backHistory();
 					} catch(e) {
 						window.history.back();

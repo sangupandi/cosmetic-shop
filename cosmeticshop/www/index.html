@@ -38,15 +38,17 @@
 
 		<!-- google map files --
 		<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=true&libraries=geometry" type="text/javascript"></script>
-		-->
+		--
 		<script src="js/jq-map/jquery.ui.map.full.min.js" type="text/javascript"></script>
-
+		-->
 		<script type="text/javascript">
-			var myScroll;
+			var myScroll = null;
 			function loaded() {
 				myScroll = new IScroll('#wrapper', {
 					zoom : true,
-					//zoomMax : 4,
+					zoomMax : 4,
+					momentum : true,
+					snap : false,
 					scrollX : true,
 					scrollY : true,
 					mouseWheel : true,
@@ -55,10 +57,12 @@
 			}
 
 
+			/*
 			document.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false);
-
+			*/
+			
 			//document.addEventListener('DOMContentLoaded', loaded, false);
 		</script>
 
@@ -272,7 +276,37 @@
 					</div>
 					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
 					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+					</div>
+					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					</div>
+				</div><!-- /grid-c -->
+			</div><!-- /footer -->
+
+		</div><!-- /page -->
+
+		<!-- Start of page -->
+		<div data-role="page" id="page-guzellik-c">
+
+			<div data-role="header">
+				<img src="img/header_06.png" width="100%"/>
+			</div><!-- /header -->
+
+			<div id="gsbContent2" data-role="content">
+				<div id="gsb2img"><img src="http://www.gtech.com.tr/Cosmetica/files/2.jpg" width="100%">
+				</div>
+				<div id="gsb2text">
+					some text
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<div class="ui-grid-c">
+					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+					</div>
+					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					</div>
+					<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
 					</div>
 					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
 					</div>
@@ -290,8 +324,7 @@
 
 			<div data-role="content" id="katalog-content">
 				<div id="wrapper">
-					<div id="scroller">
-					</div>
+					<div id="scroller"></div>
 				</div>
 			</div><!-- /content -->
 
@@ -393,39 +426,45 @@
 			<div class="customer-form" data-role="content">
 
 				<div class="customer-field">
-					<label for="tbAdSoyad" data-theme="b" >Adı Soyadı</label>
-					<input type="text" id="tbAdSoyad" value="" data-enhance="false" data-role="none"/>
+					<label for="tbAdSoyad" >Adı Soyadı</label>
+					<input type="text" id="tbAdSoyad" value="" data-mini="true" data-theme="b"/>
 				</div>
 
 				<div class="customer-field">
 					<label for="tbDogumTar">Doğum Tarihi</label>
-					<input type="date" id="tbDogumTar" value="" data-enhance="false" data-role="none"/>
+					<input type="date" id="tbDogumTar" value="" data-mini="true" data-theme="b"/>
 				</div>
 
 				<div class="customer-field">
 					<label for="tbTel">Gsm/Tel No</label>
-					<input type="number" pattern="[0-9]*" id="tbTel" value="" data-enhance="false" data-role="none"/>
+					<input type="number" pattern="[0-9]*" id="tbTel" value="" data-mini="true" data-theme="b"/>
 
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<label for="cbxSms">Sms ile bilgilendir</label>
+							<label for="cbxSms" class="form-flip-lbl">Sms ile bilgilendir</label>
 						</div>
 						<div class="ui-block-b">
-							<input type="checkbox" id="cbxSms" data-enhance="false" data-role="none" data-role="none" checked="checked"/>
+							<select name="cbxSms" id="cbxSms" data-role="slider" data-mini="true" data-theme="b">
+								<option value="off">Hayır</option>
+								<option value="on" selected="selected">Evet</option>
+							</select>
 						</div>
 					</div><!-- /grid-c -->
 				</div>
 
 				<div class="customer-field">
 					<label for="tbEmail">E-mail adresi</label>
-					<input type="email" id="tbEmail" value="" data-enhance="false" data-role="none"/>
+					<input type="email" id="tbEmail" value="" data-mini="true" data-theme="b"/>
 
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<label for="cbxEmail">E-mail ile bilgilendir</label>
+							<label for="cbxEmail" class="form-flip-lbl">E-mail ile bilgilendir</label>
 						</div>
 						<div class="ui-block-b">
-							<input type="checkbox" id="cbxEmail"  data-enhance="false" data-role="none" checked="checked"/>
+							<select name="cbxEmail" id="cbxEmail" data-role="slider" data-mini="true" data-theme="b">
+								<option value="off">Hayır</option>
+								<option value="on" selected="selected">Evet</option>
+							</select>
 						</div>
 					</div><!-- /grid-c -->
 				</div>
@@ -543,7 +582,7 @@
 			<div data-role="content">
 
 				<div>
-					<label id="debugLabel">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
+					<label class="settingDesc">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
 				</div>
 
 				<label for="cbxSetting1">Yeni Ürünler</label>
@@ -558,6 +597,7 @@
 				<label for="cbxSetting4">İndirim Kataloğu</label>
 				<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
 
+<!--
 				<label for="tbDebugger">Adınız</label>
 				<input type="text" id="tbDebugger" data-theme="b" data-mini="false"/>
 
@@ -568,7 +608,7 @@
 				<button onclick="testOrientation();">
 					testOrientation
 				</button>
-
+-->
 			</div><!-- /content -->
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
