@@ -49,7 +49,7 @@
 	<gap:platform name="ios" />
 
 	<access origin="http://127.0.0.1*" />
-	<access origin="http://213.74.186.117/files/*" />
+	<access origin="http://www.gtech.com.tr/Cosmetica/files/*" />
 	<access origin="*" />
 	
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
