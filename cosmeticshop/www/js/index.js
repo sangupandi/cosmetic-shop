@@ -21,7 +21,7 @@ function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _di
 var catalogue = {
 	initialized : false,
 
-	load : function() {
+	load : function(selector) {
 		if (catalogue.initialized)
 			return;
 
@@ -49,7 +49,7 @@ var catalogue = {
 				$.each(result, function(i, row) {
 					content += String.format('<img src="{0}" width="100%" alt=".">', row.Url);
 				});
-				$("#scroller").html(content);
+				$(selector).html(content);
 			}
 		};
 	}

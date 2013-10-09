@@ -28,7 +28,7 @@
 		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
 		<script type="text/javascript" src="js/jquery.iscroll.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
-		<link rel="stylesheet" href="css/katalog-beta.css" />
+		<link rel="stylesheet" href="css/katalog.css" />
 
 		<!-- phonegap default -->
 		<script type="text/javascript" src="phonegap.js"></script>
@@ -43,22 +43,24 @@
 		<script src="js/jq-map/jquery.ui.map.full.min.js" type="text/javascript"></script>
 		-->
 		<script type="text/javascript">
-		/*
-			var myScroll = null;
-			function loaded() {
-				myScroll = new IScroll('#wrapper', {
-					zoom : true,
-					zoomMax : 4
-				});
-			}
+			/*
+			 var myScroll = null;
+			 function loaded() {
+			 myScroll = new IScroll('#wrapper', {
+			 zoom : true,
+			 zoomMax : 4
+			 });
+			 }
 
+			 document.addEventListener('touchmove', function(e) {
+			 e.preventDefault();
+			 }, false);
 
+			 document.addEventListener('DOMContentLoaded', loaded, false);
+			 */
 			document.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false);
-
-			document.addEventListener('DOMContentLoaded', loaded, false);
-			*/
 		</script>
 
 	</head>
@@ -319,7 +321,9 @@
 
 			<div data-role="content" id="katalog-content">
 				<div id="wrapper">
+					
 					<div id="scroller"></div>
+					
 				</div>
 			</div><!-- /content -->
 

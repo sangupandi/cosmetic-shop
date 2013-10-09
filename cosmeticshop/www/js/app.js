@@ -434,6 +434,7 @@ function startupSteps() {
 			//alert("hide error");
 		}
 		app.startAnim();
+		catalogue.load("#wrapper #scroller");
 	});
 
 	$("#home_page").bind("pageshow", function(event) {
@@ -460,8 +461,6 @@ function startupSteps() {
 	});
 
 	$("#page-katalog").bind("pageshow", function(event) {
-
-		catalogue.load();
 		//if (myScroll == null) loaded();
 
 		//refreshCatalogueArea();
@@ -628,12 +627,18 @@ function startupSteps() {
 		var elem = $('#wrapper');
 		elem.iscroll({
 			zoom : true,
-			zoomMax : 4
+			bounce : false,
+			zoomMax : 4,
+			scrollX : true,
+			scrollY : true,
+			mouseWheel : true,
+			wheelAction : 'zoom'
 		});
 		elem.bind('onScrollEnd', function(e, iscroll) {
 			alert($(this).attr('id') + ' - ' + iscroll);
 		});
 	});
+
 	glog.step('startupSteps');
 }
 
