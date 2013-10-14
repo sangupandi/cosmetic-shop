@@ -374,3 +374,6 @@ div[data-role="footer"] img {
 .settingDesc{
 	color: #f5f5f5;
 }
+div[data-role="page"] div[data-role="content"]{
+	z-index: 9999;
+}
