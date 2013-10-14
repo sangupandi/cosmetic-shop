@@ -28,7 +28,7 @@
 		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
 		<script type="text/javascript" src="js/jquery.iscroll.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
-		<link rel="stylesheet" href="css/katalog-beta.css" />
+		<!--<link rel="stylesheet" href="css/katalog-beta.css" />-->
 
 		<!-- phonegap default -->
 		<script type="text/javascript" src="phonegap.js"></script>
@@ -93,13 +93,25 @@
 		</div>
 
 		<!-- Start of home page -->
-		<div data-role="page" id="home_page">
+		<div data-role="page" id="home-page">
 
+<!--
 			<div id="hp-header" data-role="header"><img id="home-header-pic" src="img/hp-sag-ust.png"/>
 			</div>
-
-			<div data-role="content" class="home-content swiper-container-parent">
+-->
+			<div data-role="content" class="swiper-container-parent">
+				<img id="home-header-pic" src="img/hp-sag-ust.png"/>
 				<div id="left-menu">
+					<a id="m1" class="large"></a>
+					<a id="m2" class="large"></a>
+					<a id="m3" class="large"></a>
+					<a id="m4" class="large"></a>
+					<a id="m5" class="large"></a>
+					<a id="m6" class="large"></a>
+					<a id="m7" class="large"></a>
+					<a id="m8" class="large"></a>
+					<a id="m9" class="small"></a>
+					<!--
 					<div id="m1"><img src="img/menu_01.png" src2="img/menu-pressed_01.png" width="100%"/>
 					</div>
 					<div id="m2"><img src="img/menu_02.png" src2="img/menu-pressed_02.png" width="100%"/>
@@ -118,6 +130,7 @@
 					</div>
 					<div id="m9"><img src="img/menu_09.png" src2="img/menu-pressed_09.png" width="100%"/>
 					</div>
+					-->
 				</div>
 				<div id="swiper-home" class="swiper-container">
 					<div id="swipe-data-home" class="swiper-wrapper">
@@ -132,9 +145,10 @@
 					</div>
 					<div id="pagination-home" class="pagination"></div>
 				</div>
-
+<!--
 				<div id="hp-pic"><img src="img/hp_pic_03.png" height="100%"/>
 				</div>
+			-->
 			</div><!-- /content -->
 
 		</div><!-- /page -->
@@ -146,7 +160,7 @@
 				<img src="img/header_09.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" class="swiper-container-parent">
+			<div data-role="content" class="swiper-container-parent sized-content">
 				<div id="swiper2" class="swiper-container">
 					<div id="swipe-data2" class="swiper-wrapper"></div>
 				</div>
@@ -176,7 +190,7 @@
 				<img src="img/header_11.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" class="swiper-container-parent">
+			<div data-role="content" class="swiper-container-parent sized-content">
 				<div id="swiper1" class="swiper-container">
 					<div id="swipe-data1" class="swiper-wrapper"></div>
 				</div>
@@ -206,7 +220,7 @@
 				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
+			<div data-role="content" class="sized-content">
 				<div class="brick b1-1"><img src="img/goz.png" width="100%"/>
 				</div>
 				<div class="brick b1-2"><img src="img/1.png" width="100%"/>
@@ -255,7 +269,7 @@
 				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div id="gsbContent" data-role="content">
+			<div id="gsbContent" data-role="content" class="sized-content">
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
 						<img src="img/guzsirri_03.png" width="100%"/>
@@ -300,8 +314,8 @@
 				<img src="img/header_06.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div id="gsbContent2" data-role="content">
-				<div id="gsb2img"><img src="http://www.gtech.com.tr/Cosmetica/files/2.jpg" width="100%">
+			<div id="gsbContent2" data-role="content" class="sized-content">
+				<div id="gsb2img"><img src="" width="100%">
 				</div>
 				<div id="gsb2text">
 					some text
@@ -330,7 +344,7 @@
 				<img src="img/header_14.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content" id="katalog-content">
+			<div data-role="content" id="katalog-content" class="sized-content">
 				<div id="wrapper">
 					
 					<div id="scroller"></div>
@@ -360,7 +374,7 @@
 				<img src="img/header_16.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
+			<div data-role="content" class="sized-content">
 				<div class="ui-grid-a">
 					<div class="ui-block-a"><img class="sm sfb" src="img/social_35.png" src2="img/social-pressed_39.png" width="100%"/>
 					</div>
@@ -395,7 +409,7 @@
 				<img src="img/header_18.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
+			<div data-role="content" class="sized-content">
 				<div class="ui-grid-a">
 					<div class="ui-block-a"><img class="fm app1" src="img/apps_39.png" src2="img/apps_39.png" width="70%"/>
 					</div>
@@ -433,7 +447,7 @@
 				<img src="img/header_20.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div class="customer-form" data-role="content">
+			<div class="customer-form sized-content" data-role="content">
 
 				<div class="customer-field">
 					<label for="tbAdSoyad" >Adı Soyadı</label>
@@ -506,7 +520,7 @@
 				<img src="img/header_22.png" width="100%"/>
 			</div>
 
-			<div data-role="content">
+			<div data-role="content" class="sized-content">
 				<div class="ui-grid-a">
 					<div class="ui-block-a"><img class="fm b1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
 					</div>
@@ -589,7 +603,7 @@
 				<img src="img/header_17.png" width="100%"/>
 			</div><!-- /header -->
 
-			<div data-role="content">
+			<div data-role="content" class="sized-content">
 
 				<div>
 					<label class="settingDesc">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
@@ -640,7 +654,7 @@
 		<script type="text/javascript">
 			// Asynchronous Loading
 			// https://developers.google.com/maps/documentation/javascript/examples/map-simple-async
-			window.onload = loadMapScript('app.onMapApiLoad');
+			//window.onload = loadMapScript('app.onMapApiLoad');
 			app.initialize();
 		</script>
 

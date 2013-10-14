@@ -2,6 +2,136 @@ var buttomDom;
 var statusDom;
 var fileSystem;
 
+function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
+	this.swiperObject = null;
+	this.swiperObjectId = _swiperObjectId;
+	this.paginationObjectId = _paginationObjectId;
+	this.swipeDataElementId = _swipeDataElementId;
+	this.swipeContentElementId = _swipeContentElementId;
+	this.swipeContentArray = null;
+	this.categoryId = _categoryId;
+}
+
+function clsShop(_caption, _address, _phone, _latitude, _longitude, _active, _distance) {
+	this.caption = _caption;
+	this.address = _address;
+	this.phone = _phone;
+	this.latitude = _latitude;
+	this.longitude = _longitude;
+	this.active = _active;
+	this.distance = _distance;
+}
+
+var catalogue = {
+	initialized : false,
+
+	load : function(selector) {
+		if (catalogue.initialized)
+			return;
+
+		var svcurl = serviceHost + "/Catalogue.ashx";
+		$.ajax({
+			url : svcurl,
+			dataType : "jsonp",
+			async : true,
+			success : function(result) {
+				$.mobile.loading('hide');
+				ajax.parseJSONP(result);
+			},
+			error : function(request, error) {
+				$.mobile.loading('hide');
+				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			}
+		});
+
+		var ajax = {
+			parseJSONP : function(result) {
+				catalogue.initialized = true;
+
+				//var image = new Image();
+				var content = "";
+				$.each(result, function(i, row) {
+					content += String.format('<img src="{0}" width="100%" alt=".">', row.Url);
+				});
+				$(selector).html(content);
+			}
+		};
+	}
+};
+
+var preloadImages = {
+	//images : {},
+	load : function() {
+		var svcurl = serviceHost + "/Preload.ashx";
+		$.ajax({
+			url : svcurl,
+			dataType : "jsonp",
+			async : true,
+			success : function(result) {
+				$.mobile.loading('hide');
+				ajax.parseJSONP(result);
+			},
+			error : function(request, error) {
+				$.mobile.loading('hide');
+				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			}
+		});
+
+		var ajax = {
+			parseJSONP : function(result) {
+				//var image = new Image();
+				$.each(result, function(i, row) {
+					//var preload = ['/stackoverflow/1.jpg', '/stackoverflow/2.jpg'];
+					var image = new Image();
+					image.src = row.Url;
+				});
+			}
+		};
+
+	}
+};
+
+var glog = {
+	durations : {},
+
+	logString : "",
+
+	getDuration : function(processName) {
+		var dateStart = glog.durations[processName + "_s"];
+		var dateFinish = glog.durations[processName + "_e"];
+		return dateFinish - dateStart;
+	},
+
+	fmtDate : function(dateValue) {
+		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", dateValue.getFullYear(), dateValue.getMonth() + 1, dateValue.getDate(), dateValue.getHours(), dateValue.getMinutes(), dateValue.getSeconds(), dateValue.getMilliseconds());
+	},
+
+	step : function(processName) {
+		if (glog.durations[processName + "_s"] == null) {
+			glog.durations[processName + "_s"] = new Date();
+			glog.log(processName + "STARTED at " + glog.fmtDate(glog.durations[processName + "_s"]));
+		} else {
+			glog.durations[processName + "_e"] = new Date();
+			glog.log(processName + "FINISHED at " + glog.fmtDate(glog.durations[processName + "_e"]));
+			glog.warn(processName + "DURATIONS : " + glog.getDuration(processName) + "(ms)");
+
+			glog.durations[processName + "_s"] = null;
+			glog.durations[processName + "_e"] = null;
+		}
+	},
+
+	log : function(msg) {
+		glog.logString += msg + "<br/>";
+		console.log(msg);
+	},
+
+	warn : function(msg) {
+		glog.logString += msg + "<br/>";
+		console.warn(msg);
+	}
+};
+
+
 /*
  var bricks = {
 
@@ -95,7 +225,7 @@ function initSwiperData(_swiper) {
 					tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
 					$('#' + _swiper.swipeDataElementId).html(tmp);
 
-					_swiper.swipeContentArray.push(row.Description+"<br/><br/>");
+					_swiper.swipeContentArray.push(row.Description + "<br/><br/>");
 				});
 				initSwiper();
 			}
@@ -434,14 +564,14 @@ function startupSteps() {
 			//alert("hide error");
 		}
 		app.startAnim();
-		catalogue.load("#wrapper #scroller");
+		//catalogue.load("#wrapper #scroller");
 	});
 
-	$("#home_page").bind("pageshow", function(event) {
-		console.log("changed home_page");
+	$("#home-page").bind("pageshow", function(event) {
+		console.log("changed home-page");
 
 		// bu contentSize niye şaşıyor? bulamadım..
-		$('#home_page div[data-role="content"]').css({
+		$('#home-page div[data-role="content"]').css({
 			"height" : "auto"
 		});
 		app.initHomeSwiper();
@@ -642,11 +772,12 @@ function startupSteps() {
 	// pass class for body, added element's class, 0 or 1
 	// 1 = for non ios7 testing
 	//ios7StatusBarBump('ios7-detected','status-bar-bump',0);
-	
+
 	glog.step('startupSteps');
 }
 
 function loadMapScript(callbackFunctionName) {
+	glog.step('loadMapScript');
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=geometry&' + 'callback=' + callbackFunctionName;
@@ -667,20 +798,21 @@ function testOrientation() {
 	navigator.screenOrientation.set('landscape');
 }
 
-function ios7StatusBarBump(detectedClass,statusBarElementClass,nonIOS7test) {
-  var userAgentStr = /(iPad|iPhone);.*CPU.*OS 7_\d/i,
-      statusBarHtml = "<span class="+statusBarElementClass+"></span>";
+function ios7StatusBarBump(detectedClass, statusBarElementClass, nonIOS7test) {
+	var userAgentStr = /(iPad|iPhone);.*CPU.*OS 7_\d/i, statusBarHtml = "<span class=" + statusBarElementClass + "></span>";
 
-      if(navigator.userAgent.match(userAgentStr)){ // is ios7
-        addElement(detectedClass,statusBarHtml);
-      }
-  
-      if(nonIOS7test == 1){
-        addElement(detectedClass,statusBarHtml);
-      }
+	if (navigator.userAgent.match(userAgentStr)) {// is ios7
+		app.ios7StatusBarBumpApplied = true;
+		addElement(detectedClass, statusBarHtml);
+	}
 
-      function addElement(detectedClass,statusBarHtml){
-        $('body').addClass(detectedClass).prepend(statusBarHtml);
-      }
+	if (nonIOS7test == 1) {
+		addElement(detectedClass, statusBarHtml);
+	}
+
+	function addElement(detectedClass, statusBarHtml) {
+		$('body').addClass(detectedClass).prepend(statusBarHtml);
+	}
+
 }
 
