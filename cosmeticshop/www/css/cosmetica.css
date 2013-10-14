@@ -1,8 +1,4 @@
 * {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-}
-* {
   /* prevent callout when holding tap on links (the native dialog that comes up) */
   -webkit-touch-callout: none; 
 
@@ -15,14 +11,27 @@
   /* prevent copy paste, to allow, change 'none' to 'text' */
   -webkit-user-select: none; 
 }
-
+.customer-form *{
+  -webkit-user-select: text; 
+}
 /* turn off webkit checkbox style, works for other inputs too */
 input[type="checkbox"] { -webkit-appearance: none; }
 
 /* placeholder text opacity */
 input::-webkit-input-placeholder { opacity: .8; }
 
-
+.ios7-detected > div {
+	margin-top:20px;
+}
+.ios7-detected .status-bar-bump {
+	z-index: 9999;
+	height:20px;
+	position: fixed;
+  	top:0px;
+	left:0px;
+	right:0px;
+	background:rgba(0,0,0,1);
+}
 /* #container div with absolute position and 100% width and height so it takes up whole window */
 #container {
     position: absolute;
