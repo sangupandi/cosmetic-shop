@@ -45,7 +45,7 @@ html {
 	-o-text-size-adjust: none;
 	text-size-adjust: none;
 	overflow: scroll;
--webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 }
 
 #scroller img {

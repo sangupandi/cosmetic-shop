@@ -95,7 +95,7 @@ function initSwiperData(_swiper) {
 					tmp = tmp + '<div class="swiper-slide">' + row.Html + '</div>';
 					$('#' + _swiper.swipeDataElementId).html(tmp);
 
-					_swiper.swipeContentArray.push(row.Description);
+					_swiper.swipeContentArray.push(row.Description+"<br/><br/>");
 				});
 				initSwiper();
 			}

@@ -25,10 +25,10 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
-		<script type="application/javascript" src="js/iscroll.js"></script>
+		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
 		<script type="text/javascript" src="js/jquery.iscroll.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
-		<link rel="stylesheet" href="css/katalog.css" />
+		<link rel="stylesheet" href="css/katalog-beta.css" />
 
 		<!-- phonegap default -->
 		<script type="text/javascript" src="phonegap.js"></script>
@@ -58,16 +58,25 @@
 
 			 document.addEventListener('DOMContentLoaded', loaded, false);
 			 */
+			
 			/*
 			document.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false);
 			*/
+
+			document.addEventListener('click', function(e) {
+				e.preventDefault();
+				return false;
+			}, false);
 		</script>
 
 	</head>
 
 	<body>
+		<!-- jqm pages container -->
+    	<div id="container">
+    
 		<div data-role="page" id="first-page">
 			<div data-role="content"></div>
 		</div>
@@ -626,6 +635,7 @@
 			</div><!-- /footer -->
 
 		</div><!-- /page -->
+    </div>
 
 		<script type="text/javascript">
 			// Asynchronous Loading

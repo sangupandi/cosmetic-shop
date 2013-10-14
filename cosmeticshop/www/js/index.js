@@ -674,6 +674,10 @@ var app = {
 		console.log('receivedEvent :' + id);
 
 		$.support.cors = true;
+       	// Setting #container div as a jqm pageContainer
+        $.mobile.pageContainer = $('#container');
+            
+		$.mobile.autoInitializePage = false;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.pushStateEnabled = false;
 		$.mobile.touchOverflowEnabled = false;
@@ -683,6 +687,7 @@ var app = {
 		$.mobile.transitionFallbacks.pop = 'none';
 		$.mobile.buttonMarkup.hoverDelay = 0;
 		$.mobile.phonegapNavigationEnabled = true;
+       	$.mobile.loadingMessage = 'Yükleniyor...' ;
 
 		initAnimPageLayout();
 		setTimeout(function() {

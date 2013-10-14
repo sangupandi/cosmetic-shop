@@ -1,20 +1,34 @@
-body {
+* {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+}
+* {
+  /* prevent callout when holding tap on links (the native dialog that comes up) */
+  -webkit-touch-callout: none; 
+
+  /* prevent webkit from resizing text to fit */
+  -webkit-text-size-adjust: none; 
+
+  /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  /* prevent copy paste, to allow, change 'none' to 'text' */
+  -webkit-user-select: none; 
+}
+
+/* turn off webkit checkbox style, works for other inputs too */
+input[type="checkbox"] { -webkit-appearance: none; }
+
+/* placeholder text opacity */
+input::-webkit-input-placeholder { opacity: .8; }
+
+
+/* #container div with absolute position and 100% width and height so it takes up whole window */
+#container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 	background-color: #000 !important;
-}
-div[data-role="header"] {
-	background-image: none;
-	background-color: #000;
-	border: none;
-}
-div[data-role="footer"] {
-	background-image: none;
-	background-color: #000;
-	border: none;
-}
-div[data-role="header"] img {
-	position: absolute;
-	top: 0;
-	left: 0;
 }
 .ui-page {
 	-webkit-backface-visibility: hidden;
@@ -30,6 +44,39 @@ div[data-role="header"] img {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
+}
+.scrollable {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+} 
+/* iOS specific fix, don't use it on Android devices */
+.scrollable > * {
+    -webkit-transform: translateZ(0px);
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	/*
+  input { background-image: url('images/text@2x.png') }
+  input:focus { background-image: url('images/text-focus@2x.png') }
+  */
+}
+body {
+	background-color: #000 !important;
+	margin: 0;
+}
+div[data-role="header"] {
+	background-image: none;
+	background-color: #000;
+	border: none;
+}
+div[data-role="footer"] {
+	background-image: none;
+	background-color: #000;
+	border: none;
+}
+div[data-role="header"] img {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 #first-page div {
 	background-color: transparent;
