@@ -641,7 +641,7 @@ function startupSteps() {
 
 	// pass class for body, added element's class, 0 or 1
 	// 1 = for non ios7 testing
-	ios7StatusBarBump('ios7-detected','status-bar-bump',0);
+	//ios7StatusBarBump('ios7-detected','status-bar-bump',0);
 	
 	glog.step('startupSteps');
 }
