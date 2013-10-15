@@ -1,27 +1,61 @@
+var glog = {
+	durations : {},
+
+	logString : "",
+
+	getDuration : function(processName) {
+		var dateStart = glog.durations[processName + "_s"];
+		var dateFinish = glog.durations[processName + "_e"];
+		return dateFinish - dateStart;
+	},
+
+	fmtDate : function(dateValue) {
+		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", dateValue.getFullYear(), dateValue.getMonth() + 1, dateValue.getDate(), dateValue.getHours(), dateValue.getMinutes(), dateValue.getSeconds(), dateValue.getMilliseconds());
+	},
+
+	step : function(processName) {
+		if (glog.durations[processName + "_s"] == null) {
+			glog.durations[processName + "_s"] = new Date();
+			glog.log(processName + "STARTED at " + glog.fmtDate(glog.durations[processName + "_s"]));
+		} else {
+			glog.durations[processName + "_e"] = new Date();
+			glog.log(processName + "FINISHED at " + glog.fmtDate(glog.durations[processName + "_e"]));
+			glog.warn(processName + "DURATIONS : " + glog.getDuration(processName) + "(ms)");
+
+			glog.durations[processName + "_s"] = null;
+			glog.durations[processName + "_e"] = null;
+		}
+	},
+
+	log : function(msg) {
+		glog.logString += msg + "<br/>";
+		console.log(msg);
+	},
+
+	warn : function(msg) {
+		glog.logString += msg + "<br/>";
+		console.warn(msg);
+	}
+};
+
 var app = {
 	// Application Constructor
 	initialize : function() {
-		glog.step("initialize");
 		this.bindEvents();
-		glog.step("initialize");
 	},
 	// Bind Event Listeners
 	//
 	// Bind any events that are required on startup. Common events are:
 	// 'load', 'deviceready', 'offline', and 'online'.
 	bindEvents : function() {
-		glog.step("bindEvents");
 		document.addEventListener('deviceready', this.onDeviceReady, false);
-		glog.step("bindEvents");
 	},
 	// deviceready Event Handler
 	//
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		glog.step("onDeviceReady");
 		app.receivedEvent('deviceready');
-		glog.step("onDeviceReady");
 	},
 
 	windowHeight : 0,
@@ -29,7 +63,10 @@ var app = {
 	headerHeight : 0,
 	footerHeight : 0,
 	contentHeight : 0,
-	ios7StatusBarBumpApplied : false,
+	//ios7StatusBarBumpApplied : false,
+
+	carousel1 : new carouselObject("#swiper2", "#pagination2", "#swipe-data2", "#swipe-content2", 5),
+	preloadImages : new preloadObject("/Preload.ashx"),
 
 	shopList : [],
 	shopListTemplate : "",
@@ -37,7 +74,7 @@ var app = {
 	nearestShop : null,
 	currentLocation : null,
 	map : null,
-	mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
+	//mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
 	updateCurrentMap : true,
 	backPageId : "",
 	currentPageId : function() {
@@ -115,6 +152,7 @@ var app = {
 		}
 		glog.step("addMarkers");
 	},
+
 	renderShopList : function() {
 		glog.step("renderShopList");
 		var formatDistance = function(value) {
@@ -139,6 +177,7 @@ var app = {
 		}
 		glog.step("renderShopList");
 	},
+
 	recalculateDistances : function() {
 		glog.step("recalculateDistances");
 		if (app.mapApiReady && (app.shopList.length > 0) && (app.currentLocation != null)) {
@@ -200,6 +239,8 @@ var app = {
 
 	initLayoutSizes : function() {
 		glog.step("initLayoutSizes");
+		var styles = [];
+		styles.push("<style>");
 
 		/* header height (size: 565x107) */
 		app.headerHeight = app.windowWidth * 107 / 565;
@@ -212,24 +253,10 @@ var app = {
 		//if (app.ios7StatusBarBumpApplied) app.contentHeight -= 20;
 
 		/* enlarge contents size */
-		$('<style>.sized-content { height: ' + app.contentHeight + 'px; }</style>').appendTo('html > head');
-		/*
-		 $('div[data-role="content"]').each(function() {
-		 $(this).css({
-		 "height" : app.contentHeight + "px"
-		 });
-		 });
-		 */
+		styles.push('.sized-content { height: ' + app.contentHeight + 'px; }\r');
 
 		/* set size of headers */
-		$('<style>div[data-role="header"] { height: ' + app.headerHeight + 'px; }</style>').appendTo('html > head');
-		/*
-		$('div[data-role="header"]').each(function() {
-		$(this).css({
-		"height" : app.headerHeight + "px"
-		});
-		});
-		*/
+		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
 		/* set #home-page menu size (size: 147x901) */
 		//var contentHeight = getRealContentHeight();
@@ -240,36 +267,31 @@ var app = {
 		});
 
 		var menuHeight = menuWidth * 106 / 147;
-		$('<style>#left-menu a { height: ' + menuHeight + 'px; }</style>').appendTo('html > head');
-		$('<style>#left-menu a { background-size: ' + menuWidth + 'px; }</style>').appendTo('html > head');
-		$('<style>#left-menu a:active { background-position: 0px -' + menuHeight + 'px; }</style>').appendTo('html > head');
+		styles.push('#left-menu a { height: ' + menuHeight + 'px; background-size: ' + menuWidth + 'px; }\r');
+		styles.push('#left-menu a:active { background-position: 0px -' + menuHeight + 'px; }\r');
 
 		/* set #home-page logo size (size: 457x108) (design width: 601px)*/
 		var homeLogoWidth = app.windowWidth * 457 / 601;
-		$("#home-header-pic").css({
-			"width" : homeLogoWidth + "px"
-		});
+		styles.push('#home-header-pic { width: ' + homeLogoWidth + 'px; }\r');
+
+		/* set swiper container height and content height */
+		styles.push('#swiper-home { height: ' + app.windowHeight + 'px; }\r');
+		styles.push('#home-page div[data-role="content"] { height: ' + app.windowHeight + 'px; }\r');
 
 		/* set swiper image size (size: 535x332)*/
-		var swHeight = app.windowWidth * 332 / 535;
-		$('<style>.swiper-container { height: ' + swHeight + 'px; }</style>').appendTo('html > head');
-		/*
-		 $('.swiper-container').each(function() {
-		 $(this).css({
-		 "height" : swHeight + "px"
-		 });
-		 });
-		 */
+		var carouselImageHeight = app.windowWidth * 332 / 535;
+		//styles.push('.swiper-container { height: ' + swHeight + 'px; }\r');
 
-		/* set swiper container height */
-		$('<style>#swiper-home { height: ' + app.widowHeight + 'px; }</style>').appendTo('html > head');
-		/*
-		 $("#swiper-home").css({
-		 //"top" : "-" + homeLogoHeight + "px",
-		 "height" : $(window).height() + "px"
-		 });
-		 */
+		/* set carousel sizes */
+		var paginationTopOffset = app.headerHeight + carouselImageHeight;
+		styles.push('#carousel1 { height: ' + (app.contentHeight - 8) + 'px; }\r');
+		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
+		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - carouselImageHeight - 10 - 8) + 'px; }\r');
 
+		styles.push("</style>");
+		$("html > head").append(styles.join(""));
+
+		glog.step("initLayoutSizes");
 		return;
 
 		/* gs = "güzellik sırları" */
@@ -499,14 +521,36 @@ var app = {
 		});
 
 		$("#home-page").bind("pageshow", function(event) {
-			// bu contentSize niye şaşıyor? bulamadım..
-			/*
-			 $('#home-page div[data-role="content"]').css({
-			 "height" : "auto"
-			 });
-			 */
+			app.preloadImages.load();
 			app.initHomeSwiper();
 			//app.firstInitialize();
+		});
+
+		$("#page-yeniurun").bind("pageshow", function(event) {
+			app.carousel1.load();
+		});
+
+		$("#page-firsat").bind("pageshow", function(event) {
+			//initSwiperData(swiper1);
+		});
+
+		$("#page-guzellik").bind("pageshow", function(event) {
+			//startGuzellikSirriAnimation();
+		});
+
+	},
+
+	bindHomeMenuTapEvents : function() {
+		$("#m1").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-yeniurun"));
+		});
+
+		$("#m2").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-firsat"));
+		});
+
+		$("#m3").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-guzellik"));
 		});
 
 	},
@@ -531,6 +575,11 @@ var app = {
 		$.mobile.phonegapNavigationEnabled = true;
 		$.mobile.loadingMessage = 'Yükleniyor...';
 
+		$.mobile.loader.prototype.options.text = "Yükleniyor";
+		$.mobile.loader.prototype.options.textVisible = false;
+		$.mobile.loader.prototype.options.theme = "a";
+		$.mobile.loader.prototype.options.html = "";
+
 		loadMapScript('app.onMapApiLoad');
 
 		app.windowHeight = $(window).height();
@@ -547,6 +596,7 @@ var app = {
 
 		app.initLayoutSizes();
 		app.bindPageShowEvents();
+		app.bindHomeMenuTapEvents();
 
 		return;
 

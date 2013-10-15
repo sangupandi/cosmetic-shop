@@ -137,41 +137,41 @@ body {
 #left-menu {
 	z-index: 44;
 	position: absolute;
-	left:0;
-	top:0;
+	left: 0;
+	top: 0;
 }
 #left-menu a {
-  background-repeat:no-repeat;
-  width:100%;
-  display: -webkit-box;
-  background-position:0px 0px;
+	background-repeat: no-repeat;
+	width: 100%;
+	display: -webkit-box;
+	background-position: 0px 0px;
 }
 #m1 {
-  background-image: url(../img/menu01.png);
+	background-image: url(../img/menu01.png);
 }
 #m2 {
-  background-image: url(../img/menu02.png);
+	background-image: url(../img/menu02.png);
 }
 #m3 {
-  background-image: url(../img/menu03.png);
+	background-image: url(../img/menu03.png);
 }
 #m4 {
-  background-image: url(../img/menu04.png);
+	background-image: url(../img/menu04.png);
 }
 #m5 {
-  background-image: url(../img/menu05.png);
+	background-image: url(../img/menu05.png);
 }
 #m6 {
-  background-image: url(../img/menu06.png);
+	background-image: url(../img/menu06.png);
 }
 #m7 {
-  background-image: url(../img/menu07.png);
+	background-image: url(../img/menu07.png);
 }
 #m8 {
-  background-image: url(../img/menu08.png);
+	background-image: url(../img/menu08.png);
 }
-#m9{
-  background-image: url(../img/menu09.png);
+#m9 {
+	background-image: url(../img/menu09.png);
 }
 #swiper-home {
 	position: absolute;
@@ -187,8 +187,18 @@ body {
 	z-index: 35;
 	text-align: center;
 }
-
 /* ------------------------------------------------------------------------- */
+div[data-role="header"] {
+	border: none;
+}
+div[data-role="footer"] {
+	border: none;
+}
+div[data-role="footer"] img {
+	display: block;
+}
+
+
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */

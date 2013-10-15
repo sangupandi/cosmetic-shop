@@ -21,8 +21,8 @@
 		<script src="js/idangerous.swiper-2.2.min.js"></script>
 
 		<!-- custom files -->
-		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
 		<script type="application/javascript" src="js/iscroll-zoom-min.js"></script>
@@ -58,12 +58,12 @@
 
 			 document.addEventListener('DOMContentLoaded', loaded, false);
 			 */
-			
+
 			/*
-			document.addEventListener('touchmove', function(e) {
-				e.preventDefault();
-			}, false);
-			*/
+			 document.addEventListener('touchmove', function(e) {
+			 e.preventDefault();
+			 }, false);
+			 */
 
 			document.addEventListener('click', function(e) {
 				e.preventDefault();
@@ -75,483 +75,329 @@
 
 	<body>
 		<!-- jqm pages container -->
-    	<div id="container">
-    
-		<div data-role="page" id="first-page">
-			<div data-role="content"></div>
-		</div>
+		<div id="container">
 
-		<!-- animation page -->
-		<div data-role="page" id="ani-page">
-			<div data-role="content">
-				<!--<a id="btnTest" data-role="button" data-icon="home">Start</a>-->
-				<div id="ani-c"></div>
-				<div id="ani-logo">
-					<img src="img/cosmetica-logo.png" width="80%" />
+			<div data-role="page" id="first-page">
+				<div data-role="content"></div>
+			</div>
+
+			<!-- animation page -->
+			<div data-role="page" id="ani-page">
+				<div data-role="content">
+					<!--<a id="btnTest" data-role="button" data-icon="home">Start</a>-->
+					<div id="ani-c"></div>
+					<div id="ani-logo">
+						<img src="img/cosmetica-logo.png" width="80%" />
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- Start of home page -->
-		<div data-role="page" id="home-page">
-
-<!--
-			<div id="hp-header" data-role="header"><img id="home-header-pic" src="img/hp-sag-ust.png"/>
-			</div>
--->
-			<div data-role="content" class="swiper-container-parent">
-				<img id="home-header-pic" src="img/hp-sag-ust.png"/>
-				<div id="left-menu">
-					<a id="m1" class="large"></a>
-					<a id="m2" class="large"></a>
-					<a id="m3" class="large"></a>
-					<a id="m4" class="large"></a>
-					<a id="m5" class="large"></a>
-					<a id="m6" class="large"></a>
-					<a id="m7" class="large"></a>
-					<a id="m8" class="large"></a>
-					<a id="m9" class="small"></a>
+			<!-- Start of home page -->
+			<div data-role="page" id="home-page">
+				<!--
+				<div id="hp-header" data-role="header"><img id="home-header-pic" src="img/hp-sag-ust.png"/>
+				</div>
+				-->
+				<div data-role="content" class="swiper-container-parent">
+					<img id="home-header-pic" src="img/hp-sag-ust.png"/>
+					<div id="left-menu">
+						<a id="m1" class="large"></a>
+						<a id="m2" class="large"></a>
+						<a id="m3" class="large"></a>
+						<a id="m4" class="large"></a>
+						<a id="m5" class="large"></a>
+						<a id="m6" class="large"></a>
+						<a id="m7" class="large"></a>
+						<a id="m8" class="large"></a>
+						<a id="m9" class="small"></a>
+					</div>
+					<div id="swiper-home" class="swiper-container">
+						<div id="swipe-data-home" class="swiper-wrapper">
+							<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b00.jpg" height="100%"/>
+							</div>
+							<div class="swiper-slide" page-id="page-firsat"><img src="img/b01.jpg" height="100%"/>
+							</div>
+							<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b02.jpg" height="100%"/>
+							</div>
+							<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b03.jpg" height="100%"/>
+							</div>
+						</div>
+						<div id="pagination-home" class="pagination"></div>
+					</div>
 					<!--
-					<div id="m1"><img src="img/menu_01.png" src2="img/menu-pressed_01.png" width="100%"/>
-					</div>
-					<div id="m2"><img src="img/menu_02.png" src2="img/menu-pressed_02.png" width="100%"/>
-					</div>
-					<div id="m3"><img src="img/menu_03.png" src2="img/menu-pressed_03.png" width="100%"/>
-					</div>
-					<div id="m4"><img src="img/menu_04.png" src2="img/menu-pressed_04.png" width="100%"/>
-					</div>
-					<div id="m5"><img src="img/menu_05.png" src2="img/menu-pressed_05.png" width="100%"/>
-					</div>
-					<div id="m6"><img src="img/menu_06.png" src2="img/menu-pressed_06.png" width="100%"/>
-					</div>
-					<div id="m7"><img src="img/menu_07.png" src2="img/menu-pressed_07.png" width="100%"/>
-					</div>
-					<div id="m8"><img src="img/menu_08.png" src2="img/menu-pressed_08.png" width="100%"/>
-					</div>
-					<div id="m9"><img src="img/menu_09.png" src2="img/menu-pressed_09.png" width="100%"/>
+					<div id="hp-pic"><img src="img/hp_pic_03.png" height="100%"/>
 					</div>
 					-->
-				</div>
-				<div id="swiper-home" class="swiper-container">
-					<div id="swipe-data-home" class="swiper-wrapper">
-						<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b00.jpg" height="100%"/>
-						</div>
-						<div class="swiper-slide" page-id="page-firsat"><img src="img/b01.jpg" height="100%"/>
-						</div>
-						<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b02.jpg" height="100%"/>
-						</div>
-						<div class="swiper-slide" page-id="page-yeniurun"><img src="img/b03.jpg" height="100%"/>
+				</div><!-- /content -->
+
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-yeniurun">
+
+				<div data-role="header">
+					<img src="img/header_09.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="swiper-container-parent sized-content">
+
+					<div id="carousel1" class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="http://www.gtech.com.tr/Cosmetica/files/1.jpg" width="100%">
+							</div>
+							<div class="swiper-slide">
+								<img src="http://www.gtech.com.tr/Cosmetica/files/3.jpg" width="100%">
+							</div>
+							<div class="swiper-slide">
+								<img src="http://www.gtech.com.tr/Cosmetica/files/2.jpg" width="100%">
+								<div class="desc">
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+									You can put any HTML inside of slide with any layout, not only images, even another Swiper!
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="pagination-home" class="pagination"></div>
-				</div>
-<!--
-				<div id="hp-pic"><img src="img/hp_pic_03.png" height="100%"/>
-				</div>
-			-->
-			</div><!-- /content -->
+					<div id="carousel1-pagination" class="pagination middle"></div>
 
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-yeniurun">
-
-			<div data-role="header">
-				<img src="img/header_09.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="swiper-container-parent sized-content">
-				<div id="swiper2" class="swiper-container">
+					<!--
+					<div id="swiper2" class="swiper-container">
 					<div id="swipe-data2" class="swiper-wrapper"></div>
-				</div>
-				<div id="pagination2" class="pagination"></div>
-				<div id="swipe-content2" class="swipe-content"></div>
-			</div><!-- /content -->
+					</div>
+					<div id="pagination2" class="pagination"></div>
+					-->
+					<!--<div id="swipe-content2" class="swipe-content"></div>-->
+				</div><!-- /content -->
 
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-firsat">
-
-			<div data-role="header">
-				<img src="img/header_11.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="swiper-container-parent sized-content">
-				<div id="swiper1" class="swiper-container">
-					<div id="swipe-data1" class="swiper-wrapper"></div>
-				</div>
-				<div id="pagination1" class="pagination"></div>
-				<div id="swipe-content1" class="swipe-content"></div>
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-guzellik">
-
-			<div data-role="header">
-				<img src="img/header_06.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="sized-content">
-				<div class="brick b1-1"><img src="img/goz.png" width="100%"/>
-				</div>
-				<div class="brick b1-2"><img src="img/1.png" width="100%"/>
-				</div>
-				<div class="brick b1-3"><img src="img/8.png" width="100%"/>
-				</div>
-				<div class="brick b2-1"><img src="img/yuz.png" width="100%"/>
-				</div>
-				<div class="brick b2-2"><img src="img/2.png" width="100%"/>
-				</div>
-				<div class="brick b2-3"><img src="img/7.png" width="100%"/>
-				</div>
-				<div class="brick b3-1"><img src="img/dudak.png" width="100%"/>
-				</div>
-				<div class="brick b3-2"><img src="img/3.png" width="100%"/>
-				</div>
-				<div class="brick b3-3"><img src="img/6.png" width="100%"/>
-				</div>
-				<div class="brick b4-1"><img src="img/tirnak.png" width="100%"/>
-				</div>
-				<div class="brick b4-2"><img src="img/4.png" width="100%"/>
-				</div>
-				<div class="brick b4-3"><img src="img/5.png" width="100%"/>
-				</div>
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-guzellik-b">
-
-			<div data-role="header">
-				<img src="img/header_06.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div id="gsbContent" data-role="content" class="sized-content">
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<img src="img/guzsirri_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b">
-						Text area
-					</div>
-					<div class="ui-block-a">
-						<img src="img/guzsirri_06.png" width="100%"/>
-					</div>
-					<div class="ui-block-b">
-						Text area
-					</div>
-					<div class="ui-block-a">
-						<img src="img/guzsirri_08.png" width="100%"/>
-					</div>
-					<div class="ui-block-b">
-						Text area
-					</div>
-				</div>
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-guzellik-c">
-
-			<div data-role="header">
-				<img src="img/header_06.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div id="gsbContent2" data-role="content" class="sized-content">
-				<div id="gsb2img"><img src="" width="100%">
-				</div>
-				<div id="gsb2text">
-					some text
-				</div>
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-katalog">
-
-			<div data-role="header">
-				<img src="img/header_14.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" id="katalog-content" class="sized-content">
-				<div id="wrapper">
-					
-					<div id="scroller"></div>
-					
-				</div>
-			</div><!-- /content -->
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-sosyal">
-
-			<div data-role="header">
-				<img src="img/header_16.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="sized-content">
-				<div class="ui-grid-a">
-					<div class="ui-block-a"><img class="sm sfb" src="img/social_35.png" src2="img/social-pressed_39.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="sm stw" src="img/social_37.png" src2="img/social-pressed_41.png" width="100%"/>
-					</div>
-					<div class="ui-block-a"><img class="sm sgp" src="img/social_43.png" src2="img/social-pressed_48.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="sm sfs" src="img/social_45.png" src2="img/social-pressed_50.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div>
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div>
-
-		<!-- Start of page apps -->
-		<div data-role="page" id="page-uygulama">
-
-			<div data-role="header">
-				<img src="img/header_18.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="sized-content">
-				<div class="ui-grid-a">
-					<div class="ui-block-a"><img class="fm app1" src="img/apps_39.png" src2="img/apps_39.png" width="70%"/>
-					</div>
-					<div class="ui-block-b app1">
-						Barcode Okuyucu
-					</div>
-					<div class="ui-block-a"><img class="fm app2" src="img/apps_49.png" src2="img/apps_49.png" width="70%"/>
-					</div>
-					<div class="ui-block-b app2">
-						Ayna
-					</div>
-
-				</div><!-- /grid-c -->
-			</div>
-
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div>
-
-		<!-- Start of page form -->
-		<div data-role="page" id="page-form">
-
-			<div data-role="header">
-				<img src="img/header_20.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div class="customer-form sized-content" data-role="content">
-
-				<div class="customer-field">
-					<label for="tbAdSoyad" >Adı Soyadı</label>
-					<input type="text" id="tbAdSoyad" value="" data-mini="true" data-theme="b"/>
-				</div>
-
-				<div class="customer-field">
-					<label for="tbDogumTar">Doğum Tarihi</label>
-					<input type="date" id="tbDogumTar" value="" data-mini="true" data-theme="b"/>
-				</div>
-
-				<div class="customer-field">
-					<label for="tbTel">Gsm/Tel No</label>
-					<input type="number" pattern="[0-9]*" id="tbTel" value="" data-mini="true" data-theme="b"/>
-
-					<div class="ui-grid-a">
-						<div class="ui-block-a">
-							<label for="cbxSms" class="form-flip-lbl">Sms ile bilgilendir</label>
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
 						</div>
-						<div class="ui-block-b">
-							<select name="cbxSms" id="cbxSms" data-role="slider" data-mini="true" data-theme="b">
-								<option value="off">Hayır</option>
-								<option value="on" selected="selected">Evet</option>
-							</select>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
 						</div>
 					</div><!-- /grid-c -->
-				</div>
+				</div><!-- /footer -->
 
-				<div class="customer-field">
-					<label for="tbEmail">E-mail adresi</label>
-					<input type="email" id="tbEmail" value="" data-mini="true" data-theme="b"/>
+			</div><!-- /page -->
 
-					<div class="ui-grid-a">
-						<div class="ui-block-a">
-							<label for="cbxEmail" class="form-flip-lbl">E-mail ile bilgilendir</label>
+			<!-- Start of page -->
+			<div data-role="page" id="page-firsat">
+
+				<div data-role="header">
+					<img src="img/header_11.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="swiper-container-parent sized-content">
+					<div id="swiper1" class="swiper-container">
+						<div id="swipe-data1" class="swiper-wrapper"></div>
+					</div>
+					<div id="pagination1" class="pagination"></div>
+					<div id="swipe-content1" class="swipe-content"></div>
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
 						</div>
-						<div class="ui-block-b">
-							<select name="cbxEmail" id="cbxEmail" data-role="slider" data-mini="true" data-theme="b">
-								<option value="off">Hayır</option>
-								<option value="on" selected="selected">Evet</option>
-							</select>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
 						</div>
 					</div><!-- /grid-c -->
-				</div>
+				</div><!-- /footer -->
 
-				<p>
-					<input type="button" value="Gönder" data-theme="b" />
-				</p>
-			</div>
+			</div><!-- /page -->
 
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+			<!-- Start of page -->
+			<div data-role="page" id="page-guzellik">
+
+				<div data-role="header">
+					<img src="img/header_06.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+					<div class="brick b1-1"><img src="img/goz.png" width="100%"/>
 					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+					<div class="brick b1-2"><img src="img/1.png" width="100%"/>
 					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+					<div class="brick b1-3"><img src="img/8.png" width="100%"/>
 					</div>
-					<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+					<div class="brick b2-1"><img src="img/yuz.png" width="100%"/>
 					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
-
-		</div>
-
-		<!-- Start of page map a -->
-		<div data-role="page" id="page-harita">
-
-			<div data-role="header">
-				<img src="img/header_22.png" width="100%"/>
-			</div>
-
-			<div data-role="content" class="sized-content">
-				<div class="ui-grid-a">
-					<div class="ui-block-a"><img class="fm b1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
+					<div class="brick b2-2"><img src="img/2.png" width="100%"/>
 					</div>
-					<div class="ui-block-b"><img class="fm b2" src="img/mag_36.png" src2="img/magp_36.png" width="100%"/>
+					<div class="brick b2-3"><img src="img/7.png" width="100%"/>
 					</div>
-				</div><!-- /grid-c -->
-
-				<div id="shop-list">
-					<div class="info">
-						Mağaza listesi alınıyor...
+					<div class="brick b3-1"><img src="img/dudak.png" width="100%"/>
 					</div>
+					<div class="brick b3-2"><img src="img/3.png" width="100%"/>
+					</div>
+					<div class="brick b3-3"><img src="img/6.png" width="100%"/>
+					</div>
+					<div class="brick b4-1"><img src="img/tirnak.png" width="100%"/>
+					</div>
+					<div class="brick b4-2"><img src="img/4.png" width="100%"/>
+					</div>
+					<div class="brick b4-3"><img src="img/5.png" width="100%"/>
+					</div>
+				</div><!-- /content -->
 
-					<div class="liste">
-						<div class="item" onclick="goMap({3},{4});">
-							<div class="desc">
-								<strong>{0}</strong>
-								{1}
-							</div>
-							<div class="distance">
-								{2}
-							</div>
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-guzellik-b">
+
+				<div data-role="header">
+					<img src="img/header_06.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div id="gsbContent" data-role="content" class="sized-content">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<img src="img/guzsirri_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b">
+							Text area
+						</div>
+						<div class="ui-block-a">
+							<img src="img/guzsirri_06.png" width="100%"/>
+						</div>
+						<div class="ui-block-b">
+							Text area
+						</div>
+						<div class="ui-block-a">
+							<img src="img/guzsirri_08.png" width="100%"/>
+						</div>
+						<div class="ui-block-b">
+							Text area
 						</div>
 					</div>
-				</div>
+				</div><!-- /content -->
 
-				<div id="location-info">
-					Konum bilgisi alınıyor...
-				</div>
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
 
-				<div id="map">
-					<!-- map loads here... -->
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-guzellik-c">
+
+				<div data-role="header">
+					<img src="img/header_06.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div id="gsbContent2" data-role="content" class="sized-content">
+					<div id="gsb2img"><img src="" width="100%">
+					</div>
+					<div id="gsb2text">
+						some text
+					</div>
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-katalog">
+
+				<div data-role="header">
+					<img src="img/header_14.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" id="katalog-content" class="sized-content">
+					<div id="wrapper">
+
+						<div id="scroller"></div>
+
+					</div>
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-sosyal">
+
+				<div data-role="header">
+					<img src="img/header_16.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+					<div class="ui-grid-a">
+						<div class="ui-block-a"><img class="sm sfb" src="img/social_35.png" src2="img/social-pressed_39.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="sm stw" src="img/social_37.png" src2="img/social-pressed_41.png" width="100%"/>
+						</div>
+						<div class="ui-block-a"><img class="sm sgp" src="img/social_43.png" src2="img/social-pressed_48.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="sm sfs" src="img/social_45.png" src2="img/social-pressed_50.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
 				</div>
 
 				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -568,88 +414,255 @@
 				</div><!-- /footer -->
 
 			</div>
-		</div>
 
-		<!-- Start of page map b --
-		<div data-role="page" id="map-page" data-url="map-page">
+			<!-- Start of page apps -->
+			<div data-role="page" id="page-uygulama">
 
-		<div data-role="header">
-		<img src="img/header_22.png" width="100%"/>
-		</div>
+				<div data-role="header">
+					<img src="img/header_18.png" width="100%"/>
+				</div><!-- /header -->
 
-		<div data-role="content" id="map-canvas">
-		<!-- map loads here... --
-		</div>
+				<div data-role="content" class="sized-content">
+					<div class="ui-grid-a">
+						<div class="ui-block-a"><img class="fm app1" src="img/apps_39.png" src2="img/apps_39.png" width="70%"/>
+						</div>
+						<div class="ui-block-b app1">
+							Barcode Okuyucu
+						</div>
+						<div class="ui-block-a"><img class="fm app2" src="img/apps_49.png" src2="img/apps_49.png" width="70%"/>
+						</div>
+						<div class="ui-block-b app2">
+							Ayna
+						</div>
 
-		<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-		<div class="ui-grid-c">
-		<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-		</div>
-		<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-		</div>
-		<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
-		</div>
-		<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
-		</div>
-		</div><!-- /grid-c --
-		</div><!-- /footer --
-
-		</div><!-- /page -->
-
-		<!-- Start of page -->
-		<div data-role="page" id="page-ayarlar">
-
-			<div data-role="header">
-				<img src="img/header_17.png" width="100%"/>
-			</div><!-- /header -->
-
-			<div data-role="content" class="sized-content">
-
-				<div>
-					<label class="settingDesc">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
+					</div><!-- /grid-c -->
 				</div>
 
-				<label for="cbxSetting1">Yeni Ürünler</label>
-				<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
 
-				<label for="cbxSetting2">Güncel Fırsatlar</label>
-				<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
+			</div>
 
-				<label for="cbxSetting3">Güzellik Sırları</label>
-				<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
+			<!-- Start of page form -->
+			<div data-role="page" id="page-form">
 
-				<label for="cbxSetting4">İndirim Kataloğu</label>
-				<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
+				<div data-role="header">
+					<img src="img/header_20.png" width="100%"/>
+				</div><!-- /header -->
 
-				<!--
-				<label for="tbDebugger">Adınız</label>
-				<input type="text" id="tbDebugger" data-theme="b" data-mini="false"/>
+				<div class="customer-form sized-content" data-role="content">
 
-				<button onclick="shareDebugLog();">
-				Send Debug Log
-				</button>
+					<div class="customer-field">
+						<label for="tbAdSoyad" >Adı Soyadı</label>
+						<input type="text" id="tbAdSoyad" value="" data-mini="true" data-theme="b"/>
+					</div>
 
-				<button onclick="testOrientation();">
-				testOrientation
-				</button>
-				-->
-			</div><!-- /content -->
+					<div class="customer-field">
+						<label for="tbDogumTar">Doğum Tarihi</label>
+						<input type="date" id="tbDogumTar" value="" data-mini="true" data-theme="b"/>
+					</div>
+
+					<div class="customer-field">
+						<label for="tbTel">Gsm/Tel No</label>
+						<input type="number" pattern="[0-9]*" id="tbTel" value="" data-mini="true" data-theme="b"/>
+
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<label for="cbxSms" class="form-flip-lbl">Sms ile bilgilendir</label>
+							</div>
+							<div class="ui-block-b">
+								<select name="cbxSms" id="cbxSms" data-role="slider" data-mini="true" data-theme="b">
+									<option value="off">Hayır</option>
+									<option value="on" selected="selected">Evet</option>
+								</select>
+							</div>
+						</div><!-- /grid-c -->
+					</div>
+
+					<div class="customer-field">
+						<label for="tbEmail">E-mail adresi</label>
+						<input type="email" id="tbEmail" value="" data-mini="true" data-theme="b"/>
+
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<label for="cbxEmail" class="form-flip-lbl">E-mail ile bilgilendir</label>
+							</div>
+							<div class="ui-block-b">
+								<select name="cbxEmail" id="cbxEmail" data-role="slider" data-mini="true" data-theme="b">
+									<option value="off">Hayır</option>
+									<option value="on" selected="selected">Evet</option>
+								</select>
+							</div>
+						</div><!-- /grid-c -->
+					</div>
+
+					<p>
+						<input type="button" value="Gönder" data-theme="b" />
+					</p>
+				</div>
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
+
+			</div>
+
+			<!-- Start of page map a -->
+			<div data-role="page" id="page-harita">
+
+				<div data-role="header">
+					<img src="img/header_22.png" width="100%"/>
+				</div>
+
+				<div data-role="content" class="sized-content">
+					<div class="ui-grid-a">
+						<div class="ui-block-a"><img class="fm b1" src="img/mag_35.png" src2="img/magp_35.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm b2" src="img/mag_36.png" src2="img/magp_36.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+
+					<div id="shop-list">
+						<div class="info">
+							Mağaza listesi alınıyor...
+						</div>
+
+						<div class="liste">
+							<div class="item" onclick="goMap({3},{4});">
+								<div class="desc">
+									<strong>{0}</strong>
+									{1}
+								</div>
+								<div class="distance">
+									{2}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="location-info">
+						Konum bilgisi alınıyor...
+					</div>
+
+					<div id="map">
+						<!-- map loads here... -->
+					</div>
+
+					<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+						<div class="ui-grid-c">
+							<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+							</div>
+							<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+							</div>
+							<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+							</div>
+							<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+							</div>
+						</div><!-- /grid-c -->
+					</div><!-- /footer -->
+
+				</div>
+			</div>
+
+			<!-- Start of page map b --
+			<div data-role="page" id="map-page" data-url="map-page">
+
+			<div data-role="header">
+			<img src="img/header_22.png" width="100%"/>
+			</div>
+
+			<div data-role="content" id="map-canvas">
+			<!-- map loads here... --
+			</div>
 
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<div class="ui-grid-c">
-					<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
-					</div>
-					<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
-					</div>
-					<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
-					</div>
-					<div class="ui-block-d"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
-					</div>
-				</div><!-- /grid-c -->
-			</div><!-- /footer -->
+			<div class="ui-grid-c">
+			<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+			</div>
+			<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+			</div>
+			<div class="ui-block-c"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+			</div>
+			<div class="ui-block-d"><img class="fm f4" src="img/footer_43.png" src2="img/footer-pressed_06.png" width="100%"/>
+			</div>
+			</div><!-- /grid-c --
+			</div><!-- /footer --
 
-		</div><!-- /page -->
-    </div>
+			</div><!-- /page -->
+
+			<!-- Start of page -->
+			<div data-role="page" id="page-ayarlar">
+
+				<div data-role="header">
+					<img src="img/header_17.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+
+					<div>
+						<label class="settingDesc">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
+					</div>
+
+					<label for="cbxSetting1">Yeni Ürünler</label>
+					<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
+
+					<label for="cbxSetting2">Güncel Fırsatlar</label>
+					<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
+
+					<label for="cbxSetting3">Güzellik Sırları</label>
+					<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
+
+					<label for="cbxSetting4">İndirim Kataloğu</label>
+					<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
+
+					<!--
+					<label for="tbDebugger">Adınız</label>
+					<input type="text" id="tbDebugger" data-theme="b" data-mini="false"/>
+
+					<button onclick="shareDebugLog();">
+					Send Debug Log
+					</button>
+
+					<button onclick="testOrientation();">
+					testOrientation
+					</button>
+					-->
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div class="ui-grid-c">
+						<div class="ui-block-a"><img class="fm f1" src="img/footer_40.png" src2="img/footer-pressed_03.png" width="100%"/>
+						</div>
+						<div class="ui-block-b"><img class="fm f2" src="img/footer_41.png" src2="img/footer-pressed_04.png" width="100%"/>
+						</div>
+						<div class="ui-block-c"><img class="fm f3" src="img/footer_42.png" src2="img/footer-pressed_05.png" width="100%"/>
+						</div>
+						<div class="ui-block-d"><img class="fm fback" src="img/footer_69.png" src2="img/footer_69.png" width="100%"/>
+						</div>
+					</div><!-- /grid-c -->
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+		</div>
 
 		<script type="text/javascript">
 			// Asynchronous Loading

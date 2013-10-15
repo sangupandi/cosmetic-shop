@@ -1,6 +1,91 @@
-var buttomDom;
-var statusDom;
-var fileSystem;
+var serviceHost = "http://www.gtech.com.tr/cosmetica";
+
+function carouselObject(_containerSelector, _paginationSelector, _slideWrapperSelector, _textDataContainerSelector, _categoryId) {
+	this.swiperObject = null;
+	this.containerSelector = _containerSelector;
+	this.paginationSelector = _paginationSelector;
+	this.slideWrapperSelector = _slideWrapperSelector;
+	this.textDataContainerSelector = _textDataContainerSelector;
+	this.contentArray = [];
+	this.rawJsonData = null;
+	this.categoryId = _categoryId;
+}
+
+carouselObject.prototype.extractRawData = function(jsonData) {
+	if (jsonData != null) {
+		this.rawJsonData = jsonData;
+
+		$(this.textDataContainerSelector).html("");
+		$(this.slideWrapperSelector).html("");
+		var arr = [];
+
+		var tmp = "";
+		// $(this.textDataContainerSelector).html();
+		$.each(this.rawJsonData, function(i, row) {
+			tmp += '<div class="swiper-slide"><div>' + row.Html + '<div class="desc">' + row.Description + '</div></div></div>';
+			arr.push(row.Description + "<br/><br/>");
+		});
+		this.contentArray = arr;
+		$(this.slideWrapperSelector).html(tmp);
+
+		this.render();
+	}
+};
+
+carouselObject.prototype.refreshText = function(obj) {
+	return;
+	//var obj = this;
+	if (obj.contentArray.length > 0) {
+		$(obj.textDataContainerSelector).fadeOut(function() {
+			$(obj.textDataContainerSelector).html(obj.contentArray[obj.swiperObject.activeLoopIndex]).fadeIn();
+		});
+	}
+};
+
+carouselObject.prototype.render = function() {
+	var obj = this;
+	this.swiperObject = $(this.containerSelector).swiper({
+		pagination : this.paginationSelector,
+		paginationClickable : true,
+		loop : true,
+		initialSlide : 0,
+		grabCursor : true,
+		/*
+		 calculateHeight: true,
+		 visibilityFullFit: true,
+		 autoResize: false,
+		 */
+		onSlideChangeEnd : function() {
+			obj.refreshText(obj);
+		}
+	});
+
+	this.refreshText(obj);
+};
+
+carouselObject.prototype.load = function() {
+	var mySwiper = new Swiper('#carousel1', {
+		pagination : '#carousel1-pagination',
+		loop : true,
+		grabCursor : true,
+		paginationClickable : true
+	});
+	return;
+	var obj = this;
+	var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
+	$.ajax({
+		url : svcurl,
+		dataType : "jsonp",
+		async : true,
+		//crossDomain: true,
+		success : function(result) {
+			obj.extractRawData(result);
+		},
+		error : function(request, error) {
+			alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+		}
+	});
+};
 
 function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
 	this.swiperObject = null;
@@ -59,19 +144,28 @@ var catalogue = {
 	}
 };
 
-var preloadImages = {
-	//images : {},
-	load : function() {
-		var svcurl = serviceHost + "/Preload.ashx";
+function preloadObject(_jsonDataUrl) {
+	this.jsonDataUrl = serviceHost + _jsonDataUrl;
+	this.loaded = false;
+	this.trying = false;
+}
+
+preloadObject.prototype.load = function() {
+	if (!this.loaded && !this.trying) {
+		this.trying = true;
+
 		$.ajax({
-			url : svcurl,
+			url : this.jsonDataUrl,
 			dataType : "jsonp",
 			async : true,
 			success : function(result) {
 				$.mobile.loading('hide');
 				ajax.parseJSONP(result);
+				this.trying = false;
+				this.loaded = true;
 			},
 			error : function(request, error) {
+				this.trying = false;
 				$.mobile.loading('hide');
 				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 			}
@@ -87,56 +181,8 @@ var preloadImages = {
 				});
 			}
 		};
-
 	}
 };
-
-var glog = {
-	durations : {},
-
-	logString : "",
-
-	getDuration : function(processName) {
-		var dateStart = glog.durations[processName + "_s"];
-		var dateFinish = glog.durations[processName + "_e"];
-		return dateFinish - dateStart;
-	},
-
-	fmtDate : function(dateValue) {
-		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", dateValue.getFullYear(), dateValue.getMonth() + 1, dateValue.getDate(), dateValue.getHours(), dateValue.getMinutes(), dateValue.getSeconds(), dateValue.getMilliseconds());
-	},
-
-	step : function(processName) {
-		if (glog.durations[processName + "_s"] == null) {
-			glog.durations[processName + "_s"] = new Date();
-			glog.log(processName + "STARTED at " + glog.fmtDate(glog.durations[processName + "_s"]));
-		} else {
-			glog.durations[processName + "_e"] = new Date();
-			glog.log(processName + "FINISHED at " + glog.fmtDate(glog.durations[processName + "_e"]));
-			glog.warn(processName + "DURATIONS : " + glog.getDuration(processName) + "(ms)");
-
-			glog.durations[processName + "_s"] = null;
-			glog.durations[processName + "_e"] = null;
-		}
-	},
-
-	log : function(msg) {
-		glog.logString += msg + "<br/>";
-		console.log(msg);
-	},
-
-	warn : function(msg) {
-		glog.logString += msg + "<br/>";
-		console.warn(msg);
-	}
-};
-
-
-/*
- var bricks = {
-
- };
- */
 
 function isPhoneGap() {
 	return (!( typeof device === "undefined"));
@@ -155,7 +201,6 @@ function platform_Android() {
 	return (getDeviceType() == "Android");
 }
 
-var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var map = null;
 
 var swiper1 = new SwiperObject("swiper1", "pagination1", "swipe-data1", "swipe-content1", 5);
