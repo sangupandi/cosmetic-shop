@@ -1,12 +1,16 @@
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
-function carouselObject(_containerSelector, _paginationSelector, _slideWrapperSelector, _textDataContainerSelector, _categoryId) {
-	this.swiperObject = null;
-	this.containerSelector = _containerSelector;
-	this.paginationSelector = _paginationSelector;
-	this.slideWrapperSelector = _slideWrapperSelector;
-	this.textDataContainerSelector = _textDataContainerSelector;
-	this.contentArray = [];
+function carouselObject(_domId, _categoryId) {
+	this.swiper = null;
+	this.domId = _domId;
+	this.paginationDomId = _domId + "-pagination";
+
+	this.templateSelector = this.domId + ' .swiper-wrapper';
+	//this.template = $(this.templateSelector).html();
+	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
+
+	//$(this.templateSelector).html("");
+
 	this.rawJsonData = null;
 	this.categoryId = _categoryId;
 }
@@ -14,70 +18,32 @@ function carouselObject(_containerSelector, _paginationSelector, _slideWrapperSe
 carouselObject.prototype.extractRawData = function(jsonData) {
 	if (jsonData != null) {
 		this.rawJsonData = jsonData;
-
-		$(this.textDataContainerSelector).html("");
-		$(this.slideWrapperSelector).html("");
 		var arr = [];
-
-		var tmp = "";
-		// $(this.textDataContainerSelector).html();
+		var template = this.template;
 		$.each(this.rawJsonData, function(i, row) {
-			tmp += '<div class="swiper-slide"><div>' + row.Html + '<div class="desc">' + row.Description + '</div></div></div>';
-			arr.push(row.Description + "<br/><br/>");
+			arr.push(String.format(template, row.Html, row.Description));
 		});
-		this.contentArray = arr;
-		$(this.slideWrapperSelector).html(tmp);
-
+		$(this.templateSelector).html(arr.join(""));
 		this.render();
 	}
 };
 
-carouselObject.prototype.refreshText = function(obj) {
-	return;
-	//var obj = this;
-	if (obj.contentArray.length > 0) {
-		$(obj.textDataContainerSelector).fadeOut(function() {
-			$(obj.textDataContainerSelector).html(obj.contentArray[obj.swiperObject.activeLoopIndex]).fadeIn();
-		});
-	}
-};
-
 carouselObject.prototype.render = function() {
-	var obj = this;
-	this.swiperObject = $(this.containerSelector).swiper({
-		pagination : this.paginationSelector,
-		paginationClickable : true,
-		loop : true,
-		initialSlide : 0,
-		grabCursor : true,
-		/*
-		 calculateHeight: true,
-		 visibilityFullFit: true,
-		 autoResize: false,
-		 */
-		onSlideChangeEnd : function() {
-			obj.refreshText(obj);
-		}
-	});
-
-	this.refreshText(obj);
-};
-
-carouselObject.prototype.load = function() {
-	var mySwiper = new Swiper('#carousel1', {
-		pagination : '#carousel1-pagination',
+	this.swiper = new Swiper(this.domId, {
+		pagination : this.paginationDomId,
 		loop : true,
 		grabCursor : true,
 		paginationClickable : true
 	});
-	return;
+};
+
+carouselObject.prototype.load = function() {
 	var obj = this;
 	var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
 	$.ajax({
 		url : svcurl,
 		dataType : "jsonp",
 		async : true,
-		//crossDomain: true,
 		success : function(result) {
 			obj.extractRawData(result);
 		},

@@ -65,7 +65,8 @@ var app = {
 	contentHeight : 0,
 	//ios7StatusBarBumpApplied : false,
 
-	carousel1 : new carouselObject("#swiper2", "#pagination2", "#swipe-data2", "#swipe-content2", 5),
+	carousel1 : new carouselObject("#carousel1", 5),
+	carousel2 : new carouselObject("#carousel2", 10),
 	preloadImages : new preloadObject("/Preload.ashx"),
 
 	shopList : [],
@@ -283,8 +284,8 @@ var app = {
 		//styles.push('.swiper-container { height: ' + swHeight + 'px; }\r');
 
 		/* set carousel sizes */
-		var paginationTopOffset = app.headerHeight + carouselImageHeight;
-		styles.push('#carousel1 { height: ' + (app.contentHeight - 8) + 'px; }\r');
+		var paginationTopOffset = app.headerHeight + carouselImageHeight + 8;
+		styles.push('#carousel1, #carousel2 { height: ' + (app.contentHeight - 8) + 'px; }\r');
 		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
 		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - carouselImageHeight - 10 - 8) + 'px; }\r');
 
@@ -527,11 +528,11 @@ var app = {
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
-			app.carousel1.load();
+			app.carousel1.load();			
 		});
 
 		$("#page-firsat").bind("pageshow", function(event) {
-			//initSwiperData(swiper1);
+			app.carousel2.load();			
 		});
 
 		$("#page-guzellik").bind("pageshow", function(event) {
@@ -654,7 +655,7 @@ var app = {
 				pagination : '#pagination-home',
 				paginationClickable : true,
 				loop : true,
-				initialSlide : 0,
+				/*initialSlide : 0,*/
 				onSlideClick : function(control) {
 					goPage(control.clickedSlide.getAttribute('page-id'));
 				}
