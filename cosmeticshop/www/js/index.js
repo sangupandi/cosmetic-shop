@@ -63,7 +63,6 @@ var app = {
 	headerHeight : 0,
 	footerHeight : 0,
 	contentHeight : 0,
-	//ios7StatusBarBumpApplied : false,
 
 	carousel1 : new carouselObject("#carousel1", 5),
 	carousel2 : new carouselObject("#carousel2", 10),
