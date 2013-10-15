@@ -76,7 +76,6 @@ var app = {
 	map : null,
 	//mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
 	updateCurrentMap : true,
-	backPageId : "",
 	currentPageId : function() {
 		return $.mobile.activePage.attr('id');
 	},
@@ -288,6 +287,19 @@ var app = {
 		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
 		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - carouselImageHeight - 10 - 8) + 'px; }\r');
 
+		/* footer buttons (size: 150x80) */
+		var buttonCount = 5;
+		var footerBtnWidth = app.windowWidth / 4;
+		var footerBtnHeight = (footerBtnWidth * 80 / 150).toFixed(0);
+		styles.push('.ui-footer a { width: ' + footerBtnWidth + 'px; height: ' + footerBtnHeight + 'px; }\r');
+		styles.push('.ui-footer a { background-size: ' + (footerBtnWidth * buttonCount) + 'px ' + footerBtnHeight * 2 + 'px; }\r');
+		styles.push('.ui-footer a:hover, .ui-footer a:active { background-position-y: -' + footerBtnHeight + 'px; }\r');
+		styles.push('.ui-footer a.fb-home { background-position-x: 0px; }\r');
+		styles.push('.ui-footer a.fb-share { background-position-x: -' + footerBtnWidth + 'px; }\r');
+		styles.push('.ui-footer a.fb-map { background-position-x: -' + footerBtnWidth * 2 + 'px; }\r');
+		styles.push('.ui-footer a.fb-back { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
+		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
+
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
 
@@ -411,94 +423,6 @@ var app = {
 		glog.step("initLayoutSizes");
 	},
 
-	initFooterMenuTapActions : function() {
-		glog.step("initFooterMenuTapActions");
-		$('.f1').each(function() {
-			$(this).bind('tap', function() {
-				$.mobile.changePage($("#home-page"));
-			});
-		});
-
-		$('.f2').each(function() {
-			$(this).bind('tap', function() {
-				window.plugins.socialsharing.available(function(isAvailable) {
-					if (isAvailable) {/*
-						// use a local image from inside the www folder:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
-						// succes/error callback params may be added as 4th and 5th param
-						// .. or a local image from anywhere else (if permitted):
-						// local-iOS:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', '/Users/username/Library/Application Support/iPhone/6.1/Applications/25A1E7CF-079F-438D-823B-55C6F8CD2DC0/Documents/.nl.x-services.appname/pics/img.jpg');
-						// local-Android:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'file:///storage/emulated/0/nl.xservices.testapp/5359/Photos/16832/Thumb.jpg');
-						// .. or an image from the internet:
-						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'http://domain.com/image.jpg');
-						// .. or only text:
-						window.plugins.socialsharing.share('My text');
-						// .. (or like this):
-						window.plugins.socialsharing.share('My text', null, null);
-						// use '' instead of null for pre-2.0 versions of this plugin
-						*/
-						//window.plugins.socialsharing.share('My text with a link: serviceHost);
-						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
-					}
-				});
-			});
-		});
-
-		$('.f3').each(function() {
-			$(this).bind('tap', function() {
-				//$('#map-canvas').html('');
-				app.updateCurrentMap = true;
-				$.mobile.changePage($("#page-harita"));
-			});
-		});
-
-		$('.fback').each(function() {
-			$(this).bind('tap', function() {
-				/*
-				 //$('#map-canvas').html('');
-				 if (app.backPageId == "page-harita") {
-				 app.updateCurrentMap = false;
-				 }
-				 var pageId = (app.backPageId != "") ? app.backPageId : "home-page";
-				 app.backPageId = "";
-				 $.mobile.changePage($("#" + pageId));
-				 */
-				try {
-
-					navigator.app.backHistory();
-				} catch(e) {
-					window.history.back();
-				}
-			});
-		});
-
-		$('.f4').each(function() {
-			$(this).bind('tap', function() {
-				app.backPageId = app.currentPageId();
-				$.mobile.changePage($("#page-ayarlar"));
-			});
-		});
-		glog.step("initFooterMenuTapActions");
-	},
-
-	initMenu : function(menuSelector) {
-		glog.step("initMenu");
-
-		var mousefunc = function(event, ui) {
-			var src = $(this).attr("src");
-			var src2 = $(this).attr("src2");
-			$(this).attr("src", src2);
-			$(this).attr("src2", src);
-		};
-		$(menuSelector).each(function() {
-			$(this).bind('vmousedown', mousefunc);
-			$(this).bind('vmouseup', mousefunc);
-		});
-		glog.step("initMenu");
-	},
-
 	putSetting : function(key, value) {
 		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
@@ -527,11 +451,11 @@ var app = {
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
-			app.carousel1.load();			
+			app.carousel1.load();
 		});
 
 		$("#page-firsat").bind("pageshow", function(event) {
-			app.carousel2.load();			
+			app.carousel2.load();
 		});
 
 		$("#page-guzellik").bind("pageshow", function(event) {
@@ -552,8 +476,66 @@ var app = {
 		$("#m3").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-guzellik"));
 		});
-
 	},
+
+	bindFooterMenuTapEvents : function() {
+		$('.fb-home').each(function() {
+			$(this).bind('tap', function() {
+				$.mobile.changePage($("#home-page"));
+			});
+		});
+
+		$('.fb-share').each(function() {
+			$(this).bind('tap', function() {
+				window.plugins.socialsharing.available(function(isAvailable) {
+					if (isAvailable) {/*
+						// use a local image from inside the www folder:
+						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
+						// succes/error callback params may be added as 4th and 5th param
+						// .. or a local image from anywhere else (if permitted):
+						// local-iOS:
+						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', '/Users/username/Library/Application Support/iPhone/6.1/Applications/25A1E7CF-079F-438D-823B-55C6F8CD2DC0/Documents/.nl.x-services.appname/pics/img.jpg');
+						// local-Android:
+						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'file:///storage/emulated/0/nl.xservices.testapp/5359/Photos/16832/Thumb.jpg');
+						// .. or an image from the internet:
+						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'http://domain.com/image.jpg');
+						// .. or only text:
+						window.plugins.socialsharing.share('My text');
+						// .. (or like this):
+						window.plugins.socialsharing.share('My text', null, null);
+						// use '' instead of null for pre-2.0 versions of this plugin
+						*/
+						//window.plugins.socialsharing.share('My text with a link: serviceHost);
+						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+					}
+				});
+			});
+		});
+
+		$('.fb-map').each(function() {
+			$(this).bind('tap', function() {
+				app.updateCurrentMap = true;
+				$.mobile.changePage($("#page-harita"));
+			});
+		});
+
+		$('.fb-back').each(function() {
+			$(this).bind('tap', function() {
+				try {
+					navigator.app.backHistory();
+				} catch(e) {
+					window.history.back();
+				}
+			});
+		});
+
+		$('.fb-settings').each(function() {
+			$(this).bind('tap', function() {
+				$.mobile.changePage($("#page-ayarlar"));
+			});
+		});
+	},
+	
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
@@ -597,6 +579,7 @@ var app = {
 		app.initLayoutSizes();
 		app.bindPageShowEvents();
 		app.bindHomeMenuTapEvents();
+		app.bindFooterMenuTapEvents();
 
 		return;
 

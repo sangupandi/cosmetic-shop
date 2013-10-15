@@ -184,7 +184,16 @@ div[data-role="footer"] {
 div[data-role="footer"] img {
 	display: block;
 }
-
+.ui-footer div a {
+	display: -webkit-box;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image: url(../img/footer.png);
+}
 
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */

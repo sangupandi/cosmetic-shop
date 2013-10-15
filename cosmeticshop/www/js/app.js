@@ -788,6 +788,9 @@ function startupSteps() {
 }
 
 function loadMapScript(callbackFunctionName) {
+	// Asynchronous Loading
+	// https://developers.google.com/maps/documentation/javascript/examples/map-simple-async
+
 	glog.step('loadMapScript');
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
