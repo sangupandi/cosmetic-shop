@@ -37,7 +37,7 @@ var glog = {
 
 	warn : function(msg) {
 		glog.logString += msg + "<br/>";
-		console.warn(msg);
+		console.log(msg);
 	}
 };
 
@@ -99,6 +99,7 @@ var app = {
 	},
 
 	currentLocationMarker : null,
+	showCurrentLocationFirstTime : false,
 	mapInitialized : false,
 	mapApiReady : false,
 	onMapApiLoad : function() {
@@ -106,6 +107,7 @@ var app = {
 		app.mapApiReady = true;
 		if (!app.mapInitialized) {
 			app.initMap();
+			app.detectCurrentLocation(true);
 		}
 	},
 	initMap : function() {
@@ -123,6 +125,7 @@ var app = {
 				rotateControl : false,
 				streetViewControl : false,
 				mapTypeControl : false,
+				draggable : true,
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			};
 			app.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -133,6 +136,74 @@ var app = {
 		}
 		glog.step("--init map first time");
 	},
+
+	detectCurrentLocation : function(highAccuracy) {
+		glog.step("detectCurrentLocation");
+		var onGeoSuccess = function(position) {
+			glog.step("detectCurrentLocation");
+			glog.step("onGeoSuccess");
+			var map = app.map;
+			$("#location-info").html("Konum bilginiz saptandı.");
+			$("#location-info").fadeOut(1000);
+
+			app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			//var markers = $("#map").gmap('get', 'markers');
+
+			if (app.currentLocationMarker != null) {
+				app.currentLocationMarker.setMap(null);
+			}
+
+			app.currentLocationMarker = new google.maps.Marker({
+				position : app.currentLocation,
+				map : map,
+				bounds : false,
+				title : 'Buradasınız',
+				icon : serviceHost + '/files/bluedot2.png'
+				//animation : google.maps.Animation.BOUNCE
+			});
+			var marker = app.currentLocationMarker;
+
+			google.maps.event.addListener(marker, 'click', function() {
+				map.setZoom(8);
+				map.setCenter(marker.getPosition());
+			});
+
+			/*
+			 self.openInfoWindow({
+			 'content' : ''
+			 }, this);
+			 */
+
+			app.showCurrentLocationFirstTime = true;
+
+			glog.step("onGeoSuccess");
+			//app.recalculateDistances();
+		};
+
+		var onGeoFail = function(error) {
+			glog.step("detectCurrentLocation");
+
+			$("#location-info").fadeIn(200);
+			$("#location-info").html("Konum bilginize ulaşılamıyor.");
+		};
+
+		navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
+			timeout : 8000,
+			enableHighAccuracy : highAccuracy
+		});
+	},
+
+	showCurrentLocation : function() {
+		glog.step("showCurrentLocation");
+
+		app.showCurrentLocationFirstTime = false;
+		//app.map.setCenter(app.currentLocation);
+		app.map.panTo(app.currentLocation);
+		//app.map.setZoom(13);
+
+		glog.step("showCurrentLocation");
+	},
+
 	swHome : null,
 
 	addMarkers : function() {
@@ -156,7 +227,6 @@ var app = {
 		}
 		glog.step("addMarkers");
 	},
-
 	renderShopList : function() {
 		glog.step("renderShopList");
 		var formatDistance = function(value) {
@@ -181,7 +251,6 @@ var app = {
 		}
 		glog.step("renderShopList");
 	},
-
 	recalculateDistances : function() {
 		glog.step("recalculateDistances");
 		if (app.mapApiReady && (app.shopList.length > 0) && (app.currentLocation != null)) {
@@ -197,7 +266,6 @@ var app = {
 		}
 		glog.step("recalculateDistances");
 	},
-
 	startAnim : function(callback) {
 		var aniC = $('#ani-c');
 		var t1 = 447 * 480 / 960;
@@ -208,14 +276,12 @@ var app = {
 			y : t2 + 'px'
 		}, 800, 'ease', callback);
 	},
-
 	initLayoutHomePage : function() {
 		app.initHomeSwiper();
 		$.mobile.changePage($("#home-page"), {
 			transition : "fade"
 		});
 	},
-
 	initLayoutAnimPage : function() {
 		glog.step("initLayoutAnimPage");
 
@@ -240,7 +306,6 @@ var app = {
 		});
 		glog.step("initLayoutAnimPage");
 	},
-
 	initLayoutSizes : function() {
 		glog.step("initLayoutSizes");
 		var styles = [];
@@ -426,7 +491,6 @@ var app = {
 
 		glog.step("initLayoutSizes");
 	},
-
 	putSetting : function(key, value) {
 		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
@@ -435,7 +499,6 @@ var app = {
 		var ret = window.localStorage.getItem(key);
 		return (ret != null) ? ret : defaultValue;
 	},
-
 	bindPageShowEvents : function() {
 		$("#ani-page").bind("pageshow", function(event) {
 			try {
@@ -469,27 +532,30 @@ var app = {
 		$("#page-harita").bind("pageshow", function(event) {
 			if (app.mapApiReady) {
 				google.maps.event.trigger(app.map, 'resize');
+				
+				if (app.showCurrentLocationFirstTime) {
+					app.showCurrentLocation();
+				}
 			}
 
 			/*
-			 if (app.currentLocation == null) {
-			 if (app.mapApiReady) {
-			 detectCurrentLocation(true);
-			 } else {
-			 alert("Map API is not loaded!..");
-			 }
-			 }
-			 */
-			
+			if (app.currentLocation == null) {
+			if (app.mapApiReady) {
+			detectCurrentLocation(true);
+			} else {
+			alert("Map API is not loaded!..");
+			}
+			}
+			*/
+
 			/*
-			 if (app.updateCurrentMap) {
-			 showCurrentLocation();
-			 }*/
-			getShopList();
+			if (app.updateCurrentMap) {
+			showCurrentLocation();
+			}*/
+			//getShopList();
 		});
 
 	},
-
 	bindHomeMenuTapEvents : function() {
 		$("#m1").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-yeniurun"));
@@ -610,7 +676,6 @@ var app = {
 			});
 		});
 	},
-
 	applyDoubleTapBugFixOnPageChange : function() {
 		var eventTracker = function(e, data) {
 			switch (e.type) {

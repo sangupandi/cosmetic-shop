@@ -11,7 +11,7 @@
 	color:#fff;
 	text-shadow:none;
 }
-.customer-form * {
+.customer-form input {
 	-webkit-user-select:text;
 }
 /* turn off webkit checkbox style, works for other inputs too */
@@ -206,10 +206,25 @@ div[data-role="footer"] img {
 #page-harita .ui-grid-a img {
 	display:block;
 }
+#map {
+	width:100%;
+	/*height: fromCode */
+}
 #current-location-msg {
 	height:40px;
 	overflow:hidden;
 	background-color:#4390EE;
+}
+#location-info {
+	position:absolute;
+	width:100%;
+	margin-top:20px;
+	text-align:center;
+	padding:5px;
+	z-index:198;
+	display:block;
+	background-color:rgb(236, 0, 140);
+	color:#FFFFFF;
 }
 #shop-list {
 	position:absolute;
@@ -245,21 +260,6 @@ div[data-role="footer"] img {
 }
 #shop-list .liste .distance {
 	text-align:right;
-}
-#location-info {
-	position:absolute;
-	width:100%;
-	margin-top:20px;
-	text-align:center;
-	padding:5px;
-	z-index:198;
-	display:block;
-	background-color:rgb(236, 0, 140);
-	color:#FFFFFF;
-}
-#map {
-	width:100%;
-	height: 320px;
 }
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */

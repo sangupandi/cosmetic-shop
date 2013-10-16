@@ -1,68 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 	<head>
-		<!-- In production, only one script (pdf.js) is necessary -->
-		<!-- In production, change the content of PDFJS.workerSrc below -->
-		<script type="text/javascript" src="js/src/shared/util.js"></script>
-		<script type="text/javascript" src="js/src/shared/colorspace.js"></script>
-		<script type="text/javascript" src="js/src/shared/pattern.js"></script>
-		<script type="text/javascript" src="js/src/shared/function.js"></script>
-		<script type="text/javascript" src="js/src/shared/annotation.js"></script>
-		<script type="text/javascript" src="js/src/display/api.js"></script>
-		<script type="text/javascript" src="js/src/display/metadata.js"></script>
-		<script type="text/javascript" src="js/src/display/canvas.js"></script>
-		<script type="text/javascript" src="js/src/display/font_loader.js"></script>
+		<title>jQM Complex Demo</title>
+		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
-		<script type="text/javascript">
-			// Specify the main script used to create a new PDF.JS web worker.
-			// In production, change this to point to the combined `pdf.js` file.
-			PDFJS.workerSrc = 'js/src/worker_loader.js';
-		</script>
-		
-		<script type="text/javascript">
-			/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-			/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
-			//
-			// See README for overview
-			//
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+		<style>
+			#popupBasic {
+				width:300px !important;
+				height:300px !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div data-role="page" id="map">
+			<div data-role="header" data-theme="b">
+				<a href="index.html" data-icon="grid" rel="external">Menu</a>
+				<h1>Map Header</h1>
+			</div>
+			<div data-role="content" style="width:100%; height:100%; padding:0;">
+				<div data-role="popup" id="popupBasic">
+					<p>
+						This is popup
+					</p>
+				</div>
+				<div id="map_canvas" style="width:100%;height:100%"></div>
+			</div>
+			<div data-role="footer" data-theme="b" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#leftpanel" data-role="button" data-inline="true"   data-icon="grid" >Date</a>
+						</li>
+						<li>
+							<a href="#" data-icon="star" id="testbtn">Favs</a>
+						</li>
+						<li>
+							<a href="#" data-icon="gear" id="myposition">My position</a>
+						</li>
+						<li>
+							<a href="#popupBasic" data-rel="popup" id="openPopup">Open Popup</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /navbar -->
+			</div>
+		</div>
 
-			'use strict';
-
-			//
-			// Fetch the PDF document from the URL using promises
-			//
-			PDFJS.getDocument('cosmetica-insert-eylul.pdf').then(function(pdf) {
-				// Using promise to fetch the page
-				pdf.getPage(1).then(function(page) {
-					var scale = 1.5;
-					var viewport = page.getViewport(scale);
-
-					//
-					// Prepare canvas using PDF page dimensions
-					//
-					var canvas = document.getElementById('the-canvas');
-					var context = canvas.getContext('2d');
-					canvas.height = viewport.height;
-					canvas.width = viewport.width;
-
-					//
-					// Render PDF page into canvas context
-					//
-					var renderContext = {
-						canvasContext : context,
-						viewport : viewport
-					};
-					page.render(renderContext);
+		<script type="application/javascript">
+			//document.addEventListener('deviceready', onDeviceReady, false);
+			$(document).on('pageshow', '#map', function(event) {
+				max_height();
+				navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+					'enableHighAccuracy' : true,
+					'timeout' : 20000
 				});
 			});
 
+			//function onDeviceReady(){
+			$(document).ready(function() {
+				console.warn("werw");
+				//$(document).bind("mobileinit", function() {
+				$.mobile.page.prototype.options.domCache = true;
+				$.mobile.allowCrossDomainPages = true;
+				//});
+
+			});
+
+			function max_height() {
+				var header = $.mobile.activePage.find("div[data-role='header']:visible");
+				var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
+				var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
+				var viewport_height = $(window).height();
+
+				var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+				if ((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewport_height) {
+					content_height -= (content.outerHeight() - content.height());
+				}
+				$.mobile.activePage.find('[data-role="content"]').height(content_height);
+			}
+
+			function onSuccess(position) {
+				var minZoomLevel = 15;
+
+				var map = new google.maps.Map(document.getElementById('map_canvas'), {
+					zoom : minZoomLevel,
+					center : new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				});
+			}
+
+			function onError() {
+				alert('Error');
+			}
+
 		</script>
-	</head>
-
-	<body>
-		<canvas id="the-canvas" style="border:1px solid black;"></canvas>
 	</body>
-
 </html>
