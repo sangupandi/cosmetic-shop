@@ -9,6 +9,9 @@ var glog = {
 		return dateFinish - dateStart;
 	},
 
+	fmtNow : function() {
+		return glog.fmtDate(new Date());
+	},
 	fmtDate : function(dateValue) {
 		return String.format("{0}.{1}.{2} {3}:{4}:{5}.{6}", dateValue.getFullYear(), dateValue.getMonth() + 1, dateValue.getDate(), dateValue.getHours(), dateValue.getMinutes(), dateValue.getSeconds(), dateValue.getMilliseconds());
 	},
@@ -67,6 +70,8 @@ var app = {
 	carousel1 : new carouselObject("#carousel1", 5),
 	carousel2 : new carouselObject("#carousel2", 10),
 	preloadImages : new preloadObject("/Preload.ashx"),
+
+	pageTransitionBusy : false,
 
 	shopList : [],
 	shopListTemplate : "",
@@ -249,7 +254,6 @@ var app = {
 
 		/* content height */
 		app.contentHeight = app.windowHeight - app.headerHeight - app.footerHeight;
-		//if (app.ios7StatusBarBumpApplied) app.contentHeight -= 20;
 
 		/* enlarge contents size */
 		styles.push('.sized-content { height: ' + app.contentHeight + 'px; }\r');
@@ -258,14 +262,9 @@ var app = {
 		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
 		/* set #home-page menu size (size: 147x901) */
-		//var contentHeight = getRealContentHeight();
-		//var menuWidth = ($(window).height() * 106 / 901) * 147 / 106;
 		var menuWidth = app.windowHeight * 147 / 901;
-		$("#left-menu").css({
-			"width" : menuWidth + "px"
-		});
-
 		var menuHeight = menuWidth * 106 / 147;
+		styles.push('#left-menu { width: ' + menuWidth + 'px; }\r');
 		styles.push('#left-menu a { height: ' + menuHeight + 'px; background-size: ' + menuWidth + 'px; }\r');
 		styles.push('#left-menu a:active { background-position: 0px -' + menuHeight + 'px; }\r');
 
@@ -299,6 +298,11 @@ var app = {
 		styles.push('.ui-footer a.fb-map { background-position-x: -' + footerBtnWidth * 2 + 'px; }\r');
 		styles.push('.ui-footer a.fb-back { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
+
+		/* map size (topButton size: 299x111) */
+		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
+		var mapHeight = app.contentHeight - mapTopButtonHeight;
+		styles.push('#map, #shop-list { height: ' + mapHeight + 'px; }\r');
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
@@ -462,6 +466,28 @@ var app = {
 			//startGuzellikSirriAnimation();
 		});
 
+		$("#page-harita").bind("pageshow", function(event) {
+			if (app.mapApiReady) {
+				google.maps.event.trigger(app.map, 'resize');
+			}
+
+			/*
+			 if (app.currentLocation == null) {
+			 if (app.mapApiReady) {
+			 detectCurrentLocation(true);
+			 } else {
+			 alert("Map API is not loaded!..");
+			 }
+			 }
+			 */
+			
+			/*
+			 if (app.updateCurrentMap) {
+			 showCurrentLocation();
+			 }*/
+			getShopList();
+		});
+
 	},
 
 	bindHomeMenuTapEvents : function() {
@@ -476,6 +502,55 @@ var app = {
 		$("#m3").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-guzellik"));
 		});
+
+		$("#m4").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-katalog"));
+		});
+
+		$("#m5").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-sosyal"));
+		});
+
+		$("#m6").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-uygulama"));
+		});
+
+		$("#m7").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-form"));
+		});
+
+		$("#m8").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-harita"));
+		});
+		$("#m9").bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-ayarlar"));
+		});
+	},
+
+	bindSubPagesTapEvents : function() {
+		/* Sosyal medya */
+		$('.sfb').bind('tap', function() {
+			var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		$('.stw').bind('tap', function() {
+			var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		$('.sgp').bind('tap', function() {
+			var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		$('.sfs').bind('tap', function() {
+			var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+
+		/* Harita */
+		$('#page-harita div[data-role="content"] .b1').bind('tap', function() {
+			if ($('#shop-list').is(":visible")) {
+				$('#shop-list').fadeOut(200);
+			} else {
+				$('#shop-list').fadeIn(200);
+			}
+		});
+
 	},
 
 	bindFooterMenuTapEvents : function() {
@@ -535,7 +610,33 @@ var app = {
 			});
 		});
 	},
-	
+
+	applyDoubleTapBugFixOnPageChange : function() {
+		var eventTracker = function(e, data) {
+			switch (e.type) {
+				case "pagebeforeshow":
+					//console.log('pageEvent: ' + e.type + ', prevPage: ' + data.prevPage[0].id + ', app.pageTransitionBusy:' + app.pageTransitionBusy + ', ' + glog.fmtNow());
+					app.pageTransitionBusy = true;
+					break;
+				case "pageshow":
+					//console.log('pageEvent: ' + e.type + ', prevPage: ' + data.prevPage[0].id + ', app.pageTransitionBusy:' + app.pageTransitionBusy + ', ' + glog.fmtNow());
+					app.pageTransitionBusy = false;
+					break;
+				case "pagebeforechange":
+					//console.log('pageEvent: ' + e.type + ', toPage: ' + data.toPage[0].id + ', app.pageTransitionBusy:' + app.pageTransitionBusy + ', ' + glog.fmtNow());
+					if (app.pageTransitionBusy) {
+						e.preventDefault();
+						//console.warn('pagechange canceled');
+					}
+					break;
+			}
+		};
+
+		$(document).bind('pagebeforeshow', eventTracker);
+		$(document).bind('pageshow', eventTracker);
+		$(document).bind('pagebeforechange', eventTracker);
+	},
+
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
@@ -562,6 +663,8 @@ var app = {
 		$.mobile.loader.prototype.options.theme = "a";
 		$.mobile.loader.prototype.options.html = "";
 
+		app.applyDoubleTapBugFixOnPageChange();
+
 		loadMapScript('app.onMapApiLoad');
 
 		app.windowHeight = $(window).height();
@@ -580,6 +683,7 @@ var app = {
 		app.bindPageShowEvents();
 		app.bindHomeMenuTapEvents();
 		app.bindFooterMenuTapEvents();
+		app.bindSubPagesTapEvents();
 
 		return;
 
@@ -639,7 +743,7 @@ var app = {
 				loop : true,
 				/*initialSlide : 0,*/
 				onSlideClick : function(control) {
-					goPage(control.clickedSlide.getAttribute('page-id'));
+					//goPage(control.clickedSlide.getAttribute('page-id'));
 				}
 			});
 		} else {
@@ -647,8 +751,8 @@ var app = {
 				"width" : app.windowWidth + "px",
 				"height" : app.windowHeight + "px"
 			});
-			//app.swHome.resizeFix();
-			app.swHome.reInit();
+			app.swHome.resizeFix();
+			//app.swHome.reInit();
 		}
 	}
 };

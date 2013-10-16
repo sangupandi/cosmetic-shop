@@ -13,6 +13,9 @@ function carouselObject(_domId, _categoryId) {
 
 	this.rawJsonData = null;
 	this.categoryId = _categoryId;
+
+	this.loaded = false;
+	this.trying = false;
 }
 
 carouselObject.prototype.extractRawData = function(jsonData) {
@@ -38,19 +41,29 @@ carouselObject.prototype.render = function() {
 };
 
 carouselObject.prototype.load = function() {
-	var obj = this;
-	var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
-	$.ajax({
-		url : svcurl,
-		dataType : "jsonp",
-		async : true,
-		success : function(result) {
-			obj.extractRawData(result);
-		},
-		error : function(request, error) {
-			alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-		}
-	});
+	if (!this.loaded && !this.trying) {
+		var obj = this;
+		obj.trying = true;
+		glog.step(obj.domId + ".load");
+		
+		var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
+		$.ajax({
+			url : svcurl,
+			dataType : "jsonp",
+			async : true,
+			success : function(result) {
+				glog.step(obj.domId + ".load");
+				obj.extractRawData(result);
+				obj.trying = false;
+				obj.loaded = true;
+			},
+			error : function(request, error) {
+				glog.step(obj.domId + ".load");
+				obj.trying = false;
+				alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+			}
+		});
+	}
 };
 
 function SwiperObject(_swiperObjectId, _paginationObjectId, _swipeDataElementId, _swipeContentElementId, _categoryId) {
@@ -118,21 +131,23 @@ function preloadObject(_jsonDataUrl) {
 
 preloadObject.prototype.load = function() {
 	if (!this.loaded && !this.trying) {
-		this.trying = true;
+		var obj = this;
+		obj.trying = true;
+		glog.step("preloadObject.load");
 
 		$.ajax({
 			url : this.jsonDataUrl,
 			dataType : "jsonp",
 			async : true,
 			success : function(result) {
-				$.mobile.loading('hide');
+				glog.step("preloadObject.load");
 				ajax.parseJSONP(result);
-				this.trying = false;
-				this.loaded = true;
+				obj.trying = false;
+				obj.loaded = true;
 			},
 			error : function(request, error) {
-				this.trying = false;
-				$.mobile.loading('hide');
+				glog.step("preloadObject.load");
+				obj.trying = false;
 				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 			}
 		});
@@ -625,20 +640,6 @@ function startupSteps() {
 	});
 
 	$("#page-harita").bind("pageshow", function(event) {
-		var t1 = $('#page-harita div[data-role="content"] .ui-grid-a').offset().top;
-		var t2 = $('#map').offset().top;
-		var h = getRealContentHeight("page-harita") - (t2 - t1);
-		$('#map').css({
-			"height" : h + "px"
-		});
-
-		$('#shop-list').css({
-			"top" : t2 + "px",
-			"height" : h + "px"
-		});
-
-		//$('#map').gmap('refresh');
-
 		if (app.mapApiReady) {
 			google.maps.event.trigger(app.map, 'resize');
 		}

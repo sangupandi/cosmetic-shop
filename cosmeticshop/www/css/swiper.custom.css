@@ -32,11 +32,11 @@
 	width: 10px;
 	height: 10px;
 	border-radius: 10px;
-	background: #a4a4a4;
+	background: #e32086;
 	box-shadow: 0px 1px 2px #555 inset;
 	margin: 0 3px;
 	cursor: pointer;
 }
 .swiper-active-switch {
-	background: #e32086;
+	background: #f5f5f5;
 }
