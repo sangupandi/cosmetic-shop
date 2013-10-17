@@ -28,7 +28,7 @@ carouselObject.prototype = {
 			var arr = [];
 			var template = this.template;
 			$.each(this.rawJsonData, function(i, row) {
-				arr.push(String.format(template, row.Html, row.Description+'<br/><br/>'));
+				arr.push(String.format(template, row.Html, row.Description + '<br/><br/>'));
 			});
 			$(this.templateSelector).html(arr.join(""));
 			this.render();
@@ -183,40 +183,72 @@ shopListObject.prototype = {
 /*
  * catalogueObject
  */
-var catalogue = {
-	initialized : false,
+function catalogueObject(_jsonDataUrl) {
+	this.jsonDataUrl = serviceHost + _jsonDataUrl;
+	this.selector = '#wrapper #scroller';
+	this.template = '<img src="{0}" width="100%" alt=".">';
+	this.trying = false;
+	this.loaded = false;
+	this.images = [];
+}
 
-	load : function(selector) {
-		if (catalogue.initialized)
-			return;
-
-		var svcurl = serviceHost + "/Catalogue.ashx";
-		$.ajax({
-			url : svcurl,
-			dataType : "jsonp",
-			async : true,
-			success : function(result) {
-				$.mobile.loading('hide');
-				ajax.parseJSONP(result);
-			},
-			error : function(request, error) {
-				$.mobile.loading('hide');
-				//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-			}
+catalogueObject.prototype = {
+	extractRawData : function(jsonData) {
+		var self = this;
+		$.each(jsonData, function(i, row) {
+			var img = new Image();
+			img.src = row.Url;
+			self.images.push(img);
 		});
+		this.render();
+	},
 
-		var ajax = {
-			parseJSONP : function(result) {
-				catalogue.initialized = true;
+	render : function() {
+		glog.step("catalogueObject.render");
+		var self = this;
 
-				//var image = new Image();
-				var content = "";
-				$.each(result, function(i, row) {
-					content += String.format('<img src="{0}" width="100%" alt=".">', row.Url);
-				});
-				$(selector).html(content);
-			}
-		};
+		var arr = [];
+		$.each(self.images, function(i, img) {
+			arr.push(String.format(self.template, img.src));
+		});
+		$(self.selector).html(arr.join(""));
+
+		glog.step("catalogueObject.render");
+	},
+
+	load : function(_addMarkerCallback) {
+		if (!this.loaded && !this.trying) {
+			var obj = this;
+			obj.trying = true;
+			glog.step("catalogueObject.load");
+
+			$.ajax({
+				url : this.jsonDataUrl,
+				dataType : "jsonp",
+				async : true,
+				success : function(result) {
+					glog.step("catalogueObject.load");
+					obj.extractRawData(result);
+
+					obj.trying = false;
+					obj.loaded = true;
+				},
+				error : function(request, error) {
+					glog.step("catalogueObject.load");
+					console.warn(request);
+					console.warn(error);
+
+					obj.trying = false;
+					ajax.errorOccured(request, error);
+				}
+			});
+
+			var ajax = {
+				errorOccured : function(request, error) {
+					$('#shop-list .info').html('Bağlantı hatası oluştu tekrar deneyiniz!').fadeIn(200);
+				}
+			};
+		}
 	}
 };
 
@@ -314,32 +346,6 @@ function goMap(latitude, longitude) {
 	map.setZoom(15);
 }
 
-function refreshCatalogueArea() {
-	//if ios then download else use googleDocs
-
-	try {
-		var cataloguePath = app.getSetting("cataloguePath", "");
-		//lert(cataloguePath);
-
-		var openPdf = function() {
-			window.open(cataloguePath, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
-		};
-
-		$('#show-catalogue img').unbind("tap", openPdf);
-
-		if (cataloguePath == "") {
-			$('#download-catalogue').show();
-			$('#show-catalogue').hide();
-		} else {
-			$('#download-catalogue').hide();
-			$('#show-catalogue').show();
-			$('#show-catalogue img').bind("tap", openPdf);
-		}
-	} catch(e) {
-		alert(e);
-	}
-}
-
 var openFrontCamera = function() {
 	var onCamSuccess = function(imageData) {
 		/* No action required */
@@ -381,25 +387,6 @@ function startupSteps() {
 
 	$("#page-katalog").bind("pageshow", function(event) {
 		//if (myScroll == null) loaded();
-
-		//refreshCatalogueArea();
-
-		/*
-		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		 if (platform_iOS()) {
-		 //var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-		 //$('#page-katalog div[data-role="content"]').load(pdfUrl);
-		 } else {
-		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-		 /*
-		 $('.theiframeid').css({
-		 "width" : $(window).width + "px"
-		 });
-		 $('.theiframeid').attr("src", pdfUrl);
-		 *-/
-		 }
-		 var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes,closebuttoncaption=Geri');
-		 */
 	});
 
 	$("#m4 img").bind('tap', function(event, ui) {
@@ -419,13 +406,6 @@ function startupSteps() {
 		 */
 	});
 
-
-	/*
-	 if (platform_iOS()) {
-	 initCatalogueDownload();
-	 }
-	 */
-
 	$(function() {
 		var elem = $('#wrapper');
 		elem.iscroll({
@@ -441,10 +421,6 @@ function startupSteps() {
 			console.log($(this).attr('id') + ' - ' + iscroll);
 		});
 	});
-
-	// pass class for body, added element's class, 0 or 1
-	// 1 = for non ios7 testing
-	//ios7StatusBarBump('ios7-detected','status-bar-bump',0);
 
 	glog.step('startupSteps');
 }

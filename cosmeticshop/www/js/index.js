@@ -90,6 +90,7 @@ var app = {
 	map : null,
 	nearestShop : null,
 	preloadImages : new preloadObject("/Preload.ashx"),
+	catalogue : new catalogueObject("/Catalogue.ashx"),
 	shopList : new shopListObject(),
 	swHome : null,
 
@@ -377,14 +378,12 @@ var app = {
 		$("html > head").append(styles.join(""));
 
 		glog.step("initLayoutSizes");
-		
 
-
-		/*  		 
-		 * 
+		/*
+		 *
 		 *
 		 * gs = "güzellik sırları"
-		 * 
+		 *
 		 * */
 		w = app.windowWidth;
 		h = app.contentHeight;
@@ -528,7 +527,7 @@ var app = {
 			app.initHomeSwiper();
 			app.preloadImages.load();
 			app.shopList.load(app.addMarkers);
-			//app.firstInitialize();
+			app.catalogue.load();
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
