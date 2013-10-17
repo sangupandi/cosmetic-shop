@@ -368,12 +368,16 @@
 						<div class="ui-block-a"><img class="fm app1" src="img/apps_39.png" src2="img/apps_39.png" width="70%"/>
 						</div>
 						<div class="ui-block-b app1">
+							<p>&nbsp;</p>
+							<p>
 							Barcode Okuyucu
+							</p>
 						</div>
 						<div class="ui-block-a"><img class="fm app2" src="img/apps_49.png" src2="img/apps_49.png" width="70%"/>
 						</div>
 						<div class="ui-block-b app2">
-							Ayna
+							<p>&nbsp;</p>							<p>
+							Ayna</p>
 						</div>
 
 					</div><!-- /grid-c -->
@@ -479,17 +483,11 @@
 							Mağaza listesi alınıyor...
 						</div>
 
-						<div class="liste">
-							<div class="item" onclick="goMap({3},{4});">
-								<div class="desc">
-									<strong>{0}</strong>
-									{1}
-								</div>
-								<div class="distance">
-									{2}
-								</div>
-							</div>
-						</div>
+						<ul class="liste">
+							<li onclick="goMap({4}, {5})">
+								<span class="title">{0}</span><span class="address">{1}</span><span class="tel">Tel: {2}</span><span class="badge">{3}</span>
+							</li>
+						</ul>
 					</div>
 
 					<div id="location-info">

@@ -1,64 +1,63 @@
 /* ------------------------------------------------------------------------- */
 * {
 	/* prevent callout when holding tap on links (the native dialog that comes up) */
-	-webkit-touch-callout:none;
+	-webkit-touch-callout: none;
 	/* prevent webkit from resizing text to fit */
-	-webkit-text-size-adjust:none;
+	-webkit-text-size-adjust: none;
 	/* make transparent link selection, adjust last value opacity 0 to 1.0 */
-	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	/* prevent copy paste, to allow, change 'none' to 'text' */
-	-webkit-user-select:none;
-	color:#fff;
-	text-shadow:none;
+	-webkit-user-select: none;
+	text-shadow: none;
 }
 .customer-form input {
-	-webkit-user-select:text;
+	-webkit-user-select: text;
 }
 /* turn off webkit checkbox style, works for other inputs too */
 input[type="checkbox"] {
-	-webkit-appearance:none;
+	-webkit-appearance: none;
 }
 /* placeholder text opacity */
 input::-webkit-input-placeholder {
-	opacity:.8;
+	opacity: .8;
 }
 /* ------------------------------------------------------------------------- */
 /* #container div with absolute position and 100% width and height so it takes up whole window */
 #container {
-	position:absolute;
-	width:100%;
-	height:100%;
-	background-color:#000 !important;
-	overflow:hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #000 !important;
+	overflow: hidden;
 }
 .ui-page {
-	-webkit-backface-visibility:hidden;
-	background-color:#000000;
-	background-image:none;
+	-webkit-backface-visibility: hidden;
+	background-color: #000000;
+	background-image: none;
 }
 .ui-content {
-	background-color:#000000;
-	overflow:hidden;
-	-webkit-background-clip:padding-box; /* for Safari */
-	background-clip:padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-ms-box-sizing:border-box;
-	box-sizing:border-box;
+	background-color: #000000;
+	overflow: hidden;
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
 }
 /* ------------------------------------------------------------------------- */
 .sized-content {
-	overflow-y:scroll;
-	-webkit-overflow-scrolling:touch;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 /* iOS specific fix, don't use it on Android devices */
-.sized-content> * {
-	-webkit-transform:translateZ(0px);
+.sized-content > * {
+	-webkit-transform: translateZ(0px);
 }
 /* ------------------------------------------------------------------------- */
 body {
-	background-color:#000 !important;
-	margin:0;
+	background-color: #000 !important;
+	margin: 0;
 }
 /*
  div[data-role="header"] {
@@ -79,191 +78,238 @@ body {
  */
 /* ------------------------------------------------------------------------- */
 #first-page div {
-	background-color:transparent;
+	background-color: transparent;
 }
 #ani-page, #first-page {
-	background:url(../img/animbg.png) no-repeat center center fixed;
-	-webkit-background-size:cover;
-	-moz-background-size:cover;
-	-o-background-size:cover;
-	background-size:cover;
-	padding:0;
-	border-style:none;
+	background: url(../img/animbg.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding: 0;
+	border-style: none;
 }
 #first-page div.ui-content, #ani-page div.ui-content {
-	background-color:transparent;
-	padding:0;
-	margin:0;
-	overflow:hidden;
-	border-style:none;
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	border-style: none;
 }
 #ani-c {
-	background:url(../img/cc.png);
-	background-size:cover;
-	position:relative;
+	background: url(../img/cc.png);
+	background-size: cover;
+	position: relative;
 }
 #ani-logo {
-	display:none;
-	text-align:center;
-	position:relative;
+	display: none;
+	text-align: center;
+	position: relative;
 }
 /* ------------------------------------------------------------------------- */
 #home-page {
-	overflow:hidden;
+	overflow: hidden;
 }
 #home-header-pic {
-	position:absolute;
-	right:0;
-	left:auto;
-	z-index:55;
+	position: absolute;
+	right: 0;
+	left: auto;
+	z-index: 55;
 }
 #home-page div[data-role="content"] {
-	height:100%;
-	overflow:hidden;
-	padding:0;
+	height: 100%;
+	overflow: hidden;
+	padding: 0;
 }
 #left-menu {
-	z-index:44;
-	position:absolute;
-	left:0;
-	top:0;
+	z-index: 44;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 #left-menu a {
-	background-repeat:no-repeat;
-	width:100%;
-	display:-webkit-box;
-	background-position:0px 0px;
+	background-repeat: no-repeat;
+	width: 100%;
+	display: -webkit-box;
+	background-position: 0px 0px;
 }
 #m1 {
-	background-image:url(../img/menu01.png);
+	background-image: url(../img/menu01.png);
 }
 #m2 {
-	background-image:url(../img/menu02.png);
+	background-image: url(../img/menu02.png);
 }
 #m3 {
-	background-image:url(../img/menu03.png);
+	background-image: url(../img/menu03.png);
 }
 #m4 {
-	background-image:url(../img/menu04.png);
+	background-image: url(../img/menu04.png);
 }
 #m5 {
-	background-image:url(../img/menu05.png);
+	background-image: url(../img/menu05.png);
 }
 #m6 {
-	background-image:url(../img/menu06.png);
+	background-image: url(../img/menu06.png);
 }
 #m7 {
-	background-image:url(../img/menu07.png);
+	background-image: url(../img/menu07.png);
 }
 #m8 {
-	background-image:url(../img/menu08.png);
+	background-image: url(../img/menu08.png);
 }
 #m9 {
-	background-image:url(../img/menu09.png);
+	background-image: url(../img/menu09.png);
 }
 #swiper-home {
-	position:absolute;
-	top:0px;
-	z-index:33;
-	height:100%;
-	width:100%;
+	position: absolute;
+	top: 0px;
+	z-index: 33;
+	height: 100%;
+	width: 100%;
 }
 #pagination-home.pagination {
-	position:absolute;
-	bottom:10px;
-	width:100%;
-	z-index:35;
-	text-align:center;
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
+	z-index: 35;
+	text-align: center;
 }
 /* ------------------------------------------------------------------------- */
 div[data-role="header"] {
-	border:none;
+	border: none;
 }
 div[data-role="footer"] {
-	border:none;
+	border: none;
 }
 div[data-role="footer"] img {
-	display:block;
+	display: block;
 }
 .ui-footer div a {
-	display:-webkit-box;
-	box-sizing:border-box;
-	margin:0px;
-	padding:0px;
-	float:left;
-	background-repeat:no-repeat;
-	background-position:0px 0px;
-	background-image:url(../img/footer.png);
+	display: -webkit-box;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image: url(../img/footer.png);
 }
 /* ------------------------------------------------------------------------- */
 #page-yeniurun div[data-role="content"], #page-firsat div[data-role="content"], #page-guzellik div[data-role="content"], #page-sosyal [data-role="content"], #page-uygulama [data-role="content"], #page-harita [data-role="content"] {
-	overflow:hidden;
+	overflow: hidden;
 }
 /* ------------------------------------------------------------------------- */
 #page-harita div[data-role="content"] {
-	padding:0;
+	padding: 0;
 }
 #page-harita .ui-grid-a img {
-	display:block;
+	display: block;
 }
 #map {
-	width:100%;
+	width: 100%;
 	/*height: fromCode */
 }
 #current-location-msg {
-	height:40px;
-	overflow:hidden;
-	background-color:#4390EE;
+	height: 40px;
+	overflow: hidden;
+	background-color: #4390EE;
 }
 #location-info {
-	position:absolute;
-	width:100%;
-	margin-top:20px;
-	text-align:center;
-	padding:5px;
-	z-index:198;
-	display:block;
-	background-color:rgb(236, 0, 140);
-	color:#FFFFFF;
+	position: absolute;
+	width: 100%;
+	margin-top: 20px;
+	text-align: center;
+	padding: 5px;
+	z-index: 198;
+	display: block;
+	background-color: rgb(236, 0, 140);
+	color: #FFFFFF;
 }
 #shop-list {
-	position:absolute;
-	width:100%;
-	left:0;
-	z-index:999;
-	display:none;
-	overflow-y:scroll;
-	background-color:rgba(236, 0, 140, .8);
-	color:#FFFFFF;
-	height:200px;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 999;
+	display: none;
+	overflow-y: scroll;
+	background-color: rgba(236, 0, 140, .8);
+	color: #FFFFFF;
+	height: 200px;
 }
 #shop-list .info {
-	position:absolute;
-	width:100%;
-	top:50%;
-	left:0;
-	z-index:198;
-	display:block;
-	text-align:center;
-	padding:5px;
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	z-index: 198;
+	display: block;
+	text-align: center;
+	padding: 5px;
+	display: none;
 }
 #shop-list .liste {
-	padding:8px;
-	display:none;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
 }
-#shop-list .liste div {
-	text-shadow:rgb(0, 0, 0) 2px 2px 2px;
+#shop-list li:hover, #shop-list li:active {
+	background-color: rgba(0,0,0,0.2);
 }
-#shop-list .liste .item {
-	margin-bottom:8px;
-	border-bottom:1px solid rgb(255,255,255);
+#shop-list li {
+	list-style: none;
+	padding: 8px;
 }
-#shop-list .liste .distance {
-	text-align:right;
+#shop-list li .title {
+	font-weight: bold;
+}
+#shop-list li .address {
+	font-weight: 300;
+	padding-left: 12px;
+}
+#shop-list li .tel {
+	font-weight: normal;
+	padding-left: 12px;
+}
+#shop-list li .badge {
+	float: right;
+	margin-top: 0px;
+	padding: 0 6px;
+	line-height: 18px;
+	font-size: 11px;
+	background: rgb(255,58,190);
+	border-radius: 9px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.2);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.2);
+}
+.info-window h4 {
+	margin: 0;
+}
+.info-window .address {
+	font-size: 12px;
+}
+.info-window .address {
+	font-size: 12px;
 }
 /* ------------------------------------------------------------------------- */
+label {
+	color: #fff;
+}
+.form-flip-lbl {
+	white-space: nowrap;
+	padding-top: 12px;
+}
+.ui-slider {
+	float: right;
+}
 /* ------------------------------------------------------------------------- */
+#page-uygulama div[data-role="content"] * {
+	color: #fff;
+}
 /* ------------------------------------------------------------------------- */
+#page-guzellik .brick {
+	position: absolute;
+}
+
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */

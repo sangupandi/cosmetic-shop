@@ -61,47 +61,59 @@ var app = {
 		app.receivedEvent('deviceready');
 	},
 
+	/*
+	 * size properties
+	 */
+	contentHeight : 0,
+	footerHeight : 0,
+	headerHeight : 0,
 	windowHeight : 0,
 	windowWidth : 0,
-	headerHeight : 0,
-	footerHeight : 0,
-	contentHeight : 0,
 
+	/*
+	 * other properties
+	 */
+	mapApiReady : false,
+	mapInitialized : false,
+	pageTransitionBusy : false,
+	shopMarkersAdded : false,
+	showCurrentLocationFirstTime : false,
+
+	/*
+	 * objects
+	 */
 	carousel1 : new carouselObject("#carousel1", 5),
 	carousel2 : new carouselObject("#carousel2", 10),
-	preloadImages : new preloadObject("/Preload.ashx"),
-
-	pageTransitionBusy : false,
-
-	shopList : [],
-	shopListTemplate : "",
-	shopListSelector : "#shop-list .liste",
-	nearestShop : null,
 	currentLocation : null,
+	currentLocationMarker : null,
+	infoWindow : null,
 	map : null,
-	//mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
-	updateCurrentMap : true,
+	nearestShop : null,
+	preloadImages : new preloadObject("/Preload.ashx"),
+	shopList : new shopListObject(),
+	swHome : null,
+
 	currentPageId : function() {
 		return $.mobile.activePage.attr('id');
 	},
 
+	/*
 	firstInit : true,
 	firstInitialize : function() {
-		if (!app.firstInit) {
-			return;
-		}
-		app.firstInit = true;
+	if (!app.firstInit) {
+	return;
+	}
+	app.firstInit = true;
 
-		preloadImages.load();
+	preloadImages.load();
 
-		if (app.mapApiReady && !app.mapInitialized)
-			app.initMap();
+	if (app.mapApiReady && !app.mapInitialized)
+	app.initMap();
 	},
+	*/
 
-	currentLocationMarker : null,
-	showCurrentLocationFirstTime : false,
-	mapInitialized : false,
-	mapApiReady : false,
+	//mapApiKey : 'e888e31cc2b64f3f9af01474eb553c39',
+
 	onMapApiLoad : function() {
 		glog.step('loadMapScript');
 		app.mapApiReady = true;
@@ -110,13 +122,13 @@ var app = {
 			app.detectCurrentLocation(true);
 		}
 	},
+
 	initMap : function() {
 		// init map first time
 		glog.step("--init map first time");
 		if (app.mapApiReady) {
 
 			var initialLocation = new google.maps.LatLng(39.92661, 32.83525);
-
 			google.maps.visualRefresh = true;
 
 			var mapOptions = {
@@ -142,12 +154,12 @@ var app = {
 		var onGeoSuccess = function(position) {
 			glog.step("detectCurrentLocation");
 			glog.step("onGeoSuccess");
+
 			var map = app.map;
 			$("#location-info").html("Konum bilginiz saptandı.");
 			$("#location-info").fadeOut(1000);
 
 			app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			//var markers = $("#map").gmap('get', 'markers');
 
 			if (app.currentLocationMarker != null) {
 				app.currentLocationMarker.setMap(null);
@@ -168,16 +180,10 @@ var app = {
 				map.setCenter(marker.getPosition());
 			});
 
-			/*
-			 self.openInfoWindow({
-			 'content' : ''
-			 }, this);
-			 */
-
 			app.showCurrentLocationFirstTime = true;
 
 			glog.step("onGeoSuccess");
-			//app.recalculateDistances();
+			app.recalculateDistances();
 		};
 
 		var onGeoFail = function(error) {
@@ -194,78 +200,73 @@ var app = {
 	},
 
 	showCurrentLocation : function() {
-		glog.step("showCurrentLocation");
-
 		app.showCurrentLocationFirstTime = false;
+
+		/* setCenter: non-animated map */
 		//app.map.setCenter(app.currentLocation);
+
+		/* panTo: animated map */
 		app.map.panTo(app.currentLocation);
-		//app.map.setZoom(13);
-
-		glog.step("showCurrentLocation");
 	},
-
-	swHome : null,
 
 	addMarkers : function() {
-		glog.step("addMarkers");
-		if (app.shopList.length > 0) {
-			var map = app.map;
-			$.each(app.shopList, function() {
 
-				var shopLocation = new google.maps.LatLng(this.latitude, this.longitude);
+		function openInfoWindow(marker, shop) {
+			var contentString = '<div class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
 
-				var marker = new google.maps.Marker({
-					position : shopLocation,
-					map : map,
-					bounds : false,
-					title : this.Caption,
-					icon : serviceHost + '/files/cosmetica_marker.png',
-					animation : google.maps.Animation.DROP
-				});
-
-			});
-		}
-		glog.step("addMarkers");
-	},
-	renderShopList : function() {
-		glog.step("renderShopList");
-		var formatDistance = function(value) {
-			//if ( typeof value === undefined) {
-			if (value == null) {
-				return "---";
-			} else {
-				return (value < 1000.0) ? value.toFixed(0) + " m" : (value > 1000000) ? ">1000 km" : (value / 1000).toFixed(0) + " km";
+			if (app.infoWindow != null) {
+				app.infoWindow.close();
+				app.infoWindow = null;
 			}
-		};
-		$(app.shopListSelector).html();
-		if (app.shopList.length > 0) {
-			var tmp = '';
-			$.each(app.shopList, function() {
-				tmp = tmp + String.format(app.shopListTemplate, this.caption, this.address, formatDistance(this.distance), this.latitude, this.longitude);
-				$(app.shopListSelector).html(tmp);
+			app.infoWindow = new google.maps.InfoWindow({
+				content : contentString,
+				maxWidth : (app.windowWidth / 2)
 			});
 
-			if (app.mapApiReady) {
-				app.addMarkers();
-			}
+			app.infoWindow.open(app.map, marker);
 		}
-		glog.step("renderShopList");
+
+		if (app.shopMarkersAdded) {
+			return;
+		}
+		glog.step("addMarkers");
+
+		$.each(app.shopList.shops, function(i, shop) {
+			var pos = new google.maps.LatLng(shop.latitude, shop.longitude);
+
+			var marker = new google.maps.Marker({
+				position : pos,
+				map : app.map,
+				bounds : false,
+				title : shop.caption,
+				icon : serviceHost + '/files/cosmetica_marker.png',
+				animation : google.maps.Animation.DROP
+			});
+
+			google.maps.event.addListener(marker, 'click', function() {
+				openInfoWindow(marker, shop);
+			});
+		});
+		app.shopMarkersAdded = true;
+		glog.step("addMarkers");
 	},
+
 	recalculateDistances : function() {
 		glog.step("recalculateDistances");
-		if (app.mapApiReady && (app.shopList.length > 0) && (app.currentLocation != null)) {
+		if (app.mapApiReady && (app.shopList.shops.length > 0) && (app.currentLocation != null)) {
 			app.nearestShop = null;
-			$.each(app.shopList, function() {
-				var latLngB = new google.maps.LatLng(this.latitude, this.longitude);
-				this.distance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, latLngB);
-				if (app.nearestShop == null || app.nearestShop.distance > this.distance) {
-					app.nearestShop = this;
+			$.each(app.shopList.shops, function(i, shop) {
+				var shopPosition = new google.maps.LatLng(shop.latitude, shop.longitude);
+				shop.distance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, shopPosition);
+				if (app.nearestShop == null || app.nearestShop.distance > shop.distance) {
+					app.nearestShop = shop;
 				}
 			});
-			app.renderShopList();
+			app.shopList.render();
 		}
 		glog.step("recalculateDistances");
 	},
+
 	startAnim : function(callback) {
 		var aniC = $('#ani-c');
 		var t1 = 447 * 480 / 960;
@@ -276,12 +277,14 @@ var app = {
 			y : t2 + 'px'
 		}, 800, 'ease', callback);
 	},
+
 	initLayoutHomePage : function() {
 		app.initHomeSwiper();
 		$.mobile.changePage($("#home-page"), {
 			transition : "fade"
 		});
 	},
+
 	initLayoutAnimPage : function() {
 		glog.step("initLayoutAnimPage");
 
@@ -306,6 +309,7 @@ var app = {
 		});
 		glog.step("initLayoutAnimPage");
 	},
+
 	initLayoutSizes : function() {
 		glog.step("initLayoutSizes");
 		var styles = [];
@@ -373,10 +377,16 @@ var app = {
 		$("html > head").append(styles.join(""));
 
 		glog.step("initLayoutSizes");
-		return;
+		
 
-		/* gs = "güzellik sırları" */
-		w = $(window).width();
+
+		/*  		 
+		 * 
+		 *
+		 * gs = "güzellik sırları"
+		 * 
+		 * */
+		w = app.windowWidth;
 		h = app.contentHeight;
 
 		gsPadding = 10;
@@ -456,8 +466,8 @@ var app = {
 
 		//app.bricks[".b1-1"]=$(".b1-1").css
 
-		app.sx = app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + gsBrickSize;
-		console.log("sx:" + app.sx);
+		//app.sx = app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + gsBrickSize;
+		//console.log("sx:" + app.sx);
 		/*
 		 $('#page-guzellik div[data-role="header"]').bind("tap", function() {
 		 /*
@@ -491,14 +501,17 @@ var app = {
 
 		glog.step("initLayoutSizes");
 	},
+
 	putSetting : function(key, value) {
 		//console.log(key + " : " + value);
 		window.localStorage.setItem(key, value);
 	},
+
 	getSetting : function(key, defaultValue) {
 		var ret = window.localStorage.getItem(key);
 		return (ret != null) ? ret : defaultValue;
 	},
+
 	bindPageShowEvents : function() {
 		$("#ani-page").bind("pageshow", function(event) {
 			try {
@@ -512,8 +525,9 @@ var app = {
 		});
 
 		$("#home-page").bind("pageshow", function(event) {
-			app.preloadImages.load();
 			app.initHomeSwiper();
+			app.preloadImages.load();
+			app.shopList.load(app.addMarkers);
 			//app.firstInitialize();
 		});
 
@@ -532,21 +546,18 @@ var app = {
 		$("#page-harita").bind("pageshow", function(event) {
 			if (app.mapApiReady) {
 				google.maps.event.trigger(app.map, 'resize');
-				
+
 				if (app.showCurrentLocationFirstTime) {
 					app.showCurrentLocation();
 				}
 			}
-
-			/*
 			if (app.currentLocation == null) {
-			if (app.mapApiReady) {
-			detectCurrentLocation(true);
-			} else {
-			alert("Map API is not loaded!..");
+				if (app.mapApiReady) {
+					app.detectCurrentLocation(true);
+				} else {
+					alert("Map API is not loaded!..");
+				}
 			}
-			}
-			*/
 
 			/*
 			if (app.updateCurrentMap) {
@@ -608,13 +619,44 @@ var app = {
 			var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
 		});
 
-		/* Harita */
+		/* Map -> listShops */
 		$('#page-harita div[data-role="content"] .b1').bind('tap', function() {
 			if ($('#shop-list').is(":visible")) {
 				$('#shop-list').fadeOut(200);
 			} else {
 				$('#shop-list').fadeIn(200);
 			}
+		});
+
+		/* Map -> nearestShop */
+		$('#page-harita div[data-role="content"] .b2').bind('tap', function() {
+			var displayError = true;
+			if (app.currentLocation != null) {
+				if (app.nearestShop == null)
+					app.recalculateDistances();
+
+				if (app.nearestShop != null) {
+					displayError = false;
+					goMap(app.nearestShop.latitude, app.nearestShop.longitude);
+				}
+			}
+
+			if (displayError)
+				alert("Konum bilginiz saptanamadı.");
+		});
+
+		/* Uygulamalar */
+		$('#page-uygulama div[data-role="content"] .app1').bind('tap', function() {
+			var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+			scanner.scan(function(result) {
+				alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+			}, function(error) {
+				alert("Scanning failed: " + error);
+			});
+		});
+
+		$('#page-uygulama div[data-role="content"] .app2').bind('tap', function() {
+			openFrontCamera();
 		});
 
 	},
@@ -655,7 +697,6 @@ var app = {
 
 		$('.fb-map').each(function() {
 			$(this).bind('tap', function() {
-				app.updateCurrentMap = true;
 				$.mobile.changePage($("#page-harita"));
 			});
 		});
