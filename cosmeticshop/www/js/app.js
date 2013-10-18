@@ -433,6 +433,7 @@ function loadMapScript(callbackFunctionName) {
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true';
+	//&language=tr';
 	//&libraries=geometry';
 	script.src += '&key=' + keyForBrowser;
 	script.src += '&callback=' + callbackFunctionName;

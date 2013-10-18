@@ -58,7 +58,10 @@
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+	
+	<gap:plugin name="com.adobe.plugins.pushplugin" />
 	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
+	
 	<!--<gap:plugin name="com.phonegap.plugins.childbrowser" />-->
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
