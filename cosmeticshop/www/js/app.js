@@ -127,7 +127,7 @@ shopListObject.prototype = {
 
 		var arr = [];
 		var template = this.shopTemplate;
-		$.each(this.shops, function(i, shop) {		
+		$.each(this.shops, function(i, shop) {
 			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.drivingDistance), shop.latitude, shop.longitude));
 		});
 		$(this.selector).html(arr.join(""));
@@ -426,11 +426,16 @@ function startupSteps() {
 function loadMapScript(callbackFunctionName) {
 	// Asynchronous Loading
 	// https://developers.google.com/maps/documentation/javascript/examples/map-simple-async
+	var keyForBrowser = 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc';
+	var keyForiOS = '';
 
 	glog.step('loadMapScript');
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
-	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=geometry&' + 'callback=' + callbackFunctionName;
+	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true';
+	//&libraries=geometry';
+	script.src += '&key=' + keyForBrowser;
+	script.src += '&callback=' + callbackFunctionName;
 	document.body.appendChild(script);
 }
 

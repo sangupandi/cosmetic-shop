@@ -213,6 +213,7 @@ var app = {
 	addMarkers : function() {
 
 		function openInfoWindow(marker, shop) {
+			console.warn("openInfoWindow");
 			var contentString = '<div class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
 
 			if (app.infoWindow != null) {
@@ -238,11 +239,11 @@ var app = {
 			var marker = new google.maps.Marker({
 				position : pos,
 				map : app.map,
-				//bounds : false,
+				bounds : true,
 				clickable : true,
-				title : shop.caption
-				//icon : serviceHost + '/files/cosmetica_marker.png',
-				//animation : google.maps.Animation.DROP
+				title : shop.caption,
+				icon : serviceHost + '/files/cosmetica_marker.png',
+				animation : google.maps.Animation.DROP
 			});
 
 			google.maps.event.addListener(marker, 'click', function() {
@@ -271,7 +272,7 @@ var app = {
 				var shopPosition = new google.maps.LatLng(shop.latitude, shop.longitude);
 
 				// Flying distance
-				shop.flyingDistance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, shopPosition);
+				//shop.flyingDistance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, shopPosition);
 
 				// Driving distance
 				var request = {
