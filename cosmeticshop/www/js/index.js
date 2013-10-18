@@ -412,6 +412,9 @@ var app = {
 		styles.push('.ui-footer a.fb-back { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
+		/* catalogue wrapper size */
+		styles.push('#wrapper { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
+
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
 		var mapHeight = app.contentHeight - mapTopButtonHeight;
@@ -563,14 +566,12 @@ var app = {
 				//alert("hide error");
 			}
 			app.startAnim(app.initLayoutHomePage);
-			//catalogue.load("#wrapper #scroller");
 		});
 
 		$("#home-page").bind("pageshow", function(event) {
 			app.initHomeSwiper();
 			//app.preloadImages.load();
 			app.shopList.load(app.addMarkers);
-			app.catalogue.load();
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
@@ -606,6 +607,10 @@ var app = {
 			showCurrentLocation();
 			}*/
 			//getShopList();
+		});
+
+		$("#page-katalog").bind("pageshow", function(event) {
+			app.catalogue.load();
 		});
 
 	},
@@ -788,7 +793,7 @@ var app = {
 	pushTokenHandler : function(result) {
 		console.log("Token Handler " + result);
 		alert("Token Handler " + result);
-		
+
 		// Your iOS push server needs to know the token before it can push to this device
 		// here is where you might want to send it the token for later use.
 		PushWoosh.appCode = "YOUR_PUSHWOOSH_APP_ID";
@@ -912,7 +917,7 @@ var app = {
 		app.windowHeight = $(window).height();
 		app.windowWidth = $(window).width();
 
-		this.setPushNotifications();
+		//this.setPushNotifications();
 		app.initLayoutAnimPage();
 
 		setTimeout(function() {

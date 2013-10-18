@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+<title>iScroll demo: zoom</title>
+		<!-- jquery files -->
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.0-beta.1.min.css">
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.0-beta.1.min.js"></script>
+
+		<!-- swiper files -->
+		<link rel="stylesheet" href="css/idangerous.swiper.css" />
+		<link rel="stylesheet" href="css/swiper.custom.css" />
+		<script src="js/idangerous.swiper-2.2.min.js"></script>
+
+		<!-- custom files -->
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
+		<script type="text/javascript" src="js/String.js"></script>
+		<script type="application/javascript" src="js/iscroll-zoom.js"></script>
+		<script type="text/javascript" src="js/jquery.iscroll.js"></script>
+		<link rel="stylesheet" href="css/cosmetica.css" />
+
+
+<script type="text/javascript" src="js/iscroll-zoom.js"></script>
+
+<script type="text/javascript">
+
+var myScroll;
+
+function loaded () {
+	myScroll = new IScroll('#wrapper', {
+		zoom: true,
+		scrollX: true,
+		scrollY: true,
+		mouseWheel: true,
+		wheelAction: 'zoom'
+	});
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+</script>
+
+<style type="text/css">
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	-ms-touch-action: none;
+}
+
+body,ul,li {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	font-size: 12px;
+	font-family: ubuntu, helvetica, arial;
+	overflow: hidden; /* this is important to prevent the whole page to bounce */
+}
+
+#wrapper {
+	position: absolute;
+	z-index: 1;
+	top: 50px;
+	bottom: 50px;
+	left: 0px;
+	right: 0px;
+	background: #ccc;
+	overflow: hidden;
+}
+
+#scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 100%;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+#scroller img{
+	-webkit-transform:translate3d(0,0,0);
+}
+</style>
+<script>
+	function abc(){
+		$("#page-katalog").bind("pageshow", function(event) {
+			console.warn("wrwe");
+			loaded();
+			$('#scroller').html('<img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul2.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul3.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul4.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul5.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul6.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul7.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul8.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul9.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul10.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul11.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul12.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul13.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul14.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul15.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul16.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul17.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul18.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul19.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul20.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul21.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul22.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul23.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul24.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul25.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul26.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul27.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul28.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul29.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul30.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul31.jpg" width="100%" alt="."><img src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul32.jpg" width="100%" alt=".">');
+			
+		});
+	}
+</script>
+</head>
+<body onload="abc();">
+
+
+			<div data-role="page" id="">
+
+				<div data-role="header">
+					<img src="img/header_14.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+					
+					<button onclick="$.mobile.changePage($('#page-katalog'));">load</button>
+				</div>
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div>
+						<a class="fb-home"></a>
+						<a class="fb-share"></a>
+						<a class="fb-back"></a>
+						<a class="fb-settings"></a>
+					</div>
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+
+			<div data-role="page" id="page-katalog">
+
+				<div data-role="header">
+					<img src="img/header_14.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+					<div id="wrapper">
+						<div id="scroller">
+
+							
+						</div>
+					</div>
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div>
+						<a class="fb-home"></a>
+						<a class="fb-share"></a>
+						<a class="fb-back"></a>
+						<a class="fb-settings"></a>
+					</div>
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
+</body>
+</html>

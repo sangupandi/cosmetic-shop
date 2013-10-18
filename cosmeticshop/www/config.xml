@@ -50,22 +50,21 @@
 
 	<access origin="http://127.0.0.1*" />
 	<access origin="http://www.gtech.com.tr/Cosmetica/files/*" />
-	<access origin="*.pushwoosh.com"/>
 	<access origin="*" />
 	
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
-	<!--<plugin name="Capture" value="org.apache.cordova.Capture"/>-->
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-	
-	<gap:plugin name="com.phonegap.plugins.pushplugin" />
-	<!--<gap:plugin name="com.adobe.plugins.pushplugin" />-->
-	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
-	
-	<!--<gap:plugin name="com.phonegap.plugins.childbrowser" />-->
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	
+	<!--<gap:plugin name="com.phonegap.plugins.pushplugin" />
+	<gap:plugin name="com.pushwoosh.plugins.pushwoosh" />-->
+	<!--<gap:plugin name="com.adobe.plugins.pushplugin" />-->
+	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
+
+
 
 </widget>

@@ -188,30 +188,48 @@ function catalogueObject(_jsonDataUrl) {
 	this.trying = false;
 	this.loaded = false;
 	this.images = [];
+	this.loadedImageCount = 0;
 }
 
 catalogueObject.prototype = {
+	createScroll : function() {
+		var myScroll = new IScroll('#wrapper', {
+			zoom : true,
+			scrollX : true,
+			scrollY : true,
+			mouseWheel : true,
+			wheelAction : 'zoom'
+		});
+
+	},
 	extractRawData : function(jsonData) {
+		function imageLoadPost(self) {
+			self.loadedImageCount++
+			$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
+			if (self.loadedImageCount == self.images.length) {
+				self.createScroll();
+				console.warn("All images have loaded (or died trying)!")
+				$("#page-katalog .loading").fadeOut(600);
+			}
+		}
+
 		var self = this;
+		var elem = $(self.selector);
+		elem.html("");
 		$.each(jsonData, function(i, row) {
 			var img = new Image();
 			img.src = row.Url;
+
+			img.onload = function() {
+				imageLoadPost(self)
+			}
+			img.onerror = function(self) {
+				imageLoadPost()
+			}
+
 			self.images.push(img);
+			elem.append(String.format(self.template, img.src));
 		});
-		this.render();
-	},
-
-	render : function() {
-		glog.step("catalogueObject.render");
-		var self = this;
-
-		var arr = [];
-		$.each(self.images, function(i, img) {
-			arr.push(String.format(self.template, img.src));
-		});
-		$(self.selector).html(arr.join(""));
-
-		glog.step("catalogueObject.render");
 	},
 
 	load : function(_addMarkerCallback) {
@@ -220,6 +238,7 @@ catalogueObject.prototype = {
 			obj.trying = true;
 			glog.step("catalogueObject.load");
 
+			$("#page-katalog .loading").fadeIn(300);
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",
@@ -433,7 +452,6 @@ function loadMapScript(callbackFunctionName) {
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true';
-	//&language=tr';
 	//&libraries=geometry';
 	script.src += '&key=' + keyForBrowser;
 	script.src += '&callback=' + callbackFunctionName;
