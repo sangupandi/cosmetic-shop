@@ -818,9 +818,9 @@ var app = {
 					"ecb" : "app.onNotificationAPN"
 				});
 			}
-			alert("setPushNotifications ok");
+			alert("pushplugin working");
 		} catch(e) {
-			alert(e.toString());
+			alert("catch: " + e.toString());
 			console.warn(e.toString());
 		}
 	},
