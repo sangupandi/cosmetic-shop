@@ -787,9 +787,10 @@ var app = {
 
 	pushTokenHandler : function(msg) {
 		console.log("Token Handler " + msg);
+		alert("Token Handler " + msg);
 	},
 
-	psuhErrorHandler : function(error) {
+	pushErrorHandler : function(error) {
 		console.log("Error Handler  " + error);
 		alert(error);
 	},
