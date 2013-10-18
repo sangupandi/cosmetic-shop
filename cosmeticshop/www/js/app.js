@@ -446,7 +446,6 @@ function loadMapScript(callbackFunctionName) {
 	// Asynchronous Loading
 	// https://developers.google.com/maps/documentation/javascript/examples/map-simple-async
 	var keyForBrowser = 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc';
-	var keyForiOS = '';
 
 	glog.step('loadMapScript');
 	var script = document.createElement('script');

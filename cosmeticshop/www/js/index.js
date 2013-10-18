@@ -234,7 +234,8 @@ var app = {
 		glog.step("addMarkers");
 
 		$.each(app.shopList.shops, function(i, shop) {
-			var pos = new google.maps.LatLng(shop.latitude, shop.longitude);
+			
+			var pos = new google.maps.LatLng(36.886915, 30.708678);
 
 			var marker = new google.maps.Marker({
 				position : pos,
