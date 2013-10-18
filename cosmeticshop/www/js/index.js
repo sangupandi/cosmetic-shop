@@ -615,6 +615,11 @@ var app = {
 
 	},
 	bindHomeMenuTapEvents : function() {
+		
+		$('#page-ayarlar div[data-role="header"] img').bind('tap', function(event, ui) {
+			$.mobile.changePage($("#page-map"));
+		});
+
 		$("#m1").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-yeniurun"));
 		});

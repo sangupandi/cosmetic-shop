@@ -209,7 +209,7 @@ catalogueObject.prototype = {
 			if (self.loadedImageCount == self.images.length) {
 				self.createScroll();
 				console.warn("All images have loaded (or died trying)!")
-				$("#page-katalog .loading").fadeOut(600);
+				$("#page-katalog .loading").fadeOut(300);
 			}
 		}
 
