@@ -785,9 +785,18 @@ var app = {
 		$(document).bind('pagebeforechange', eventTracker);
 	},
 
-	pushTokenHandler : function(msg) {
-		console.log("Token Handler " + msg);
-		alert("Token Handler " + msg);
+	pushTokenHandler : function(result) {
+		console.log("Token Handler " + result);
+		alert("Token Handler " + result);
+		
+		// Your iOS push server needs to know the token before it can push to this device
+		// here is where you might want to send it the token for later use.
+		PushWoosh.appCode = "YOUR_PUSHWOOSH_APP_ID";
+		PushWoosh.register(result, function(data) {
+			alert("PushWoosh register success: " + JSON.stringify(data));
+		}, function(errorregistration) {
+			alert("Couldn't register with PushWoosh" + errorregistration);
+		});
 	},
 
 	pushErrorHandler : function(error) {
