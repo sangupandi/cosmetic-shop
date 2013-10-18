@@ -238,10 +238,11 @@ var app = {
 			var marker = new google.maps.Marker({
 				position : pos,
 				map : app.map,
-				bounds : false,
-				title : shop.caption,
-				icon : serviceHost + '/files/cosmetica_marker.png',
-				animation : google.maps.Animation.DROP
+				//bounds : false,
+				clickable : true,
+				title : shop.caption
+				//icon : serviceHost + '/files/cosmetica_marker.png',
+				//animation : google.maps.Animation.DROP
 			});
 
 			google.maps.event.addListener(marker, 'click', function() {
@@ -252,20 +253,61 @@ var app = {
 		glog.step("addMarkers");
 	},
 
+	calculatedShopDistances : 0,
+
 	recalculateDistances : function() {
-		glog.step("recalculateDistances");
 		if (app.mapApiReady && (app.shopList.shops.length > 0) && (app.currentLocation != null)) {
+			glog.step("recalculateDistances");
+
 			app.nearestShop = null;
+			calculatedShopDistances = 0;
+			//var directionsDisplay = new google.maps.DirectionsRenderer();
+			var directionsService = new google.maps.DirectionsService();
+
+			//directionsDisplay.setMap(app.map);
+
 			$.each(app.shopList.shops, function(i, shop) {
+
 				var shopPosition = new google.maps.LatLng(shop.latitude, shop.longitude);
-				shop.distance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, shopPosition);
-				if (app.nearestShop == null || app.nearestShop.distance > shop.distance) {
-					app.nearestShop = shop;
-				}
+
+				// Flying distance
+				shop.flyingDistance = google.maps.geometry.spherical.computeDistanceBetween(app.currentLocation, shopPosition);
+
+				// Driving distance
+				var request = {
+					origin : app.currentLocation,
+					destination : shopPosition,
+					travelMode : google.maps.DirectionsTravelMode["DRIVING"]
+				};
+
+				directionsService.route(request, function(response, status) {
+					//console.warn(response);
+					calculatedShopDistances++;
+
+					if (status == google.maps.DirectionsStatus.OK) {
+						shop.drivingDistance = response.routes[0].legs[0].distance.value;
+
+						//console.log(calculatedShopDistances + ' of ' + app.shopList.shops.length + ' - ' + shop.caption + ' : ' + shop.drivingDistance + ' (' + formatDistance(shop.drivingDistance) + ')');
+
+						if (app.nearestShop == null || app.nearestShop.drivingDistance > shop.drivingDistance) {
+							app.nearestShop = shop;
+						}
+
+						if (calculatedShopDistances == app.shopList.shops.length) {
+							app.shopList.render();
+						}
+
+						/*
+						 var myRoute = response.routes[0].legs[0];
+						 for (var i = 0; i < myRoute.steps.length; i++) {
+						 console.log(myRoute.steps[i].instructions);
+						 }
+						 */
+					}
+				});
 			});
-			app.shopList.render();
+			glog.step("recalculateDistances");
 		}
-		glog.step("recalculateDistances");
 	},
 
 	startAnim : function(callback) {

@@ -74,14 +74,14 @@ carouselObject.prototype = {
 /*
  * shopObject
  */
-function shopObject(_caption, _address, _phone, _latitude, _longitude, _active, _distance) {
+function shopObject(_caption, _address, _phone, _latitude, _longitude) {
 	this.caption = _caption;
 	this.address = _address;
 	this.phone = _phone;
 	this.latitude = _latitude;
 	this.longitude = _longitude;
-	this.active = _active;
-	this.distance = _distance;
+	this.flyingDistance = null;
+	this.drivingDistance = null;
 }
 
 /*
@@ -115,9 +115,7 @@ shopListObject.prototype = {
 				'address' : shop.Address,
 				'phone' : shop.Phone,
 				'latitude' : shop.Latitude,
-				'longitude' : shop.Longitude,
-				'active' : shop.Active,
-				'distance' : null
+				'longitude' : shop.Longitude
 			});
 		});
 		app.recalculateDistances();
@@ -129,8 +127,8 @@ shopListObject.prototype = {
 
 		var arr = [];
 		var template = this.shopTemplate;
-		$.each(this.shops, function(i, shop) {
-			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.distance), shop.latitude, shop.longitude));
+		$.each(this.shops, function(i, shop) {		
+			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.drivingDistance), shop.latitude, shop.longitude));
 		});
 		$(this.selector).html(arr.join(""));
 
