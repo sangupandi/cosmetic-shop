@@ -262,16 +262,18 @@ function catalogueObject(_jsonDataUrl) {
 	this.loaded = false;
 	this.images = [];
 	this.loadedImageCount = 0;
+	this.scrollObj = null;
 }
 
 catalogueObject.prototype = {
 	createScroll : function() {
-		var myScroll = new IScroll('#wrapper', {
+		this.scrollObj = new IScroll('#wrapper', {
 			zoom : true,
 			scrollX : true,
 			scrollY : true,
 			mouseWheel : true,
-			wheelAction : 'zoom'
+			wheelAction : 'zoom',
+			checkDOMChanges : false
 		});
 
 	},
@@ -280,9 +282,11 @@ catalogueObject.prototype = {
 			self.loadedImageCount++;
 			$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
 			if (self.loadedImageCount == self.images.length) {
-				self.createScroll();
-				console.warn("All images have loaded (or died trying)!");
 				$("#page-katalog .loading").hide();
+				
+				console.log("All images have loaded (or died trying)!");
+				self.scrollObj.refresh();
+				console.log("iScroll refreshed");			
 			}
 		}
 
@@ -310,6 +314,7 @@ catalogueObject.prototype = {
 			var obj = this;
 			obj.trying = true;
 			glog.step("catalogueObject.load");
+			obj.createScroll();
 
 			$("#page-katalog .loading").fadeIn(300);
 			$.ajax({
@@ -444,7 +449,7 @@ function goMap(shop) {
 function goGsDetail(annId) {
 	var gsc = new guzellikSirlariChild(annId);
 	gsc.load();
-	
+
 	$.mobile.changePage($('#page-guzellik-c'), {
 		transition : "slide"
 	});
