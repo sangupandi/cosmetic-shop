@@ -234,13 +234,13 @@ var app = {
 		glog.step("addMarkers");
 
 		$.each(app.shopList.shops, function(i, shop) {
-			
-			var pos = new google.maps.LatLng(36.886915, 30.708678);
+
+			var pos = new google.maps.LatLng(shop.latitude, shop.longitude);
 
 			var marker = new google.maps.Marker({
 				position : pos,
 				map : app.map,
-				bounds : true,
+				//bounds : true,
 				clickable : true,
 				title : shop.caption,
 				icon : serviceHost + '/files/cosmetica_marker.png',
@@ -250,6 +250,7 @@ var app = {
 			google.maps.event.addListener(marker, 'click', function() {
 				openInfoWindow(marker, shop);
 			});
+			shop.marker = marker;
 		});
 		app.shopMarkersAdded = true;
 		glog.step("addMarkers");
@@ -617,10 +618,6 @@ var app = {
 	},
 	bindHomeMenuTapEvents : function() {
 		
-		$('#page-ayarlar div[data-role="header"] img').bind('tap', function(event, ui) {
-			$.mobile.changePage($("#page-map"));
-		});
-
 		$("#m1").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-yeniurun"));
 		});
@@ -690,7 +687,7 @@ var app = {
 
 				if (app.nearestShop != null) {
 					displayError = false;
-					goMap(app.nearestShop.latitude, app.nearestShop.longitude);
+					goMap(app.nearestShop);
 				}
 			}
 
@@ -817,7 +814,7 @@ var app = {
 
 	// result contains any message sent from the plugin call
 	pushSuccessHandler : function(result) {
-		alert('Success! Result = ' + result)
+		alert('Success! Result = ' + result);
 	},
 
 	setPushNotifications : function() {
@@ -939,6 +936,7 @@ var app = {
 		app.bindFooterMenuTapEvents();
 		app.bindSubPagesTapEvents();
 		app.preloadImages.load();
+		//$('#map-frame').attr('src', serviceHost + '/map.html');
 
 		return;
 

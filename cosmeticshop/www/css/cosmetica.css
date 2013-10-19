@@ -205,10 +205,20 @@ div[data-role="footer"] img {
 #page-harita .ui-grid-a img {
 	display: block;
 }
+
 #map {
 	width: 100%;
 	/*height: fromCode */
+
 }
+#map img {
+	max-width: none;
+}
+/*
+#map-frame {
+	width: 100%;
+}
+*/
 #current-location-msg {
 	height: 40px;
 	overflow: hidden;
@@ -320,13 +330,13 @@ div.loading {
 	text-align: center;
 	padding-top: 16px;
 	padding-bottom: 16px;
-	color:#FFF;
+	color: #FFF;
 	font-weight: bold;
 	display: none;
 	z-index: 99;
 	border-radius: 10px;
 }
-div.loading .badge{
+div.loading .badge {
 	font-size: smaller;
 	font-weight: normal;
 }

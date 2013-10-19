@@ -49,6 +49,8 @@
 	<gap:platform name="ios" />
 
 	<access origin="http://127.0.0.1*" />
+	<access origin="http://www.gtech.com.tr/*" />
+	<access origin="http://www.gtech.com.tr/Cosmetica/*" />
 	<access origin="http://www.gtech.com.tr/Cosmetica/files/*" />
 	<access origin="*" />
 	

@@ -69,7 +69,7 @@ carouselObject.prototype = {
 			});
 		}
 	}
-}
+};
 
 /*
  * shopObject
@@ -82,6 +82,7 @@ function shopObject(_caption, _address, _phone, _latitude, _longitude) {
 	this.longitude = _longitude;
 	this.flyingDistance = null;
 	this.drivingDistance = null;
+	this.marker = null;
 }
 
 /*
@@ -128,7 +129,7 @@ shopListObject.prototype = {
 		var arr = [];
 		var template = this.shopTemplate;
 		$.each(this.shops, function(i, shop) {
-			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.drivingDistance), shop.latitude, shop.longitude));
+			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.drivingDistance), i));
 		});
 		$(this.selector).html(arr.join(""));
 
@@ -176,7 +177,7 @@ shopListObject.prototype = {
 			};
 		}
 	}
-}
+};
 
 /*
  * catalogueObject
@@ -204,11 +205,11 @@ catalogueObject.prototype = {
 	},
 	extractRawData : function(jsonData) {
 		function imageLoadPost(self) {
-			self.loadedImageCount++
+			self.loadedImageCount++;
 			$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
 			if (self.loadedImageCount == self.images.length) {
 				self.createScroll();
-				console.warn("All images have loaded (or died trying)!")
+				console.warn("All images have loaded (or died trying)!");
 				$("#page-katalog .loading").fadeOut(300);
 			}
 		}
@@ -221,11 +222,11 @@ catalogueObject.prototype = {
 			img.src = row.Url;
 
 			img.onload = function() {
-				imageLoadPost(self)
-			}
-			img.onerror = function(self) {
-				imageLoadPost()
-			}
+				imageLoadPost(self);
+			};
+			img.onerror = function() {
+				imageLoadPost(self);
+			};
 
 			self.images.push(img);
 			elem.append(String.format(self.template, img.src));
@@ -352,15 +353,20 @@ function formatDistance(value) {
 	}
 }
 
-function goMap(latitude, longitude) {
+function goMap(shop) {
 	if ($('#shop-list').is(":visible")) {
 		$('#shop-list').fadeOut(200);
 	}
+
 	var map = app.map;
-	var location = new google.maps.LatLng(latitude, longitude);
+	var location = new google.maps.LatLng(shop.latitude, shop.longitude);
 	//map.setCenter(location);
 	map.panTo(location);
 	map.setZoom(15);
+
+	if (shop.marker != null) {
+		google.maps.event.trigger(shop.marker, 'click');
+	}
 }
 
 var openFrontCamera = function() {
