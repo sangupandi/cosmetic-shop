@@ -1,37 +1,75 @@
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
+/*
+ * jsonLoader
+ */
+function jsonLoader(_url, _successCallback, _errorCallback) {
+	this.url = _url;
+	this.successCallback = _successCallback;
+	this.errorCallback = _errorCallback;
+	this.loaded = false;
+	this.trying = false;
+}
+
+jsonLoader.prototype = {
+	load : function(sender) {
+		if (!this.loaded && !this.trying) {
+			var obj = this;
+			obj.trying = true;
+
+			glog.step(obj.url + "_load");
+
+			//var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
+			$.ajax({
+				url : obj.url,
+				dataType : "jsonp",
+				async : true,
+				success : function(result) {
+					glog.step(obj.url + "_load");
+					obj.trying = false;
+					obj.loaded = true;
+
+					obj.successCallback(sender, result);
+				},
+				error : function(request, error) {
+					glog.step(obj.url + "_load");
+					obj.trying = false;
+
+					obj.errorCallback(sender, request, error);
+					//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+				}
+			});
+		}
+	}
+};
 
 /*
- * CarouselObject
+ * carouselObject
  */
 function carouselObject(_domId, _categoryId) {
 	this.swiper = null;
 	this.domId = _domId;
 	this.paginationDomId = _domId + "-pagination";
-
-	this.templateSelector = this.domId + ' .swiper-wrapper';
-	//this.template = $(this.templateSelector).html();
+	this.templateSelector = _domId + ' .swiper-wrapper';
 	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
 
-	//$(this.templateSelector).html("");
-
-	this.rawJsonData = null;
-	this.categoryId = _categoryId;
-
-	this.loaded = false;
-	this.trying = false;
+	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId;
+	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
 carouselObject.prototype = {
-	extractRawData : function(jsonData) {
-		if (jsonData != null) {
-			this.rawJsonData = jsonData;
+	errorHandler : function(sender, request, error) {
+		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+	},
+
+	successHandler : function(sender, result) {
+		if (result != null) {
 			var arr = [];
-			var template = this.template;
-			$.each(this.rawJsonData, function(i, row) {
+			var template = sender.template;
+			$.each(result, function(i, row) {
 				arr.push(String.format(template, row.Html, row.Description + '<br/><br/>'));
 			});
-			$(this.templateSelector).html(arr.join(""));
-			this.render();
+			$(sender.templateSelector).html(arr.join(""));
+			sender.render();
 		}
 	},
 
@@ -45,28 +83,91 @@ carouselObject.prototype = {
 	},
 
 	load : function() {
-		if (!this.loaded && !this.trying) {
-			var obj = this;
-			obj.trying = true;
-			glog.step(obj.domId + ".load");
+		this.loader.load(this);
+	}
+};
 
-			var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
-			$.ajax({
-				url : svcurl,
-				dataType : "jsonp",
-				async : true,
-				success : function(result) {
-					glog.step(obj.domId + ".load");
-					obj.extractRawData(result);
-					obj.trying = false;
-					obj.loaded = true;
-				},
-				error : function(request, error) {
-					glog.step(obj.domId + ".load");
-					obj.trying = false;
-					alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-				}
+/*
+ * guzellikSirlari
+ */
+function guzellikSirlari(_categoryId) {
+	this.templateSelector = '#gsTemplateB';
+	//this.template = '<div class="ui-block-a">{0}</div><div class="ui-block-b"><div class="desc">{1}</div></div>';
+	this.template = '<li onclick="goGsDetail({2})">{0}<p>{1}</p></li>';
+
+	this.announcements = [];
+	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId;
+	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+}
+
+guzellikSirlari.prototype = {
+	errorHandler : function(sender, request, error) {
+		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+	},
+
+	successHandler : function(sender, result) {
+		if (result != null) {
+			var template = sender.template;
+			$.each(result, function(i, row) {
+				sender.announcements.push(String.format(template, row.Html, row.Description, row.ID));
 			});
+			sender.render();
+		}
+	},
+
+	render : function() {
+		$(this.templateSelector).html(this.announcements.join(""));
+	},
+
+	load : function() {
+		$(this.templateSelector).html("");
+
+		if (this.loader.loaded) {
+			this.render();
+		} else {
+			this.loader.load(this);
+		}
+	}
+};
+
+/*
+ * guzellikSirlari
+ */
+function guzellikSirlariChild(_parentId) {
+	this.templateSelector = '#gsbContent2';
+	this.template = '<div id="gsb2img">{0}</div><div id="gsb2text">{1}</div>';
+
+	this.announcements = [];
+	this.svcurl = serviceHost + "/Announcements.ashx?pid=" + _parentId;
+	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+}
+
+guzellikSirlariChild.prototype = {
+	errorHandler : function(sender, request, error) {
+		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+	},
+
+	successHandler : function(sender, result) {
+		if (result != null) {
+			var template = sender.template;
+			$.each(result, function(i, row) {
+				sender.announcements.push(String.format(template, row.Html, row.Description, row.ID));
+			});
+			sender.render();
+		}
+	},
+
+	render : function() {
+		$(this.templateSelector).html(this.announcements.join(""));
+	},
+
+	load : function() {
+		$(this.templateSelector).html("");
+
+		if (this.loader.loaded) {
+			this.render();
+		} else {
+			this.loader.load(this);
 		}
 	}
 };
@@ -90,28 +191,25 @@ function shopObject(_caption, _address, _phone, _latitude, _longitude) {
  */
 function shopListObject() {
 	this.jsonDataUrl = serviceHost + "/Shops.ashx";
-	this.loaded = false;
-	this.trying = false;
 	this.selector = "#shop-list .liste";
 	this.infoSelector = "#shop-list .info";
 	this.shopTemplate = null;
 	this.shops = [];
 	this.addMarkerCallback = null;
+
+	this.loader = new jsonLoader(this.jsonDataUrl, this.successHandler, this.errorHandler);
 }
 
 shopListObject.prototype = {
-	extractTemplate : function() {
-		if (this.shopTemplate == null) {
-			this.shopTemplate = $(this.selector).html();
-		}
+	errorHandler : function(sender, request, error) {
+		$('#shop-list .info').html('Bağlantı hatası oluştu tekrar deneyiniz!').fadeIn(200);
 	},
 
-	extractRawData : function(jsonData) {
-		$(this.infoSelector).html('Mağaza listesi güncellendi.').fadeOut(1000);
+	successHandler : function(sender, result) {
+		$(sender.infoSelector).html('Mağaza listesi güncellendi.').fadeOut(1000);
 
-		var shops = this.shops;
-		$.each(jsonData, function(i, shop) {
-			shops.push({
+		$.each(result, function(i, shop) {
+			sender.shops.push({
 				'caption' : shop.Caption,
 				'address' : shop.Address,
 				'phone' : shop.Phone,
@@ -120,7 +218,13 @@ shopListObject.prototype = {
 			});
 		});
 		app.recalculateDistances();
-		this.render();
+		sender.render();
+	},
+
+	getTemplate : function() {
+		if (this.shopTemplate == null) {
+			this.shopTemplate = $(this.selector).html();
+		}
 	},
 
 	render : function() {
@@ -141,41 +245,9 @@ shopListObject.prototype = {
 	},
 
 	load : function(_addMarkerCallback) {
-		if (!this.loaded && !this.trying) {
-			var obj = this;
-			obj.trying = true;
-			glog.step("shopListObject.load");
-
-			this.addMarkerCallback = _addMarkerCallback;
-			this.extractTemplate();
-			$(this.selector).html("");
-
-			$.ajax({
-				url : this.jsonDataUrl,
-				dataType : "jsonp",
-				async : true,
-				success : function(result) {
-					glog.step("shopListObject.load");
-					obj.extractRawData(result);
-					obj.trying = false;
-					obj.loaded = true;
-				},
-				error : function(request, error) {
-					glog.step("shopListObject.load");
-					console.warn(request);
-					console.warn(error);
-
-					obj.trying = false;
-					ajax.errorOccured(request, error);
-				}
-			});
-
-			var ajax = {
-				errorOccured : function(request, error) {
-					$('#shop-list .info').html('Bağlantı hatası oluştu tekrar deneyiniz!').fadeIn(200);
-				}
-			};
-		}
+		this.addMarkerCallback = _addMarkerCallback;
+		this.getTemplate();
+		this.loader.load(this);
 	}
 };
 
@@ -360,13 +432,22 @@ function goMap(shop) {
 
 	var map = app.map;
 	var location = new google.maps.LatLng(shop.latitude, shop.longitude);
-	//map.setCenter(location);
+
 	map.panTo(location);
 	map.setZoom(15);
 
 	if (shop.marker != null) {
 		google.maps.event.trigger(shop.marker, 'click');
 	}
+}
+
+function goGsDetail(annId) {
+	var gsc = new guzellikSirlariChild(annId);
+	gsc.load();
+	
+	$.mobile.changePage($('#page-guzellik-c'), {
+		transition : "slide"
+	});
 }
 
 var openFrontCamera = function() {

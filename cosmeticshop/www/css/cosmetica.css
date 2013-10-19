@@ -215,10 +215,10 @@ div[data-role="footer"] img {
 	max-width: none;
 }
 /*
-#map-frame {
-	width: 100%;
-}
-*/
+ #map-frame {
+ width: 100%;
+ }
+ */
 #current-location-msg {
 	height: 40px;
 	overflow: hidden;
@@ -381,6 +381,41 @@ div.loading .badge {
 	-webkit-transform: translate3d(0,0,0);
 }
 /* ------------------------------------------------------------------------- */
+#gsTemplateB .ui-block-a {
+	width: 40%;
+}
+#gsTemplateB .ui-block-b.desc {
+	padding: 8px;
+	color: #fff;
+}
+#gsTemplateB {
+	padding: 0;
+}
+#gsTemplateB  li {
+	list-style-type: none;
+	margin-left: 0px;
+	padding-left: 0px;
+	display: inline-block;
+}
+#gsTemplateB  li img {
+	width: 50%;
+}
+#gsTemplateB  li p {
+	color: #fff;
+	text-align: right;
+	display: inline-block;
+	padding: 0;
+	width: 60%;
+	right: 0;
+	position: absolute;
+}
+#gsbContent2 {
+	padding: 0;
+}
+#gsb2text {
+	color: #fff;
+	text-align: center;
+}
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */

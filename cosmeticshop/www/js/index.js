@@ -82,11 +82,15 @@ var app = {
 	/*
 	 * objects
 	 */
-	carousel1 : new carouselObject("#carousel1", 5),
-	carousel2 : new carouselObject("#carousel2", 10),
+	carousel1 : new carouselObject("#carousel1", 1),
+	carousel2 : new carouselObject("#carousel2", 2),
 	currentLocation : null,
 	currentLocationMarker : null,
 	infoWindow : null,
+	gsGoz : new guzellikSirlari(31),
+	gsYuz : new guzellikSirlari(32),
+	gsDudak : new guzellikSirlari(33),
+	gsTirnak : new guzellikSirlari(34),
 	map : null,
 	nearestShop : null,
 	preloadImages : new preloadObject("/Preload.ashx"),
@@ -487,28 +491,12 @@ var app = {
 			"top" : app.headerHeight + gsPadding + (gsBrickSize * 3) + (gsSpacing * 3) + "px"
 		});
 
-		$('.b1-1, .b2-1, .b3-1, .b4-1').each(function() {
-			$(this).bind("tap", function() {
-				$.mobile.changePage($('#page-guzellik-b'), {
-					transition : "slide"
-				});
-			});
-		});
-
 		//var gsbConPad = 16;
 		//var gsbImgH = (app.contentHeight - (gsbConPad*2))/ 3;
 		var gsbImgH = 200 * w / 565;
 		$("#page-guzellik-b .ui-grid-a img").css({
 			"height" : gsbImgH + "px",
 			"width" : "auto"
-		});
-
-		$("#page-guzellik-b .ui-grid-a").each(function() {
-			$(this).bind("tap", function() {
-				$.mobile.changePage($('#page-guzellik-c'), {
-					transition : "slide"
-				});
-			});
 		});
 
 		//app.bricks[".b1-1"]=$(".b1-1").css
@@ -616,8 +604,8 @@ var app = {
 		});
 
 	},
+
 	bindHomeMenuTapEvents : function() {
-		
 		$("#m1").bind('tap', function(event, ui) {
 			$.mobile.changePage($("#page-yeniurun"));
 		});
@@ -667,6 +655,42 @@ var app = {
 		});
 		$('.sfs').bind('tap', function() {
 			var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+
+		/* Güzellik Sırları B */
+		$('.b1-1').bind("tap", function() {
+			app.gsGoz.load();
+			$.mobile.changePage($('#page-guzellik-b'), {
+				transition : "slide"
+			});
+		});
+
+		$('.b2-1').bind("tap", function() {
+			app.gsYuz.load();
+			$.mobile.changePage($('#page-guzellik-b'), {
+				transition : "slide"
+			});
+		});
+		$('.b3-1').bind("tap", function() {
+			app.gsDudak.load();
+			$.mobile.changePage($('#page-guzellik-b'), {
+				transition : "slide"
+			});
+		});
+		$('.b4-1').bind("tap", function() {
+			app.gsTirnak.load();
+			$.mobile.changePage($('#page-guzellik-b'), {
+				transition : "slide"
+			});
+		});
+
+		/* Güzellik Sırları C */
+		$("#page-guzellik-b .ui-grid-a").each(function() {
+			$(this).bind("tap", function() {
+				$.mobile.changePage($('#page-guzellik-c'), {
+					transition : "slide"
+				});
+			});
 		});
 
 		/* Map -> listShops */
