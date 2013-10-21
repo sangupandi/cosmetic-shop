@@ -829,26 +829,20 @@ var app = {
 		$(document).bind('pageshow', eventTracker);
 		$(document).bind('pagebeforechange', eventTracker);
 	},
-
+	// for iOS
 	pushTokenHandler : function(result) {
 		console.log("Token Handler " + result);
-		alert("Token Handler : " + result);
+		//alert("Token Handler : " + result);
 
 		try {
-			// Your iOS push server needs to know the token before it can push to this device
-			// here is where you might want to send it the token for later use.
-			PushWoosh.appCode = "83E51-9B80D";
-			PushWoosh.register(result, function(data) {
-				alert("PushWoosh register success: " + JSON.stringify(data));
-			}, function(errorregistration) {
-				alert("Couldn't register with PushWoosh" + errorregistration);
-			});
+			app.registerPushWooshService();
 		} catch(e) {
 			alert("token catch : " + e.toString());
 			alert(PushWoosh);
 		}
 	},
 
+	// for both
 	pushErrorHandler : function(error) {
 		console.log("Error Handler : " + error);
 		alert("Error Handler : " + error);
@@ -860,51 +854,50 @@ var app = {
 	},
 
 	setPushNotifications : function() {
-		try {
-			var pushNotification = window.plugins.pushNotification;
+		var pushNotification = window.plugins.pushNotification;
 
-			// TODO: Enter your own GCM Sender ID in the register call for Android
-			if (device.platform == 'android' || device.platform == 'Android') {
-				pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
-					"senderID" : "268470725852",
-					"ecb" : "app.onNotificationGCM"
-				});
-			} else {
-				pushNotification.register(this.pushTokenHandler, this.pushErrorHandler, {
-					"badge" : "true",
-					"sound" : "true",
-					"alert" : "true",
-					"ecb" : "app.onNotificationAPN"
-				});
-			}
-			alert("pushplugin working");
-		} catch(e) {
-			alert("catch: " + e.toString());
-			console.warn(e.toString());
+		// TODO: Enter your own GCM Sender ID in the register call for Android
+		if (device.platform == 'android' || device.platform == 'Android') {
+			pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
+				"senderID" : "268470725852",
+				"ecb" : "app.onNotificationGCM"
+			});
+		} else {
+			pushNotification.register(this.pushTokenHandler, this.pushErrorHandler, {
+				"badge" : "true",
+				"sound" : "true",
+				"alert" : "true",
+				"ecb" : "app.onNotificationAPN"
+			});
 		}
+	},
+
+	registerPushWooshService : function() {
+		PushWoosh.appCode = "83E51-9B80D";
+		PushWoosh.register(e.regid, function(data) {
+			//alert("PushWoosh register success: " + JSON.stringify(data));
+		}, function(errorregistration) {
+			alert("Bildirim servislerine kayıt olunamadı.");
+		});
+
 	},
 	// iOS
 	onNotificationAPN : function(event) {
-		try {
-			alert(e);
-			var pushNotification = window.plugins.pushNotification;
-			console.log("Received a notification! " + event.alert);
-			console.log("event sound " + event.sound);
-			console.log("event badge " + event.badge);
-			console.log("event " + event);
-			if (event.alert) {
-				navigator.notification.alert(event.alert);
-			}
-			if (event.badge) {
-				console.log("Set badge on  " + pushNotification);
-				pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
-			}
-			if (event.sound) {
-				var snd = new Media(event.sound);
-				snd.play();
-			}
-		} catch(e) {
-			alert("APN catch : " + e.toString());
+		var pushNotification = window.plugins.pushNotification;
+		console.log("Received a notification! " + event.alert);
+		console.log("event sound " + event.sound);
+		console.log("event badge " + event.badge);
+		console.log("event " + event);
+		if (event.alert) {
+			navigator.notification.alert(event.alert);
+		}
+		if (event.badge) {
+			console.log("Set badge on  " + pushNotification);
+			pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
+		}
+		if (event.sound) {
+			var snd = new Media(event.sound);
+			snd.play();
 		}
 	},
 	// Android
@@ -914,22 +907,15 @@ var app = {
 				if (e.regid.length > 0) {
 					// Your GCM push server needs to know the regID before it can push to this device
 					// here is where you might want to send it the regID for later use.
-					alert('registration id = ' + e.regid);
-
-					PushWoosh.appCode = "83E51-9B80D";
-					PushWoosh.register(e.regid, function(data) {
-						alert("PushWoosh register success: " + JSON.stringify(data));
-					}, function(errorregistration) {
-						alert("Couldn't register with PushWoosh" + errorregistration);
-					});
-
+					//alert('registration id = ' + e.regid);
+					app.registerPushWooshService();
 				}
 				break;
 
 			case 'message':
 				// this is the actual push notification. its format depends on the data model
 				// of the intermediary push server which must also be reflected in GCMIntentService.java
-				alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
+				alert(e.message);
 				break;
 
 			case 'error':
