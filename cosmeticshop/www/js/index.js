@@ -863,7 +863,7 @@ var app = {
 			// TODO: Enter your own GCM Sender ID in the register call for Android
 			if (device.platform == 'android' || device.platform == 'Android') {
 				pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
-					"senderID" : "554205989074",
+					"senderID" : "268470725852",
 					"ecb" : "app.onNotificationGCM"
 				});
 			} else {
