@@ -52,6 +52,7 @@
 	<access origin="http://www.gtech.com.tr/*" />
 	<access origin="http://www.gtech.com.tr/Cosmetica/*" />
 	<access origin="http://www.gtech.com.tr/Cosmetica/files/*" />
+	<access origin="*.pushwoosh.com"/>
 	<access origin="*" />
 	
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
