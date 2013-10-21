@@ -147,6 +147,15 @@ var app = {
 			};
 			app.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+			google.maps.event.addListener(app.map, 'click', function(e) {
+				google.maps.event.trigger(app.map, 'tapped', {
+					latLng : e.latLng
+				});
+				console.log(e.latLng);
+			});
+			
+			google.maps.event.clearInstanceListeners(app.map);
+
 			app.mapInitialized = true;
 		} else {
 			glog.warn("******googleMap is not ready");
@@ -251,9 +260,13 @@ var app = {
 				animation : google.maps.Animation.DROP
 			});
 
+			google.maps.event.addListener(marker, 'mousedown', function() {
+				openInfoWindow(marker, shop);
+			});
 			google.maps.event.addListener(marker, 'click', function() {
 				openInfoWindow(marker, shop);
 			});
+
 			shop.marker = marker;
 		});
 		app.shopMarkersAdded = true;
@@ -819,8 +832,9 @@ var app = {
 
 	pushTokenHandler : function(result) {
 		console.log("Token Handler " + result);
-		alert("Token Handler " + result);
+		alert("Token Handler : " + result);
 
+		/*
 		// Your iOS push server needs to know the token before it can push to this device
 		// here is where you might want to send it the token for later use.
 		PushWoosh.appCode = "YOUR_PUSHWOOSH_APP_ID";
@@ -829,16 +843,17 @@ var app = {
 		}, function(errorregistration) {
 			alert("Couldn't register with PushWoosh" + errorregistration);
 		});
+		*/
 	},
 
 	pushErrorHandler : function(error) {
-		console.log("Error Handler  " + error);
-		alert(error);
+		console.log("Error Handler : " + error);
+		alert("Error Handler : " + error);
 	},
 
 	// result contains any message sent from the plugin call
 	pushSuccessHandler : function(result) {
-		alert('Success! Result = ' + result);
+		alert('Success Handler : ' + result);
 	},
 
 	setPushNotifications : function() {
@@ -944,7 +959,7 @@ var app = {
 		app.windowHeight = $(window).height();
 		app.windowWidth = $(window).width();
 
-		//this.setPushNotifications();
+		this.setPushNotifications();
 		app.initLayoutAnimPage();
 
 		setTimeout(function() {
