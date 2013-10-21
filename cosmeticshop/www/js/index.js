@@ -835,7 +835,8 @@ var app = {
 		//alert("Token Handler : " + result);
 
 		try {
-			app.registerPushWooshService();
+			//result = regId
+			app.registerPushWooshService(result);
 		} catch(e) {
 			alert("token catch : " + e.toString());
 			alert(PushWoosh);
@@ -872,14 +873,14 @@ var app = {
 		}
 	},
 
-	registerPushWooshService : function() {
+	// for both
+	registerPushWooshService : function(regId) {
 		PushWoosh.appCode = "83E51-9B80D";
-		PushWoosh.register(e.regid, function(data) {
+		PushWoosh.register(regId, function(data) {
 			//alert("PushWoosh register success: " + JSON.stringify(data));
-		}, function(errorregistration) {
+		}, function(errorRegistration) {
 			alert("Bildirim servislerine kayıt olunamadı.");
 		});
-
 	},
 	// iOS
 	onNotificationAPN : function(event) {
@@ -908,7 +909,7 @@ var app = {
 					// Your GCM push server needs to know the regID before it can push to this device
 					// here is where you might want to send it the regID for later use.
 					//alert('registration id = ' + e.regid);
-					app.registerPushWooshService();
+					app.registerPushWooshService(e.regid);
 				}
 				break;
 

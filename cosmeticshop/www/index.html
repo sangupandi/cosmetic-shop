@@ -37,7 +37,7 @@
 		<script type="text/javascript" src="SplashScreen.js"></script>
 		<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/pushwoosh.js"></script>
-		
+
 		<!--
 		<script type="text/javascript" src="PushNotification.js"></script>
 		<script src="pushwoosh.js" type="text/javascript"></script>
@@ -246,11 +246,10 @@
 
 				<div id="gsbContent" data-role="content" class="sized-content">
 					<!--
-					<div class="ui-grid-a" id="gsTemplateB">						
+					<div class="ui-grid-a" id="gsTemplateB">
 					</div>
 					-->
-					<ul id="gsTemplateB">						
-					</ul>
+					<ul id="gsTemplateB"></ul>
 
 				</div><!-- /content -->
 
@@ -272,8 +271,7 @@
 					<img src="img/header_06.png" width="100%"/>
 				</div><!-- /header -->
 
-				<div id="gsbContent2" data-role="content" class="sized-content">
-				</div><!-- /content -->
+				<div id="gsbContent2" data-role="content" class="sized-content"></div><!-- /content -->
 
 				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
 					<div>
@@ -507,6 +505,43 @@
 				</div>
 			</div>
 
+			<!-- Start of page -->
+			<div data-role="page" id="page-ayarlar">
+
+				<div data-role="header">
+					<img src="img/header_17.png" width="100%"/>
+				</div><!-- /header -->
+
+				<div data-role="content" class="sized-content">
+
+					<div>
+						<label class="settingDesc">Lütfen anlık bildirim almak istediğiniz kategorileri belirtiniz.</label>
+					</div>
+
+					<label for="cbxSetting1">Yeni Ürünler</label>
+					<input type="checkbox" id="cbxSetting1" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set1', this.checked);"/>
+
+					<label for="cbxSetting2">Güncel Fırsatlar</label>
+					<input type="checkbox" id="cbxSetting2" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set2', this.checked);"/>
+
+					<label for="cbxSetting3">Güzellik Sırları</label>
+					<input type="checkbox" id="cbxSetting3" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set3', this.checked);"/>
+
+					<label for="cbxSetting4">İndirim Kataloğu</label>
+					<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
+
+				</div><!-- /content -->
+
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+					<div>
+						<a class="fb-home"></a>
+						<a class="fb-share"></a>
+						<a class="fb-map"></a>
+						<a class="fb-back"></a>
+					</div>
+				</div><!-- /footer -->
+
+			</div><!-- /page -->
 		</div>
 
 		<script type="text/javascript">
