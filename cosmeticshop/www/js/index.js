@@ -839,8 +839,8 @@ var app = {
 		$('.fb-back').each(function() {
 			$(this).bind('tap', function() {
 				try {
-					navigator.app.backHistory();
 					alert("back");
+					navigator.app.backHistory();
 				} catch(e) {
 					window.history.back();
 				}
@@ -999,7 +999,7 @@ var app = {
 		$.mobile.defaultDialogTransition = 'none';
 		$.mobile.transitionFallbacks.slide = 'none';
 		$.mobile.transitionFallbacks.pop = 'none';
-		$.mobile.buttonMarkup.hoverDelay = 0;
+		$.mobile.buttonMarkup.hoverDelay = 150;
 		$.mobile.phonegapNavigationEnabled = true;
 		$.mobile.loadingMessage = 'Yükleniyor...';
 
