@@ -840,6 +840,7 @@ var app = {
 			$(this).bind('tap', function() {
 				try {
 					navigator.app.backHistory();
+					alert("back");
 				} catch(e) {
 					window.history.back();
 				}
