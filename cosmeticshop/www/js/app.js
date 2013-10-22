@@ -117,10 +117,10 @@ guzellikSirlari.prototype = {
 
 	render : function() {
 		$(this.templateSelector).html(this.announcements.join(""));
+		console.log($(this.templateSelector).html());
 	},
 
 	load : function() {
-		return;
 		$(this.templateSelector).html("");
 
 		if (this.loader.loaded) {
@@ -160,10 +160,10 @@ guzellikSirlariChild.prototype = {
 
 	render : function() {
 		$(this.templateSelector).html(this.announcements.join(""));
+		console.log($(this.templateSelector).html());
 	},
 
 	load : function() {
-		return;
 		$(this.templateSelector).html("");
 
 		if (this.loader.loaded) {
