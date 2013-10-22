@@ -179,19 +179,56 @@ var app = {
 				app.currentLocationMarker.setMap(null);
 			}
 
+			var image = {
+				url : serviceHost + '/files/bluedot2.png',
+				//url : serviceHost + '/files/bluedot2.png',
+				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
+				size : new google.maps.Size(38, 38),
+				origin : new google.maps.Point(0, 0),
+				// The anchor for this image is the base of the flagpole at 0,32.
+				anchor : new google.maps.Point(19, 19)
+			};
+			/*
+			 *  Shapes define the clickable region of the icon.
+			 *  The type defines an HTML &lt;area&gt; element 'poly' which
+			 *  traces out a polygon as a series of X,Y points. The final
+			 *  coordinate closes the poly by connecting to the first
+			 *  coordinate.
+			 */
+			/*
+			 var shape = {
+			 coord : [1, 1, 1, 20, 18, 20, 18, 1],
+			 type : 'poly'
+			 };
+			 */
 			app.currentLocationMarker = new google.maps.Marker({
 				position : app.currentLocation,
 				map : map,
 				bounds : false,
 				title : 'Buradasınız',
-				icon : serviceHost + '/files/bluedot2.png'
-				//animation : google.maps.Animation.BOUNCE
+				icon : image,
+				//shape : shape,
+				optimized : false
 			});
 			var marker = app.currentLocationMarker;
 
+			// Add circle overlay and bind to marker
+			/*
+			 var circle = new google.maps.Circle({
+			 strokeColor : "#006DFC",
+			 strokeOpacity : 0.4,
+			 strokeWeight : 2,
+			 fillColor : "#006DFC",
+			 fillOpacity : 0.15,
+			 map : app.map,
+			 radius : 1609.3, // 1 miles in metres
+			 });
+			 circle.bindTo('center', marker, 'position');
+			 */
+
 			google.maps.event.addListener(marker, 'click', function() {
-				map.setZoom(8);
-				map.setCenter(marker.getPosition());
+				map.setZoom(16);
+				map.panTo(marker.getPosition());
 			});
 
 			app.showCurrentLocationFirstTime = true;
@@ -227,7 +264,9 @@ var app = {
 
 		function openInfoWindow(marker, shop) {
 			console.warn("openInfoWindow");
-			var contentString = '<div class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
+			var funcStr = String.format("shopShopInfoPage('{0}', '{1}', '{2}', '{3}');", shop.caption, shop.address, shop.phone, shop.distance);
+			var contentString = '<div onclick="' + funcStr + '" class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
+			//var contentString = '<div class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
 
 			if (app.infoWindow != null) {
 				app.infoWindow.close();
@@ -250,13 +289,22 @@ var app = {
 
 			var pos = new google.maps.LatLng(shop.latitude, shop.longitude);
 
+			var image = {
+				url : serviceHost + '/files/cosmetica_marker.png',
+				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
+				size : new google.maps.Size(32, 37),
+				origin : new google.maps.Point(0, 0),
+				anchor : new google.maps.Point(16, 19)
+			};
+
 			var marker = new google.maps.Marker({
 				position : pos,
 				map : app.map,
 				//bounds : true,
 				clickable : true,
 				title : shop.caption,
-				icon : serviceHost + '/files/cosmetica_marker.png',
+				icon : image, //serviceHost + '/files/cosmetica_marker.png',
+				optimized : false,
 				animation : google.maps.Animation.DROP
 			});
 
@@ -305,11 +353,11 @@ var app = {
 					calculatedShopDistances++;
 
 					if (status == google.maps.DirectionsStatus.OK) {
-						shop.drivingDistance = response.routes[0].legs[0].distance.value;
+						shop.distance = response.routes[0].legs[0].distance.value;
 
-						//console.log(calculatedShopDistances + ' of ' + app.shopList.shops.length + ' - ' + shop.caption + ' : ' + shop.drivingDistance + ' (' + formatDistance(shop.drivingDistance) + ')');
+						//console.log(calculatedShopDistances + ' of ' + app.shopList.shops.length + ' - ' + shop.caption + ' : ' + shop.distance + ' (' + formatDistance(shop.drivingDistance) + ')');
 
-						if (app.nearestShop == null || app.nearestShop.drivingDistance > shop.drivingDistance) {
+						if (app.nearestShop == null || app.nearestShop.distance > shop.distance) {
 							app.nearestShop = shop;
 						}
 
@@ -855,21 +903,25 @@ var app = {
 	},
 
 	setPushNotifications : function() {
-		var pushNotification = window.plugins.pushNotification;
+		try {
+			var pushNotification = window.plugins.pushNotification;
 
-		// TODO: Enter your own GCM Sender ID in the register call for Android
-		if (device.platform == 'android' || device.platform == 'Android') {
-			pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
-				"senderID" : "268470725852",
-				"ecb" : "app.onNotificationGCM"
-			});
-		} else {
-			pushNotification.register(this.pushTokenHandler, this.pushErrorHandler, {
-				"badge" : "true",
-				"sound" : "true",
-				"alert" : "true",
-				"ecb" : "app.onNotificationAPN"
-			});
+			// TODO: Enter your own GCM Sender ID in the register call for Android
+			if (device.platform == 'android' || device.platform == 'Android') {
+				pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
+					"senderID" : "268470725852",
+					"ecb" : "app.onNotificationGCM"
+				});
+			} else {
+				pushNotification.register(this.pushTokenHandler, this.pushErrorHandler, {
+					"badge" : "true",
+					"sound" : "true",
+					"alert" : "true",
+					"ecb" : "app.onNotificationAPN"
+				});
+			}
+		} catch(e) {
+			// probably running on browser
 		}
 	},
 
@@ -978,7 +1030,39 @@ var app = {
 		app.bindFooterMenuTapEvents();
 		app.bindSubPagesTapEvents();
 		app.preloadImages.load();
-		//$('#map-frame').attr('src', serviceHost + '/map.html');
+
+		$('#home-header-pic').bind('tap', function() {
+			//ms
+			var transitionSpeed = 160;
+			var easing = "snap";
+			var effects = [];
+			effects[0] = {
+				opacity : 0
+			};
+			effects[1] = {
+				opacity : 1
+			};
+			/*
+			 effects[0] = {opacity:0};
+			 effects[1] = {opacity:1};
+
+			 effects[0] = { rotateY: '180deg',opacity:0};
+			 effects[1] = { rotateY: '0deg',opacity:1};
+
+			 effects[0] = { scale:0};
+			 effects[1] = { scale:1};
+
+			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
+			 effects[1] = { rotate:'0deg',x:0};
+			 */
+
+			$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
+				$('#page-harita-detail').css({
+					'display' : 'inline'
+				}).transition(effects[1], transitionSpeed, easing);
+			});
+
+		});
 
 		return;
 

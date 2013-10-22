@@ -300,6 +300,70 @@ div[data-role="footer"] img {
 .info-window .phone {
 	font-size: 12px;
 }
+
+#shop-detail div.container {
+	border: 2px solid #F5F5f5;
+	background-color: #fff;
+	color: #000;
+	padding: 8px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#shop-detail img {
+	width: 33%;
+	float: left;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+#shop-detail .caption {
+	font-weight: bold;
+	float: right;
+	padding-top: 20px;
+}
+#shop-detail .caption {
+	font-weight: bold;
+	float: right;
+	padding-top: 20px;
+}
+#shop-detail .caption {
+	font-weight: bold;
+	float: right;
+	padding-top: 20px;
+}
+#shop-detail .address {
+	margin-top: 10px;
+	clear: both;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#shop-detail .phone {
+}
+#shop-detail .distance {
+	text-align: right;
+	font-weight: bold;
+}
+.infobox-wrapper {
+	display: none;
+}
+/*
+#infobox {
+	border: 2px solid black;
+	margin-top: 8px;
+	background: #333;
+	color: #FFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: .5em 1em;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	text-shadow: 0 -1px #000000;
+	-webkit-box-shadow: 0 0 8px #000;
+	box-shadow: 0 0 8px #000;
+}
+*/
 /* ------------------------------------------------------------------------- */
 label {
 	color: #fff;

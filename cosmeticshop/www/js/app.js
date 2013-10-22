@@ -181,8 +181,7 @@ function shopObject(_caption, _address, _phone, _latitude, _longitude) {
 	this.phone = _phone;
 	this.latitude = _latitude;
 	this.longitude = _longitude;
-	this.flyingDistance = null;
-	this.drivingDistance = null;
+	this.distance = null;
 	this.marker = null;
 }
 
@@ -233,7 +232,7 @@ shopListObject.prototype = {
 		var arr = [];
 		var template = this.shopTemplate;
 		$.each(this.shops, function(i, shop) {
-			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.drivingDistance), i));
+			arr.push(String.format(template, shop.caption, shop.address, shop.phone, formatDistance(shop.distance), i));
 		});
 		$(this.selector).html(arr.join(""));
 
@@ -283,10 +282,10 @@ catalogueObject.prototype = {
 			$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
 			if (self.loadedImageCount == self.images.length) {
 				$("#page-katalog .loading").hide();
-				
+
 				console.log("All images have loaded (or died trying)!");
 				self.scrollObj.refresh();
-				console.log("iScroll refreshed");			
+				console.log("iScroll refreshed");
 			}
 		}
 
@@ -430,6 +429,19 @@ function formatDistance(value) {
 	}
 }
 
+function shopShopInfoPage(caption, address, phone, distance) {
+
+	$('#shop-detail .caption').text(caption);
+	$('#shop-detail .address').text(address);
+	$('#shop-detail .phone').text(phone);
+	$('#shop-detail .distance').text(formatDistance(distance));
+	
+	$.mobile.changePage($('#page-harita-detail'), {
+		transition : "none"
+	});
+	//alert(distance);
+}
+
 function goMap(shop) {
 	if ($('#shop-list').is(":visible")) {
 		$('#shop-list').fadeOut(200);
@@ -484,40 +496,11 @@ function goPage(pageId) {
 }
 
 function startGuzellikSirriAnimation() {
-	console.warn("startGuzellikSirriAnimation");
-}
-
-function startupSteps() {
-	glog.step('startupSteps');
-
-	$("#page-guzellik").bind("pageshow", function(event) {
-		startGuzellikSirriAnimation();
-	});
-
-	$("#page-katalog").bind("pageshow", function(event) {
-		//if (myScroll == null) loaded();
-	});
-
-	$("#m4 img").bind('tap', function(event, ui) {
-		$.mobile.changePage($("#page-katalog"));
-		/*
-		 var pdfUrl = serviceHost + '/Files/cosmetica-insert-eylul.pdf';
-		 if (!platform_iOS()) {
-		 pdfUrl = 'https://docs.google.com/viewer?url=' + pdfUrl;
-		 }
-		 $('#page-katalog div[data-role="content"]').load(pdfUrl);
-		 //var ref = window.open(pdfUrl, '_blank', 'location=no,enableViewPortScale=yes');
-
-		 /*
-		 ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-		 ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-		 ref.addEventListener('exit', function() { alert(event.type); });
-		 */
-	});
 
 	$(function() {
 		var elem = $('#wrapper');
 		elem.iscroll({
+
 			zoom : true,
 			bounce : false,
 			zoomMax : 4,
@@ -530,8 +513,6 @@ function startupSteps() {
 			console.log($(this).attr('id') + ' - ' + iscroll);
 		});
 	});
-
-	glog.step('startupSteps');
 }
 
 function loadMapScript(callbackFunctionName) {
