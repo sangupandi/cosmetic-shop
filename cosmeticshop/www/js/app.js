@@ -120,6 +120,7 @@ guzellikSirlari.prototype = {
 	},
 
 	load : function() {
+		return;
 		$(this.templateSelector).html("");
 
 		if (this.loader.loaded) {
@@ -162,6 +163,7 @@ guzellikSirlariChild.prototype = {
 	},
 
 	load : function() {
+		return;
 		$(this.templateSelector).html("");
 
 		if (this.loader.loaded) {
