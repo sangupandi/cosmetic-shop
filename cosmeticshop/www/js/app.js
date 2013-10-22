@@ -429,7 +429,7 @@ function formatDistance(value) {
 	}
 }
 
-function shopShopInfoPage(caption, address, phone, distance) {
+function shopInfoPage(caption, address, phone, distance) {
 	$('#shop-detail .caption').text(caption);
 	$('#shop-detail .address').text(address);
 	//$('#shop-detail .phone').html(String.format('<a href="tel:{0}">Tel : {0}</a>', phone));

@@ -264,7 +264,7 @@ var app = {
 
 		function openInfoWindow(marker, shop) {
 			console.warn("openInfoWindow");
-			var funcStr = String.format("shopShopInfoPage('{0}', '{1}', '{2}', '{3}');", shop.caption, shop.address, shop.phone, shop.distance);
+			var funcStr = String.format("shopInfoPage('{0}', '{1}', '{2}', '{3}');", shop.caption, shop.address, shop.phone, shop.distance);
 			var contentString = '<div onclick="' + funcStr + '" class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
 			//var contentString = '<div class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
 
