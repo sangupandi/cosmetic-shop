@@ -17,6 +17,10 @@
 input[type="checkbox"] {
 	-webkit-appearance: none;
 }
+.in, .out {
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-duration: 160ms !important;
+}
 /* placeholder text opacity */
 input::-webkit-input-placeholder {
 	opacity: .8;
