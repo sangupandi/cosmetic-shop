@@ -271,9 +271,11 @@ function catalogueObject(_jsonDataUrl) {
 catalogueObject.prototype = {
 	onZoomEnd : function() {
 		console.dir(this);
+		alert("zoom end");
 
 		var pageCount = $('.page').length;
 		console.dir(pageCount);
+		alert("pageCount:" + pageCount);
 
 		if (this.scale > 1) {
 			if (!app.catalogue.zoomed) {

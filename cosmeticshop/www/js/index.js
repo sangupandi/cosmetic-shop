@@ -183,14 +183,15 @@ var app = {
 			var image = {
 				//url : serviceHost + '/files/bluedot.gif',
 				//url : serviceHost + '/files/bluedot2.png',
-				url : serviceHost + '/files/bluedot10px.png',
+				//url : serviceHost + '/files/bluedot10px.png',
+				url : serviceHost + '/files/aaa.gif',				
 				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
-				//size : new google.maps.Size(38, 38),
-				size : new google.maps.Size(10, 10),
+				size : new google.maps.Size(38, 38),
+				//size : new google.maps.Size(10, 10),
 				origin : new google.maps.Point(0, 0),
 				// The anchor for this image is the base of the flagpole at 0,32.
-				//anchor : new google.maps.Point(19, 19)
-				anchor : new google.maps.Point(5, 5)
+				anchor : new google.maps.Point(19, 19)
+				//anchor : new google.maps.Point(5, 5)
 			};
 			/*
 			 *  Shapes define the clickable region of the icon.
