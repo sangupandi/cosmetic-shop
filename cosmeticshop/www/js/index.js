@@ -809,7 +809,6 @@ var app = {
 		$('.fb-share').each(function() {
 			$(this).bind('tap', function() {
 				window.plugins.socialsharing.available(function(isAvailable) {
-					alert(app.pageTransitionBusy + ' - ' + isAvailable);
 					if (isAvailable) {/*
 						// use a local image from inside the www folder:
 						window.plugins.socialsharing.share('My text with a link: http://domain.com', 'My subject', 'www/image.gif');
@@ -1005,7 +1004,10 @@ var app = {
 
 		$.mobile.autoInitializePage = false;
 		$.mobile.allowCrossDomainPages = true;
+		
+		// why: http://jquerymobile.com/demos/1.2.0/docs/pages/phonegap.html
 		$.mobile.pushStateEnabled = true;
+		
 		$.mobile.touchOverflowEnabled = false;
 		$.mobile.defaultPageTransition = 'flip';
 		$.mobile.defaultDialogTransition = 'none';
