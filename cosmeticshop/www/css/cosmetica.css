@@ -420,7 +420,7 @@ div.loading .badge {
 	padding-top: 8px;
 }
 
-#wrapper {
+#wrapper-katalog {
 	position: absolute;
 	z-index: 1;
 	left: 0px;
@@ -429,7 +429,7 @@ div.loading .badge {
 	overflow: hidden;
 }
 
-#scroller {
+#scroller-katalog {
 	position: absolute;
 	z-index: 1;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -451,7 +451,7 @@ div.loading .badge {
 	text-size-adjust: none;
 }
 
-#scroller img {
+#scroller-katalog img {
 	-webkit-transform: translate3d(0,0,0);
 }
 /* ------------------------------------------------------------------------- */

@@ -181,6 +181,7 @@ var app = {
 			}
 
 			var image = {
+				//url : serviceHost + '/files/bluedot.gif',
 				//url : serviceHost + '/files/bluedot2.png',
 				url : serviceHost + '/files/bluedot10px.png',
 				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
@@ -236,9 +237,7 @@ var app = {
 			// Start tracking the User
 			app.watch_id = navigator.geolocation.watchPosition(function(position) {
 				// Success
-				console.log(app.watch_id);
-				console.log(position);
-
+				//console.log(position);
 				app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 				app.currentLocationMarker.setPosition(app.currentLocation);
 				//element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' + 'Longitude: ' + position.coords.longitude + '<br />' + '<hr />' + element.innerHTML;
@@ -508,7 +507,7 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size */
-		styles.push('#wrapper { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
+		styles.push('#wrapper-katalog { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
 
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);

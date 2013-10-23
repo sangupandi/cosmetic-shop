@@ -257,26 +257,64 @@ shopListObject.prototype = {
  */
 function catalogueObject(_jsonDataUrl) {
 	this.jsonDataUrl = serviceHost + _jsonDataUrl;
-	this.selector = '#wrapper #scroller';
-	this.template = '<img src="{0}" width="100%" alt=".">';
+	this.selector = '#wrapper-katalog #scroller-katalog';
+	this.template = '<img class="page p{1}" src="{0}" width="100%" />';
 	this.trying = false;
 	this.loaded = false;
 	this.images = [];
 	this.loadedImageCount = 0;
 	this.scrollObj = null;
+	this.activePage = 0;
 }
 
 catalogueObject.prototype = {
-	createScroll : function() {
-		this.scrollObj = new IScroll('#wrapper', {
-			zoom : true,
-			scrollX : true,
-			scrollY : true,
-			mouseWheel : true,
-			wheelAction : 'zoom',
-			checkDOMChanges : false
-		});
+	onZoomEnd : function() {
+		console.dir(this);
 
+		if (this.scale > 1) {
+			// zoom in
+			app.catalogue.activePage = this.currentPage.pageY;
+			$('.page').css({
+				'display' : 'none'
+			});
+			$('.page.p' + app.catalogue.activePage).css({
+				'display' : 'inline-block'
+			});
+		} else {
+			// zoom 1
+			$('.page').css({
+				'display' : 'inline-block'
+			});
+		}
+		this.refresh();
+		this.goToPage(0, app.catalogue.activePage, 0, '');
+	},
+
+	createScroll : function() {
+		if (this.scrollObj == null) {
+			this.scrollObj = new IScroll('#wrapper-katalog', {
+				zoom : true,
+				mouseWheel : true,
+				wheelAction : 'zoom',
+
+				scrollX : true,
+				scrollY : true,
+				momentum : true,
+
+				snap : "img",
+				snapSpeed : 400,
+				keyBindings : true,
+				snapThreshold : 1
+			});
+			this.scrollObj.on('zoomEnd', this.onZoomEnd);
+		} else {
+			this.scrollObj.refresh();
+		}
+		/*
+		 elem.bind('onScrollEnd', function(e, iscroll) {
+		 console.log($(this).attr('id') + ' - ' + iscroll);
+		 });
+		 */
 	},
 	extractRawData : function(jsonData) {
 		function imageLoadPost(self) {
@@ -286,14 +324,15 @@ catalogueObject.prototype = {
 				$("#page-katalog .loading").hide();
 
 				console.log("All images have loaded (or died trying)!");
-				self.scrollObj.refresh();
+				self.createScroll();
+
 				console.log("iScroll refreshed");
 			}
 		}
 
 		var self = this;
 		var elem = $(self.selector);
-		elem.html("");
+		elem.html('');
 		$.each(jsonData, function(i, row) {
 			var img = new Image();
 			img.src = row.Url;
@@ -306,16 +345,34 @@ catalogueObject.prototype = {
 			};
 
 			self.images.push(img);
-			elem.append(String.format(self.template, img.src));
+			elem.append(String.format(self.template, img.src, i));
+			//elem.append('<img class="page p0" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%">');
 		});
 	},
 
 	load : function(_addMarkerCallback) {
+		/*
+		 myScroll = new IScroll('#wrapper-katalog', {
+		 zoom : true,
+		 mouseWheel : true,
+		 wheelAction : 'zoom',
+
+		 scrollX : true,
+		 scrollY : true,
+		 momentum : true,
+
+		 snap : "img",
+		 snapSpeed : 400,
+		 keyBindings : true,
+		 snapThreshold : 1
+		 });
+		 return;
+		 */
 		if (!this.loaded && !this.trying) {
 			var obj = this;
 			obj.trying = true;
 			glog.step("catalogueObject.load");
-			obj.createScroll();
+			//obj.createScroll();
 
 			$("#page-katalog .loading").fadeIn(300);
 			$.ajax({
@@ -498,23 +555,6 @@ function goPage(pageId) {
 }
 
 function startGuzellikSirriAnimation() {
-
-	$(function() {
-		var elem = $('#wrapper');
-		elem.iscroll({
-
-			zoom : true,
-			bounce : false,
-			zoomMax : 4,
-			scrollX : true,
-			scrollY : true,
-			mouseWheel : true,
-			wheelAction : 'zoom'
-		});
-		elem.bind('onScrollEnd', function(e, iscroll) {
-			console.log($(this).attr('id') + ' - ' + iscroll);
-		});
-	});
 }
 
 function loadMapScript(callbackFunctionName) {
