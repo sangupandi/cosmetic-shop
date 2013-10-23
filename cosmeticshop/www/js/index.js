@@ -477,6 +477,8 @@ var app = {
 		styles.push('.ui-footer a.fb-share { background-position-x: -' + footerBtnWidth + 'px; }\r');
 		styles.push('.ui-footer a.fb-map { background-position-x: -' + footerBtnWidth * 2 + 'px; }\r');
 		styles.push('.ui-footer a.fb-back { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
+		styles.push('.ui-footer a.fb-back-gs { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
+		styles.push('.ui-footer a.fb-backgs-b { background-position-x: -' + footerBtnWidth * 3 + 'px; }\r');
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size */
@@ -844,6 +846,13 @@ var app = {
 					window.history.back();
 				}
 			});
+		});
+
+		$('.fb-back-gs').bind('tap', function() {
+			$.mobile.changePage($("#page-guzellik"));
+		});
+		$('.fb-back-gs-b').bind('tap', function() {
+			$.mobile.changePage($("#page-guzellik-b"));
 		});
 
 		$('.fb-settings').each(function() {
