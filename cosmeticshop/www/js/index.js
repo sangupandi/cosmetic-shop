@@ -719,26 +719,26 @@ var app = {
 		});
 
 		/* Güzellik Sırları B */
-		$('.b1-1').bind("tap", function() {
+		$('.b1-1').bind("click", function() {
 			app.gsGoz.load();
 			$.mobile.changePage($('#page-guzellik-b'), {
 				transition : "slide"
 			});
 		});
 
-		$('.b2-1').bind("tap", function() {
+		$('.b2-1').bind("click", function() {
 			app.gsYuz.load();
 			$.mobile.changePage($('#page-guzellik-b'), {
 				transition : "slide"
 			});
 		});
-		$('.b3-1').bind("tap", function() {
+		$('.b3-1').bind("click", function() {
 			app.gsDudak.load();
 			$.mobile.changePage($('#page-guzellik-b'), {
 				transition : "slide"
 			});
 		});
-		$('.b4-1').bind("tap", function() {
+		$('.b4-1').bind("click", function() {
 			app.gsTirnak.load();
 			$.mobile.changePage($('#page-guzellik-b'), {
 				transition : "slide"
@@ -747,7 +747,7 @@ var app = {
 
 		/* Güzellik Sırları C */
 		$("#page-guzellik-b .ui-grid-a").each(function() {
-			$(this).bind("tap", function() {
+			$(this).bind("click", function() {
 				$.mobile.changePage($('#page-guzellik-c'), {
 					transition : "slide"
 				});
