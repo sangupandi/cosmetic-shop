@@ -211,8 +211,8 @@ var app = {
 				title : 'Buradasınız',
 				icon : image,
 				//shape : shape,
-				optimized : false,
-				animation : google.maps.Animation.BOUNCE
+				optimized : false
+				//animation : google.maps.Animation.BOUNCE
 			});
 			var marker = app.currentLocationMarker;
 
