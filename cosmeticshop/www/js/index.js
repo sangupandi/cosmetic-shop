@@ -247,7 +247,7 @@ var app = {
 				console.log(error);
 			}, {
 				// Settings
-				frequency : 1000,
+				frequency : 3000,
 				enableHighAccuracy : true
 			});
 
