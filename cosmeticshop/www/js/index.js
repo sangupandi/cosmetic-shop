@@ -78,6 +78,7 @@ var app = {
 	pageTransitionBusy : false,
 	shopMarkersAdded : false,
 	showCurrentLocationFirstTime : false,
+	watch_id : null,
 
 	/*
 	 * objects
@@ -180,13 +181,15 @@ var app = {
 			}
 
 			var image = {
-				url : serviceHost + '/files/bluedot2.png',
 				//url : serviceHost + '/files/bluedot2.png',
+				url : serviceHost + '/files/bluedot10px.png',
 				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
-				size : new google.maps.Size(38, 38),
+				//size : new google.maps.Size(38, 38),
+				size : new google.maps.Size(10, 10),
 				origin : new google.maps.Point(0, 0),
 				// The anchor for this image is the base of the flagpole at 0,32.
-				anchor : new google.maps.Point(19, 19)
+				//anchor : new google.maps.Point(19, 19)
+				anchor : new google.maps.Point(5, 5)
 			};
 			/*
 			 *  Shapes define the clickable region of the icon.
@@ -208,28 +211,50 @@ var app = {
 				title : 'Buradasınız',
 				icon : image,
 				//shape : shape,
-				optimized : false
+				optimized : false,
+				animation : google.maps.Animation.BOUNCE
 			});
 			var marker = app.currentLocationMarker;
 
 			// Add circle overlay and bind to marker
-			/*
-			 var circle = new google.maps.Circle({
-			 strokeColor : "#006DFC",
-			 strokeOpacity : 0.4,
-			 strokeWeight : 2,
-			 fillColor : "#006DFC",
-			 fillOpacity : 0.15,
-			 map : app.map,
-			 radius : 1609.3, // 1 miles in metres
-			 });
-			 circle.bindTo('center', marker, 'position');
-			 */
+			var circle = new google.maps.Circle({
+				strokeColor : "#006DFC",
+				strokeOpacity : 0.4,
+				strokeWeight : 1,
+				fillColor : "#006DFC",
+				fillOpacity : 0.15,
+				map : app.map,
+				radius : 600, // 1 miles in metres
+			});
+			circle.bindTo('center', marker, 'position');
 
 			google.maps.event.addListener(marker, 'click', function() {
-				map.setZoom(16);
+				map.setZoom(14);
 				map.panTo(marker.getPosition());
 			});
+
+			// Start tracking the User
+			app.watch_id = navigator.geolocation.watchPosition(function(position) {
+				// Success
+				console.log(app.watch_id);
+				console.log(position);
+
+				app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				app.currentLocationMarker.setPosition(app.currentLocation);
+				//element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' + 'Longitude: ' + position.coords.longitude + '<br />' + '<hr />' + element.innerHTML;
+			}, function(error) {
+				// Error
+				console.log(error);
+			}, {
+				// Settings
+				frequency : 1000,
+				enableHighAccuracy : true
+			});
+
+			// Tidy up the UI
+			track_id = $("#track_id").val();
+			$("#track_id").hide();
+			$("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
 
 			app.showCurrentLocationFirstTime = true;
 
@@ -637,7 +662,7 @@ var app = {
 		});
 
 		$("#page-guzellik").bind("pageshow", function(event) {
-			
+
 		});
 
 		$("#page-harita").bind("pageshow", function(event) {
@@ -1004,10 +1029,10 @@ var app = {
 
 		$.mobile.autoInitializePage = false;
 		$.mobile.allowCrossDomainPages = true;
-		
+
 		// why: http://jquerymobile.com/demos/1.2.0/docs/pages/phonegap.html
 		$.mobile.pushStateEnabled = true;
-		
+
 		$.mobile.touchOverflowEnabled = false;
 		$.mobile.defaultPageTransition = 'flip';
 		$.mobile.defaultDialogTransition = 'none';
@@ -1131,6 +1156,16 @@ var app = {
 	},
 	initHomeSwiper : function() {
 		if (app.swHome == null) {
+			/*
+			 $("#owl-example").owlCarousel({
+			 //navigation : true, // Show next and prev buttons
+			 slideSpeed : 300,
+			 paginationSpeed : 400,
+			 singleItem : true
+			 });
+
+			 app.swHome = $("#owl-example").data('owlCarousel');
+			 */
 			app.swHome = $('#swiper-home').swiper({
 				pagination : '#pagination-home',
 				paginationClickable : true,
@@ -1140,12 +1175,14 @@ var app = {
 					//goPage(control.clickedSlide.getAttribute('page-id'));
 				}
 			});
+
 		} else {
 			$('#swiper-home').css({
 				"width" : app.windowWidth + "px",
 				"height" : app.windowHeight + "px"
 			});
 			app.swHome.resizeFix();
+
 			//app.swHome.reInit();
 		}
 	}
