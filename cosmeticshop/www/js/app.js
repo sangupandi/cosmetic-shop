@@ -265,29 +265,47 @@ function catalogueObject(_jsonDataUrl) {
 	this.loadedImageCount = 0;
 	this.scrollObj = null;
 	this.activePage = 0;
+	this.zoomed = false;
 }
 
 catalogueObject.prototype = {
 	onZoomEnd : function() {
 		console.dir(this);
 
+		var pageCount = $('.page').length;
+		console.dir(pageCount);
+
 		if (this.scale > 1) {
-			// zoom in
-			app.catalogue.activePage = this.currentPage.pageY;
-			$('.page').css({
-				'display' : 'none'
-			});
-			$('.page.p' + app.catalogue.activePage).css({
-				'display' : 'inline-block'
-			});
+			if (!app.catalogue.zoomed) {
+				app.catalogue.zoomed = true;
+				// zoom in
+				app.catalogue.activePage = this.currentPage.pageY;
+				$('.page').css({
+					'display' : 'none'
+				});
+				$('.page.p' + app.catalogue.activePage).css({
+					'display' : 'inline-block'
+				});
+				/*
+				 this.destroy(true);
+				 app.catalogue.scrollObj = null;
+				 app.catalogue.createScroll(false);
+				 */
+				this.refresh();
+			}
 		} else {
-			// zoom 1
-			$('.page').css({
-				'display' : 'inline-block'
-			});
+			if (app.catalogue.zoomed) {
+				app.catalogue.zoomed = false;
+
+				// zoom 1
+				$('.page').css({
+					'display' : 'inline-block'
+				});
+				this.refresh();
+				this.goToPage(0, app.catalogue.activePage, 0, '');
+			}
 		}
-		this.refresh();
-		this.goToPage(0, app.catalogue.activePage, 0, '');
+
 	},
 
 	createScroll : function() {
