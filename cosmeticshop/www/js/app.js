@@ -102,6 +102,7 @@ carouselObject.prototype = {
 			paginationClickable : true,
 			onSlideChangeEnd : function(e) {
 				console.dir(e);
+				console.log(e.activeSlideIndex);
 			}
 		});
 	},
@@ -294,7 +295,7 @@ function catalogueObject(_jsonDataUrl) {
 
 catalogueObject.prototype = {
 	onZoomEnd : function() {
-		alert("zoom end");
+		//alert("zoom end");
 		//console.dir(this);
 
 		var pageCount = $('.page').length;
