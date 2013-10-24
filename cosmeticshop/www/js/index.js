@@ -1071,6 +1071,20 @@ var app = {
 		app.bindSubPagesTapEvents();
 		app.preloadImages.load();
 
+		var orientationChange = function(e) {
+						
+						e.cancelBubble= true;
+
+
+			var orientation = "portrait";
+			if (window.orientation == -90 || window.orientation == 90)
+				orientation = "landscape";
+			navigator.notification.alert(orientation);
+			console.dir(window.orientation);
+			console.dir(e);
+		};
+		window.addEventListener("orientationchange", orientationChange, true);
+
 		$('#home-header-pic').bind('tap', function() {
 			var deviceID = device.uuid;
 

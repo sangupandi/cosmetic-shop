@@ -1,4 +1,5 @@
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
+
 /*
  * jsonLoader
  */

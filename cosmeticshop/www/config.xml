@@ -4,7 +4,7 @@
 	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
 	<preference name="permissions" value="none" />
-	<preference name="orientation" value="portrait" />
+	<preference name="orientation" value="both" />
 	<preference name="target-device" value="handset" />
 	<preference name="fullscreen" value="true" />
 	<preference name="webviewbounce" value="false" />
