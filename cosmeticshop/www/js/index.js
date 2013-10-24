@@ -878,6 +878,9 @@ var app = {
 			openFrontCamera();
 		});
 
+		$('#btnSubmitForm').bind('click', function() {
+			postCustomerInfoForm();
+		});
 	},
 
 	bindFooterMenuTapEvents : function() {

@@ -347,9 +347,9 @@ function catalogueObject(_jsonDataUrl) {
 catalogueObject.prototype = {
 
 	onZoomEnd : function() {
-		//alert("zoom end");
-		console.dir(this);
-		console.dir(this.options.disableSnap);
+		alert("zoomEnd");
+		//console.dir(this);
+		//console.dir(this.options.disableSnap);
 
 		var pageCount = $('.page').length;
 		//alert("pageCount:" + pageCount);
@@ -358,7 +358,7 @@ catalogueObject.prototype = {
 		if (this.scale > 1) {
 			if (!app.catalogue.zoomed) {
 				app.catalogue.zoomed = true;
-				
+
 				// zoom in
 				app.catalogue.activePage = this.currentPage.pageY;
 				$('.page').css({
@@ -387,7 +387,7 @@ catalogueObject.prototype = {
 				this.goToPage(0, app.catalogue.activePage, 0, '');
 			}
 		}
-
+		alert(this.options.disableSnap);
 	},
 
 	createScroll : function() {
@@ -569,6 +569,55 @@ function openInAppBrowser(url) {
 	} catch (err) {
 		alert(err);
 	}
+}
+
+function postCustomerInfoForm() {
+	function showMessage(msg, title) {
+		navigator.notification.alert(msg, null, title, 'Tamam');
+	}
+
+	var adSoyad = $('#tbAdSoyad').val();
+	var dogumTarihi = $('#tbDogumTar').val();
+	var tel = $('#tbTel').val();
+	var smsAl = $('#cbxSms').is(':checked');
+	var eposta = $('#tbEmail').val();
+	var epostaAl = $('#cbxEmail').is(':checked');
+
+	console.log(adSoyad);
+	console.log(dogumTarihi);
+	console.log(tel);
+	console.log(smsAl);
+	console.log(eposta);
+	console.log(epostaAl);
+
+	if (adSoyad.length == 0) {
+		showMessage("Formu göndermek için ad soyad bilgilerinizi giriniz.", "Uyarı");
+		return;
+	}
+	if (smsAl && tel.length == 0) {
+		showMessage("Sms almak için telefon numaranızı giriniz.", "Uyarı");
+		return;
+	}
+	if (epostaAl && eposta.length == 0) {
+		showMessage("Eposta almak için eposta adresinizi giriniz.", "Uyarı");
+		return;
+	}
+	if (tel.length == 0 && eposta.length == 0) {
+		showMessage("Formu göndermek için telefon numarası ya da eposta adresi bilgilerinden en az birini giriniz.", "Uyarı");
+		return;
+	}
+
+	var data = String.format("ad={0}&dt={1}&tel={2}&sms={3}&ep={4}&epal={5}", adSoyad, dogumTarihi, tel, smsAl ? "1" : "0", eposta, epostaAl ? "1" : "0");
+	console.log(data);
+	//$('.radioB').is(':checked')
+
+	/*
+	 $.ajax({
+	 url : "ajax.php",
+	 type : "POST",
+	 data : "op=" + act + "&radioButton=" + $('.radioB:checked').val()
+	 });
+	 */
 }
 
 function formatDistance(value) {
