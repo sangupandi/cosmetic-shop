@@ -83,8 +83,8 @@ var app = {
 	/*
 	 * objects
 	 */
-	carousel1 : new carouselObject("#carousel1", 1),
-	carousel2 : new carouselObject("#carousel2", 2),
+	carousel1 : new carouselObject("#carousel1", 1, "m1"),
+	carousel2 : new carouselObject("#carousel2", 2, "m2"),
 	currentLocation : null,
 	currentLocationMarker : null,
 	infoWindow : null,
@@ -1018,9 +1018,10 @@ var app = {
 		}
 	},
 
-	im1 : 0,
-	im2 : 15,
-	im3 : 6,
+	badgeYeniUrun : 9,
+	badgeFirsat : 10,
+	badgeGuzellikSirlari : 0,
+
 	setbadge : function(menuId, value) {
 		var el = $('#left-menu a#' + menuId + ' span');
 		if (value > 0) {
@@ -1085,63 +1086,64 @@ var app = {
 		app.preloadImages.load();
 
 		/*
-		 var orientationChange = function(e) {
-		 var orientation = "portrait";
-		 if (window.orientation == -90 || window.orientation == 90)
-		 orientation = "landscape";
-		 navigator.notification.alert(orientation);
-		 console.dir(window.orientation);
-		 console.dir(e);
-		 };
-		 window.addEventListener("orientationchange", orientationChange, true);
-		 */
+		var orientationChange = function(e) {
+		var orientation = "portrait";
+		if (window.orientation == -90 || window.orientation == 90)
+		orientation = "landscape";
+		navigator.notification.alert(orientation);
+		console.dir(window.orientation);
+		console.dir(e);
+		};
+		window.addEventListener("orientationchange", orientationChange, true);
+		*/
 
-		$('#home-header-pic').bind('tap', function() {
-			app.setbadge('m1', app.im1++)
-			app.setbadge('m2', app.im2--)
-			app.setbadge('m3', app.im3++)
-			/*
-			var deviceID = device.uuid;
-			// alert dialog dismissed
-			var alertDismissed = function() {
-				// do something
-			};
-			// Show a custom alertDismissed
-			navigator.notification.vibrate();
-			navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
-			*/
-			/*
-			 //ms
-			 var transitionSpeed = 160;
-			 var easing = "snap";
-			 var effects = [];
-			 effects[0] = {
-			 opacity : 0
-			 };
-			 effects[1] = {
-			 opacity : 1
-			 };
-			 /*
-			 effects[0] = {opacity:0};
-			 effects[1] = {opacity:1};
+		//$('#home-header-pic').bind('tap', function() {
+		/*
+		app.setbadge('m1', app.im1++)
+		app.setbadge('m2', app.im2--)
+		app.setbadge('m3', app.im3++)
+		/*
+		var deviceID = device.uuid;
+		// alert dialog dismissed
+		var alertDismissed = function() {
+		// do something
+		};
+		// Show a custom alertDismissed
+		navigator.notification.vibrate();
+		navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
+		*/
+		/*
+		//ms
+		var transitionSpeed = 160;
+		var easing = "snap";
+		var effects = [];
+		effects[0] = {
+		opacity : 0
+		};
+		effects[1] = {
+		opacity : 1
+		};
+		/*
+		effects[0] = {opacity:0};
+		effects[1] = {opacity:1};
 
-			 effects[0] = { rotateY: '180deg',opacity:0};
-			 effects[1] = { rotateY: '0deg',opacity:1};
+		effects[0] = { rotateY: '180deg',opacity:0};
+		effects[1] = { rotateY: '0deg',opacity:1};
 
-			 effects[0] = { scale:0};
-			 effects[1] = { scale:1};
+		effects[0] = { scale:0};
+		effects[1] = { scale:1};
 
-			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
-			 effects[1] = { rotate:'0deg',x:0};
-			 */
-			/*
-			 $('#home-page').transition(effects[0], transitionSpeed, easing, function() {
-			 $('#page-harita-detail').css({
-			 'display' : 'inline'
-			 }).transition(effects[1], transitionSpeed, easing);
-			 });
-			 */
+		effects[0] = { rotate:'+=20deg',x:window.innerWidth};
+		effects[1] = { rotate:'0deg',x:0};
+		*/
+		/*
+		$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
+		$('#page-harita-detail').css({
+		'display' : 'inline'
+		}).transition(effects[1], transitionSpeed, easing);
 		});
+		*/
+		//});
 
 		return;
 

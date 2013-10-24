@@ -62,7 +62,7 @@ jsonLoader.prototype = {
 /*
  * carouselObject
  */
-function carouselObject(_domId, _categoryId) {
+function carouselObject(_domId, _categoryId, _menuId) {
 	this.swiper = null;
 	this.domId = _domId;
 	this.paginationDomId = _domId + "-pagination";
@@ -70,8 +70,9 @@ function carouselObject(_domId, _categoryId) {
 	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
 
 	this.jsonData = null;
+	this.menuId = _menuId;
 
-	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId;
+	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
@@ -83,6 +84,8 @@ carouselObject.prototype = {
 	successHandler : function(sender, result) {
 		if (result != null) {
 			sender.jsonData = result;
+			console.dir(sender.jsonData);
+
 			var arr = [];
 			var template = sender.template;
 			$.each(result, function(i, row) {
@@ -93,16 +96,40 @@ carouselObject.prototype = {
 		}
 	},
 
+	onSlideChangeEnd : function(sender, slideIndex) {
+		var successFunc = function(obj, result) {
+			sender.jsonData[slideIndex].IsUnread = false;
+			switch(sender.menuId) {
+				case "m1":
+					app.setbadge(sender.menuId, --app.badgeYeniUrun);
+					break;
+				case "m2":
+					app.setbadge(sender.menuId, --app.badgeFirsat);
+					break;
+			}
+		};
+		var errorFunc = function(obj, request, error) {
+			// no action
+		};
+
+		console.dir(sender.jsonData[slideIndex].IsUnread);
+		if (sender.jsonData[slideIndex].IsUnread) {
+			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
+			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
+			jl.load();
+		}
+	},
+
 	render : function() {
 		//https://github.com/nolimits4web/Swiper/blob/master/demo-apps/gallery/js/gallery-app.js
-		this.swiper = new Swiper(this.domId, {
-			pagination : this.paginationDomId,
+		var self = this;
+		self.swiper = new Swiper(self.domId, {
+			pagination : self.paginationDomId,
 			loop : true,
 			grabCursor : true,
 			paginationClickable : true,
 			onSlideChangeEnd : function(e) {
-				console.dir(e);
-				console.log(e.activeSlideIndex);
+				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
 		});
 	},
@@ -346,7 +373,7 @@ catalogueObject.prototype = {
 
 				scrollX : true,
 				scrollY : true,
-				momentum : true,
+				momentum : false,
 
 				//eventPassthrough: true,
 
