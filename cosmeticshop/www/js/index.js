@@ -530,7 +530,7 @@ var app = {
 
 		/* customerInfoForm Android correction */
 		if (platform_Android()) {
-			styles.push('.customer-form { padding-bottom: ' + (app.headerHeight / 8) + 'px; }\r');
+			styles.push('.customer-form { padding-bottom: ' + (app.windowHeight / 2) + 'px; }\r');
 		}
 
 		styles.push("</style>");
@@ -851,20 +851,27 @@ var app = {
 			var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 			scanner.scan(function(result) {
 				if (!result.cancelled) {
+					navigator.notification.vibrate();
 					if (result.text.startsWith("http://")) {
+						// alert dialog dismissed
+						var alertDismissed = function() {
+							// do something
+						};
+						// Show a custom alertDismissed
+						navigator.notification.alert(result.text, alertDismissed, 'Barcode Okundu', 'Git');
 						var ref = window.open(result.text, '_blank', 'location=yes,enableViewPortScale=yes');
 					} else {
-						alert("Okunan barcode: " + +result.text + "\n" + "Format: " + result.format);
+						// alert dialog dismissed
+						var alertDismissed = function() {
+							// do something
+						};
+						// Show a custom alertDismissed
+						var s = "Okunan barcode: " + result.text + "\n" + "Format: " + result.format;
+						navigator.notification.alert(s, alertDismissed, 'Barcode Okundu', 'Tamam');
 					}
 				};
-				//alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
-				//console.dir(result);
 			}, function(error) {
-				/*
-				console.log("Scanning failed: " + error);
-				console.dir(error);
-				*/
-				// no action
+				navigator.notification.alert(error, alertDismissed, 'Barcode Okunamadı', 'Tamam');
 			});
 		});
 
