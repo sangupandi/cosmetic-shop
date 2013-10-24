@@ -84,7 +84,7 @@ carouselObject.prototype = {
 	successHandler : function(sender, result) {
 		if (result != null) {
 			sender.jsonData = result;
-			console.dir(sender.jsonData);
+			//console.dir(sender.jsonData);
 
 			var arr = [];
 			var template = sender.template;
@@ -111,8 +111,8 @@ carouselObject.prototype = {
 		var errorFunc = function(obj, request, error) {
 			// no action
 		};
-
-		console.dir(sender.jsonData[slideIndex].IsUnread);
+		
+		//console.dir(sender.jsonData[slideIndex].IsUnread);
 		if (sender.jsonData[slideIndex].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
@@ -132,6 +132,7 @@ carouselObject.prototype = {
 				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
 		});
+		self.onSlideChangeEnd(self, 0);
 	},
 
 	load : function() {

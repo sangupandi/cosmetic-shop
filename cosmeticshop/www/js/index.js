@@ -636,6 +636,25 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
+	getBadgesCount : function() {
+		var successFunc = function(obj, result) {
+			app.badgeYeniUrun = result.YeniUrun;
+			app.badgeFirsat = result.Firsat;
+			app.badgeGuzellikSirlari = result.GuzellikSirlari;
+
+			app.setbadge("m1", app.badgeYeniUrun);
+			app.setbadge("m2", app.badgeFirsat);
+			app.setbadge("m3", app.badgeGuzellikSirlari);
+		};
+		var errorFunc = function(obj, request, error) {
+			console.warn(error);
+			// no action
+		};
+		var svcurl = serviceHost + "/GetBadges.ashx?uuid=" + device.uuid;
+		var jl = new jsonLoader(svcurl, successFunc, errorFunc);
+		jl.load();
+	},
+
 	bindPageShowEvents : function() {
 		$("#ani-page").bind("pageshow", function(event) {
 			try {
@@ -650,6 +669,7 @@ var app = {
 		$("#home-page").bind("pageshow", function(event) {
 			app.initHomeSwiper();
 			//app.preloadImages.load();
+			app.getBadgesCount();
 			app.shopList.load(app.addMarkers);
 		});
 
