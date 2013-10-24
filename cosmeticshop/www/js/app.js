@@ -111,7 +111,7 @@ carouselObject.prototype = {
 		var errorFunc = function(obj, request, error) {
 			// no action
 		};
-		
+
 		//console.dir(sender.jsonData[slideIndex].IsUnread);
 		if (sender.jsonData[slideIndex].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);

@@ -83,8 +83,8 @@ var app = {
 	/*
 	 * objects
 	 */
-	carousel1 : new carouselObject("#carousel1", 1, "m1"),
-	carousel2 : new carouselObject("#carousel2", 2, "m2"),
+	carousel1 : new carouselObject("#carousel1", 1),
+	carousel2 : new carouselObject("#carousel2", 2),
 	currentLocation : null,
 	currentLocationMarker : null,
 	infoWindow : null,
@@ -636,25 +636,6 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
-	getBadgesCount : function() {
-		var successFunc = function(obj, result) {
-			app.badgeYeniUrun = result.YeniUrun;
-			app.badgeFirsat = result.Firsat;
-			app.badgeGuzellikSirlari = result.GuzellikSirlari;
-
-			app.setbadge("m1", app.badgeYeniUrun);
-			app.setbadge("m2", app.badgeFirsat);
-			app.setbadge("m3", app.badgeGuzellikSirlari);
-		};
-		var errorFunc = function(obj, request, error) {
-			console.warn(error);
-			// no action
-		};
-		var svcurl = serviceHost + "/GetBadges.ashx?uuid=" + device.uuid;
-		var jl = new jsonLoader(svcurl, successFunc, errorFunc);
-		jl.load();
-	},
-
 	bindPageShowEvents : function() {
 		$("#ani-page").bind("pageshow", function(event) {
 			try {
@@ -669,7 +650,6 @@ var app = {
 		$("#home-page").bind("pageshow", function(event) {
 			app.initHomeSwiper();
 			//app.preloadImages.load();
-			app.getBadgesCount();
 			app.shopList.load(app.addMarkers);
 		});
 
@@ -1038,10 +1018,9 @@ var app = {
 		}
 	},
 
-	badgeYeniUrun : 9,
-	badgeFirsat : 10,
-	badgeGuzellikSirlari : 0,
-
+	im1 : 0,
+	im2 : 15,
+	im3 : 6,
 	setbadge : function(menuId, value) {
 		var el = $('#left-menu a#' + menuId + ' span');
 		if (value > 0) {
@@ -1081,22 +1060,16 @@ var app = {
 		$.mobile.loader.prototype.options.theme = "a";
 		$.mobile.loader.prototype.options.html = "";
 
-	alert("applyDoubleTapBugFixOnPageChange");
-	navigator.notification.alert("applyDoubleTapBugFixOnPageChange", null, 'info', 'Done');
 		app.applyDoubleTapBugFixOnPageChange();
 
-	alert("loadMapScript");
 		loadMapScript('app.onMapApiLoad');
 
 		app.windowHeight = $(window).height();
 		app.windowWidth = $(window).width();
 
-	alert("setPushNotifications");
 		this.setPushNotifications();
-	alert("initLayoutAnimPage");
 		app.initLayoutAnimPage();
 
-	alert("close splashScreen and start animation");
 		setTimeout(function() {
 			/* close splashScreen and start animation */
 			$.mobile.changePage($("#ani-page"), {
@@ -1104,79 +1077,71 @@ var app = {
 			});
 		}, 500);
 
-	alert("initLayoutSizes");
 		app.initLayoutSizes();
-	alert("bindPageShowEvents");
 		app.bindPageShowEvents();
-	alert("bindHomeMenuTapEvents");
 		app.bindHomeMenuTapEvents();
-	alert("bindFooterMenuTapEvents");
 		app.bindFooterMenuTapEvents();
-	alert("bindSubPagesTapEvents");
 		app.bindSubPagesTapEvents();
-	alert("preloadImages");
 		app.preloadImages.load();
-	alert("2");
 
 		/*
-		var orientationChange = function(e) {
-		var orientation = "portrait";
-		if (window.orientation == -90 || window.orientation == 90)
-		orientation = "landscape";
-		navigator.notification.alert(orientation);
-		console.dir(window.orientation);
-		console.dir(e);
-		};
-		window.addEventListener("orientationchange", orientationChange, true);
-		*/
+		 var orientationChange = function(e) {
+		 var orientation = "portrait";
+		 if (window.orientation == -90 || window.orientation == 90)
+		 orientation = "landscape";
+		 navigator.notification.alert(orientation);
+		 console.dir(window.orientation);
+		 console.dir(e);
+		 };
+		 window.addEventListener("orientationchange", orientationChange, true);
+		 */
 
-		//$('#home-header-pic').bind('tap', function() {
-		/*
-		app.setbadge('m1', app.im1++)
-		app.setbadge('m2', app.im2--)
-		app.setbadge('m3', app.im3++)
-		/*
-		var deviceID = device.uuid;
-		// alert dialog dismissed
-		var alertDismissed = function() {
-		// do something
-		};
-		// Show a custom alertDismissed
-		navigator.notification.vibrate();
-		navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
-		*/
-		/*
-		//ms
-		var transitionSpeed = 160;
-		var easing = "snap";
-		var effects = [];
-		effects[0] = {
-		opacity : 0
-		};
-		effects[1] = {
-		opacity : 1
-		};
-		/*
-		effects[0] = {opacity:0};
-		effects[1] = {opacity:1};
+		$('#home-header-pic').bind('tap', function() {
+			app.setbadge('m1', app.im1++)
+			app.setbadge('m2', app.im2--)
+			app.setbadge('m3', app.im3++)
+			/*
+			var deviceID = device.uuid;
+			// alert dialog dismissed
+			var alertDismissed = function() {
+				// do something
+			};
+			// Show a custom alertDismissed
+			navigator.notification.vibrate();
+			navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
+			*/
+			/*
+			 //ms
+			 var transitionSpeed = 160;
+			 var easing = "snap";
+			 var effects = [];
+			 effects[0] = {
+			 opacity : 0
+			 };
+			 effects[1] = {
+			 opacity : 1
+			 };
+			 /*
+			 effects[0] = {opacity:0};
+			 effects[1] = {opacity:1};
 
-		effects[0] = { rotateY: '180deg',opacity:0};
-		effects[1] = { rotateY: '0deg',opacity:1};
+			 effects[0] = { rotateY: '180deg',opacity:0};
+			 effects[1] = { rotateY: '0deg',opacity:1};
 
-		effects[0] = { scale:0};
-		effects[1] = { scale:1};
+			 effects[0] = { scale:0};
+			 effects[1] = { scale:1};
 
-		effects[0] = { rotate:'+=20deg',x:window.innerWidth};
-		effects[1] = { rotate:'0deg',x:0};
-		*/
-		/*
-		$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
-		$('#page-harita-detail').css({
-		'display' : 'inline'
-		}).transition(effects[1], transitionSpeed, easing);
+			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
+			 effects[1] = { rotate:'0deg',x:0};
+			 */
+			/*
+			 $('#home-page').transition(effects[0], transitionSpeed, easing, function() {
+			 $('#page-harita-detail').css({
+			 'display' : 'inline'
+			 }).transition(effects[1], transitionSpeed, easing);
+			 });
+			 */
 		});
-		*/
-		//});
 
 		return;
 
@@ -1200,7 +1165,6 @@ var app = {
 		//detectCurrentLocation(true);
 		glog.step('receivedEvent :' + id);
 	},
-	
 	localNotificationTrigger : function() {
 		var d = new Date();
 		d = d.getTime() + (60 * 1000) / 10;
