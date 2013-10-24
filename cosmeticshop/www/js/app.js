@@ -583,6 +583,10 @@ function postCustomerInfoForm() {
 	var eposta = $('#tbEmail').val();
 	var epostaAl = $('#cbxEmail').val() == "on";
 
+alert($('#cbxSms').val());
+	var data = String.format("ad={0}&dt={1}&tel={2}&sms={3}&ep={4}&epal={5}", adSoyad, dogumTarihi, tel, smsAl ? "1" : "0", eposta, epostaAl ? "1" : "0");
+alert(data);
+
 	console.log(adSoyad);
 	console.log(dogumTarihi);
 	console.log(tel);
