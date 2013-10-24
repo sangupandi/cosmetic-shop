@@ -23,6 +23,7 @@ function jsonLoader(_url, _successCallback, _errorCallback) {
 	this.url = _url;
 	this.successCallback = _successCallback;
 	this.errorCallback = _errorCallback;
+	
 	this.loaded = false;
 	this.trying = false;
 }
@@ -387,7 +388,7 @@ catalogueObject.prototype = {
 				this.goToPage(0, app.catalogue.activePage, 0, '');
 			}
 		}
-		alert(this.options.disableSnap);
+		//alert(this.options.disableSnap);
 	},
 
 	createScroll : function() {
@@ -576,6 +577,17 @@ function postCustomerInfoForm() {
 		navigator.notification.alert(msg, null, title, 'Tamam');
 	}
 
+	var successFunc = function(obj, result) {
+		showMessage("Formunuz kayda alındı.\r Teşekkür ederiz.", "Bilgi");
+		console.dir(result);
+		$('#btnSubmitForm').attr("disabled", false);
+	};
+	var errorFunc = function(obj, request, error) {
+		showMessage("Bir problem oluştu.\r Lütfen tekrar deneyin.", "Uyarı");
+		$('#btnSubmitForm').attr("disabled", false);
+		console.warn(error);
+	};
+
 	var adSoyad = $('#tbAdSoyad').val();
 	var dogumTarihi = $('#tbDogumTar').val();
 	var tel = $('#tbTel').val();
@@ -583,9 +595,8 @@ function postCustomerInfoForm() {
 	var eposta = $('#tbEmail').val();
 	var epostaAl = $('#cbxEmail').val() == "on";
 
-alert($('#cbxSms').val());
-	var data = String.format("ad={0}&dt={1}&tel={2}&sms={3}&ep={4}&epal={5}", adSoyad, dogumTarihi, tel, smsAl ? "1" : "0", eposta, epostaAl ? "1" : "0");
-alert(data);
+	var data = String.format("ad={0}&dt={1}&tel={2}&sms={3}&ep={4}&epal={5}&uuid={6}", adSoyad, dogumTarihi, tel, smsAl ? "1" : "0", eposta, epostaAl ? "1" : "0", device.uuid);
+	console.log(data);
 
 	console.log(adSoyad);
 	console.log(dogumTarihi);
@@ -611,10 +622,12 @@ alert(data);
 		return;
 	}
 
-	var data = String.format("ad={0}&dt={1}&tel={2}&sms={3}&ep={4}&epal={5}", adSoyad, dogumTarihi, tel, smsAl ? "1" : "0", eposta, epostaAl ? "1" : "0");
-	console.log(data);
-	//$('.radioB').is(':checked')
-
+	$('#btnSubmitForm').attr("disabled", true);
+	var svcurl = serviceHost + "/CustomerForm.ashx?" + data;
+	var jl = new jsonLoader(svcurl, successFunc, errorFunc);
+	jl.load();
+	
+	
 	/*
 	 $.ajax({
 	 url : "ajax.php",
