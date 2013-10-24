@@ -1295,8 +1295,8 @@ IScroll.prototype = {
 						Math.min(Math.abs(this.x - this.startX), 1000),
 						Math.min(Math.abs(this.y - this.startY), 1000)
 					), 300);
-
-			this.goToPage(
+			
+			if(!this.options.disableSnap) this.goToPage(
 				this.currentPage.pageX + this.directionX,
 				this.currentPage.pageY + this.directionY,
 				time

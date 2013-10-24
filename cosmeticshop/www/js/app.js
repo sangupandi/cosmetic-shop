@@ -345,17 +345,20 @@ function catalogueObject(_jsonDataUrl) {
 }
 
 catalogueObject.prototype = {
+
 	onZoomEnd : function() {
 		//alert("zoom end");
-		//console.dir(this);
+		console.dir(this);
+		console.dir(this.options.disableSnap);
 
 		var pageCount = $('.page').length;
-		//console.dir(pageCount);
 		//alert("pageCount:" + pageCount);
+		this.options.disableSnap = true;
 
 		if (this.scale > 1) {
 			if (!app.catalogue.zoomed) {
 				app.catalogue.zoomed = true;
+				
 				// zoom in
 				app.catalogue.activePage = this.currentPage.pageY;
 				$('.page').css({
@@ -374,6 +377,7 @@ catalogueObject.prototype = {
 		} else {
 			if (app.catalogue.zoomed) {
 				app.catalogue.zoomed = false;
+				this.options.disableSnap = false;
 
 				// zoom 1
 				$('.page').css({
@@ -387,6 +391,11 @@ catalogueObject.prototype = {
 	},
 
 	createScroll : function() {
+		/*
+		 * iscroll-zoom.js'de 1299'uncu satır aşağıdaki gibi değiştirildi.
+		 *     -> if(!this.options.disableSnap) this.goToPage(
+		 * orj -> this.goToPage(
+		 */
 		if (this.scrollObj == null) {
 			this.scrollObj = new IScroll('#wrapper-katalog', {
 				zoom : true,
@@ -404,7 +413,8 @@ catalogueObject.prototype = {
 				snap : "img",
 				snapSpeed : 400,
 				keyBindings : true,
-				snapThreshold : 1
+				snapThreshold : 1,
+				disableSnap : false
 			});
 			this.scrollObj.on('zoomEnd', this.onZoomEnd);
 		} else {

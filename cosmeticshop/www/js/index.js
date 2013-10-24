@@ -529,8 +529,8 @@ var app = {
 		styles.push('#map, #shop-list { height: ' + mapHeight + 'px; }\r');
 
 		/* customerInfoForm Android correction */
-		//if (platform_Android())
-		styles.push('.customer-form { padding-bottom: ' + (app.windowHeight / 2) + 'px; }\r');
+		if (!platform_Android())
+			styles.push('.android-form-correction { display: none; }\r');
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
