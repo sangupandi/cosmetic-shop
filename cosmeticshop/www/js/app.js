@@ -143,13 +143,15 @@ carouselObject.prototype = {
 /*
  * guzellikSirlari
  */
-function guzellikSirlari(_categoryId) {
+function guzellikSirlari(_categoryId, _appObjVarName) {
 	this.templateSelector = '#gsTemplateB';
-	//this.template = '<div class="ui-block-a">{0}</div><div class="ui-block-b"><div class="desc">{1}</div></div>';
-	this.template = '<li onclick="goGsDetail({2})">{0}<p>{1}</p></li>';
+	this.template = '<li onclick="goGsDetail(app.{2}, {3})">{0}<p>{1}</p></li>';
+
+	this.jsonData = null;
+	this.appObjVarName = _appObjVarName;
 
 	this.announcements = [];
-	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId;
+	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
@@ -160,9 +162,10 @@ guzellikSirlari.prototype = {
 
 	successHandler : function(sender, result) {
 		if (result != null) {
+			sender.jsonData = result;
 			var template = sender.template;
 			$.each(result, function(i, row) {
-				sender.announcements.push(String.format(template, row.Html, row.Description, row.ID));
+				sender.announcements.push(String.format(template, row.Html, row.Description, sender.appObjVarName, i));
 			});
 			sender.render();
 		}
@@ -170,7 +173,7 @@ guzellikSirlari.prototype = {
 
 	render : function() {
 		$(this.templateSelector).html(this.announcements.join(""));
-		console.log($(this.templateSelector).html());
+		//console.log($(this.templateSelector).html());
 	},
 
 	load : function() {
@@ -185,35 +188,55 @@ guzellikSirlari.prototype = {
 };
 
 /*
- * guzellikSirlari
+ * guzellikSirlariChild
  */
 function guzellikSirlariChild(_parentId) {
 	this.templateSelector = '#gsbContent2';
 	this.template = '<div id="gsb2img">{0}</div><div id="gsb2text">{1}</div>';
 
+	this.jsonData = null;
 	this.announcements = [];
-	this.svcurl = serviceHost + "/Announcements.ashx?pid=" + _parentId;
+	this.svcurl = serviceHost + "/Announcements.ashx?pid=" + _parentId + "&uuid=" + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
 guzellikSirlariChild.prototype = {
+	setReadInfo : function(sender) {
+		var successFunc = function(obj, result) {
+			obj.jsonData[0].IsUnread = false;
+			app.setbadge("m3", --app.badgeGuzellikSirlari);
+		};
+		var errorFunc = function(obj, request, error) {
+			// no action
+		};
+		if (this.jsonData[0].IsUnread) {
+			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", this.jsonData[0].ID, device.uuid);
+			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
+			jl.load(this);
+		}
+	},
+
 	errorHandler : function(sender, request, error) {
 		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 	},
 
 	successHandler : function(sender, result) {
 		if (result != null) {
+			sender.jsonData = result;
 			var template = sender.template;
 			$.each(result, function(i, row) {
 				sender.announcements.push(String.format(template, row.Html, row.Description, row.ID));
 			});
 			sender.render();
+			sender.setReadInfo();
 		}
 	},
 
 	render : function() {
-		$(this.templateSelector).html(this.announcements.join(""));
-		console.log($(this.templateSelector).html());
+		if (this.loader.loaded) {
+			$(this.templateSelector).html(this.announcements.join(""));
+			//console.log($(this.templateSelector).html());
+		}
 	},
 
 	load : function() {
@@ -428,28 +451,10 @@ catalogueObject.prototype = {
 	},
 
 	load : function(_addMarkerCallback) {
-		/*
-		 myScroll = new IScroll('#wrapper-katalog', {
-		 zoom : true,
-		 mouseWheel : true,
-		 wheelAction : 'zoom',
-
-		 scrollX : true,
-		 scrollY : true,
-		 momentum : true,
-
-		 snap : "img",
-		 snapSpeed : 400,
-		 keyBindings : true,
-		 snapThreshold : 1
-		 });
-		 return;
-		 */
 		if (!this.loaded && !this.trying) {
 			var obj = this;
 			obj.trying = true;
 			glog.step("catalogueObject.load");
-			//obj.createScroll();
 
 			$("#page-katalog .loading").fadeIn(300);
 			$.ajax({
@@ -594,9 +599,14 @@ function goMap(shop) {
 	}
 }
 
-function goGsDetail(annId) {
-	var gsc = new guzellikSirlariChild(annId);
-	gsc.load();
+function goGsDetail(sender, itemIndex) {
+	var p = sender.jsonData[itemIndex];
+	if (!p.gsChild) {
+		p.gsChild = new guzellikSirlariChild(p.ID);
+		p.gsChild.load();
+	} else {
+		p.gsChild.render();
+	}
 
 	$.mobile.changePage($('#page-guzellik-c'), {
 		transition : "slide"

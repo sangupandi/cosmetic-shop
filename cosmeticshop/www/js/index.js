@@ -1086,10 +1086,10 @@ var app = {
 		 */
 		app.carousel1 = new carouselObject("#carousel1", 1, "m1");
 		app.carousel2 = new carouselObject("#carousel2", 2, "m2");
-		app.gsGoz = new guzellikSirlari(31);
-		app.gsYuz = new guzellikSirlari(32);
-		app.gsDudak = new guzellikSirlari(33);
-		app.gsTirnak = new guzellikSirlari(34);
+		app.gsGoz = new guzellikSirlari(31, 'gsGoz');
+		app.gsYuz = new guzellikSirlari(32, 'gsYuz');
+		app.gsDudak = new guzellikSirlari(33, 'gsDudak');
+		app.gsTirnak = new guzellikSirlari(34, 'gsTirnak');
 		app.preloadImages = new preloadObject("/Preload.ashx");
 		app.catalogue = new catalogueObject("/Catalogue.ashx");
 		app.shopList = new shopListObject();
