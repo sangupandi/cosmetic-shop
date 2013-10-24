@@ -1,6 +1,22 @@
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
+ * http://bencollier.net/2011/06/ios-shouldautorotatetointerfaceorientation-lock-orientation-in-phonegap/
+ */
+function shouldRotateToOrientation(rotation) {
+	switch (rotation) {
+		//Portrait or PortraitUpsideDown
+		case 0:
+		case 180:
+			return true;
+		//LandscapeRight or LandscapeLeft
+		case 90:
+		case -90:
+			return false;
+	}
+}
+
+/*
  * jsonLoader
  */
 function jsonLoader(_url, _successCallback, _errorCallback) {
@@ -53,6 +69,8 @@ function carouselObject(_domId, _categoryId) {
 	this.templateSelector = _domId + ' .swiper-wrapper';
 	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
 
+	this.jsonData = null;
+
 	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
@@ -64,6 +82,7 @@ carouselObject.prototype = {
 
 	successHandler : function(sender, result) {
 		if (result != null) {
+			sender.jsonData = result;
 			var arr = [];
 			var template = sender.template;
 			$.each(result, function(i, row) {
@@ -75,11 +94,15 @@ carouselObject.prototype = {
 	},
 
 	render : function() {
+		//https://github.com/nolimits4web/Swiper/blob/master/demo-apps/gallery/js/gallery-app.js
 		this.swiper = new Swiper(this.domId, {
 			pagination : this.paginationDomId,
 			loop : true,
 			grabCursor : true,
-			paginationClickable : true
+			paginationClickable : true,
+			onSlideChangeEnd : function(e) {
+				console.dir(e);
+			}
 		});
 	},
 
@@ -271,12 +294,12 @@ function catalogueObject(_jsonDataUrl) {
 
 catalogueObject.prototype = {
 	onZoomEnd : function() {
-		console.dir(this);
 		alert("zoom end");
+		//console.dir(this);
 
 		var pageCount = $('.page').length;
-		console.dir(pageCount);
-		alert("pageCount:" + pageCount);
+		//console.dir(pageCount);
+		//alert("pageCount:" + pageCount);
 
 		if (this.scale > 1) {
 			if (!app.catalogue.zoomed) {
@@ -317,13 +340,15 @@ catalogueObject.prototype = {
 				zoom : true,
 				mouseWheel : true,
 				wheelAction : 'zoom',
+				zoomMax : 4,
+				checkDOMChanges : true,
 
 				scrollX : true,
 				scrollY : true,
 				momentum : true,
 
 				//eventPassthrough: true,
-				
+
 				snap : "img",
 				snapSpeed : 400,
 				keyBindings : true,

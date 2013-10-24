@@ -137,6 +137,29 @@ body {
 	display: -webkit-box;
 	background-position: 0px 0px;
 }
+#left-menu a span {
+	border-radius: 10px;
+	background-color: #EC008C;
+	color: #fff;
+	font-weight: bold;
+	display: block;
+	position: absolute;
+	margin-top: 12px;
+	font-size: 11px;
+	padding: 4px;
+	min-width: 12px;
+	text-align: center;
+	display: none;
+}
+#left-menu a#m1 span {
+	right:13px;
+}
+#left-menu a#m2 span {
+	right: 0;
+}
+#left-menu a#m3 span {
+	right:-7px;
+}
 #m1 {
 	background-image: url(../img/menu01.png);
 }
@@ -164,8 +187,7 @@ body {
 #m9 {
 	background-image: url(../img/menu09.png);
 }
-#owl-example,
-#swiper-home {
+#owl-example, #swiper-home {
 	position: absolute;
 	top: 0px;
 	z-index: 33;

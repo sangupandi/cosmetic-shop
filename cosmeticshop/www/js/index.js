@@ -1018,6 +1018,19 @@ var app = {
 		}
 	},
 
+	im1 : 0,
+	im2 : 15,
+	im3 : 6,
+	setbadge : function(menuId, value) {
+		var el = $('#left-menu a#' + menuId + ' span');
+		if (value > 0) {
+			el.show();
+		} else {
+			el.hide();
+		}
+		el.text(value);
+	},
+
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
@@ -1071,36 +1084,32 @@ var app = {
 		app.bindSubPagesTapEvents();
 		app.preloadImages.load();
 
-		var orientationChange = function(e) {
-						
-						e.cancelBubble= true;
-
-
-			var orientation = "portrait";
-			if (window.orientation == -90 || window.orientation == 90)
-				orientation = "landscape";
-			navigator.notification.alert(orientation);
-			console.dir(window.orientation);
-			console.dir(e);
-		};
-		window.addEventListener("orientationchange", orientationChange, true);
+		/*
+		 var orientationChange = function(e) {
+		 var orientation = "portrait";
+		 if (window.orientation == -90 || window.orientation == 90)
+		 orientation = "landscape";
+		 navigator.notification.alert(orientation);
+		 console.dir(window.orientation);
+		 console.dir(e);
+		 };
+		 window.addEventListener("orientationchange", orientationChange, true);
+		 */
 
 		$('#home-header-pic').bind('tap', function() {
+			app.setbadge('m1', app.im1++)
+			app.setbadge('m2', app.im2--)
+			app.setbadge('m3', app.im3++)
+			/*
 			var deviceID = device.uuid;
-
 			// alert dialog dismissed
 			var alertDismissed = function() {
 				// do something
-				navigator.notification.vibrate();
-				navigator.notification.vibrate(2500);
-				// 2500 is ignored
 			};
-
 			// Show a custom alertDismissed
 			navigator.notification.vibrate();
-			navigator.notification.beep(3);
 			navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
-
+			*/
 			/*
 			 //ms
 			 var transitionSpeed = 160;
