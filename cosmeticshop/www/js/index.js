@@ -446,6 +446,19 @@ var app = {
 		glog.step("initLayoutAnimPage");
 	},
 
+	initImageHovers : function(selector) {
+		var mousefunc = function(event, ui) {
+			var src = $(this).attr("src");
+			var src2 = $(this).attr("src2");
+			$(this).attr("src", src2);
+			$(this).attr("src2", src);
+		};
+		$(selector).each(function() {
+			$(this).bind('vmousedown', mousefunc);
+			$(this).bind('vmouseup', mousefunc);
+		});
+	},
+
 	initLayoutSizes : function() {
 		glog.step("initLayoutSizes");
 		var styles = [];
@@ -514,6 +527,11 @@ var app = {
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
 		var mapHeight = app.contentHeight - mapTopButtonHeight;
 		styles.push('#map, #shop-list { height: ' + mapHeight + 'px; }\r');
+
+		/* customerInfoForm Android correction */
+		if (platform_Android()) {
+			styles.push('.customer-form { padding-bottom: ' + (app.headerHeight / 8) + 'px; }\r');
+		}
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
@@ -832,9 +850,21 @@ var app = {
 		$('#page-uygulama div[data-role="content"] .app1').bind('tap', function() {
 			var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 			scanner.scan(function(result) {
-				alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+				if (!result.cancelled) {
+					if (result.text.startsWith("http://")) {
+						var ref = window.open(result.text, '_blank', 'location=yes,enableViewPortScale=yes');
+					} else {
+						alert("Okunan barcode: " + +result.text + "\n" + "Format: " + result.format);
+					}
+				};
+				//alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+				//console.dir(result);
 			}, function(error) {
-				alert("Scanning failed: " + error);
+				/*
+				console.log("Scanning failed: " + error);
+				console.dir(error);
+				*/
+				// no action
 			});
 		});
 
@@ -1121,6 +1151,15 @@ var app = {
 		app.bindSubPagesTapEvents();
 		app.preloadImages.load();
 
+		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
+		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
+		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
+		$('#cbxSetting4').attr('checked', app.getSetting('set4', 'true') == 'true');
+
+		// socialMedia - image hover
+		app.initImageHovers('.sm');
+		app.initImageHovers('.fm');
+
 		/*
 		var orientationChange = function(e) {
 		var orientation = "portrait";
@@ -1183,18 +1222,11 @@ var app = {
 
 		return;
 
-		initMenu('#left-menu img');
-		initMenu('.fm');
-		initMenu('.sm');
 		console.log("finish initMenu");
 
 		initFooterMenuTapActions();
 		console.log("finish initFooterMenuTapActions");
 
-		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
-		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');
-		$('#cbxSetting3').attr('checked', app.getSetting('set3', 'true') == 'true');
-		$('#cbxSetting4').attr('checked', app.getSetting('set4', 'true') == 'true');
 		console.log("finish app.getSetting(s)");
 
 		//$('#home-page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);

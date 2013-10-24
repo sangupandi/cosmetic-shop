@@ -306,7 +306,7 @@ div[data-role="footer"] img {
 }
 #shop-list li .tel {
 	font-weight: normal;
-	padding-left: 12px;
+	/*padding-left: 12px;*/
 }
 #shop-list li .badge {
 	float: right;
