@@ -28,6 +28,8 @@
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
+	<feature name="http://api.phonegap.com/1.0/notification"/>
+	
 	<icon src="icon.png" />
 	<icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
 	<icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />

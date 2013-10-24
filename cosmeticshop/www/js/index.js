@@ -184,7 +184,7 @@ var app = {
 				//url : serviceHost + '/files/bluedot.gif',
 				//url : serviceHost + '/files/bluedot2.png',
 				//url : serviceHost + '/files/bluedot10px.png',
-				url : serviceHost + '/files/aaa.gif',				
+				url : serviceHost + '/files/aaa.gif',
 				//url : 'http://gwtportlets.googlecode.com/svn-history/r46/trunk/src/org/gwtportlets/portlet/public/img/portlet-loading-32x32.gif',
 				size : new google.maps.Size(38, 38),
 				//size : new google.maps.Size(10, 10),
@@ -1072,17 +1072,33 @@ var app = {
 		app.preloadImages.load();
 
 		$('#home-header-pic').bind('tap', function() {
-			//ms
-			var transitionSpeed = 160;
-			var easing = "snap";
-			var effects = [];
-			effects[0] = {
-				opacity : 0
+			var deviceID = device.uuid;
+
+			// alert dialog dismissed
+			var alertDismissed = function() {
+				// do something
+				navigator.notification.vibrate();
+				navigator.notification.vibrate(2500);
+				// 2500 is ignored
 			};
-			effects[1] = {
-				opacity : 1
-			};
+
+			// Show a custom alertDismissed
+			navigator.notification.vibrate();
+			navigator.notification.beep(3);
+			navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
+
 			/*
+			 //ms
+			 var transitionSpeed = 160;
+			 var easing = "snap";
+			 var effects = [];
+			 effects[0] = {
+			 opacity : 0
+			 };
+			 effects[1] = {
+			 opacity : 1
+			 };
+			 /*
 			 effects[0] = {opacity:0};
 			 effects[1] = {opacity:1};
 
@@ -1095,13 +1111,13 @@ var app = {
 			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
 			 effects[1] = { rotate:'0deg',x:0};
 			 */
-
-			$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
-				$('#page-harita-detail').css({
-					'display' : 'inline'
-				}).transition(effects[1], transitionSpeed, easing);
-			});
-
+			/*
+			 $('#home-page').transition(effects[0], transitionSpeed, easing, function() {
+			 $('#page-harita-detail').css({
+			 'display' : 'inline'
+			 }).transition(effects[1], transitionSpeed, easing);
+			 });
+			 */
 		});
 
 		return;
