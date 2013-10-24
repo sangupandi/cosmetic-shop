@@ -144,9 +144,9 @@ body {
 	font-weight: bold;
 	display: block;
 	position: absolute;
-	margin-top: 15%;
+	margin-top: 11px;
 	padding: 4px;
-	min-width: 18%;
+	min-width: 15px;
 	text-align: center;
 	display: none;
 	font-size:.8em;

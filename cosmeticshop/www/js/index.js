@@ -857,8 +857,8 @@ var app = {
 							// do something
 						};
 						// Show a custom alertDismissed
-						navigator.notification.alert(result.text, alertDismissed, 'Barcode Okundu', 'Git');
 						var ref = window.open(result.text, '_blank', 'location=yes,enableViewPortScale=yes');
+						navigator.notification.alert(result.text, alertDismissed, 'Barcode Okundu', 'Tamam');
 					} else {
 						// alert dialog dismissed
 						var alertDismissed = function() {
