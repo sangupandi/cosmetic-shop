@@ -347,7 +347,7 @@ function catalogueObject(_jsonDataUrl) {
 catalogueObject.prototype = {
 
 	onZoomEnd : function() {
-		alert("zoomEnd");
+		//alert("zoomEnd");
 		//console.dir(this);
 		//console.dir(this.options.disableSnap);
 
@@ -579,9 +579,9 @@ function postCustomerInfoForm() {
 	var adSoyad = $('#tbAdSoyad').val();
 	var dogumTarihi = $('#tbDogumTar').val();
 	var tel = $('#tbTel').val();
-	var smsAl = $('#cbxSms').is(':checked');
+	var smsAl = $('#cbxSms').val() == "on";
 	var eposta = $('#tbEmail').val();
-	var epostaAl = $('#cbxEmail').is(':checked');
+	var epostaAl = $('#cbxEmail').val() == "on";
 
 	console.log(adSoyad);
 	console.log(dogumTarihi);
