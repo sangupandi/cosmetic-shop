@@ -72,7 +72,7 @@ function carouselObject(_domId, _categoryId, _menuId) {
 	this.jsonData = null;
 	this.menuId = _menuId;
 
-	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
+	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=";// + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
