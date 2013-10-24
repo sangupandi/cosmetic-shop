@@ -321,6 +321,8 @@ catalogueObject.prototype = {
 				scrollY : true,
 				momentum : true,
 
+				//eventPassthrough: true,
+				
 				snap : "img",
 				snapSpeed : 400,
 				keyBindings : true,

@@ -64,10 +64,10 @@
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	
+	<gap:plugin name="com.simplec.plugins.localnotification" />
 	<!--
-	<gap:plugin name="com.pushwoosh.plugins.pushwoosh" />-->
-	<!--<gap:plugin name="com.adobe.plugins.pushplugin" />-->
-	<!--<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />-->
+	<plugin name="LocalNotification" value="LocalNotification" />
+	-->
 
 
 
