@@ -83,20 +83,20 @@ var app = {
 	/*
 	 * objects
 	 */
-	carousel1 : new carouselObject("#carousel1", 1),
-	carousel2 : new carouselObject("#carousel2", 2),
+	carousel1 : null,
+	carousel2 : null,
 	currentLocation : null,
 	currentLocationMarker : null,
 	infoWindow : null,
-	gsGoz : new guzellikSirlari(31),
-	gsYuz : new guzellikSirlari(32),
-	gsDudak : new guzellikSirlari(33),
-	gsTirnak : new guzellikSirlari(34),
+	gsGoz : null,
+	gsYuz : null,
+	gsDudak : null,
+	gsTirnak : null,
 	map : null,
 	nearestShop : null,
-	preloadImages : new preloadObject("/Preload.ashx"),
-	catalogue : new catalogueObject("/Catalogue.ashx"),
-	shopList : new shopListObject(),
+	preloadImages : null,
+	catalogue : null,
+	shopList : null,
 	swHome : null,
 
 	currentPageId : function() {
@@ -636,6 +636,25 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
+	getBadgesCount : function() {
+		var successFunc = function(obj, result) {
+			app.badgeYeniUrun = result.YeniUrun;
+			app.badgeFirsat = result.Firsat;
+			app.badgeGuzellikSirlari = result.GuzellikSirlari;
+
+			app.setbadge("m1", app.badgeYeniUrun);
+			app.setbadge("m2", app.badgeFirsat);
+			app.setbadge("m3", app.badgeGuzellikSirlari);
+		};
+		var errorFunc = function(obj, request, error) {
+			console.warn(error);
+			// no action
+		};
+		var svcurl = serviceHost + "/GetBadges.ashx?uuid=" + device.uuid;
+		var jl = new jsonLoader(svcurl, successFunc, errorFunc);
+		jl.load();
+	},
+
 	bindPageShowEvents : function() {
 		$("#ani-page").bind("pageshow", function(event) {
 			try {
@@ -650,6 +669,7 @@ var app = {
 		$("#home-page").bind("pageshow", function(event) {
 			app.initHomeSwiper();
 			//app.preloadImages.load();
+			app.getBadgesCount();
 			app.shopList.load(app.addMarkers);
 		});
 
@@ -1018,9 +1038,10 @@ var app = {
 		}
 	},
 
-	im1 : 0,
-	im2 : 15,
-	im3 : 6,
+	badgeYeniUrun : 9,
+	badgeFirsat : 10,
+	badgeGuzellikSirlari : 0,
+
 	setbadge : function(menuId, value) {
 		var el = $('#left-menu a#' + menuId + ' span');
 		if (value > 0) {
@@ -1060,6 +1081,22 @@ var app = {
 		$.mobile.loader.prototype.options.theme = "a";
 		$.mobile.loader.prototype.options.html = "";
 
+		/*
+		 * Create Objects
+		 */
+		app.carousel1 = new carouselObject("#carousel1", 1, "m1");
+		app.carousel2 = new carouselObject("#carousel2", 2, "m2");
+		app.gsGoz = new guzellikSirlari(31);
+		app.gsYuz = new guzellikSirlari(32);
+		app.gsDudak = new guzellikSirlari(33);
+		app.gsTirnak = new guzellikSirlari(34);
+		app.preloadImages = new preloadObject("/Preload.ashx");
+		app.catalogue = new catalogueObject("/Catalogue.ashx");
+		app.shopList = new shopListObject();
+
+		/*
+		 * initialization
+		 */
 		app.applyDoubleTapBugFixOnPageChange();
 
 		loadMapScript('app.onMapApiLoad');
@@ -1085,63 +1122,64 @@ var app = {
 		app.preloadImages.load();
 
 		/*
-		 var orientationChange = function(e) {
-		 var orientation = "portrait";
-		 if (window.orientation == -90 || window.orientation == 90)
-		 orientation = "landscape";
-		 navigator.notification.alert(orientation);
-		 console.dir(window.orientation);
-		 console.dir(e);
-		 };
-		 window.addEventListener("orientationchange", orientationChange, true);
-		 */
+		var orientationChange = function(e) {
+		var orientation = "portrait";
+		if (window.orientation == -90 || window.orientation == 90)
+		orientation = "landscape";
+		navigator.notification.alert(orientation);
+		console.dir(window.orientation);
+		console.dir(e);
+		};
+		window.addEventListener("orientationchange", orientationChange, true);
+		*/
 
-		$('#home-header-pic').bind('tap', function() {
-			app.setbadge('m1', app.im1++)
-			app.setbadge('m2', app.im2--)
-			app.setbadge('m3', app.im3++)
-			/*
-			var deviceID = device.uuid;
-			// alert dialog dismissed
-			var alertDismissed = function() {
-				// do something
-			};
-			// Show a custom alertDismissed
-			navigator.notification.vibrate();
-			navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
-			*/
-			/*
-			 //ms
-			 var transitionSpeed = 160;
-			 var easing = "snap";
-			 var effects = [];
-			 effects[0] = {
-			 opacity : 0
-			 };
-			 effects[1] = {
-			 opacity : 1
-			 };
-			 /*
-			 effects[0] = {opacity:0};
-			 effects[1] = {opacity:1};
+		//$('#home-header-pic').bind('tap', function() {
+		/*
+		app.setbadge('m1', app.im1++)
+		app.setbadge('m2', app.im2--)
+		app.setbadge('m3', app.im3++)
+		/*
+		var deviceID = device.uuid;
+		// alert dialog dismissed
+		var alertDismissed = function() {
+		// do something
+		};
+		// Show a custom alertDismissed
+		navigator.notification.vibrate();
+		navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
+		*/
+		/*
+		//ms
+		var transitionSpeed = 160;
+		var easing = "snap";
+		var effects = [];
+		effects[0] = {
+		opacity : 0
+		};
+		effects[1] = {
+		opacity : 1
+		};
+		/*
+		effects[0] = {opacity:0};
+		effects[1] = {opacity:1};
 
-			 effects[0] = { rotateY: '180deg',opacity:0};
-			 effects[1] = { rotateY: '0deg',opacity:1};
+		effects[0] = { rotateY: '180deg',opacity:0};
+		effects[1] = { rotateY: '0deg',opacity:1};
 
-			 effects[0] = { scale:0};
-			 effects[1] = { scale:1};
+		effects[0] = { scale:0};
+		effects[1] = { scale:1};
 
-			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
-			 effects[1] = { rotate:'0deg',x:0};
-			 */
-			/*
-			 $('#home-page').transition(effects[0], transitionSpeed, easing, function() {
-			 $('#page-harita-detail').css({
-			 'display' : 'inline'
-			 }).transition(effects[1], transitionSpeed, easing);
-			 });
-			 */
+		effects[0] = { rotate:'+=20deg',x:window.innerWidth};
+		effects[1] = { rotate:'0deg',x:0};
+		*/
+		/*
+		$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
+		$('#page-harita-detail').css({
+		'display' : 'inline'
+		}).transition(effects[1], transitionSpeed, easing);
 		});
+		*/
+		//});
 
 		return;
 
@@ -1165,6 +1203,7 @@ var app = {
 		//detectCurrentLocation(true);
 		glog.step('receivedEvent :' + id);
 	},
+
 	localNotificationTrigger : function() {
 		var d = new Date();
 		d = d.getTime() + (60 * 1000) / 10;
