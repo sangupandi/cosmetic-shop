@@ -138,27 +138,27 @@ body {
 	background-position: 0px 0px;
 }
 #left-menu a span {
-	border-radius: 10px;
+	border-radius: 50%;
 	background-color: #EC008C;
 	color: #fff;
 	font-weight: bold;
 	display: block;
 	position: absolute;
-	margin-top: 12px;
-	font-size: 11px;
+	margin-top: 15%;
 	padding: 4px;
-	min-width: 12px;
+	min-width: 18%;
 	text-align: center;
 	display: none;
+	font-size:.8em;
 }
 #left-menu a#m1 span {
-	right:13px;
+	right: 18%;
 }
 #left-menu a#m2 span {
 	right: 0;
 }
 #left-menu a#m3 span {
-	right:-7px;
+	right: -10%;
 }
 #m1 {
 	background-image: url(../img/menu01.png);
