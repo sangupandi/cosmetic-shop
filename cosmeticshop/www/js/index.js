@@ -1081,16 +1081,22 @@ var app = {
 		$.mobile.loader.prototype.options.theme = "a";
 		$.mobile.loader.prototype.options.html = "";
 
+	alert("applyDoubleTapBugFixOnPageChange");
+	navigator.notification.alert("applyDoubleTapBugFixOnPageChange", null, 'info', 'Done');
 		app.applyDoubleTapBugFixOnPageChange();
 
+	alert("loadMapScript");
 		loadMapScript('app.onMapApiLoad');
 
 		app.windowHeight = $(window).height();
 		app.windowWidth = $(window).width();
 
+	alert("setPushNotifications");
 		this.setPushNotifications();
+	alert("initLayoutAnimPage");
 		app.initLayoutAnimPage();
 
+	alert("close splashScreen and start animation");
 		setTimeout(function() {
 			/* close splashScreen and start animation */
 			$.mobile.changePage($("#ani-page"), {
@@ -1098,12 +1104,19 @@ var app = {
 			});
 		}, 500);
 
+	alert("initLayoutSizes");
 		app.initLayoutSizes();
+	alert("bindPageShowEvents");
 		app.bindPageShowEvents();
+	alert("bindHomeMenuTapEvents");
 		app.bindHomeMenuTapEvents();
+	alert("bindFooterMenuTapEvents");
 		app.bindFooterMenuTapEvents();
+	alert("bindSubPagesTapEvents");
 		app.bindSubPagesTapEvents();
+	alert("preloadImages");
 		app.preloadImages.load();
+	alert("2");
 
 		/*
 		var orientationChange = function(e) {
@@ -1187,6 +1200,7 @@ var app = {
 		//detectCurrentLocation(true);
 		glog.step('receivedEvent :' + id);
 	},
+	
 	localNotificationTrigger : function() {
 		var d = new Date();
 		d = d.getTime() + (60 * 1000) / 10;
