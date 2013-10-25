@@ -1016,6 +1016,7 @@ var app = {
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
 						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+						window.plugins.socialsharing.share(glog2.logString);
 					}
 				});
 			});
@@ -1299,8 +1300,8 @@ var app = {
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
 
-		$('#home-header-pic').bind('click', function() {
-			
+		$('#home-header-pic').bind('tap', function() {
+			alert("ok");
 			glog2.share();
 
 			var pushNotification = window.plugins.pushNotification;
