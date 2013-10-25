@@ -468,11 +468,32 @@ div.loading .badge {
 	font-weight: normal;
 }
 /* ------------------------------------------------------------------------- */
+.rot90 {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
 #page-katalog div[data-role="content"] {
 	padding: 0;
 	padding-top: 8px;
 }
-
+#page-katalog div[data-role="content"] .close {
+	position: absolute;
+	right: 0;
+	top: 3%;
+	padding: 8px;
+	background-color: rgba(0,0,0,.3);
+	border: solid 1px #333;
+	text-align: center;
+	color: #FFF;
+	font-weight: bold;
+	display: none;
+	z-index: 99;
+	border-radius: 10px;
+	cursor: pointer;
+}
 #wrapper-katalog {
 	position: absolute;
 	z-index: 1;

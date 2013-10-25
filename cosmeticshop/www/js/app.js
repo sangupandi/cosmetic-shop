@@ -506,7 +506,7 @@ catalogueObject.prototype = {
 			obj.trying = true;
 			glog.step("catalogueObject.load");
 
-			$("#page-katalog .loading").fadeIn(300);
+			$("#page-katalog .loading").show();
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",

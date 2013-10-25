@@ -534,7 +534,7 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size */
-		styles.push('#wrapper-katalog { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
+		//styles.push('#wrapper-katalog { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
 
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
@@ -749,7 +749,52 @@ var app = {
 		});
 
 		$("#page-katalog").bind("pageshow", function(event) {
+			/*
+			 var transitionSpeed = 160;
+			 var easing = "snap";
+			 var effects = [];
+			 effects[0] = {
+			 top : -1 * window.headerHeight
+			 };
+			 effects[1] = {
+			 y : window.footerHeight
+			 };
+			 /*
+			 effects[0] = {opacity:0};
+			 effects[1] = {opacity:1};
+
+			 effects[0] = { rotateY: '180deg',opacity:0};
+			 effects[1] = { rotateY: '0deg',opacity:1};
+
+			 effects[0] = { scale:0};
+			 effects[1] = { scale:1};
+
+			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
+			 effects[1] = { rotate:'0deg',x:0};
+			 */
+			/*
+			 $('#page-katalog div[data-role="header"]').transition(effects[0], transitionSpeed, easing, function() {
+			 console.log("rwerqwerqwerqererqew");
+			 $('#page-katalog div[data-role="footer"]').css({
+			 'display' : 'inline'
+			 }).transition(effects[1], transitionSpeed, easing);
+			 });
+			 */
+
+			$('#page-katalog div[data-role="header"]').hide();
+			$('#page-katalog div[data-role="footer"]').hide();
+			$('#page-katalog div[data-role="content"]').css({
+				'top' : '0px',
+				'height' : app.windowHeight + 'px'
+			});
+			$('#wrapper-katalog').css({
+				'top' : '0px',
+				'height' : app.windowHeight + 'px'
+			});
+			console.log("rwerqwerqwerqererqew");
+
 			app.catalogue.load();
+			$('#page-katalog div[data-role="content"] .close').show();
 		});
 
 	},
@@ -904,6 +949,11 @@ var app = {
 		$('#btnSubmitForm').bind('click', function() {
 			postCustomerInfoForm();
 		});
+
+		$('#page-katalog div[data-role="content"] .close').bind('click', function() {
+			goPage("home-page");
+		});
+		
 	},
 
 	bindFooterMenuTapEvents : function() {
