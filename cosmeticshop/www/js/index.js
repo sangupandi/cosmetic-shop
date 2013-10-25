@@ -691,7 +691,8 @@ var app = {
 			};
 
 			var pushNotification = window.plugins.pushNotification;
-			pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
+			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
+			//pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
 		};
 		var errorFunc = function(obj, request, error) {
 			console.warn(error);
@@ -1123,8 +1124,9 @@ var app = {
 		if (event.badge) {
 			alert("Set badge on  " + pushNotification);
 			alert("event.badge " + event.badge);
-			
-			pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
+
+			//pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
+			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
 		}
 		if (event.sound) {
 			var snd = new Media(event.sound);
@@ -1253,6 +1255,21 @@ var app = {
 		console.log("getDeviceType() : " + getDeviceType());
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
+
+		$('#home-header-pic').bind('click', function() {
+
+			var pushNotification = window.plugins.pushNotification;
+
+			pushNotification.getPendingNotifications(function(notifications) {
+				alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
+			});
+
+			pushNotification.getRemoteNotificationStatus(function(status) {
+				alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
+			});
+
+		});
+
 		/*
 		var orientationChange = function(e) {
 		var orientation = "portrait";
