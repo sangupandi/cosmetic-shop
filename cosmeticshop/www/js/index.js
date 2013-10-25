@@ -500,6 +500,9 @@ var app = {
 		var homeLogoWidth = app.windowWidth * 457 / 601;
 		styles.push('#home-header-pic { width: ' + homeLogoWidth + 'px; }\r');
 
+		/* set #home-page swiper "tap image" size (size: 119x119) */
+		styles.push('#home-carousel-tap-image { width: ' + (app.windowHeight * 119 / 901) + 'px; }\r');
+
 		/* set swiper container height and content height */
 		styles.push('#swiper-home { height: ' + app.windowHeight + 'px; }\r');
 		styles.push('#home-page div[data-role="content"] { height: ' + app.windowHeight + 'px; }\r');
@@ -1047,7 +1050,7 @@ var app = {
 		PushWoosh.register(regId, function(data) {
 			//alert("PushWoosh register success: " + JSON.stringify(data));
 		}, function(errorRegistration) {
-			alert("Bildirim servislerine kayıt olunamadı.");
+			glog.log("Bildirim servislerine kayıt olunamadı.");
 		});
 	},
 	// iOS
@@ -1312,8 +1315,9 @@ var app = {
 				paginationClickable : true,
 				loop : true,
 				/*initialSlide : 0,*/
-				onSlideClick : function(control) {
-					//goPage(control.clickedSlide.getAttribute('page-id'));
+				onSlideChangeEnd : function(sw) {
+					var pageId = app.swHome.slides[app.swHome.activeIndex].attributes.getNamedItem('page-id').value;
+					console.warn('pageId : ', pageId);
 				}
 			});
 
@@ -1326,5 +1330,10 @@ var app = {
 
 			//app.swHome.reInit();
 		}
+
+		$('#home-carousel-tap-image').bind('tap', function() {
+			var pageId = app.swHome.slides[app.swHome.activeIndex].attributes.getNamedItem('page-id').value;
+			goPage(pageId);
+		});
 	}
 };

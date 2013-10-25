@@ -216,6 +216,12 @@ body {
 	z-index: 35;
 	text-align: center;
 }
+#home-carousel-tap-image {
+	position: absolute;
+	right: 5%;
+	bottom: 5%;
+	cursor: pointer;
+}
 /* ------------------------------------------------------------------------- */
 div[data-role="header"] {
 	border: none;
