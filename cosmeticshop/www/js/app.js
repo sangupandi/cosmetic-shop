@@ -1,6 +1,10 @@
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
+ * b58805c0606d742d MY XperiaZ
+ */
+var debuggerDeviceID = "b58805c0606d742d";
+/*
  * http://bencollier.net/2011/06/ios-shouldautorotatetointerfaceorientation-lock-orientation-in-phonegap/
  */
 function shouldRotateToOrientation(rotation) {
@@ -463,6 +467,13 @@ catalogueObject.prototype = {
 
 		var self = this;
 		var elem = $(self.selector);
+		var debugMode = (device.uuid == debuggerDeviceID);
+
+		if (debugMode) {
+			alert("hide");
+			elem.hide();
+			alert("hided");
+		}
 		elem.html('');
 		$.each(jsonData, function(i, row) {
 			var img = new Image();
@@ -478,7 +489,15 @@ catalogueObject.prototype = {
 			self.images.push(img);
 			elem.append(String.format(self.template, img.src, i));
 			//elem.append('<img class="page p0" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%">');
+			if (debugMode) {
+				alert("image added " + i);
+			}
 		});
+		if (debugMode) {
+			alert("show");
+			elem.show();
+			alert("showed");
+		}
 	},
 
 	load : function(_addMarkerCallback) {
