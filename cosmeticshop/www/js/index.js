@@ -1300,6 +1300,8 @@ var app = {
 		console.log("platform_Android() : " + platform_Android());
 
 		$('#home-header-pic').bind('click', function() {
+			
+			glog2.share();
 
 			var pushNotification = window.plugins.pushNotification;
 
