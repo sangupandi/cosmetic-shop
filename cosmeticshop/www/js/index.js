@@ -13,16 +13,16 @@ var glog2 = {
 
 	log : function(subject, msg) {
 		try {
-			logString += subject + " ----------------------------------------------\r" + msg + "\r";
+			glog2.logString += subject + " ----------------------------------------------\r" + msg + "\r";
 		} catch(e) {
-			logString += "error";
+			glog2.logString += "error";
 		}
 	},
 
 	share : function() {
 		window.plugins.socialsharing.available(function(isAvailable) {
 			if (isAvailable) {
-				window.plugins.socialsharing.share(glog2.log);
+				window.plugins.socialsharing.share(glog2.logString);
 			}
 		});
 	}
@@ -715,6 +715,8 @@ var app = {
 			};
 
 			try {
+				PushWoosh.sendBadge(badges.GuzellikSirlari);
+				/*
 				var pushNotification = window.plugins.pushNotification;
 
 				pushNotification.getPendingNotifications(function(notifications) {
@@ -724,8 +726,10 @@ var app = {
 				pushNotification.getRemoteNotificationStatus(function(status) {
 					alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
 				});
-
+				*/
 			} catch(e) {
+				alert("PushWoosh.sendBadge error");
+				alert(e);
 			}
 
 		};
@@ -1130,6 +1134,7 @@ var app = {
 					"senderID" : "268470725852",
 					"ecb" : "app.onNotificationGCM"
 				});
+
 			} else {
 				glog2.log("pushNotification.register", "app.onNotificationAPN");
 
@@ -1139,6 +1144,7 @@ var app = {
 					"alert" : "true",
 					"ecb" : "app.onNotificationAPN"
 				});
+
 			}
 		} catch(e) {
 			// probably running on browser
