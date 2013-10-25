@@ -685,6 +685,13 @@ var app = {
 			app.setbadge('.brick.b2-1 span.badge', badges.GuzellikSirlariYuz);
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
+
+			var pushSuccH = function() {
+
+			};
+
+			var pushNotification = window.plugins.pushNotification;
+			pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
 		};
 		var errorFunc = function(obj, request, error) {
 			console.warn(error);
@@ -953,7 +960,7 @@ var app = {
 		$('#page-katalog div[data-role="content"] .close').bind('click', function() {
 			goPage("home-page");
 		});
-		
+
 	},
 
 	bindFooterMenuTapEvents : function() {
@@ -1114,8 +1121,9 @@ var app = {
 			navigator.notification.alert(event.alert);
 		}
 		if (event.badge) {
-			console.log("Set badge on  " + pushNotification);
-			pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
+			alert("Set badge on  " + pushNotification);
+			alert("event.badge " + event.badge);
+			pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, event.badge);
 		}
 		if (event.sound) {
 			var snd = new Media(event.sound);

@@ -493,6 +493,7 @@ div.loading .badge {
 	z-index: 99;
 	border-radius: 10px;
 	cursor: pointer;
+	z-index: 9999;
 }
 #wrapper-katalog {
 	position: absolute;
