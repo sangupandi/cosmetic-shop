@@ -1,3 +1,13 @@
+var badges = {
+	YeniUrun : 0,
+	Firsat : 0,
+	GuzellikSirlari : 0,
+	GuzellikSirlariGoz : 0,
+	GuzellikSirlariYuz : 0,
+	GuzellikSirlariDudak : 0,
+	GuzellikSirlariTirnal : 0
+};
+
 var glog = {
 	durations : {},
 
@@ -533,7 +543,7 @@ var app = {
 			styles.push('.android-form-correction { display: block; }\r');
 			styles.push('#lbDogumTar span { display: inline; }\r');
 		}
-		
+
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
 
@@ -657,13 +667,21 @@ var app = {
 
 	getBadgesCount : function() {
 		var successFunc = function(obj, result) {
-			app.badgeYeniUrun = result.YeniUrun;
-			app.badgeFirsat = result.Firsat;
-			app.badgeGuzellikSirlari = result.GuzellikSirlari;
+			badges.YeniUrun = result.YeniUrun;
+			badges.Firsat = result.Firsat;
+			badges.GuzellikSirlari = result.GuzellikSirlari;
+			badges.GuzellikSirlariGoz = result.GuzellikSirlariGoz;
+			badges.GuzellikSirlariYuz = result.GuzellikSirlariYuz;
+			badges.GuzellikSirlariDudak = result.GuzellikSirlariDudak;
+			badges.GuzellikSirlariTirnak = result.GuzellikSirlariTirnak;
 
-			app.setbadge("m1", app.badgeYeniUrun);
-			app.setbadge("m2", app.badgeFirsat);
-			app.setbadge("m3", app.badgeGuzellikSirlari);
+			app.setbadge('#left-menu a#m1 span.badge', badges.YeniUrun);
+			app.setbadge('#left-menu a#m2 span.badge', badges.Firsat);
+			app.setbadge('#left-menu a#m3 span.badge', badges.GuzellikSirlari);
+			app.setbadge('.brick.b1-1 span.badge', badges.GuzellikSirlariGoz);
+			app.setbadge('.brick.b2-1 span.badge', badges.GuzellikSirlariYuz);
+			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
+			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 		};
 		var errorFunc = function(obj, request, error) {
 			console.warn(error);
@@ -1079,12 +1097,8 @@ var app = {
 		}
 	},
 
-	badgeYeniUrun : 9,
-	badgeFirsat : 10,
-	badgeGuzellikSirlari : 0,
-
-	setbadge : function(menuId, value) {
-		var el = $('#left-menu a#' + menuId + ' span');
+	setbadge : function(selector, value) {
+		var el = $(selector);
 		if (value > 0) {
 			el.show();
 		} else {

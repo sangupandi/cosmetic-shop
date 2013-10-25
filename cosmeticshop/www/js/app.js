@@ -202,14 +202,34 @@ function guzellikSirlariChild(_parentId) {
 }
 
 guzellikSirlariChild.prototype = {
-	setReadInfo : function(sender) {
+	setReadInfo : function() {
 		var successFunc = function(obj, result) {
 			obj.jsonData[0].IsUnread = false;
-			app.setbadge("m3", --app.badgeGuzellikSirlari);
+			app.setbadge("m3", --badges.GuzellikSirlari);
+
+			switch(obj.jsonData[0].parentCategoryID) {
+				case 31:
+					app.setbadge('.brick.b1-1 span.badge', --badges.GuzellikSirlariGoz);
+					break;
+				case 32:
+					app.setbadge('.brick.b2-1 span.badge', --badges.GuzellikSirlariYuz);
+					break;
+				case 33:
+					app.setbadge('.brick.b3-1 span.badge', --badges.GuzellikSirlariDudak);
+					break;
+				case 34:
+					app.setbadge('.brick.b4-1 span.badge', --badges.GuzellikSirlariTirnak);
+					break;
+			}
+			console.warn("okundu...");
 		};
 		var errorFunc = function(obj, request, error) {
 			// no action
 		};
+
+		//console.dir(this);
+		//console.log("IsUnread : " + this.jsonData[0].IsUnread);
+
 		if (this.jsonData[0].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", this.jsonData[0].ID, device.uuid);
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
@@ -659,11 +679,11 @@ function postCustomerInfoForm() {
 		return;
 	}
 	/*
-	if (dogumTarihi != "" && !isDate(dogumTarihi)) {
-		showMessage("Doğum tarihiniz için geçerli bir değer giriniz.", "Uyarı");
-		return;
-	}
-	*/
+	 if (dogumTarihi != "" && !isDate(dogumTarihi)) {
+	 showMessage("Doğum tarihiniz için geçerli bir değer giriniz.", "Uyarı");
+	 return;
+	 }
+	 */
 	if (smsAl && tel.length == 0) {
 		showMessage("Sms almak için telefon numaranızı giriniz.", "Uyarı");
 		return;
