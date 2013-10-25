@@ -1085,12 +1085,12 @@ var app = {
 
 			// TODO: Enter your own GCM Sender ID in the register call for Android
 			if (device.platform == 'android' || device.platform == 'Android') {
-				pushNotification.register(this.pushSuccessHandler, this.pushErrorHandler, {
+				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
 					"senderID" : "268470725852",
 					"ecb" : "app.onNotificationGCM"
 				});
 			} else {
-				pushNotification.register(this.pushTokenHandler, this.pushErrorHandler, {
+				pushNotification.register(app.pushTokenHandler, app.pushErrorHandler, {
 					"badge" : "true",
 					"sound" : "true",
 					"alert" : "true",
