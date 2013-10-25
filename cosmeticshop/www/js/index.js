@@ -1123,7 +1123,8 @@ var app = {
 		if (event.badge) {
 			alert("Set badge on  " + pushNotification);
 			alert("event.badge " + event.badge);
-			pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, event.badge);
+			
+			pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
 		}
 		if (event.sound) {
 			var snd = new Media(event.sound);
