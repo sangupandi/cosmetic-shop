@@ -149,7 +149,7 @@ body {
 	min-width: 15px;
 	text-align: center;
 	display: none;
-	font-size:.8em;
+	font-size: .8em;
 }
 #left-menu a#m1 span {
 	right: 18%;
@@ -406,6 +406,16 @@ label {
 }
 .ui-slider {
 	float: right;
+}
+/* ------------------------------------------------------------------------- */
+.android-form-correction {
+	display: none; /* iOS */
+	/* display: block; /* Android */
+}
+#lbDogumTar span {
+	padding-left: 8px;
+	display: none; /* iOS */
+	/* display: inline; /* Android */
 }
 /* ------------------------------------------------------------------------- */
 #page-uygulama div[data-role="content"] * {

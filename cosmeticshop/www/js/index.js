@@ -528,10 +528,12 @@ var app = {
 		var mapHeight = app.contentHeight - mapTopButtonHeight;
 		styles.push('#map, #shop-list { height: ' + mapHeight + 'px; }\r');
 
-		/* customerInfoForm Android correction */
-		if (!platform_Android())
-			styles.push('.android-form-correction { display: none; }\r');
-
+		/* customerInfoForm Android corrections */
+		if (platform_Android()) {
+			styles.push('.android-form-correction { display: block; }\r');
+			styles.push('#lbDogumTar span { display: inline; }\r');
+		}
+		
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
 
@@ -1169,6 +1171,12 @@ var app = {
 		app.initImageHovers('.sm');
 		app.initImageHovers('.fm');
 
+		// debug info
+		console.dir(device);
+		console.log("isPhoneGap() : " + isPhoneGap());
+		console.log("getDeviceType() : " + getDeviceType());
+		console.log("platform_iOS() : " + platform_iOS());
+		console.log("platform_Android() : " + platform_Android());
 		/*
 		var orientationChange = function(e) {
 		var orientation = "portrait";

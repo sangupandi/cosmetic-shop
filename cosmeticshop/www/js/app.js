@@ -658,10 +658,12 @@ function postCustomerInfoForm() {
 		showMessage("Formu göndermek için ad soyad bilgilerinizi giriniz.", "Uyarı");
 		return;
 	}
+	/*
 	if (dogumTarihi != "" && !isDate(dogumTarihi)) {
 		showMessage("Doğum tarihiniz için geçerli bir değer giriniz.", "Uyarı");
 		return;
 	}
+	*/
 	if (smsAl && tel.length == 0) {
 		showMessage("Sms almak için telefon numaranızı giriniz.", "Uyarı");
 		return;
