@@ -711,14 +711,20 @@ var app = {
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
 			var pushSuccH = function() {
-				
+
 			};
 
 			try {
 				var pushNotification = window.plugins.pushNotification;
-				pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
-				//pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
-				glog2.log("getBadgesCount successFunc", badges.YeniUrun);
+
+				pushNotification.getPendingNotifications(function(notifications) {
+					alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
+				});
+
+				pushNotification.getRemoteNotificationStatus(function(status) {
+					alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
+				});
+
 			} catch(e) {
 			}
 
@@ -1305,22 +1311,6 @@ var app = {
 		console.log("getDeviceType() : " + getDeviceType());
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
-
-		$('#home-header-pic').bind('tap', function() {
-			alert("ok");
-			glog2.share();
-			/*
-			 var pushNotification = window.plugins.pushNotification;
-
-			 pushNotification.getPendingNotifications(function(notifications) {
-			 alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
-			 });
-
-			 pushNotification.getRemoteNotificationStatus(function(status) {
-			 alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
-			 });
-			 */
-		});
 
 		/*
 		var orientationChange = function(e) {
