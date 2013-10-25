@@ -12,7 +12,11 @@ var glog2 = {
 	logString : "",
 
 	log : function(subject, msg) {
-		logString += subject + " ----------------------------------------------\r" + msg + "\r";
+		try {
+			logString += subject + " ----------------------------------------------\r" + msg + "\r";
+		} catch(e) {
+			logString += "error";
+		}
 	},
 
 	share : function() {
@@ -1015,7 +1019,7 @@ var app = {
 						// use '' instead of null for pre-2.0 versions of this plugin
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
-						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+						//window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
 						window.plugins.socialsharing.share(glog2.logString);
 					}
 				});
@@ -1149,7 +1153,7 @@ var app = {
 		glog2.log("onNotificationAPN event.alert", event.alert);
 		glog2.log("onNotificationAPN event.badge", event.badge);
 		glog2.log("onNotificationAPN event.sound", event.sound);
-		
+
 		var pushNotification = window.plugins.pushNotification;
 		console.log("Received a notification! " + event.alert);
 		console.log("event sound " + event.sound);
@@ -1178,7 +1182,7 @@ var app = {
 		glog2.log("onNotificationGCM e.message", e.message);
 		glog2.log("onNotificationGCM e.error", e.error);
 		glog2.log("onNotificationGCM e.msg", e.msg);
-		
+
 		switch( e.event ) {
 			case 'registered':
 				if (e.regid.length > 0) {
@@ -1303,7 +1307,7 @@ var app = {
 		$('#home-header-pic').bind('tap', function() {
 			alert("ok");
 			glog2.share();
-
+			/*
 			var pushNotification = window.plugins.pushNotification;
 
 			pushNotification.getPendingNotifications(function(notifications) {
@@ -1313,7 +1317,7 @@ var app = {
 			pushNotification.getRemoteNotificationStatus(function(status) {
 				alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
 			});
-
+			*/
 		});
 
 		/*
