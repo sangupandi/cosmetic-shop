@@ -8,10 +8,30 @@ var badges = {
 	GuzellikSirlariTirnal : 0
 };
 
+var glog2 = {
+	logString : "",
+
+	log : function(subject, msg) {
+		logString += subject + " ----------------------------------------------\r" + msg + "\r";
+	},
+
+	share : function() {
+		window.plugins.socialsharing.available(function(isAvailable) {
+			if (isAvailable) {
+				window.plugins.socialsharing.share(glog2.log);
+			}
+		});
+	}
+};
+
 var glog = {
 	durations : {},
 
 	logString : "",
+
+	clear : function() {
+		glog.logString = "";
+	},
 
 	getDuration : function(processName) {
 		var dateStart = glog.durations[processName + "_s"];
@@ -693,6 +713,9 @@ var app = {
 			var pushNotification = window.plugins.pushNotification;
 			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
 			//pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
+
+			glog2.log("getBadgesCount successFunc", badges.YeniUrun);
+
 		};
 		var errorFunc = function(obj, request, error) {
 			console.warn(error);
@@ -1056,6 +1079,7 @@ var app = {
 	},
 	// for iOS
 	pushTokenHandler : function(result) {
+		glog2.log("pushTokenHandler result", result);
 		console.log("Token Handler " + result);
 		//alert("Token Handler : " + result);
 
@@ -1070,12 +1094,14 @@ var app = {
 
 	// for both
 	pushErrorHandler : function(error) {
+		glog2.log("pushErrorHandler error", error);
 		console.log("Error Handler : " + error);
 		alert("Error Handler : " + error);
 	},
 
 	// result contains any message sent from the plugin call
 	pushSuccessHandler : function(result) {
+		glog2.log("pushSuccessHandler result", result);
 		alert('Success Handler : ' + result);
 	},
 
@@ -1085,11 +1111,15 @@ var app = {
 
 			// TODO: Enter your own GCM Sender ID in the register call for Android
 			if (device.platform == 'android' || device.platform == 'Android') {
+				glog2.log("pushNotification.register", "app.onNotificationGCM");
+
 				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
 					"senderID" : "268470725852",
 					"ecb" : "app.onNotificationGCM"
 				});
 			} else {
+				glog2.log("pushNotification.register", "app.onNotificationAPN");
+
 				pushNotification.register(app.pushTokenHandler, app.pushErrorHandler, {
 					"badge" : "true",
 					"sound" : "true",
@@ -1104,15 +1134,21 @@ var app = {
 
 	// for both
 	registerPushWooshService : function(regId) {
+		glog2.log("registerPushWooshService regId", regId);
 		PushWoosh.appCode = "83E51-9B80D";
 		PushWoosh.register(regId, function(data) {
 			//alert("PushWoosh register success: " + JSON.stringify(data));
 		}, function(errorRegistration) {
-			glog.log("Bildirim servislerine kayıt olunamadı.");
+			glog2.log("registerPushWooshService errorRegistration", errorRegistration);
 		});
 	},
 	// iOS
 	onNotificationAPN : function(event) {
+		glog2.log("onNotificationAPN event", event);
+		glog2.log("onNotificationAPN event.alert", event.alert);
+		glog2.log("onNotificationAPN event.badge", event.badge);
+		glog2.log("onNotificationAPN event.sound", event.sound);
+		
 		var pushNotification = window.plugins.pushNotification;
 		console.log("Received a notification! " + event.alert);
 		console.log("event sound " + event.sound);
@@ -1135,6 +1171,13 @@ var app = {
 	},
 	// Android
 	onNotificationGCM : function(e) {
+		glog2.log("onNotificationGCM e", e);
+		glog2.log("onNotificationGCM e.event", e.event);
+		glog2.log("onNotificationGCM e.regid", e.regid);
+		glog2.log("onNotificationGCM e.message", e.message);
+		glog2.log("onNotificationGCM e.error", e.error);
+		glog2.log("onNotificationGCM e.msg", e.msg);
+		
 		switch( e.event ) {
 			case 'registered':
 				if (e.regid.length > 0) {
