@@ -711,14 +711,16 @@ var app = {
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
 			var pushSuccH = function() {
-
+				
 			};
 
-			var pushNotification = window.plugins.pushNotification;
-			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
-			//pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
-
-			glog2.log("getBadgesCount successFunc", badges.YeniUrun);
+			try {
+				var pushNotification = window.plugins.pushNotification;
+				pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
+				//pushNotification.setApplicationIconBadgeNumber(pushSuccH, badges.YeniUrun);
+				glog2.log("getBadgesCount successFunc", badges.YeniUrun);
+			} catch(e) {
+			}
 
 		};
 		var errorFunc = function(obj, request, error) {
@@ -1308,16 +1310,16 @@ var app = {
 			alert("ok");
 			glog2.share();
 			/*
-			var pushNotification = window.plugins.pushNotification;
+			 var pushNotification = window.plugins.pushNotification;
 
-			pushNotification.getPendingNotifications(function(notifications) {
-				alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
-			});
+			 pushNotification.getPendingNotifications(function(notifications) {
+			 alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
+			 });
 
-			pushNotification.getRemoteNotificationStatus(function(status) {
-				alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
-			});
-			*/
+			 pushNotification.getRemoteNotificationStatus(function(status) {
+			 alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
+			 });
+			 */
 		});
 
 		/*
