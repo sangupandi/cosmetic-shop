@@ -358,15 +358,16 @@ shopListObject.prototype = {
  */
 function catalogueObject(_jsonDataUrl) {
 	this.jsonDataUrl = serviceHost + _jsonDataUrl;
-	this.selector = '#wrapper-katalog #scroller-katalog';
-	this.template = '<img class="page p{1}" src="{0}" width="100%" />';
+	//this.selector = '#wrapper-katalog #scroller-katalog';
+	//this.template = '<img class="page p{1}" src="{0}" width="100%" />';
 	this.trying = false;
 	this.loaded = false;
 	this.images = [];
 	this.loadedImageCount = 0;
-	this.scrollObj = null;
-	this.activePage = 0;
-	this.zoomed = false;
+	this.swiper = null;
+	//this.scrollObj = null;
+	//this.activePage = 0;
+	//this.zoomed = false;
 }
 
 catalogueObject.prototype = {
@@ -454,27 +455,24 @@ catalogueObject.prototype = {
 	extractRawData : function(jsonData) {
 		function imageLoadPost(self) {
 			self.loadedImageCount++;
-			$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
+			//$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
 			if (self.loadedImageCount == self.images.length) {
-				$("#page-katalog .loading").hide();
+				//$("#page-katalog .loading").hide();
 
 				console.log("All images have loaded (or died trying)!");
-				self.createScroll();
-
-				console.log("iScroll refreshed");
+				//self.createScroll();
+				//console.log("iScroll refreshed");
+				self.createSwiper();
+				//self.swiper.resizeFix();
 			}
 		}
 
 		var self = this;
-		var elem = $(self.selector);
+		//var elem = $(self.selector);
 		var debugMode = (device.uuid == debuggerDeviceID);
 
-		if (debugMode) {
-			alert("hide");
-			elem.hide();
-			alert("hided");
-		}
-		elem.html('');
+		//elem.html('');
+		self.images = [];
 		$.each(jsonData, function(i, row) {
 			var img = new Image();
 			img.src = row.Url;
@@ -487,17 +485,68 @@ catalogueObject.prototype = {
 			};
 
 			self.images.push(img);
-			elem.append(String.format(self.template, img.src, i));
+			//elem.append(String.format(self.template, img.src, i));
 			//elem.append('<img class="page p0" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%">');
-			if (debugMode) {
-				alert("image added " + i);
-			}
 		});
-		if (debugMode) {
-			alert("show");
-			elem.show();
-			alert("showed");
+
+	},
+
+	createSwiper : function() {
+		var self = this;
+		if (self.swiper == null) {
+
+			self.setPage(0);
+
+			var createSmoothZoom = function(imgId) {
+				$(imgId).smoothZoom({
+					width : '100%',
+					height : '100%',
+					responsive : true,
+					responsive_maintain_ratio : true,
+					zoom_MAX : 400,
+					zoom_OUT_TO_FIT : true,
+					zoom_BUTTONS_SHOW : false,
+					pan_BUTTONS_SHOW : false,
+					pan_LIMIT_BOUNDARY : true
+				});
+			};
+
+			self.swiper = new Swiper('#carousel4', {
+				grabCursor : true,
+				mode : 'vertical',
+				onSlideChangeEnd : function(e) {
+					/*
+					 $('#zoom-image1').smoothZoom('Reset');
+					 $('#zoom-image2').smoothZoom('Reset');
+					 $('#zoom-image3').smoothZoom('Reset');
+					 */
+					for ( i = 0; i < app.catalogue.images.length; i++) {
+						$('#zoom-image' + i).smoothZoom('Reset');
+					}
+
+					//self.setPage(e.activeLoopIndex);
+					console.log(e.activeLoopIndex);
+					console.dir(e);
+				}
+			});
+			$.each(self.images, function(i, img) {
+				var ns = self.swiper.createSlide('<div class="swiper-slide blue-slide"><img id="zoom-image' + i + '" src="' + img.src + '" width="100%"></div>');
+				self.swiper.appendSlide(ns);
+
+				createSmoothZoom('#zoom-image' + i);
+				console.log(ns);
+			});
+			self.swiper.resizeFix();
 		}
+	},
+
+	setPage : function(pageIndex) {
+		var prevIndex = pageIndex == 0 ? this.images.length - 1 : pageIndex - 1;
+		var nextIndex = pageIndex == this.images.length - 1 ? 0 : pageIndex + 1;
+
+		$('#zoom-image1').attr('src', this.images[prevIndex].src);
+		$('#zoom-image2').attr('src', this.images[pageIndex].src);
+		$('#zoom-image3').attr('src', this.images[nextIndex].src);
 	},
 
 	load : function(_addMarkerCallback) {
@@ -506,7 +555,7 @@ catalogueObject.prototype = {
 			obj.trying = true;
 			glog.step("catalogueObject.load");
 
-			$("#page-katalog .loading").show();
+			//$("#page-katalog .loading").show();
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",
@@ -527,12 +576,6 @@ catalogueObject.prototype = {
 					ajax.errorOccured(request, error);
 				}
 			});
-
-			var ajax = {
-				errorOccured : function(request, error) {
-					$('#shop-list .info').html('Bağlantı hatası oluştu tekrar deneyiniz!').fadeIn(200);
-				}
-			};
 		}
 	}
 };

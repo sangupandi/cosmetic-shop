@@ -847,6 +847,26 @@ var app = {
 			$('#page-katalog div[data-role="content"] .close').show();
 		});
 
+		$("#page-gesture").bind("pageshow", function(event) {
+			$('#page-gesture-header').hide();
+			$('#page-gesture-footer').hide();
+			$('#page-gesture-content').css({
+				'position' : 'absolute',
+				'top' : '0',
+				'left' : '0',
+				'width' : app.windowWidth + 'px',
+				'height' : app.windowHeight + 'px'
+			});
+			$('#carousel4').css({
+				'position' : 'absolute',
+				'top' : '0',
+				'left' : '0',
+				'width' : app.windowWidth + 'px;',
+				'height' : app.windowHeight + 'px;'
+			});
+			app.catalogue.load();
+		});
+
 	},
 
 	bindHomeMenuTapEvents : function() {
@@ -863,7 +883,8 @@ var app = {
 		});
 
 		$("#m4").bind('tap', function(event, ui) {
-			$.mobile.changePage($("#page-katalog"));
+			//$.mobile.changePage($("#page-katalog"));
+			$.mobile.changePage($("#page-gesture"));
 		});
 
 		$("#m5").bind('tap', function(event, ui) {
@@ -1437,6 +1458,7 @@ var app = {
 		$(window).bind('shakeupdown', function(event_, data_) {
 			alert('shake: ' + data_.description);
 		});
+		return;
 		$('#img17').bind('tap', function() {
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
@@ -1459,6 +1481,7 @@ var app = {
 				grabCursor : true,
 				mode : 'vertical',
 				onSlideChangeEnd : function(e) {
+					$('#c1').smoothZoom('Reset');
 					//self.onSlideChangeEnd(self, e.activeLoopIndex);
 				}
 			});
@@ -1467,13 +1490,16 @@ var app = {
 				width : '100%',
 				height : '100%',
 				responsive : true,
-				pan_BUTTONS_SHOW : "NO",
-				pan_LIMIT_BOUNDARY : "NO",
-				button_SIZE : 24,
-				button_ALIGN : "top right",
-				border_TRANSPARENCY : 20,
-				zoom_MAX : 400
-
+				responsive_maintain_ratio : true,
+				zoom_MAX : 400,
+				zoom_OUT_TO_FIT : true,
+				zoom_BUTTONS_SHOW : false,
+				pan_BUTTONS_SHOW : false,
+				pan_LIMIT_BOUNDARY : true
+				/*button_SIZE : 24,
+				 button_ALIGN : "top right",
+				 border_TRANSPARENCY : 20,
+				 zoom_MIN:90,*/
 			});
 			//self.onSlideChangeEnd(self, 0);
 		});
