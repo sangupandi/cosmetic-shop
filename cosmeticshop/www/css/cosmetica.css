@@ -202,7 +202,7 @@ body {
 #m9 {
 	background-image: url(../img/menu09.png);
 }
-#owl-example, #swiper-home {
+#swiper-home, #swiper-catalogue {
 	position: absolute;
 	top: 0px;
 	z-index: 33;
@@ -576,3 +576,56 @@ div.loading .badge {
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
+
+#carousel4 {
+	width: 320px;
+	height: 480px;
+	color: #fff;
+	text-align: center;
+}
+.red-slide {
+	background: #ca4040;
+}
+.blue-slide {
+	background: #4390ee;
+}
+.orange-slide {
+	background: #ff8604;
+}
+.green-slide {
+	background: #49a430;
+}
+.pink-slide {
+	background: #973e76;
+}
+/*
+ .pagination {
+ position: absolute;
+ z-index: 20;
+ left: 10px;
+ top: 10px;
+ }
+
+ .swiper-pagination-switch {
+ display: block;
+ width: 8px;
+ height: 8px;
+ border-radius: 8px;
+ background: #555;
+ margin: 0 0px 5px;
+ opacity: 0.8;
+ border: 1px solid #fff;
+ cursor: pointer;
+ }
+ .swiper-active-switch {
+ background: #fff;
+ }
+ */
+.smooth_zoom_preloader {
+	background-image: url(../zoom_assets/preloader.gif);
+}
+.smooth_zoom_icons {
+	background-image: url(../zoom_assets/icons.png);
+}
+
+

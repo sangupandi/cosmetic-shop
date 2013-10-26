@@ -26,6 +26,7 @@
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
+		<script src="zoom_assets/jquery.smoothZoom.min.js"></script>
 		<script type="application/javascript" src="js/iscroll-zoom.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
 		<!--<link rel="stylesheet" href="css/katalog-beta.css" />-->
@@ -311,9 +312,11 @@
 						<br>
 						<span class="badge"></span>
 					</div>
+
 					<div id="wrapper-katalog">
 						<div id="scroller-katalog"></div>
 					</div>
+
 				</div><!-- /content -->
 
 				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -617,29 +620,67 @@
 				</div><!-- /footer -->
 
 			</div><!-- /page -->
-		</div>
 
-		<script type="text/javascript">
-			app.initialize();
-		</script>
+			<!-- Start of page -->
+			<div data-role="page" id="page-gesture">
 
-		<script>
-			function doOnOrientationChange() {
-				switch(window.orientation) {
-					case -90:
-					case 90:
-						alert('landscape');
-						break;
-					default:
-						alert('portrait');
-						break;
+				<div id="page-gesture-header" data-role="header">
+					<img src="img/header_17.png" width="100%" id="img17"/>
+				</div><!-- /header -->
+
+				<div id="page-gesture-content" data-role="content" class="swiper-container-parent sized-content">
+
+					<div id="carousel4">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide blue-slide">
+								<img id="c1" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%">
+							</div>
+							<div class="swiper-slide red-slide">
+								<img id="c2" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul2.jpg" width="100%">
+							</div>
+							<div class="swiper-slide orange-slide">
+								<img id="c3" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul3.jpg" width="100%">
+							</div>
+						</div>
+
+						<!--<div id="carousel3-pagination" class="pagination middle"></div>-->
+
+					</div><!-- /content -->
+
+					<div id="page-gesture-footer" data-role="footer" data-position="fixed" data-tap-toggle="false">
+						<div>
+							<a class="fb-home"></a>
+							<a class="fb-share"></a>
+							<a class="fb-map"></a>
+							<a class="fb-back"></a>
+						</div>
+					</div><!-- /footer -->
+
+				</div><!-- /page -->
+
+			</div>
+
+			<script type="text/javascript">
+				app.initialize();
+			</script>
+
+			<script>
+				function doOnOrientationChange() {
+					switch(window.orientation) {
+						case -90:
+						case 90:
+							alert('landscape');
+							break;
+						default:
+							alert('portrait');
+							break;
+					}
 				}
-			}
 
-			//window.addEventListener('orientationchange', doOnOrientationChange);
-			// Initial execution if needed
-			//doOnOrientationChange();
-		</script>
+				//window.addEventListener('orientationchange', doOnOrientationChange);
+				// Initial execution if needed
+				//doOnOrientationChange();
+			</script>
 
 	</body>
 </html>

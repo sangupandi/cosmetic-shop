@@ -531,6 +531,9 @@ var app = {
 		styles.push('#swiper-home { height: ' + app.windowHeight + 'px; }\r');
 		styles.push('#home-page div[data-role="content"] { height: ' + app.windowHeight + 'px; }\r');
 
+		styles.push('#swiper-catalogue { height: ' + app.windowHeight + 'px; }\r');
+		styles.push('#home-page div[data-role="content"] { height: ' + app.windowHeight + 'px; }\r');
+
 		/* set swiper image size (size: 535x332)*/
 		var carouselImageHeight = app.windowWidth * 332 / 535;
 		//styles.push('.swiper-container { height: ' + swHeight + 'px; }\r');
@@ -717,16 +720,16 @@ var app = {
 			try {
 				PushWoosh.sendBadge(badges.GuzellikSirlari);
 				/*
-				var pushNotification = window.plugins.pushNotification;
+				 var pushNotification = window.plugins.pushNotification;
 
-				pushNotification.getPendingNotifications(function(notifications) {
-					alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
-				});
+				 pushNotification.getPendingNotifications(function(notifications) {
+				 alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
+				 });
 
-				pushNotification.getRemoteNotificationStatus(function(status) {
-					alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
-				});
-				*/
+				 pushNotification.getRemoteNotificationStatus(function(status) {
+				 alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
+				 });
+				 */
 			} catch(e) {
 				alert("PushWoosh.sendBadge error");
 				alert(e);
@@ -1319,16 +1322,18 @@ var app = {
 		console.log("platform_Android() : " + platform_Android());
 
 		/*
-		var orientationChange = function(e) {
-		var orientation = "portrait";
-		if (window.orientation == -90 || window.orientation == 90)
-		orientation = "landscape";
-		navigator.notification.alert(orientation);
-		console.dir(window.orientation);
-		console.dir(e);
-		};
-		window.addEventListener("orientationchange", orientationChange, true);
-		*/
+		 var orientationChange = function(e) {
+		 var orientation = "portrait";
+		 if (window.orientation == -90 || window.orientation == 90)
+		 orientation = "landscape";
+		 navigator.notification.alert(orientation);
+		 console.dir(window.orientation);
+		 console.dir(e);
+		 };
+		 window.addEventListener("orientationchange", orientationChange, true);
+		 */
+
+		app.gestureTest();
 
 		//$('#home-header-pic').bind('tap', function() {
 		/*
@@ -1422,6 +1427,59 @@ var app = {
 		}
 
 	},
+
+	swCat : null,
+
+	gestureTest : function() {
+		$('#home-header-pic').bind('tap', function() {
+			goPage('page-gesture');
+		});
+		$(window).bind('shakeupdown', function(event_, data_) {
+			alert('shake: ' + data_.description);
+		});
+		$('#img17').bind('tap', function() {
+			$('#page-gesture-header').hide();
+			$('#page-gesture-footer').hide();
+			$('#page-gesture-content').css({
+				'position' : 'absolute',
+				'top' : '0',
+				'left' : '0',
+				'width' : app.windowWidth + 'px',
+				'height' : app.windowHeight + 'px'
+			});
+			$('#carousel4').css({
+				'position' : 'absolute',
+				'top' : '0',
+				'left' : '0',
+				'width' : app.windowWidth + 'px;',
+				'height' : app.windowHeight + 'px;'
+			});
+
+			app.swCat = new Swiper('#carousel4', {
+				grabCursor : true,
+				mode : 'vertical',
+				onSlideChangeEnd : function(e) {
+					//self.onSlideChangeEnd(self, e.activeLoopIndex);
+				}
+			});
+
+			$('#c1').smoothZoom({
+				width : '100%',
+				height : '100%',
+				responsive : true,
+				pan_BUTTONS_SHOW : "NO",
+				pan_LIMIT_BOUNDARY : "NO",
+				button_SIZE : 24,
+				button_ALIGN : "top right",
+				border_TRANSPARENCY : 20,
+				zoom_MAX : 400
+
+			});
+			//self.onSlideChangeEnd(self, 0);
+		});
+		//$('#divlog');
+	},
+
 	initHomeSwiper : function() {
 		if (app.swHome == null) {
 			/*
@@ -1461,3 +1519,4 @@ var app = {
 		});
 	}
 };
+
