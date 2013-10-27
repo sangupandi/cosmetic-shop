@@ -1060,7 +1060,7 @@ var app = {
 		var eventTracker = function(e, data) {
 			switch (e.type) {
 				case "pagebeforeshow":
-					console.clear();
+					//console.clear();
 					//console.log('pageEvent: ' + e.type + ', prevPage: ' + data.prevPage[0].id + ', app.pageTransitionBusy:' + app.pageTransitionBusy + ', ' + glog.fmtNow());
 					app.pageTransitionBusy = true;
 					break;
