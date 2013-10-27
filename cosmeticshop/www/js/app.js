@@ -3,7 +3,16 @@ var serviceHost = "http://www.gtech.com.tr/cosmetica";
 /*
  * b58805c0606d742d MY XperiaZ
  */
-var debuggerDeviceID = "b58805c0606d742d";
+var debuggerDevices = ["b58805c0606d742d", "1D457E0D-1433-4E4D-A274-B4288308AC7F"];
+var deviceID = null;
+function da(msg) {
+	if (deviceID == null)
+		deviceID = device.uuid;
+	if (jQuery.inArray(deviceID, debuggerDeviceID)) {
+		alert(msg);
+	}
+}
+
 /*
  * http://bencollier.net/2011/06/ios-shouldautorotatetointerfaceorientation-lock-orientation-in-phonegap/
  */
@@ -376,7 +385,7 @@ catalogueObject.prototype = {
 			//console.log($("#page-gesture .loading .badge").html());
 			if (self.loadedImageCount == self.images.length) {
 				$("#page-gesture .loading").hide();
-
+da("self.loadedImageCount == self.images.length");
 				console.log("All images have loaded (or died trying)!");
 				self.createSwiper();
 			}
@@ -397,12 +406,13 @@ catalogueObject.prototype = {
 				imageLoadPost(self);
 			};
 			//sleep(50);
-
+da("self.images.push(img);");
 			self.images.push(img);
 		});
 	},
 
 	setSlideHtml : function(pageIndex) {
+			da("setSlideHtml");
 		var self = app.catalogue;
 		if (pageIndex >= 0 && pageIndex < self.images.length) {
 
@@ -420,12 +430,14 @@ catalogueObject.prototype = {
 	},
 
 	setPage : function(pageIndex) {
+			da("setPage");
 		var self = app.catalogue;
 		self.setSlideHtml(pageIndex);
 		self.setSlideHtml(pageIndex - 1);
 		self.setSlideHtml(pageIndex + 1);
 
 		// empty the other slides
+			da("empty the other slides");
 		for (var i = 0, j = self.images.length; i < j; i++) {
 			if (i < pageIndex - 1 && i > pageIndex + 1) {
 				self.swiper.slides[i].html(self.templateDiv);
@@ -436,6 +448,7 @@ catalogueObject.prototype = {
 	createSwiper : function() {
 		var self = this;
 		if (self.swiper == null) {
+			da("createSwiper");
 			/*
 			 * ---------------------------------------------------------
 			 * Create swiper and handle events
@@ -443,7 +456,7 @@ catalogueObject.prototype = {
 			 */
 			self.swiper = new Swiper('#carousel4', {
 				grabCursor : true,
-				mode : 'vertical',
+				//mode : 'vertical',
 				centeredSlides : true,
 				pagination : '#carousel4-pagination',
 				paginationClickable : true,
@@ -451,6 +464,7 @@ catalogueObject.prototype = {
 					app.catalogue.setPage(e.activeLoopIndex);
 				}
 			});
+			da("init blank slides");
 
 			// init blank slides
 			for ( i = 0; i < self.images.length; i++) {
@@ -461,6 +475,7 @@ catalogueObject.prototype = {
 		}
 	},
 	createSmoothZoom : function(imgId) {
+			da("createSmoothZoom");
 		$(imgId).smoothZoom({
 			width : '100%',
 			height : '100%',
@@ -476,6 +491,7 @@ catalogueObject.prototype = {
 
 	load : function(_addMarkerCallback) {
 		console.clear();
+			da("load cat");
 		if (!this.loaded && !this.trying) {
 			var obj = this;
 			obj.trying = true;
@@ -488,6 +504,7 @@ catalogueObject.prototype = {
 				async : true,
 				success : function(result) {
 					glog.step("catalogueObject.load");
+			da("extractRawData");
 					obj.extractRawData(result);
 
 					obj.trying = false;
@@ -495,6 +512,7 @@ catalogueObject.prototype = {
 				},
 				error : function(request, error) {
 					glog.step("catalogueObject.load");
+			da("error");
 					console.warn(request);
 					console.warn(error);
 

@@ -577,6 +577,7 @@ var app = {
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
+		glog2.log("styles", styles.join("<br/>\r\n")),
 
 		glog.step("initLayoutSizes");
 
@@ -795,7 +796,7 @@ var app = {
 		});
 
 		$("#page-gesture").bind("pageshow", function(event) {
-			
+			da("pageshow");
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
 			$('#page-gesture-content').css({
