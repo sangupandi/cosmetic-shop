@@ -9,7 +9,7 @@ function da(msg) {
 	if (deviceID == null)
 		deviceID = device.uuid;
 	if (jQuery.inArray(deviceID, debuggerDevices) != -1) {
-		alert(msg);
+		//alert(msg);
 	}
 }
 
@@ -455,7 +455,7 @@ catalogueObject.prototype = {
 			 */
 			self.swiper = new Swiper('#carousel4', {
 				grabCursor : true,
-				//mode : 'vertical',
+				mode : 'vertical',
 				centeredSlides : true,
 				pagination : '#carousel4-pagination',
 				paginationClickable : true,
@@ -498,7 +498,7 @@ catalogueObject.prototype = {
 			da("load cat if");
 			var obj = this;
 			obj.trying = true;
-			
+
 			da("glog.step load");
 			glog.step("catalogueObject.load");
 
@@ -527,7 +527,7 @@ catalogueObject.prototype = {
 					obj.trying = false;
 				}
 			});
-		}else{
+		} else {
 			da("already loaded");
 		}
 	}
