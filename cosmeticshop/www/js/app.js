@@ -392,7 +392,6 @@ da("self.loadedImageCount == self.images.length");
 		}
 
 		var self = this;
-		var debugMode = (device.uuid == debuggerDeviceID);
 
 		self.images = [];
 		$.each(jsonData, function(i, row) {
