@@ -5,7 +5,8 @@ var badges = {
 	GuzellikSirlariGoz : 0,
 	GuzellikSirlariYuz : 0,
 	GuzellikSirlariDudak : 0,
-	GuzellikSirlariTirnal : 0
+	GuzellikSirlariTirnal : 0,
+	isLoaded : false
 };
 
 var glog2 = {
@@ -132,6 +133,7 @@ var app = {
 	catalogue : null,
 	shopList : null,
 	swHome : null,
+	announcements : null,
 
 	currentPageId : function() {
 		return $.mobile.activePage.attr('id');
@@ -697,6 +699,8 @@ var app = {
 
 	getBadgesCount : function() {
 		var successFunc = function(obj, result) {
+			badges.isLoaded = true;
+
 			badges.YeniUrun = result.YeniUrun;
 			badges.Firsat = result.Firsat;
 			badges.GuzellikSirlari = result.GuzellikSirlari;
@@ -758,9 +762,11 @@ var app = {
 
 		$("#home-page").bind("pageshow", function(event) {
 			app.initHomeSwiper();
+			app.announcements.load();
 			//app.preloadImages.load();
-			app.getBadgesCount();
-			app.shopList.load(app.addMarkers);
+			if (!badges.isLoaded) {
+				app.getBadgesCount();
+			}
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
@@ -776,6 +782,8 @@ var app = {
 		});
 
 		$("#page-harita").bind("pageshow", function(event) {
+			app.shopList.load(app.addMarkers);
+
 			if (app.mapApiReady) {
 				google.maps.event.trigger(app.map, 'resize');
 
@@ -787,7 +795,8 @@ var app = {
 				if (app.mapApiReady) {
 					app.detectCurrentLocation(true);
 				} else {
-					alert("Lütfen internet bağlantınızı kontrol edin.");
+					showMessage("Lütfen GPS'inizin açık olduğunu kontrol edin.", "Konum Bilgisi");
+					//alert("Lütfen GPS'inizin açık olduğunu kontrol edin.");
 					//alert("Map API is not loaded!..");
 				}
 			}
@@ -973,7 +982,7 @@ var app = {
 
 		$('#page-gesture div[data-role="content"] .close').bind('click', function() {
 			app.catalogue.onCloseCatalogue();
-			
+
 			$.mobile.changePage($("#home-page"), {
 				transition : "none"
 			});
@@ -1051,6 +1060,7 @@ var app = {
 		var eventTracker = function(e, data) {
 			switch (e.type) {
 				case "pagebeforeshow":
+					console.clear();
 					//console.log('pageEvent: ' + e.type + ', prevPage: ' + data.prevPage[0].id + ', app.pageTransitionBusy:' + app.pageTransitionBusy + ', ' + glog.fmtNow());
 					app.pageTransitionBusy = true;
 					break;
@@ -1243,6 +1253,7 @@ var app = {
 		/*
 		 * Create Objects
 		 */
+		app.announcements = new announcementsObject();
 		app.carousel1 = new carouselObject("#carousel1", 1, "m1");
 		app.carousel2 = new carouselObject("#carousel2", 2, "m2");
 		app.gsGoz = new guzellikSirlari(31, 'gsGoz');

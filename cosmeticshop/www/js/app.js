@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:779";
+var internalVersion = "Version 1.0.0 Build:781";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -40,7 +40,6 @@ function jsonLoader(_url, _successCallback, _errorCallback) {
 	this.url = _url;
 	this.successCallback = _successCallback;
 	this.errorCallback = _errorCallback;
-
 	this.loaded = false;
 	this.trying = false;
 }
@@ -50,10 +49,7 @@ jsonLoader.prototype = {
 		if (!this.loaded && !this.trying) {
 			var obj = this;
 			obj.trying = true;
-
 			glog.step(obj.url + "_load");
-
-			//var svcurl = serviceHost + "/Announcements.ashx?cat=" + this.categoryId;
 			$.ajax({
 				url : obj.url,
 				dataType : "jsonp",
@@ -62,18 +58,49 @@ jsonLoader.prototype = {
 					glog.step(obj.url + "_load");
 					obj.trying = false;
 					obj.loaded = true;
-
 					obj.successCallback(sender, result);
 				},
 				error : function(request, error) {
 					glog.step(obj.url + "_load");
 					obj.trying = false;
-
 					obj.errorCallback(sender, request, error);
-					//alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
 				}
 			});
 		}
+	}
+};
+
+function announcementsObject() {
+	this.jsonData = null;
+	this.svcurl = serviceHost + "/Announcements.ashx?uuid=" + device.uuid;
+	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+}
+
+announcementsObject.prototype = {
+	errorHandler : function(sender, request, error) {
+		var s = 'Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz!';
+		showMessage(s, 'Veri İletişimi');
+	},
+
+	successHandler : function(sender, result) {
+		if (result != null) {
+			sender.jsonData = result;
+		}
+	},
+
+	load : function() {
+		this.loader.load(this);
+	},
+
+	list : function(categoryID) {
+		var arr = [];
+		$.each(this.jsonData, function(i, row) {
+			if (row.CategoryID == categoryID) {
+				console.dir(row);
+				arr.push(row);
+			};
+		});
+		return arr;
 	}
 };
 
@@ -83,6 +110,8 @@ jsonLoader.prototype = {
 function carouselObject(_domId, _categoryId, _menuId) {
 	this.swiper = null;
 	this.domId = _domId;
+	this.categoryId = _categoryId;
+
 	this.paginationDomId = _domId + "-pagination";
 	this.templateSelector = _domId + ' .swiper-wrapper';
 	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
@@ -90,30 +119,31 @@ function carouselObject(_domId, _categoryId, _menuId) {
 	this.jsonData = null;
 	this.menuId = _menuId;
 
-	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
-	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+	//this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
+	//this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
 carouselObject.prototype = {
-	errorHandler : function(sender, request, error) {
-		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	},
+	/*
+	 errorHandler : function(sender, request, error) {
+	 alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
+	 },
 
-	successHandler : function(sender, result) {
-		if (result != null) {
-			sender.jsonData = result;
-			//console.dir(sender.jsonData);
+	 successHandler : function(sender, result) {
+	 if (result != null) {
+	 sender.jsonData = result;
+	 //console.dir(sender.jsonData);
 
-			var arr = [];
-			var template = sender.template;
-			$.each(result, function(i, row) {
-				arr.push(String.format(template, row.Html, row.Description + '<br/><br/>'));
-			});
-			$(sender.templateSelector).html(arr.join(""));
-			sender.render();
-		}
-	},
-
+	 var arr = [];
+	 var template = sender.template;
+	 $.each(result, function(i, row) {
+	 arr.push(String.format(template, row.Html, row.Description + '<br/><br/>'));
+	 });
+	 $(sender.templateSelector).html(arr.join(""));
+	 sender.render();
+	 }
+	 },
+	 */
 	onSlideChangeEnd : function(sender, slideIndex) {
 		var successFunc = function(obj, result) {
 			sender.jsonData[slideIndex].IsUnread = false;
@@ -130,7 +160,8 @@ carouselObject.prototype = {
 			// no action
 		};
 
-		//console.dir(sender.jsonData[slideIndex].IsUnread);
+		console.dir(sender.jsonData[slideIndex].IsUnread);
+
 		if (sender.jsonData[slideIndex].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
@@ -141,6 +172,16 @@ carouselObject.prototype = {
 	render : function() {
 		//https://github.com/nolimits4web/Swiper/blob/master/demo-apps/gallery/js/gallery-app.js
 		var self = this;
+
+		var arr = [];
+		$.each(self.jsonData, function(i, row) {
+			var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
+			var divHtml = String.format(self.template, imgHtml, row.Description + '<br/><br/>');
+
+			arr.push(divHtml);
+		});
+		$(self.templateSelector).html(arr.join(""));
+
 		self.swiper = new Swiper(self.domId, {
 			pagination : self.paginationDomId,
 			loop : true,
@@ -150,11 +191,28 @@ carouselObject.prototype = {
 				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
 		});
+
+		/*
+		var template = self.template;
+		$.each(self.jsonData, function(i, row) {
+		var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
+		var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>');
+
+		var ns = self.swiper.createSlide(divHtml);
+		self.swiper.appendSlide(ns);
+		});
+		*/
+		//self.swiper.resizeFix();
+
 		self.onSlideChangeEnd(self, 0);
 	},
 
 	load : function() {
-		this.loader.load(this);
+		if (this.jsonData == null) {
+			this.jsonData = app.announcements.list(this.categoryId);
+			this.render();
+		};
+		//this.loader.load(this);
 	}
 };
 
@@ -238,7 +296,7 @@ guzellikSirlariChild.prototype = {
 					app.setbadge('.brick.b4-1 span.badge', --badges.GuzellikSirlariTirnak);
 					break;
 			}
-			console.warn("okundu...");
+			//console.warn("okundu...");
 		};
 		var errorFunc = function(obj, request, error) {
 			// no action
@@ -670,10 +728,12 @@ function isValidEmailAddress(emailAddress) {
 	return pattern.test(emailAddress);
 };
 
+function showMessage(msg, title, buttonCaption) {
+	var btnCaption = buttonCaption ? buttonCaption : "Tamam";
+	navigator.notification.alert(msg, null, title, btnCaption);
+}
+
 function postCustomerInfoForm() {
-	function showMessage(msg, title) {
-		navigator.notification.alert(msg, null, title, 'Tamam');
-	}
 
 	var successFunc = function(obj, result) {
 		showMessage("Formunuz kayda alındı.\r Teşekkür ederiz.", "Bilgi");
@@ -683,7 +743,7 @@ function postCustomerInfoForm() {
 	var errorFunc = function(obj, request, error) {
 		showMessage("Bir problem oluştu.\r Lütfen tekrar deneyin.", "Uyarı");
 		$('#btnSubmitForm').attr("disabled", false);
-		console.warn(error);
+		//console.warn(error);
 	};
 
 	var adSoyad = $('#tbAdSoyad').val();
