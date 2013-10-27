@@ -96,7 +96,6 @@ announcementsObject.prototype = {
 		var arr = [];
 		$.each(this.jsonData, function(i, row) {
 			if (row.CategoryID == categoryID) {
-				console.dir(row);
 				arr.push(row);
 			};
 		});
@@ -160,7 +159,7 @@ carouselObject.prototype = {
 			// no action
 		};
 
-		console.dir(sender.jsonData[slideIndex].IsUnread);
+		//console.dir(sender.jsonData[slideIndex].IsUnread);
 
 		if (sender.jsonData[slideIndex].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
@@ -201,10 +200,6 @@ carouselObject.prototype = {
 		$.each(self.jsonData, function(i, row) {
 			var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
 			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>');
-			console.log("----------------");
-			console.log(imgHtml);
-			console.log(divHtml);
-			console.log("----------------");
 			alert("will add " + i);
 			var ns = self.swiper.createSlide(divHtml);
 			self.swiper.prependSlide(ns);
