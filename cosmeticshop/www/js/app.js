@@ -8,7 +8,7 @@ var deviceID = null;
 function da(msg) {
 	if (deviceID == null)
 		deviceID = device.uuid;
-	if (jQuery.inArray(deviceID, debuggerDeviceID)) {
+	if (jQuery.inArray(deviceID, debuggerDevices)) {
 		alert(msg);
 	}
 }
