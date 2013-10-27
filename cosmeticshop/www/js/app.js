@@ -358,120 +358,33 @@ shopListObject.prototype = {
  */
 function catalogueObject(_jsonDataUrl) {
 	this.jsonDataUrl = serviceHost + _jsonDataUrl;
-	//this.selector = '#wrapper-katalog #scroller-katalog';
-	//this.template = '<img class="page p{1}" src="{0}" width="100%" />';
+	this.templateDiv = '<div class="swiper-slide">{0}</div>';
+	this.templateImage = '<img id="zoom-image{1}" src="{0}" width="100%">';
 	this.trying = false;
 	this.loaded = false;
 	this.images = [];
 	this.loadedImageCount = 0;
 	this.swiper = null;
-	//this.scrollObj = null;
-	//this.activePage = 0;
-	//this.zoomed = false;
 }
 
 catalogueObject.prototype = {
 
-	onZoomEnd : function() {
-		//alert("zoomEnd");
-		//console.dir(this);
-		//console.dir(this.options.disableSnap);
-
-		var pageCount = $('.page').length;
-		//alert("pageCount:" + pageCount);
-		this.options.disableSnap = true;
-
-		if (this.scale > 1) {
-			if (!app.catalogue.zoomed) {
-				app.catalogue.zoomed = true;
-
-				// zoom in
-				app.catalogue.activePage = this.currentPage.pageY;
-				$('.page').css({
-					'display' : 'none'
-				});
-				$('.page.p' + app.catalogue.activePage).css({
-					'display' : 'inline-block'
-				});
-				/*
-				 this.destroy(true);
-				 app.catalogue.scrollObj = null;
-				 app.catalogue.createScroll(false);
-				 */
-				this.refresh();
-			}
-		} else {
-			if (app.catalogue.zoomed) {
-				app.catalogue.zoomed = false;
-				this.options.disableSnap = false;
-
-				// zoom 1
-				$('.page').css({
-					'display' : 'inline-block'
-				});
-				this.refresh();
-				this.goToPage(0, app.catalogue.activePage, 0, '');
-			}
-		}
-		//alert(this.options.disableSnap);
-	},
-
-	createScroll : function() {
-		/*
-		 * iscroll-zoom.js'de 1299'uncu satır aşağıdaki gibi değiştirildi.
-		 *     -> if(!this.options.disableSnap) this.goToPage(
-		 * orj -> this.goToPage(
-		 */
-		if (this.scrollObj == null) {
-			this.scrollObj = new IScroll('#wrapper-katalog', {
-				zoom : true,
-				mouseWheel : true,
-				wheelAction : 'zoom',
-				zoomMax : 4,
-				checkDOMChanges : true,
-
-				scrollX : true,
-				scrollY : true,
-				momentum : false,
-
-				//eventPassthrough: true,
-
-				snap : "img",
-				snapSpeed : 400,
-				keyBindings : true,
-				snapThreshold : 1,
-				disableSnap : false
-			});
-			this.scrollObj.on('zoomEnd', this.onZoomEnd);
-		} else {
-			this.scrollObj.refresh();
-		}
-		/*
-		 elem.bind('onScrollEnd', function(e, iscroll) {
-		 console.log($(this).attr('id') + ' - ' + iscroll);
-		 });
-		 */
-	},
 	extractRawData : function(jsonData) {
 		function imageLoadPost(self) {
 			self.loadedImageCount++;
-			//$("#page-katalog .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
+			$("#page-gesture .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
+			//console.log($("#page-gesture .loading .badge").html());
 			if (self.loadedImageCount == self.images.length) {
-				//$("#page-katalog .loading").hide();
+				$("#page-gesture .loading").hide();
 
 				console.log("All images have loaded (or died trying)!");
-				//self.createScroll();
-				//console.log("iScroll refreshed");
 				self.createSwiper();
-				//self.swiper.resizeFix();
 			}
 		}
 
 		var self = this;
-		//var elem = $(self.selector);
 		var debugMode = (device.uuid == debuggerDeviceID);
 
-		//elem.html('');
 		self.images = [];
 		$.each(jsonData, function(i, row) {
 			var img = new Image();
@@ -483,79 +396,92 @@ catalogueObject.prototype = {
 			img.onerror = function() {
 				imageLoadPost(self);
 			};
+			sleep(50);
 
 			self.images.push(img);
-			//elem.append(String.format(self.template, img.src, i));
-			//elem.append('<img class="page p0" src="http://www.gtech.com.tr/Cosmetica/files/cosmetica-insert-eylul1.jpg" width="100%">');
 		});
+	},
 
+	setSlideHtml : function(pageIndex) {
+		var self = app.catalogue;
+		if (pageIndex >= 0 && pageIndex < self.images.length) {
+
+			if (self.swiper.slides[pageIndex].html() == self.templateDiv) {
+				var img = self.images[pageIndex];
+				var imgHtml = String.format(self.templateImage, img.src, pageIndex);
+				var slideHtml = String.format(self.templateDiv, imgHtml);
+				self.swiper.slides[pageIndex].html(slideHtml);
+
+				self.createSmoothZoom('#zoom-image' + pageIndex);
+			} else {
+				$('#zoom-image' + pageIndex).smoothZoom('Reset');
+			}
+		}
+	},
+
+	setPage : function(pageIndex) {
+		var self = app.catalogue;
+		self.setSlideHtml(pageIndex);
+		self.setSlideHtml(pageIndex - 1);
+		self.setSlideHtml(pageIndex + 1);
+
+		// empty the other slides
+		for (var i = 0, j = self.images.length; i < j; i++) {
+			if (i < pageIndex - 1 && i > pageIndex + 1) {
+				self.swiper.slides[i].html(self.templateDiv);
+			}
+		};
 	},
 
 	createSwiper : function() {
 		var self = this;
 		if (self.swiper == null) {
-
-			self.setPage(0);
-
-			var createSmoothZoom = function(imgId) {
-				$(imgId).smoothZoom({
-					width : '100%',
-					height : '100%',
-					responsive : true,
-					responsive_maintain_ratio : true,
-					zoom_MAX : 400,
-					zoom_OUT_TO_FIT : true,
-					zoom_BUTTONS_SHOW : false,
-					pan_BUTTONS_SHOW : false,
-					pan_LIMIT_BOUNDARY : true
-				});
-			};
-
+			/*
+			 * ---------------------------------------------------------
+			 * Create swiper and handle events
+			 * ---------------------------------------------------------
+			 */
 			self.swiper = new Swiper('#carousel4', {
-				grabCursor : true,
+				//grabCursor : true,
 				mode : 'vertical',
+				centeredSlides : true,
+				//pagination : '#carousel4-pagination',
+				//paginationClickable : true,
 				onSlideChangeEnd : function(e) {
-					/*
-					 $('#zoom-image1').smoothZoom('Reset');
-					 $('#zoom-image2').smoothZoom('Reset');
-					 $('#zoom-image3').smoothZoom('Reset');
-					 */
-					for ( i = 0; i < app.catalogue.images.length; i++) {
-						$('#zoom-image' + i).smoothZoom('Reset');
-					}
-
-					//self.setPage(e.activeLoopIndex);
-					console.log(e.activeLoopIndex);
-					console.dir(e);
+					app.catalogue.setPage(e.activeLoopIndex);
 				}
 			});
-			$.each(self.images, function(i, img) {
-				var ns = self.swiper.createSlide('<div class="swiper-slide blue-slide"><img id="zoom-image' + i + '" src="' + img.src + '" width="100%"></div>');
-				self.swiper.appendSlide(ns);
 
-				createSmoothZoom('#zoom-image' + i);
-				console.log(ns);
-			});
-			self.swiper.resizeFix();
+			// init blank slides
+			for ( i = 0; i < self.images.length; i++) {
+				var ns = self.swiper.createSlide(self.templateDiv);
+				self.swiper.appendSlide(ns);
+			}
+			self.setPage(0);
 		}
 	},
-
-	setPage : function(pageIndex) {
-		var prevIndex = pageIndex == 0 ? this.images.length - 1 : pageIndex - 1;
-		var nextIndex = pageIndex == this.images.length - 1 ? 0 : pageIndex + 1;
-
-		$('#zoom-image1').attr('src', this.images[prevIndex].src);
-		$('#zoom-image2').attr('src', this.images[pageIndex].src);
-		$('#zoom-image3').attr('src', this.images[nextIndex].src);
+	createSmoothZoom : function(imgId) {
+		$(imgId).smoothZoom({
+			width : '100%',
+			height : '100%',
+			responsive : true,
+			responsive_maintain_ratio : true,
+			zoom_MAX : 400,
+			zoom_OUT_TO_FIT : true,
+			zoom_BUTTONS_SHOW : false,
+			pan_BUTTONS_SHOW : false,
+			pan_LIMIT_BOUNDARY : true
+		});
 	},
 
 	load : function(_addMarkerCallback) {
+		console.clear();
 		if (!this.loaded && !this.trying) {
 			var obj = this;
 			obj.trying = true;
 			glog.step("catalogueObject.load");
 
-			//$("#page-katalog .loading").show();
+			$("#page-gesture .loading").show();
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",
@@ -853,6 +779,15 @@ var openFrontCamera = function() {
 		saveToPhotoAlbum : false
 	});
 };
+
+function sleep(milliseconds) {
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds) {
+			break;
+		}
+	}
+}
 
 function goPage(pageId) {
 	$.mobile.changePage($("#" + pageId));

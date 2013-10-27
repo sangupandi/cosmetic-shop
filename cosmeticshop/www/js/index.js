@@ -561,7 +561,7 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size */
-		//styles.push('#wrapper-katalog { top: ' + (app.headerHeight + 8) + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
+		styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
 
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
@@ -787,64 +787,10 @@ var app = {
 				if (app.mapApiReady) {
 					app.detectCurrentLocation(true);
 				} else {
-					alert("Map API is not loaded!..");
+					alert("Lütfen internet bağlantınızı kontrol edin.");
+					//alert("Map API is not loaded!..");
 				}
 			}
-
-			/*
-			if (app.updateCurrentMap) {
-			showCurrentLocation();
-			}*/
-			//getShopList();
-		});
-
-		$("#page-katalog").bind("pageshow", function(event) {
-			/*
-			 var transitionSpeed = 160;
-			 var easing = "snap";
-			 var effects = [];
-			 effects[0] = {
-			 top : -1 * window.headerHeight
-			 };
-			 effects[1] = {
-			 y : window.footerHeight
-			 };
-			 /*
-			 effects[0] = {opacity:0};
-			 effects[1] = {opacity:1};
-
-			 effects[0] = { rotateY: '180deg',opacity:0};
-			 effects[1] = { rotateY: '0deg',opacity:1};
-
-			 effects[0] = { scale:0};
-			 effects[1] = { scale:1};
-
-			 effects[0] = { rotate:'+=20deg',x:window.innerWidth};
-			 effects[1] = { rotate:'0deg',x:0};
-			 */
-			/*
-			 $('#page-katalog div[data-role="header"]').transition(effects[0], transitionSpeed, easing, function() {
-			 console.log("rwerqwerqwerqererqew");
-			 $('#page-katalog div[data-role="footer"]').css({
-			 'display' : 'inline'
-			 }).transition(effects[1], transitionSpeed, easing);
-			 });
-			 */
-
-			$('#page-katalog div[data-role="header"]').hide();
-			$('#page-katalog div[data-role="footer"]').hide();
-			$('#page-katalog div[data-role="content"]').css({
-				'top' : '0px',
-				'height' : app.windowHeight + 'px'
-			});
-			$('#wrapper-katalog').css({
-				'top' : '0px',
-				'height' : app.windowHeight + 'px'
-			});
-			console.log("rwerqwerqwerqererqew");
-
-			app.catalogue.load();
-			$('#page-katalog div[data-role="content"] .close').show();
 		});
 
 		$("#page-gesture").bind("pageshow", function(event) {
@@ -865,6 +811,7 @@ var app = {
 				'height' : app.windowHeight + 'px;'
 			});
 			app.catalogue.load();
+			$('#page-gesture div[data-role="content"] .close').show();
 		});
 
 	},
@@ -883,7 +830,6 @@ var app = {
 		});
 
 		$("#m4").bind('tap', function(event, ui) {
-			//$.mobile.changePage($("#page-katalog"));
 			$.mobile.changePage($("#page-gesture"));
 		});
 
@@ -1021,7 +967,7 @@ var app = {
 			postCustomerInfoForm();
 		});
 
-		$('#page-katalog div[data-role="content"] .close').bind('click', function() {
+		$('#page-gesture div[data-role="content"] .close').bind('click', function() {
 			goPage("home-page");
 		});
 
@@ -1341,83 +1287,6 @@ var app = {
 		console.log("getDeviceType() : " + getDeviceType());
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
-
-		/*
-		 var orientationChange = function(e) {
-		 var orientation = "portrait";
-		 if (window.orientation == -90 || window.orientation == 90)
-		 orientation = "landscape";
-		 navigator.notification.alert(orientation);
-		 console.dir(window.orientation);
-		 console.dir(e);
-		 };
-		 window.addEventListener("orientationchange", orientationChange, true);
-		 */
-
-		app.gestureTest();
-
-		//$('#home-header-pic').bind('tap', function() {
-		/*
-		app.setbadge('m1', app.im1++)
-		app.setbadge('m2', app.im2--)
-		app.setbadge('m3', app.im3++)
-		/*
-		var deviceID = device.uuid;
-		// alert dialog dismissed
-		var alertDismissed = function() {
-		// do something
-		};
-		// Show a custom alertDismissed
-		navigator.notification.vibrate();
-		navigator.notification.alert(deviceID, alertDismissed, 'Device ID', 'Done');
-		*/
-		/*
-		//ms
-		var transitionSpeed = 160;
-		var easing = "snap";
-		var effects = [];
-		effects[0] = {
-		opacity : 0
-		};
-		effects[1] = {
-		opacity : 1
-		};
-		/*
-		effects[0] = {opacity:0};
-		effects[1] = {opacity:1};
-
-		effects[0] = { rotateY: '180deg',opacity:0};
-		effects[1] = { rotateY: '0deg',opacity:1};
-
-		effects[0] = { scale:0};
-		effects[1] = { scale:1};
-
-		effects[0] = { rotate:'+=20deg',x:window.innerWidth};
-		effects[1] = { rotate:'0deg',x:0};
-		*/
-		/*
-		$('#home-page').transition(effects[0], transitionSpeed, easing, function() {
-		$('#page-harita-detail').css({
-		'display' : 'inline'
-		}).transition(effects[1], transitionSpeed, easing);
-		});
-		*/
-		//});
-
-		return;
-
-		console.log("finish initMenu");
-
-		initFooterMenuTapActions();
-		console.log("finish initFooterMenuTapActions");
-
-		console.log("finish app.getSetting(s)");
-
-		//$('#home-page div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
-		//$('#page-ayarlar div[data-role="header"] img').bind('tap', app.localNotificationTrigger);
-
-		//detectCurrentLocation(true);
-		glog.step('receivedEvent :' + id);
 	},
 
 	localNotificationTrigger : function() {
@@ -1449,75 +1318,9 @@ var app = {
 
 	},
 
-	swCat : null,
-
-	gestureTest : function() {
-		$('#home-header-pic').bind('tap', function() {
-			goPage('page-gesture');
-		});
-		$(window).bind('shakeupdown', function(event_, data_) {
-			alert('shake: ' + data_.description);
-		});
-		return;
-		$('#img17').bind('tap', function() {
-			$('#page-gesture-header').hide();
-			$('#page-gesture-footer').hide();
-			$('#page-gesture-content').css({
-				'position' : 'absolute',
-				'top' : '0',
-				'left' : '0',
-				'width' : app.windowWidth + 'px',
-				'height' : app.windowHeight + 'px'
-			});
-			$('#carousel4').css({
-				'position' : 'absolute',
-				'top' : '0',
-				'left' : '0',
-				'width' : app.windowWidth + 'px;',
-				'height' : app.windowHeight + 'px;'
-			});
-
-			app.swCat = new Swiper('#carousel4', {
-				grabCursor : true,
-				mode : 'vertical',
-				onSlideChangeEnd : function(e) {
-					$('#c1').smoothZoom('Reset');
-					//self.onSlideChangeEnd(self, e.activeLoopIndex);
-				}
-			});
-
-			$('#c1').smoothZoom({
-				width : '100%',
-				height : '100%',
-				responsive : true,
-				responsive_maintain_ratio : true,
-				zoom_MAX : 400,
-				zoom_OUT_TO_FIT : true,
-				zoom_BUTTONS_SHOW : false,
-				pan_BUTTONS_SHOW : false,
-				pan_LIMIT_BOUNDARY : true
-				/*button_SIZE : 24,
-				 button_ALIGN : "top right",
-				 border_TRANSPARENCY : 20,
-				 zoom_MIN:90,*/
-			});
-			//self.onSlideChangeEnd(self, 0);
-		});
-		//$('#divlog');
-	},
-
 	initHomeSwiper : function() {
 		if (app.swHome == null) {
-			/*
-			 $("#owl-example").owlCarousel({
-			 //navigation : true, // Show next and prev buttons
-			 slideSpeed : 300,
-			 paginationSpeed : 400,
-			 singleItem : true
-			 });
 
-			 app.swHome = $("#owl-example").data('owlCarousel');
-			 */
 			app.swHome = $('#swiper-home').swiper({
 				pagination : '#pagination-home',
 				paginationClickable : true,
@@ -1535,8 +1338,6 @@ var app = {
 				"height" : app.windowHeight + "px"
 			});
 			app.swHome.resizeFix();
-
-			//app.swHome.reInit();
 		}
 
 		$('#home-carousel-tap-image').bind('tap', function() {
