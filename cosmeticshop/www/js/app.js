@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:789";
+var internalVersion = "Version 1.0.0 Build:790";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -155,6 +155,9 @@ carouselObject.prototype = {
 			loop : true,
 			grabCursor : true,
 			paginationClickable : false,
+			onImagesReady : function(e) {
+				e.resizeFix();
+			},
 			onSlideChangeEnd : function(e) {
 				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
@@ -174,12 +177,12 @@ carouselObject.prototype = {
 	},
 
 	load : function() {
-		try{
-		if (this.jsonData == null) {
-			this.jsonData = app.announcements.list(this.categoryId);
-			this.render();
-		};
-		}catch(e){
+		try {
+			if (this.jsonData == null) {
+				this.jsonData = app.announcements.list(this.categoryId);
+				this.render();
+			};
+		} catch(e) {
 		}
 	}
 };
