@@ -774,7 +774,17 @@ var app = {
 		});
 
 		$("#page-firsat").bind("pageshow", function(event) {
-			app.carousel2.load();
+			//app.carousel2.load();
+			var qswiper = new Swiper("#carousel2", {
+				pagination : "#carousel2-pagination",
+				loop : true,
+				grabCursor : true,
+				paginationClickable : false,
+				onSlideChangeEnd : function(e) {
+					//self.onSlideChangeEnd(self, e.activeLoopIndex);
+				}
+			});
+
 		});
 
 		$("#page-guzellik").bind("pageshow", function(event) {
@@ -825,6 +835,11 @@ var app = {
 			$('#page-gesture div[data-role="content"] .close').show();
 			da("call load");
 			app.catalogue.load();
+		});
+
+		$("#page-ayarlar").bind("pageshow", function(event) {
+			alert("version");
+			alert(internalVersion);
 		});
 
 	},
