@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:786";
+var internalVersion = "Version 1.0.0 Build:788";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -184,6 +184,7 @@ carouselObject.prototype = {
 		 $(self.templateSelector).html(arr.join(""));
 		 */
 
+		alert("create swiper");
 		self.swiper = new Swiper(self.domId, {
 			pagination : self.paginationDomId,
 			loop : true,
@@ -194,7 +195,9 @@ carouselObject.prototype = {
 			}
 		});
 
+		alert("get template");
 		var template = self.template;
+		alert("go loop");
 		$.each(self.jsonData, function(i, row) {
 			var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
 			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>');
@@ -210,16 +213,25 @@ carouselObject.prototype = {
 		self.swiper.removeLastSlide();
 
 		//self.swiper.resizeFix();
-		
+
 		alert("self.onSlideChangeEnd(self, 0);");
 		self.onSlideChangeEnd(self, 0);
 	},
 
 	load : function() {
+		try{
+		alert("on load");
 		if (this.jsonData == null) {
+			alert("get jsonData list");
 			this.jsonData = app.announcements.list(this.categoryId);
+			alert("go render");
 			this.render();
 		};
+		}catch(e){
+			alert("catch");
+			alert(e);
+			alert(e.message);
+		}
 		//this.loader.load(this);
 	}
 };
