@@ -577,9 +577,7 @@ var app = {
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
-		glog2.log("styles", styles.join("<br/>\r\n")),
-
-		glog.step("initLayoutSizes");
+		glog2.log("styles", styles.join("<br/>\r\n")), glog.step("initLayoutSizes");
 
 		/*
 		 *
@@ -807,14 +805,14 @@ var app = {
 				'height' : app.windowHeight + 'px'
 			});
 			/*
-			$('#carousel4').css({
-				'position' : 'absolute',
-				'top' : '0',
-				'left' : '0',
-				'width' : app.windowWidth + 'px;',
-				'height' : app.windowHeight + 'px;'
-			});
-			*/
+			 $('#carousel4').css({
+			 'position' : 'absolute',
+			 'top' : '0',
+			 'left' : '0',
+			 'width' : app.windowWidth + 'px;',
+			 'height' : app.windowHeight + 'px;'
+			 });
+			 */
 			$('#page-gesture div[data-role="content"] .close').show();
 			da("call load");
 			app.catalogue.load();
@@ -1293,6 +1291,21 @@ var app = {
 		console.log("getDeviceType() : " + getDeviceType());
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
+
+		glog2.log("isPhoneGap() : ", isPhoneGap());
+		glog2.log("getDeviceType() : ", getDeviceType());
+		glog2.log("platform_iOS() : ", platform_iOS());
+		glog2.log("platform_Android() : ", platform_Android());
+
+		glog2.log('Device Name: ', device.name);
+		glog2.log('Device PhoneGap: ', device.phonegap);
+		glog2.log('Device Platform: ', device.platform);
+		glog2.log('Device UUID: ', device.uuid);
+		glog2.log('Device Version: ', device.version);
+
+		glog2.log('internalVersion: ', internalVersion);
+		
+		$("#version-info").html(internalVersion);
 	},
 
 	localNotificationTrigger : function() {
