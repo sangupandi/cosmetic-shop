@@ -538,13 +538,13 @@ var app = {
 
 		/* set swiper image size (size: 535x332)*/
 		var carouselImageHeight = app.windowWidth * 332 / 535;
-		//styles.push('.swiper-container { height: ' + swHeight + 'px; }\r');
+		styles.push('.carousel-sub .swiper-slide img { height: ' + carouselImageHeight + 'px; }\r');
 
 		/* set carousel sizes */
 		var paginationTopOffset = app.headerHeight + carouselImageHeight + 8;
-		styles.push('#carousel1, #carousel2 { height: ' + (app.contentHeight - 8) + 'px; }\r');
+		styles.push('#carousel1, #carousel2 { width: ' + app.windowWidth + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
 		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
-		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - carouselImageHeight - 10 - 8) + 'px; }\r');
+		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - paginationTopOffset + app.headerHeight - 20) + 'px; }\r');
 
 		/* footer buttons (size: 150x80) */
 		var buttonCount = 5;
