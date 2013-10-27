@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:788";
+var internalVersion = "Version 1.0.0 Build:789";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -123,26 +123,6 @@ function carouselObject(_domId, _categoryId, _menuId) {
 }
 
 carouselObject.prototype = {
-	/*
-	 errorHandler : function(sender, request, error) {
-	 alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	 },
-
-	 successHandler : function(sender, result) {
-	 if (result != null) {
-	 sender.jsonData = result;
-	 //console.dir(sender.jsonData);
-
-	 var arr = [];
-	 var template = sender.template;
-	 $.each(result, function(i, row) {
-	 arr.push(String.format(template, row.Html, row.Description + '<br/><br/>'));
-	 });
-	 $(sender.templateSelector).html(arr.join(""));
-	 sender.render();
-	 }
-	 },
-	 */
 	onSlideChangeEnd : function(sender, slideIndex) {
 		var successFunc = function(obj, result) {
 			sender.jsonData[slideIndex].IsUnread = false;
@@ -159,8 +139,6 @@ carouselObject.prototype = {
 			// no action
 		};
 
-		//console.dir(sender.jsonData[slideIndex].IsUnread);
-
 		if (sender.jsonData[slideIndex].IsUnread) {
 			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
@@ -172,62 +150,37 @@ carouselObject.prototype = {
 		//https://github.com/nolimits4web/Swiper/blob/master/demo-apps/gallery/js/gallery-app.js
 		var self = this;
 
-		/*
-		 var arr = [];
-		 $.each(self.jsonData, function(i, row) {
-		 var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
-		 var divHtml = String.format(self.template, imgHtml, row.Description + '<br/><br/>');
-
-		 arr.push(divHtml);
-		 });
-		 $(self.templateSelector).html(arr.join(""));
-		 */
-
-		alert("create swiper");
 		self.swiper = new Swiper(self.domId, {
 			pagination : self.paginationDomId,
 			loop : true,
 			grabCursor : true,
 			paginationClickable : false,
 			onSlideChangeEnd : function(e) {
-				//self.onSlideChangeEnd(self, e.activeLoopIndex);
+				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
 		});
 
-		alert("get template");
 		var template = self.template;
-		alert("go loop");
 		$.each(self.jsonData, function(i, row) {
 			var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
 			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>');
-			alert("will add " + i);
 			var ns = self.swiper.createSlide(divHtml);
 			self.swiper.prependSlide(ns);
 		});
-		alert("will remove last");
 		self.swiper.removeLastSlide();
 
 		//self.swiper.resizeFix();
-
-		alert("self.onSlideChangeEnd(self, 0);");
 		self.onSlideChangeEnd(self, 0);
 	},
 
 	load : function() {
 		try{
-		alert("on load");
 		if (this.jsonData == null) {
-			alert("get jsonData list");
 			this.jsonData = app.announcements.list(this.categoryId);
-			alert("go render");
 			this.render();
 		};
 		}catch(e){
-			alert("catch");
-			alert(e);
-			alert(e.message);
 		}
-		//this.loader.load(this);
 	}
 };
 
