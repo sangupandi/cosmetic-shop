@@ -788,24 +788,48 @@ var app = {
 			var ns;
 			var divHtml;
 			
-			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/8029a084-da03-4e50-aa1c-7ed005d65561.jpg" width="100%"/><div class="desc">son eklenen\r<br/><br/>\r</div></div>';
+			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">Yeni urunler -1 qwer ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
 			ns = mySwiper.createSlide(divHtml);
 			mySwiper.prependSlide(ns);
 			
-			divHtml = '<img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">534523<br/><br/></div>';
+			divHtml = '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/20273ffc-b3a3-4bd1-8d01-b14fa8b9d605.jpg" width="100%"/><div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">Yeni urunler -1 qwer ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml = '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/20273ffc-b3a3-4bd1-8d01-b14fa8b9d605.jpg" width="100%"/><div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">Yeni urunler -1 qwer ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml = '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/20273ffc-b3a3-4bd1-8d01-b14fa8b9d605.jpg" width="100%"/><div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">Yeni urunler -1 qwer ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml = '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/20273ffc-b3a3-4bd1-8d01-b14fa8b9d605.jpg" width="100%"/><div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml= '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/9e7d8e62-a9d4-4cee-8192-6cd1c9e16d7e.jpg" width="100%"/><div class="desc">Yeni urunler -1 qwer ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
+			ns = mySwiper.createSlide(divHtml);
+			mySwiper.prependSlide(ns);
+			
+			divHtml = '<div class="swiper-slide"><img src="http://www.gtech.com.tr/Cosmetica/files/20273ffc-b3a3-4bd1-8d01-b14fa8b9d605.jpg" width="100%"/><div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br/><br/></div></div>';
 			ns = mySwiper.createSlide(divHtml);
 			mySwiper.prependSlide(ns);
 			
 			mySwiper.removeLastSlide();
-			
-			console.log(mySwiper.slides[0].html());
-			console.warn(0);
-			console.log(mySwiper.slides[1].html());
-			console.warn(1);
-			console.log(mySwiper.slides[2].html());
-			console.warn(2);
-			console.log(mySwiper.slides[3].html());
-			console.warn(3);
+
 			
 /*
 			
