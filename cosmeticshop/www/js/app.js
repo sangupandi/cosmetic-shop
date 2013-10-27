@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:790";
+var internalVersion = "Version 1.0.0 Build:791";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -155,9 +155,6 @@ carouselObject.prototype = {
 			loop : true,
 			grabCursor : true,
 			paginationClickable : false,
-			onImagesReady : function(e) {
-				e.resizeFix();
-			},
 			onSlideChangeEnd : function(e) {
 				self.onSlideChangeEnd(self, e.activeLoopIndex);
 			}
@@ -173,6 +170,7 @@ carouselObject.prototype = {
 		self.swiper.removeLastSlide();
 
 		//self.swiper.resizeFix();
+		self.swiper.reInit();
 		self.onSlideChangeEnd(self, 0);
 	},
 
