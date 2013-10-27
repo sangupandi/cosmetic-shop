@@ -490,7 +490,7 @@ da("self.images.push(img);");
 
 	load : function() {
 		da("load cat");
-		console.clear();
+		//console.clear();
 		if (!this.loaded && !this.trying) {
 		da("load cat if");
 			var obj = this;
