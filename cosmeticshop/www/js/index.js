@@ -800,12 +800,13 @@ var app = {
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
 			$('#page-gesture-content').css({
-				'position' : 'absolute',
-				'top' : '0',
-				'left' : '0',
+				//'position' : 'absolute',
+				//'top' : '0',
+				//'left' : '0',
 				'width' : app.windowWidth + 'px',
 				'height' : app.windowHeight + 'px'
 			});
+			/*
 			$('#carousel4').css({
 				'position' : 'absolute',
 				'top' : '0',
@@ -813,8 +814,9 @@ var app = {
 				'width' : app.windowWidth + 'px;',
 				'height' : app.windowHeight + 'px;'
 			});
-			
+			*/
 			$('#page-gesture div[data-role="content"] .close').show();
+			da("call load");
 			app.catalogue.load();
 		});
 

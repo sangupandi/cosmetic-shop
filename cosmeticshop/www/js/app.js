@@ -8,7 +8,7 @@ var deviceID = null;
 function da(msg) {
 	if (deviceID == null)
 		deviceID = device.uuid;
-	if (jQuery.inArray(deviceID, debuggerDevices)) {
+	if (jQuery.inArray(deviceID, debuggerDevices) != -1) {
 		alert(msg);
 	}
 }
@@ -488,10 +488,11 @@ da("self.images.push(img);");
 		});
 	},
 
-	load : function(_addMarkerCallback) {
+	load : function() {
+		da("load cat");
 		console.clear();
-			da("load cat");
 		if (!this.loaded && !this.trying) {
+		da("load cat if");
 			var obj = this;
 			obj.trying = true;
 			glog.step("catalogueObject.load");
@@ -516,7 +517,6 @@ da("self.images.push(img);");
 					console.warn(error);
 
 					obj.trying = false;
-					ajax.errorOccured(request, error);
 				}
 			});
 		}
