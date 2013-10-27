@@ -385,7 +385,7 @@ catalogueObject.prototype = {
 			//console.log($("#page-gesture .loading .badge").html());
 			if (self.loadedImageCount == self.images.length) {
 				$("#page-gesture .loading").hide();
-da("self.loadedImageCount == self.images.length");
+				da("self.loadedImageCount == self.images.length");
 				console.log("All images have loaded (or died trying)!");
 				self.createSwiper();
 			}
@@ -405,13 +405,13 @@ da("self.loadedImageCount == self.images.length");
 				imageLoadPost(self);
 			};
 			//sleep(50);
-da("self.images.push(img);");
+			da("self.images.push(img);");
 			self.images.push(img);
 		});
 	},
 
 	setSlideHtml : function(pageIndex) {
-			da("setSlideHtml");
+		da("setSlideHtml");
 		var self = app.catalogue;
 		if (pageIndex >= 0 && pageIndex < self.images.length) {
 
@@ -429,14 +429,14 @@ da("self.images.push(img);");
 	},
 
 	setPage : function(pageIndex) {
-			da("setPage");
+		da("setPage");
 		var self = app.catalogue;
 		self.setSlideHtml(pageIndex);
 		self.setSlideHtml(pageIndex - 1);
 		self.setSlideHtml(pageIndex + 1);
 
 		// empty the other slides
-			da("empty the other slides");
+		da("empty the other slides");
 		for (var i = 0, j = self.images.length; i < j; i++) {
 			if (i < pageIndex - 1 && i > pageIndex + 1) {
 				self.swiper.slides[i].html(self.templateDiv);
@@ -474,7 +474,7 @@ da("self.images.push(img);");
 		}
 	},
 	createSmoothZoom : function(imgId) {
-			da("createSmoothZoom");
+		da("createSmoothZoom");
 		$(imgId).smoothZoom({
 			width : '100%',
 			height : '100%',
@@ -491,20 +491,28 @@ da("self.images.push(img);");
 	load : function() {
 		da("load cat");
 		//console.clear();
+		da(this);
+		da(this.loaded);
+		da(this.trying);
 		if (!this.loaded && !this.trying) {
-		da("load cat if");
+			da("load cat if");
 			var obj = this;
 			obj.trying = true;
+			
+			da("glog.step load");
 			glog.step("catalogueObject.load");
 
+			da(".loading show");
 			$("#page-gesture .loading").show();
+
+			da("ajax");
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",
 				async : true,
 				success : function(result) {
 					glog.step("catalogueObject.load");
-			da("extractRawData");
+					da("extractRawData");
 					obj.extractRawData(result);
 
 					obj.trying = false;
@@ -512,13 +520,15 @@ da("self.images.push(img);");
 				},
 				error : function(request, error) {
 					glog.step("catalogueObject.load");
-			da("error");
+					da("error");
 					console.warn(request);
 					console.warn(error);
 
 					obj.trying = false;
 				}
 			});
+		}else{
+			da("already loaded");
 		}
 	}
 };
