@@ -538,7 +538,7 @@ var app = {
 
 		/* set swiper image size (size: 535x332)*/
 		var carouselImageHeight = app.windowWidth * 332 / 535;
-		styles.push('.carousel-sub .swiper-slide img { height: ' + carouselImageHeight + 'px; }\r');
+		styles.push('.carousel-sub .swiper-slide img { width: ' + app.windowWidth + 'px; height: ' + carouselImageHeight + 'px; }\r');
 
 		/* set carousel sizes */
 		var paginationTopOffset = app.headerHeight + carouselImageHeight + 8;
