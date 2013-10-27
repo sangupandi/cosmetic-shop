@@ -561,6 +561,7 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size */
+		//styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.contentHeight + 'px; }\r');
 		styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
 
 		/* map size (topButton size: 299x111) */
@@ -794,6 +795,7 @@ var app = {
 		});
 
 		$("#page-gesture").bind("pageshow", function(event) {
+			
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
 			$('#page-gesture-content').css({
@@ -810,8 +812,9 @@ var app = {
 				'width' : app.windowWidth + 'px;',
 				'height' : app.windowHeight + 'px;'
 			});
-			app.catalogue.load();
+			
 			$('#page-gesture div[data-role="content"] .close').show();
+			app.catalogue.load();
 		});
 
 	},
