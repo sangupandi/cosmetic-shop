@@ -617,12 +617,8 @@ div.loading .badge {
 /* ------------------------------------------------------------------------- */
 #version-info {
 	text-align: center;
-	color: #FFF;
-	font-size: 11px;
-	margin-top: 20px;
-	padding: 16px 0px;
-	background-color: yellow;
-	height:200px;
+	color: #FFFFFF;
+	/*font-size: 11px;*/
 }
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
