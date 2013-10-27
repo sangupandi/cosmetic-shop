@@ -972,7 +972,11 @@ var app = {
 		});
 
 		$('#page-gesture div[data-role="content"] .close').bind('click', function() {
-			goPage("home-page");
+			app.catalogue.onCloseCatalogue();
+			
+			$.mobile.changePage($("#home-page"), {
+				transition : "none"
+			});
 		});
 
 	},
@@ -1304,7 +1308,7 @@ var app = {
 		glog2.log('Device Version: ', device.version);
 
 		glog2.log('internalVersion: ', internalVersion);
-		
+
 		$("#version-info").html(internalVersion);
 	},
 

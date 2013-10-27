@@ -1,10 +1,10 @@
-var internalVersion = "Version 1.0.0 Build:778";
+var internalVersion = "Version 1.0.0 Build:779";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
  * b58805c0606d742d MY XperiaZ
  * 1D457E0D-1433-4E4D-A274-B4288308AC7F GTech iPhone4
- * 
+ *
  */
 var debuggerDevices = ["b58805c0606d742d", "1D457E0D-1433-4E4D-A274-B4288308AC7F"];
 
@@ -414,6 +414,11 @@ catalogueObject.prototype = {
 		});
 	},
 
+	onCloseCatalogue : function() {
+		var pageIndex = app.catalogue.swiper.activeLoopIndex;
+		$('#zoom-image' + pageIndex).smoothZoom('Reset');
+	},
+
 	setSlideHtml : function(pageIndex) {
 		da("setSlideHtml");
 		var self = app.catalogue;
@@ -435,6 +440,10 @@ catalogueObject.prototype = {
 	setPage : function(pageIndex) {
 		da("setPage");
 		var self = app.catalogue;
+
+		var pn = String.format("{0} / {1}", pageIndex + 1, self.images.length);
+		$('#page-gesture div[data-role="content"] .page-numbers').html(pn);
+
 		self.setSlideHtml(pageIndex);
 		self.setSlideHtml(pageIndex - 1);
 		self.setSlideHtml(pageIndex + 1);
@@ -475,6 +484,7 @@ catalogueObject.prototype = {
 				self.swiper.appendSlide(ns);
 			}
 			self.setPage(0);
+			$('#page-gesture div[data-role="content"] .page-numbers').show();
 		}
 	},
 	createSmoothZoom : function(imgId) {

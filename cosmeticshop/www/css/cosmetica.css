@@ -494,6 +494,24 @@ div.loading .badge {
 	cursor: pointer;
 	z-index: 9999;
 }
+#page-gesture div[data-role="content"] .page-numbers {
+	position: absolute;
+	right: 0;
+	bottom: 20%;
+	padding: 16px 8px;
+	background-color: rgba(0,0,0,.3);
+	border: solid 1px #333;
+	text-align: center;
+	color: #FFF;
+	font-weight: bold;
+	display: none;
+	border-radius: 10px;
+	cursor: pointer;
+	z-index: 9999;
+}
+#page-gesture div[data-role="content"] .close:active, #page-gesture div[data-role="content"] .page-numbers:active {
+	background-color: rgb(0,0,0);
+}
 #wrapper-katalog {
 	position: absolute;
 	z-index: 1;
@@ -599,8 +617,9 @@ div.loading .badge {
 /* ------------------------------------------------------------------------- */
 #version-info {
 	text-align: center;
-	color: #424242;
+	color: #FFF;
 	font-size: 11px;
+	margin-top:20px;
 }
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
