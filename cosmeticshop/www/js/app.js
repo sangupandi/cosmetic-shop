@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:800";
+var internalVersion = "Version 1.0.0 Build:801";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -232,10 +232,10 @@ carouselObject.prototype = {
 		var successFunc = function(obj, result) {
 			sender.jsonData[slideIndex].IsUnread = false;
 			switch(sender.menuId) {
-				case "m1":
+				case "#left-menu a#m1 span.badge":
 					app.setbadge(sender.menuId, --app.badgeYeniUrun);
 					break;
-				case "m2":
+				case "#left-menu a#m2 span.badge":
 					app.setbadge(sender.menuId, --app.badgeFirsat);
 					break;
 			}
