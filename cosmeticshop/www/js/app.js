@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:797";
+var internalVersion = "Version 1.0.0 Build:800";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 
 /*
@@ -70,6 +70,114 @@ jsonLoader.prototype = {
 	}
 };
 
+/*
+ * homeSwiperObject
+ */
+function homeSwiperObject() {
+	this.jsonData = null;
+	this.swiper = null;
+	this.template = '<img src="{0}" height="100%"/>';
+	this.svcurl = serviceHost + "/HomeSlidePictures.ashx?uuid=" + device.uuid;
+	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+}
+
+homeSwiperObject.prototype = {
+	errorHandler : function(sender, request, error) {
+		var s = 'Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz!';
+		showMessage(s, 'Veri İletişimi');
+	},
+
+	successHandler : function(sender, result) {
+		if (result != null) {
+			sender.jsonData = result;
+			sender.render();
+
+			/*
+			 * Yeni cihazların kaydı sırasında
+			 * okundu bilgilerinde karışıklık olmaması için
+			 * cihaz bilgisi gönderilip sonuç alındıktan sonra
+			 * burada (bu olaya düşer) kayıtlar istenir.
+			 * 
+			 */
+			app.announcements.load();
+			if (!badges.isLoaded) {
+				app.getBadgesCount();
+			}
+
+		}
+	},
+
+	create : function() {
+		var self = this;
+		if (self.swiper == null) {
+			self.swiper = $('#swiper-home').swiper({
+				pagination : '#pagination-home',
+				paginationClickable : true,
+				loop : true,
+				onSlideChangeEnd : function(e) {
+					var pageId = self.jsonData[e.activeLoopIndex].CategoryID;
+
+					if (pageId) {
+						$('#home-carousel-tap-image').fadeIn(300);
+					} else {
+						$('#home-carousel-tap-image').fadeOut(300);
+					}
+				}
+			});
+
+			$('#home-carousel-tap-image').bind('tap', function() {
+				var self = app.homeSwiper;
+				var pageId = self.jsonData[self.swiper.activeLoopIndex].CategoryID;
+				switch(pageId) {
+					case 1:
+						goPage("page-yeniurun");
+						break;
+					case 2:
+						goPage("page-firsat");
+						break;
+					case 31:
+						$('.b1-1').click();
+						break;
+					case 32:
+						$('.b2-1').click();
+						break;
+					case 33:
+						$('.b3-1').click();
+						break;
+					case 34:
+						$('.b4-1').click();
+						break;
+					default:
+						break;
+				}
+			});
+		}
+	},
+
+	render : function() {
+		var self = this;
+
+		$.each(self.jsonData, function(i, row) {
+			var ns = self.swiper.createSlide(String.format(self.template, row.Url));
+			self.swiper.appendSlide(ns);
+		});
+		self.swiper.removeSlide(0);
+		//self.swiper.removeLastSlide();
+
+		//self.swiper.resizeFix();
+	},
+
+	load : function() {
+		if (this.swiper) {
+			this.swiper.resizeFix();
+		}
+		this.loader.load(this);
+	}
+};
+
+/*
+ * announcementsObject
+ */
 function announcementsObject() {
 	this.jsonData = null;
 	this.svcurl = serviceHost + "/Announcements.ashx?uuid=" + device.uuid;
@@ -117,9 +225,6 @@ function carouselObject(_domId, _categoryId, _menuId) {
 
 	this.jsonData = null;
 	this.menuId = _menuId;
-
-	//this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
-	//this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
 carouselObject.prototype = {
@@ -169,7 +274,6 @@ carouselObject.prototype = {
 		});
 		self.swiper.removeLastSlide();
 
-		//self.swiper.resizeFix();
 		self.swiper.reInit();
 		self.onSlideChangeEnd(self, 0);
 	},
@@ -190,68 +294,48 @@ carouselObject.prototype = {
  */
 function guzellikSirlari(_categoryId, _appObjVarName) {
 	this.templateSelector = '#gsTemplateB';
-	this.template = '<li onclick="goGsDetail(app.{2}, {3})">{0}<p>{1}</p></li>';
-
+	this.template = '<li onclick="goGsDetail(app.{2}, {3})"><img src="{0}"/><p>{1}</p></li>';
+	this.categoryId = _categoryId;
 	this.jsonData = null;
 	this.appObjVarName = _appObjVarName;
-
-	this.announcements = [];
-	this.svcurl = serviceHost + "/Announcements.ashx?cat=" + _categoryId + "&uuid=" + device.uuid;
-	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
 }
 
 guzellikSirlari.prototype = {
-	errorHandler : function(sender, request, error) {
-		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	},
-
-	successHandler : function(sender, result) {
-		if (result != null) {
-			sender.jsonData = result;
-			var template = sender.template;
-			$.each(result, function(i, row) {
-				sender.announcements.push(String.format(template, row.Html, row.Description, sender.appObjVarName, i));
-			});
-			sender.render();
-		}
-	},
-
 	render : function() {
-		$(this.templateSelector).html(this.announcements.join(""));
-		//console.log($(this.templateSelector).html());
+		var self = this;
+		var arr = [];
+		$.each(self.jsonData, function(i, row) {
+			arr.push(String.format(self.template, row.ImageUrl, row.Description, self.appObjVarName, i));
+		});
+		$(this.templateSelector).html(arr.join(''));
 	},
 
 	load : function() {
 		$(this.templateSelector).html("");
 
-		if (this.loader.loaded) {
-			this.render();
-		} else {
-			this.loader.load(this);
-		}
+		if (this.jsonData == null) {
+			this.jsonData = app.announcements.list(this.categoryId);
+		};
+		this.render();
 	}
 };
 
 /*
  * guzellikSirlariChild
  */
-function guzellikSirlariChild(_parentId) {
+function guzellikSirlariChild(_row) {
 	this.templateSelector = '#gsbContent2';
-	this.template = '<div id="gsb2img">{0}</div><div id="gsb2text">{1}</div>';
-
-	this.jsonData = null;
-	this.announcements = [];
-	this.svcurl = serviceHost + "/Announcements.ashx?pid=" + _parentId + "&uuid=" + device.uuid;
-	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+	this.template = '<div id="gsb2img"><img src="{0}"/></div><div id="gsb2text">{1}</div>';
+	this.row = _row;
 }
 
 guzellikSirlariChild.prototype = {
 	setReadInfo : function() {
-		var successFunc = function(obj, result) {
-			obj.jsonData[0].IsUnread = false;
-			app.setbadge("m3", --badges.GuzellikSirlari);
+		var successFunc = function(sender, result) {
+			sender.row.IsUnread = false;
+			app.setbadge('#left-menu a#m3 span.badge', --badges.GuzellikSirlari);
 
-			switch(obj.jsonData[0].parentCategoryID) {
+			switch(sender.row.CategoryID) {
 				case 31:
 					app.setbadge('.brick.b1-1 span.badge', --badges.GuzellikSirlariGoz);
 					break;
@@ -267,51 +351,23 @@ guzellikSirlariChild.prototype = {
 			}
 			//console.warn("okundu...");
 		};
-		var errorFunc = function(obj, request, error) {
+		var errorFunc = function(sender, request, error) {
 			// no action
 		};
 
-		//console.dir(this);
-		//console.log("IsUnread : " + this.jsonData[0].IsUnread);
-
-		if (this.jsonData[0].IsUnread) {
-			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", this.jsonData[0].ID, device.uuid);
+		var self = this;
+		if (self.row.IsUnread) {
+			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", self.row.ID, device.uuid);
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
-			jl.load(this);
-		}
-	},
-
-	errorHandler : function(sender, request, error) {
-		alert('Bağlantı hatası oluştu tekrar deneyiniz!' + request);
-	},
-
-	successHandler : function(sender, result) {
-		if (result != null) {
-			sender.jsonData = result;
-			var template = sender.template;
-			$.each(result, function(i, row) {
-				sender.announcements.push(String.format(template, row.Html, row.Description, row.ID));
-			});
-			sender.render();
-			sender.setReadInfo();
+			jl.load(self);
 		}
 	},
 
 	render : function() {
-		if (this.loader.loaded) {
-			$(this.templateSelector).html(this.announcements.join(""));
-			//console.log($(this.templateSelector).html());
-		}
-	},
-
-	load : function() {
-		$(this.templateSelector).html("");
-
-		if (this.loader.loaded) {
-			this.render();
-		} else {
-			this.loader.load(this);
-		}
+		var self = this;
+		var content = String.format(self.template, self.row.ChildImageUrl, self.row.ChildDescription, self.row.ID);
+		$(self.templateSelector).html(content);
+		self.setReadInfo();
 	}
 };
 
@@ -366,6 +422,7 @@ shopListObject.prototype = {
 	getTemplate : function() {
 		if (this.shopTemplate == null) {
 			this.shopTemplate = $(this.selector).html();
+			$(this.selector).html("");
 		}
 	},
 
@@ -413,11 +470,8 @@ catalogueObject.prototype = {
 		function imageLoadPost(self) {
 			self.loadedImageCount++;
 			$("#page-gesture .loading .badge").html(String.format("{0} / {1}", self.loadedImageCount, self.images.length));
-			//console.log($("#page-gesture .loading .badge").html());
 			if (self.loadedImageCount == self.images.length) {
 				$("#page-gesture .loading").hide();
-				da("self.loadedImageCount == self.images.length");
-				console.log("All images have loaded (or died trying)!");
 				self.createSwiper();
 			}
 		}
@@ -435,8 +489,6 @@ catalogueObject.prototype = {
 			img.onerror = function() {
 				imageLoadPost(self);
 			};
-			//sleep(50);
-			da("self.images.push(img);");
 			self.images.push(img);
 		});
 	},
@@ -447,7 +499,6 @@ catalogueObject.prototype = {
 	},
 
 	setSlideHtml : function(pageIndex) {
-		da("setSlideHtml");
 		var self = app.catalogue;
 		if (pageIndex >= 0 && pageIndex < self.images.length) {
 
@@ -465,7 +516,6 @@ catalogueObject.prototype = {
 	},
 
 	setPage : function(pageIndex) {
-		da("setPage");
 		var self = app.catalogue;
 
 		var pn = String.format("{0} / {1}", pageIndex + 1, self.images.length);
@@ -476,7 +526,6 @@ catalogueObject.prototype = {
 		self.setSlideHtml(pageIndex + 1);
 
 		// empty the other slides
-		da("empty the other slides");
 		for (var i = 0, j = self.images.length; i < j; i++) {
 			if (i < pageIndex - 1 && i > pageIndex + 1) {
 				self.swiper.slides[i].html(self.templateDiv);
@@ -487,23 +536,17 @@ catalogueObject.prototype = {
 	createSwiper : function() {
 		var self = this;
 		if (self.swiper == null) {
-			da("createSwiper");
 			/*
 			 * ---------------------------------------------------------
 			 * Create swiper and handle events
 			 * ---------------------------------------------------------
 			 */
 			self.swiper = new Swiper('#carousel4', {
-				//grabCursor : true,
 				mode : 'vertical',
-				//centeredSlides : true,
-				//pagination : '#carousel4-pagination',
-				//paginationClickable : true,
 				onSlideChangeEnd : function(e) {
 					app.catalogue.setPage(e.activeLoopIndex);
 				}
 			});
-			da("init blank slides");
 
 			// init blank slides
 			for ( i = 0; i < self.images.length; i++) {
@@ -515,7 +558,6 @@ catalogueObject.prototype = {
 		}
 	},
 	createSmoothZoom : function(imgId) {
-		da("createSmoothZoom");
 		$(imgId).smoothZoom({
 			width : '100%',
 			height : '100%',
@@ -530,46 +572,31 @@ catalogueObject.prototype = {
 	},
 
 	load : function() {
-		da("load cat");
-		//console.clear();
-		da(this);
-		da(this.loaded);
-		da(this.trying);
 		if (!this.loaded && !this.trying) {
-			da("load cat if");
 			var obj = this;
 			obj.trying = true;
 
-			da("glog.step load");
 			glog.step("catalogueObject.load");
 
-			da(".loading show");
 			$("#page-gesture .loading").show();
 
-			da("ajax");
 			$.ajax({
 				url : this.jsonDataUrl,
 				dataType : "jsonp",
 				async : true,
 				success : function(result) {
 					glog.step("catalogueObject.load");
-					da("extractRawData");
 					obj.extractRawData(result);
-
 					obj.trying = false;
 					obj.loaded = true;
 				},
 				error : function(request, error) {
 					glog.step("catalogueObject.load");
-					da("error");
 					console.warn(request);
 					console.warn(error);
-
 					obj.trying = false;
 				}
 			});
-		} else {
-			da("already loaded");
 		}
 	}
 };
@@ -813,13 +840,9 @@ function goMap(shop) {
 }
 
 function goGsDetail(sender, itemIndex) {
-	var p = sender.jsonData[itemIndex];
-	if (!p.gsChild) {
-		p.gsChild = new guzellikSirlariChild(p.ID);
-		p.gsChild.load();
-	} else {
-		p.gsChild.render();
-	}
+	var row = sender.jsonData[itemIndex];
+	var child = new guzellikSirlariChild(row);
+	child.render();
 
 	$.mobile.changePage($('#page-guzellik-c'), {
 		transition : "slide"

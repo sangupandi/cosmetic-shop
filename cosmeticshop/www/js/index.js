@@ -5,7 +5,7 @@ var badges = {
 	GuzellikSirlariGoz : 0,
 	GuzellikSirlariYuz : 0,
 	GuzellikSirlariDudak : 0,
-	GuzellikSirlariTirnal : 0,
+	GuzellikSirlariTirnak : 0,
 	isLoaded : false
 };
 
@@ -132,7 +132,7 @@ var app = {
 	preloadImages : null,
 	catalogue : null,
 	shopList : null,
-	swHome : null,
+	homeSwiper : null,
 	announcements : null,
 
 	currentPageId : function() {
@@ -451,7 +451,7 @@ var app = {
 	},
 
 	initLayoutHomePage : function() {
-		app.initHomeSwiper();
+		app.homeSwiper.create();
 		$.mobile.changePage($("#home-page"), {
 			transition : "fade"
 		});
@@ -530,7 +530,7 @@ var app = {
 		styles.push('#home-carousel-tap-image { width: ' + (app.windowHeight * 119 / 901) + 'px; }\r');
 
 		/* set swiper container height and content height */
-		styles.push('#swiper-home { height: ' + app.windowHeight + 'px; }\r');
+		styles.push('#swiper-home, #swiper-home .swiper-slide { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
 		styles.push('#home-page div[data-role="content"] { height: ' + app.windowHeight + 'px; }\r');
 
 		styles.push('#swiper-catalogue { height: ' + app.windowHeight + 'px; }\r');
@@ -544,7 +544,7 @@ var app = {
 		var paginationTopOffset = app.headerHeight + carouselImageHeight + 8;
 		styles.push('#carousel1, #carousel2 { width: ' + app.windowWidth + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
 		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
-		styles.push('.swiper-slide .desc { height: ' + (app.contentHeight - paginationTopOffset + app.headerHeight - 20) + 'px; }\r');
+		styles.push('.swiper-slide .desc, #gsb2text { height: ' + (app.contentHeight - paginationTopOffset + app.headerHeight - 20) + 'px; }\r');
 
 		/* footer buttons (size: 150x80) */
 		var buttonCount = 5;
@@ -761,12 +761,8 @@ var app = {
 		});
 
 		$("#home-page").bind("pageshow", function(event) {
-			app.initHomeSwiper();
-			app.announcements.load();
+			app.homeSwiper.load();
 			//app.preloadImages.load();
-			if (!badges.isLoaded) {
-				app.getBadgesCount();
-			}
 		});
 
 		$("#page-yeniurun").bind("pageshow", function(event) {
@@ -848,7 +844,7 @@ var app = {
 		});
 
 		$("#page-ayarlar").bind("pageshow", function(event) {
-			alert(internalVersion);
+			//alert(internalVersion);
 		});
 
 	},
@@ -1042,8 +1038,8 @@ var app = {
 						// use '' instead of null for pre-2.0 versions of this plugin
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
-						//window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
-						window.plugins.socialsharing.share(glog2.logString);
+						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+						//window.plugins.socialsharing.share(glog2.logString);
 					}
 				});
 			});
@@ -1277,6 +1273,7 @@ var app = {
 		/*
 		 * Create Objects
 		 */
+		app.homeSwiper = new homeSwiperObject();
 		app.announcements = new announcementsObject();
 		app.carousel1 = new carouselObject("#carousel1", 1, "m1");
 		app.carousel2 = new carouselObject("#carousel2", 2, "m2");
@@ -1325,11 +1322,20 @@ var app = {
 		app.initImageHovers('.fm');
 
 		// debug info
+		device.phonegap = internalVersion;
+
+		// debug info
 		console.dir(device);
 		console.log("isPhoneGap() : " + isPhoneGap());
 		console.log("getDeviceType() : " + getDeviceType());
 		console.log("platform_iOS() : " + platform_iOS());
 		console.log("platform_Android() : " + platform_Android());
+
+		console.log('Device Name: ' + device.name);
+		console.log('Device PhoneGap: ' + device.phonegap);
+		console.log('Device Platform: ' + device.platform);
+		console.log('Device UUID: ' + device.uuid);
+		console.log('Device Version: ' + device.version);
 
 		glog2.log("isPhoneGap() : ", isPhoneGap());
 		glog2.log("getDeviceType() : ", getDeviceType());
@@ -1374,34 +1380,6 @@ var app = {
 			$('#debugLabel').html("I WAS IN THE BACKGROUND ID=" + id);
 		}
 
-	},
-
-	initHomeSwiper : function() {
-		if (app.swHome == null) {
-
-			app.swHome = $('#swiper-home').swiper({
-				pagination : '#pagination-home',
-				paginationClickable : true,
-				loop : true,
-				/*initialSlide : 0,*/
-				onSlideChangeEnd : function(sw) {
-					var pageId = app.swHome.slides[app.swHome.activeIndex].attributes.getNamedItem('page-id').value;
-					console.warn('pageId : ', pageId);
-				}
-			});
-
-		} else {
-			$('#swiper-home').css({
-				"width" : app.windowWidth + "px",
-				"height" : app.windowHeight + "px"
-			});
-			app.swHome.resizeFix();
-		}
-
-		$('#home-carousel-tap-image').bind('tap', function() {
-			var pageId = app.swHome.slides[app.swHome.activeIndex].attributes.getNamedItem('page-id').value;
-			goPage(pageId);
-		});
 	}
 };
 
