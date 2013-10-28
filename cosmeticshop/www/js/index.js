@@ -735,8 +735,8 @@ var app = {
 				 });
 				 */
 			} catch(e) {
-				alert("PushWoosh.sendBadge error");
-				alert(e);
+				//alert("PushWoosh.sendBadge error");
+				//alert(e);
 			}
 
 		};
@@ -960,7 +960,7 @@ var app = {
 			}
 
 			if (displayError)
-				alert("Konum bilginiz saptanamadı.");
+				showMessage("Konum bilginiz saptanamadı.", "Bilgi");
 		});
 
 		/* Uygulamalar */
@@ -1112,22 +1112,22 @@ var app = {
 			//result = regId
 			app.registerPushWooshService(result);
 		} catch(e) {
-			alert("token catch : " + e.toString());
-			alert(PushWoosh);
+			//alert("token catch : " + e.toString());
+			//alert(PushWoosh);
 		}
 	},
 
 	// for both
 	pushErrorHandler : function(error) {
 		glog2.log("pushErrorHandler error", error);
-		console.log("Error Handler : " + error);
-		alert("Error Handler : " + error);
+		//console.log("Error Handler : " + error);
+		//alert("Error Handler : " + error);
 	},
 
 	// result contains any message sent from the plugin call
 	pushSuccessHandler : function(result) {
 		glog2.log("pushSuccessHandler result", result);
-		alert('Success Handler : ' + result);
+		//alert('Success Handler : ' + result);
 	},
 
 	setPushNotifications : function() {
@@ -1185,8 +1185,8 @@ var app = {
 			navigator.notification.alert(event.alert);
 		}
 		if (event.badge) {
-			alert("Set badge on  " + pushNotification);
-			alert("event.badge " + event.badge);
+			//alert("Set badge on  " + pushNotification);
+			//alert("event.badge " + event.badge);
 
 			//pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
 			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
@@ -1218,15 +1218,15 @@ var app = {
 			case 'message':
 				// this is the actual push notification. its format depends on the data model
 				// of the intermediary push server which must also be reflected in GCMIntentService.java
-				alert(e.message);
+				showMessage(e.message, "Bildirim");
 				break;
 
 			case 'error':
-				alert('GCM error = ' + e.msg);
+				showMessage('GCM error = ' + e.msg, "Hata");
 				break;
 
 			default:
-				alert('An unknown GCM event has occurred');
+				showMessage('An unknown GCM event has occurred', "Hata");
 				break;
 		}
 	},
