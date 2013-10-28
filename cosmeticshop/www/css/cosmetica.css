@@ -588,6 +588,9 @@ div.loading .badge {
 	color: #fff;
 	text-align: center;
 }
+#carousel4 .swiper-slide {
+	color: #000;
+}
 .smooth_zoom_preloader {
 	background-image: url(../zoom_assets/preloader.gif);
 }
@@ -629,7 +632,7 @@ div.loading .badge {
 	width: 100%;
 }
 #gsb2text {
-	margin-top:10px;
+	margin-top: 10px;
 	overflow-y: scroll;
 }
 /* ------------------------------------------------------------------------- */
