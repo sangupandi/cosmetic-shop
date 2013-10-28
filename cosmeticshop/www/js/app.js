@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:803";
+var internalVersion = "Version 1.0.0 Build:804";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -244,7 +244,7 @@ carouselObject.prototype = {
 					app.setbadge("#left-menu a#m1 span.badge", --app.badgeYeniUrun);
 					break;
 				case "m2":
-					app.setbadge("#left-menu a#m1 span.badge", --app.badgeFirsat);
+					app.setbadge("#left-menu a#m2 span.badge", --app.badgeFirsat);
 					break;
 			}
 		};
