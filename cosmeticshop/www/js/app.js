@@ -1,6 +1,14 @@
-var internalVersion = "Version 1.0.0 Build:801";
+var internalVersion = "Version 1.0.0 Build:802";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
-
+appCodes = {
+	push : {
+		pushWooshAppCode : "83E51-9B80D",
+		androidSenderId : "268470725852"
+	},
+	map : {
+		keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
+	}
+};
 /*
  * b58805c0606d742d MY XperiaZ
  * 1D457E0D-1433-4E4D-A274-B4288308AC7F GTech iPhone4
@@ -97,7 +105,7 @@ homeSwiperObject.prototype = {
 			 * okundu bilgilerinde karışıklık olmaması için
 			 * cihaz bilgisi gönderilip sonuç alındıktan sonra
 			 * burada (bu olaya düşer) kayıtlar istenir.
-			 * 
+			 *
 			 */
 			app.announcements.load();
 			if (!badges.isLoaded) {
@@ -892,7 +900,7 @@ function startGuzellikSirriAnimation() {
 function loadMapScript(callbackFunctionName) {
 	// Asynchronous Loading
 	// https://developers.google.com/maps/documentation/javascript/examples/map-simple-async
-	var keyForBrowser = 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc';
+	var keyForBrowser = appCodes.map.keyForBrowser;
 
 	glog.step('loadMapScript');
 	var script = document.createElement('script');

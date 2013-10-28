@@ -1139,7 +1139,7 @@ var app = {
 				glog2.log("pushNotification.register", "app.onNotificationGCM");
 
 				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
-					"senderID" : "268470725852",
+					"senderID" : appCodes.push.androidSenderId,
 					"ecb" : "app.onNotificationGCM"
 				});
 
@@ -1162,7 +1162,7 @@ var app = {
 	// for both
 	registerPushWooshService : function(regId) {
 		glog2.log("registerPushWooshService regId", regId);
-		PushWoosh.appCode = "83E51-9B80D";
+		PushWoosh.appCode = appCodes.push.pushWooshAppCode;
 		PushWoosh.register(regId, function(data) {
 			//alert("PushWoosh register success: " + JSON.stringify(data));
 		}, function(errorRegistration) {
