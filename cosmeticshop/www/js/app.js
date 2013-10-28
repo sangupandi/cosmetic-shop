@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:802";
+var internalVersion = "Version 1.0.0 Build:803";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -240,11 +240,11 @@ carouselObject.prototype = {
 		var successFunc = function(obj, result) {
 			sender.jsonData[slideIndex].IsUnread = false;
 			switch(sender.menuId) {
-				case "#left-menu a#m1 span.badge":
-					app.setbadge(sender.menuId, --app.badgeYeniUrun);
+				case "m1":
+					app.setbadge("#left-menu a#m1 span.badge", --app.badgeYeniUrun);
 					break;
-				case "#left-menu a#m2 span.badge":
-					app.setbadge(sender.menuId, --app.badgeFirsat);
+				case "m2":
+					app.setbadge("#left-menu a#m1 span.badge", --app.badgeFirsat);
 					break;
 			}
 		};
@@ -785,7 +785,7 @@ function postCustomerInfoForm() {
 		showMessage("Eposta almak için eposta adresinizi giriniz.", "Uyarı");
 		return;
 	}
-	if (epostaAl != "" && !isValidEmailAddress(epostaAl)) {
+	if (epostaAl != "" && !isValidEmailAddress(eposta)) {
 		showMessage("Geçerli bir eposta adresi giriniz.", "Uyarı");
 		return;
 	}

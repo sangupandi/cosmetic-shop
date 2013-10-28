@@ -1182,7 +1182,7 @@ var app = {
 		console.log("event badge " + event.badge);
 		console.log("event " + event);
 		if (event.alert) {
-			navigator.notification.alert(event.alert);
+			showMessage(event.alert, "Bildirim");
 		}
 		if (event.badge) {
 			//alert("Set badge on  " + pushNotification);
