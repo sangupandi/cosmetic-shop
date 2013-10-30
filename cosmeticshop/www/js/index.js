@@ -271,26 +271,7 @@ var app = {
 				map.panTo(marker.getPosition());
 			});
 
-			// Start tracking the User
-			app.watch_id = navigator.geolocation.watchPosition(function(position) {
-				// Success
-				//console.log(position);
-				app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				app.currentLocationMarker.setPosition(app.currentLocation);
-				//element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' + 'Longitude: ' + position.coords.longitude + '<br />' + '<hr />' + element.innerHTML;
-			}, function(error) {
-				// Error
-				console.log(error);
-			}, {
-				// Settings
-				frequency : 3000,
-				enableHighAccuracy : true
-			});
-
-			// Tidy up the UI
-			track_id = $("#track_id").val();
-			$("#track_id").hide();
-			$("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
+			app.watchPosition();
 
 			app.showCurrentLocationFirstTime = true;
 
@@ -308,6 +289,24 @@ var app = {
 		navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFail, {
 			timeout : 8000,
 			enableHighAccuracy : highAccuracy
+		});
+	},
+
+	watchPosition : function() {
+		// Start tracking the User
+		app.watch_id = navigator.geolocation.watchPosition(function(position) {
+			// Success
+			//console.log(position);
+			app.currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			app.currentLocationMarker.setPosition(app.currentLocation);
+			//element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' + 'Longitude: ' + position.coords.longitude + '<br />' + '<hr />' + element.innerHTML;
+		}, function(error) {
+			// Error
+			console.log(error);
+		}, {
+			// Settings
+			frequency : 3000,
+			enableHighAccuracy : true
 		});
 	},
 

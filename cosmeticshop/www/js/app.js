@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:816";
+var internalVersion = "Version 1.0.0 Build:817";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
