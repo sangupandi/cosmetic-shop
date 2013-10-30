@@ -806,6 +806,11 @@ var app = {
 		});
 
 		$("#page-harita").bind("pageshow", function(event) {
+
+			if (app.currentLocation != null) {
+				app.watchPosition();
+			}
+
 			app.shopList.load(app.addMarkers);
 
 			if (app.mapApiReady) {
