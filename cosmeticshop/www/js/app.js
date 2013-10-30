@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:817";
+var internalVersion = "Version 1.0.0 Build:819";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -180,7 +180,7 @@ homeSwiperObject.prototype = {
 		//self.swiper.removeLastSlide();
 
 		//self.swiper.resizeFix();
-		self.onSlideChangeEnd(self);	
+		self.onSlideChangeEnd(self);
 	},
 
 	load : function() {
@@ -257,7 +257,7 @@ function carouselObject(_domId, _categoryId, _menuId) {
 
 	this.paginationDomId = _domId + "-pagination";
 	this.templateSelector = _domId + ' .swiper-wrapper';
-	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
+	this.template = '<div class="swiper-slide" onclick="openAnn({2});" >{0}<div class="desc">{1}</div></div>';
 	this.reloadRequested = true;
 
 	this.jsonData = null;
@@ -311,13 +311,14 @@ carouselObject.prototype = {
 		var template = self.template;
 		$.each(self.jsonData, function(i, row) {
 			var imgHtml = String.format('<img src="{0}" width="100%"/>', row.ImageUrl);
-			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>');
+			var annUrl = "'" + row.RedirectUrl + "'";
+			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>', annUrl);
 			var ns = self.swiper.createSlide(divHtml);
 			self.swiper.prependSlide(ns);
 		});
 		self.swiper.removeLastSlide();
 
-		enableLinks(this.templateSelector);
+		//enableLinks(this.templateSelector);
 
 		self.swiper.reInit();
 		self.onSlideChangeEnd(self, 0);
@@ -379,7 +380,7 @@ guzellikSirlari.prototype = {
  */
 function guzellikSirlariChild(_row) {
 	this.templateSelector = '#gsbContent2';
-	this.template = '<div id="gsb2img"><img src="{0}"/></div><div id="gsb2text">{1}</div>';
+	this.template = '<div id="gsb2img" onclick="openAnn({2})"><img src="{0}"/></div><div id="gsb2text">{1}</div>';
 	this.row = _row;
 }
 
@@ -419,9 +420,10 @@ guzellikSirlariChild.prototype = {
 
 	render : function() {
 		var self = this;
-		var content = String.format(self.template, self.row.ChildImageUrl, self.row.ChildDescription, self.row.ID);
+		var annUrl = "'" + self.row.RedirectUrl + "'";
+		var content = String.format(self.template, self.row.ChildImageUrl, self.row.ChildDescription, annUrl);
 		$(self.templateSelector).html(content);
-		enableLinks(self.templateSelector);
+		//enableLinks(self.templateSelector);
 		self.setReadInfo();
 	}
 };
@@ -719,6 +721,17 @@ function platform_iOS() {
 
 function platform_Android() {
 	return (getDeviceType() == "Android");
+}
+
+function openAnn(url) {
+	try {
+		if (url != null && url != "null" && url != "") {
+			ref = window.open(encodeURI("http://" + url), '_new', 'location=no,enableViewPortScale=yes');
+		}
+		//encode is for if you have any variables in your link
+	} catch (err) {
+		alert(err);
+	}
 }
 
 function openInAppBrowser(url) {
