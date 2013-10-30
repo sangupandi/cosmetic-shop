@@ -1,12 +1,15 @@
-var internalVersion = "Version 1.0.0 Build:807";
+var internalVersion = "Version 1.0.0 Build:808";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
-		pushWooshAppCode : "83E51-9B80D",
-		androidSenderId : "268470725852"
+		//pushWooshAppCode : "83E51-9B80D",
+		//androidSenderId : "268470725852"
+		pushWooshAppCode : "8929B-D7D16",
+		androidSenderId : "449671850278"		
 	},
 	map : {
-		keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
+		//keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
+		keyForBrowser : 'AIzaSyBwH3SfcJdQu0Z-D_JbyfN4FQMt67Lo3V8'
 	}
 };
 /*
