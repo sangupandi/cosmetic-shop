@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:808";
+var internalVersion = "Version 1.0.0 Build:810";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -783,7 +783,6 @@ function postCustomerInfoForm() {
 
 	var successFunc = function(obj, result) {
 		showMessage("Formunuz kayda alındı.\r Teşekkür ederiz.", "Bilgi");
-		console.dir(result);
 		$('#btnSubmitForm').attr("disabled", false);
 	};
 	var errorFunc = function(obj, request, error) {
@@ -939,8 +938,12 @@ function goPage(pageId) {
 function enableLinks(selector) {
 	$(selector + " a").each(function() {
 		$(this).click(function() {
-			console.dir($(this));
-			openInAppBrowser($(this)[0].href);
+			try {
+				showMessage($(this)[0].href, "Bağlantı");
+				openInAppBrowser($(this)[0].href);
+			} catch(e) {
+				showMessage(e, "Hata");
+			}
 		});
 	});
 }
