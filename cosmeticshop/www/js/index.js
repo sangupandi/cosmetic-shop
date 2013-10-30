@@ -797,6 +797,15 @@ var app = {
 
 		});
 
+		$("#page-harita").bind("pagebeforehide", function(event) {
+			//showMessage("pagebeforechange");
+			if (app.watch_id != null) {
+				window.navigator.geolocation.clearWatch(app.watch_id);
+				app.watch_id = null;
+			}
+
+		});
+
 		$("#page-harita").bind("pageshow", function(event) {
 			app.shopList.load(app.addMarkers);
 
