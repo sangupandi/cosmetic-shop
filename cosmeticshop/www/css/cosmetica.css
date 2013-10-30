@@ -625,6 +625,9 @@ div.loading .badge {
 	/*font-size: 11px;*/
 }
 /* ------------------------------------------------------------------------- */
+#gsbContent{
+	overflow: scroll;
+}
 #gsbContent2 {
 	overflow: hidden;
 }
