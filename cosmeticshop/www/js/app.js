@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:810";
+var internalVersion = "Version 1.0.0 Build:813";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -939,7 +939,7 @@ function enableLinks(selector) {
 	$(selector + " a").each(function() {
 		$(this).click(function() {
 			try {
-				showMessage($(this)[0].href, "Bağlantı");
+				//showMessage($(this)[0].href, "Bağlantı");
 				openInAppBrowser($(this)[0].href);
 			} catch(e) {
 				showMessage(e, "Hata");
