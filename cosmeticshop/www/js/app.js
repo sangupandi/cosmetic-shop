@@ -5,7 +5,7 @@ appCodes = {
 		//pushWooshAppCode : "83E51-9B80D",
 		//androidSenderId : "268470725852"
 		pushWooshAppCode : "8929B-D7D16",
-		androidSenderId : "449671850278"		
+		androidSenderId : "449671850278"
 	},
 	map : {
 		//keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
@@ -312,6 +312,8 @@ carouselObject.prototype = {
 		});
 		self.swiper.removeLastSlide();
 
+		enableLinks(this.templateSelector);
+
 		self.swiper.reInit();
 		self.onSlideChangeEnd(self, 0);
 	},
@@ -354,7 +356,7 @@ guzellikSirlari.prototype = {
 
 	load : function() {
 		$(this.templateSelector).html("");
-		
+
 		if (this.reloadRequested) {
 			this.jsonData = null;
 			this.reloadRequested = false;
@@ -414,6 +416,7 @@ guzellikSirlariChild.prototype = {
 		var self = this;
 		var content = String.format(self.template, self.row.ChildImageUrl, self.row.ChildDescription, self.row.ID);
 		$(self.templateSelector).html(content);
+		enableLinks(self.templateSelector);
 		self.setReadInfo();
 	}
 };
@@ -931,6 +934,15 @@ function sleep(milliseconds) {
 
 function goPage(pageId) {
 	$.mobile.changePage($("#" + pageId));
+}
+
+function enableLinks(selector) {
+	$(selector + " a").each(function() {
+		$(this).click(function() {
+			console.dir($(this));
+			openInAppBrowser($(this)[0].href);
+		});
+	});
 }
 
 function startGuzellikSirriAnimation() {
