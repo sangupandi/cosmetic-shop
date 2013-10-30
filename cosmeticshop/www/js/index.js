@@ -882,6 +882,7 @@ var app = {
 			$.mobile.changePage($("#page-harita"));
 		});
 		$("#m9").bind('tap', function(event, ui) {
+			//app.announcements.reload();
 			$.mobile.changePage($("#page-ayarlar"));
 		});
 	},
@@ -1195,6 +1196,7 @@ var app = {
 			var snd = new Media(event.sound);
 			snd.play();
 		}
+		app.announcements.reload();
 	},
 	// Android
 	onNotificationGCM : function(e) {
@@ -1229,6 +1231,7 @@ var app = {
 				showMessage('An unknown GCM event has occurred', "Hata");
 				break;
 		}
+		app.announcements.reload();
 	},
 
 	setbadge : function(selector, value) {

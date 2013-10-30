@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:804";
+var internalVersion = "Version 1.0.0 Build:807";
 var serviceHost = "http://www.gtech.com.tr/cosmetica";
 appCodes = {
 	push : {
@@ -190,10 +190,12 @@ function announcementsObject() {
 	this.jsonData = null;
 	this.svcurl = serviceHost + "/Announcements.ashx?uuid=" + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+	this.reloadRequested = false;
 }
 
 announcementsObject.prototype = {
 	errorHandler : function(sender, request, error) {
+		this.reloadRequested = false;
 		var s = 'Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz!';
 		showMessage(s, 'Veri İletişimi');
 	},
@@ -201,7 +203,25 @@ announcementsObject.prototype = {
 	successHandler : function(sender, result) {
 		if (result != null) {
 			sender.jsonData = result;
+
+			if (sender.reloadRequested) {
+				sender.reloadRequested = false;
+				// reset data
+				app.carousel1.reloadRequested = true;
+				app.carousel2.reloadRequested = true;
+				app.gsGoz.reloadRequested = true;
+				app.gsYuz.reloadRequested = true;
+				app.gsDudak.reloadRequested = true;
+				app.gsTirnak.reloadRequested = true;
+				app.getBadgesCount();
+			}
 		}
+	},
+
+	reload : function() {
+		this.loader.loaded = false;
+		this.reloadRequested = true;
+		this.load();
 	},
 
 	load : function() {
@@ -230,6 +250,7 @@ function carouselObject(_domId, _categoryId, _menuId) {
 	this.paginationDomId = _domId + "-pagination";
 	this.templateSelector = _domId + ' .swiper-wrapper';
 	this.template = '<div class="swiper-slide">{0}<div class="desc">{1}</div></div>';
+	this.reloadRequested = true;
 
 	this.jsonData = null;
 	this.menuId = _menuId;
@@ -263,15 +284,21 @@ carouselObject.prototype = {
 		//https://github.com/nolimits4web/Swiper/blob/master/demo-apps/gallery/js/gallery-app.js
 		var self = this;
 
-		self.swiper = new Swiper(self.domId, {
-			pagination : self.paginationDomId,
-			loop : true,
-			grabCursor : true,
-			paginationClickable : false,
-			onSlideChangeEnd : function(e) {
-				self.onSlideChangeEnd(self, e.activeLoopIndex);
+		if (self.swiper == null) {
+			self.swiper = new Swiper(self.domId, {
+				pagination : self.paginationDomId,
+				loop : true,
+				grabCursor : true,
+				paginationClickable : false,
+				onSlideChangeEnd : function(e) {
+					self.onSlideChangeEnd(self, e.activeLoopIndex);
+				}
+			});
+		} else {
+			while (self.swiper.slides.length > 1) {
+				self.swiper.removeLastSlide();
 			}
-		});
+		}
 
 		var template = self.template;
 		$.each(self.jsonData, function(i, row) {
@@ -288,6 +315,10 @@ carouselObject.prototype = {
 
 	load : function() {
 		try {
+			if (this.reloadRequested) {
+				this.jsonData = null;
+				this.reloadRequested = false;
+			}
 			if (this.jsonData == null) {
 				this.jsonData = app.announcements.list(this.categoryId);
 				this.render();
@@ -320,6 +351,11 @@ guzellikSirlari.prototype = {
 
 	load : function() {
 		$(this.templateSelector).html("");
+		
+		if (this.reloadRequested) {
+			this.jsonData = null;
+			this.reloadRequested = false;
+		}
 
 		if (this.jsonData == null) {
 			this.jsonData = app.announcements.list(this.categoryId);
