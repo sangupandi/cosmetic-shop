@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:820";
+var internalVersion = "Version 1.0.0 Build:821";
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
 //var serviceHost = "http://37.230.108.2";
@@ -383,7 +383,7 @@ guzellikSirlari.prototype = {
  */
 function guzellikSirlariChild(_row) {
 	this.templateSelector = '#gsbContent2';
-	this.template = '<div id="gsb2img" onclick="openAnn({2})"><img src="{0}"/></div><div id="gsb2text">{1}</div>';
+	this.template = '<div class="gsb2img" onclick="openAnn({2})"><img src="{0}"/></div><div class="gsb2text">{1}</div>';
 	this.row = _row;
 }
 

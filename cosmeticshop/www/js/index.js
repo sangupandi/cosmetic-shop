@@ -548,14 +548,18 @@ var app = {
 
 		/* set swiper image size (size: 535x332)*/
 		var carouselImageHeight = app.windowWidth * 332 / 535;
-		styles.push('.carousel-sub .swiper-slide img { width: ' + app.windowWidth + 'px; height: ' + carouselImageHeight + 'px; }\r');
+		styles.push('.carousel-sub .swiper-slide img, .gsb2img img { width: ' + app.windowWidth + 'px; height: ' + carouselImageHeight + 'px; }\r');
 
 		/* set carousel sizes */
 		var paginationTopOffset = app.headerHeight + carouselImageHeight + 8;
 		styles.push('#carousel1, #carousel2 { width: ' + app.windowWidth + 'px; height: ' + (app.contentHeight - 8) + 'px; }\r');
 		styles.push('.pagination.middle { top: ' + paginationTopOffset + 'px; }\r');
-		styles.push('.swiper-slide .desc, #gsb2text { height: ' + (app.contentHeight - paginationTopOffset + app.headerHeight - 20) + 'px; }\r');
+		styles.push('.swiper-slide .desc, .gsb2text { height: ' + (app.contentHeight - paginationTopOffset + app.headerHeight - 20) + 'px; }\r');
 
+		/* gsChild 1 */
+		var gsChildImgWH = (app.windowWidth * 100 / 320);
+		styles.push('#gsTemplateB  li img { width: ' + gsChildImgWH + 'px; height: ' + gsChildImgWH + 'px; }\r');
+		
 		/* footer buttons (size: 150x80) */
 		var buttonCount = 5;
 		var footerBtnWidth = app.windowWidth / 4;

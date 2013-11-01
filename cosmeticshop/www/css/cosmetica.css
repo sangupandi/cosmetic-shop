@@ -556,13 +556,6 @@ div.loading .badge {
 	-webkit-transform: translate3d(0,0,0);
 }
 /* ------------------------------------------------------------------------- */
-#gsTemplateB .ui-block-a {
-	width: 40%;
-}
-#gsTemplateB .ui-block-b.desc {
-	padding: 8px;
-	color: #fff;
-}
 #gsTemplateB {
 	padding: 0;
 }
@@ -571,9 +564,11 @@ div.loading .badge {
 	margin-left: 0px;
 	padding-left: 0px;
 	display: inline-block;
+	clear: both;
+	float:left;
 }
 #gsTemplateB  li img {
-	width: 50%;
+	/*width: 50%; from code */
 }
 #gsTemplateB  li p {
 	color: #fff;
@@ -586,8 +581,17 @@ div.loading .badge {
 }
 #gsbContent2 {
 	padding: 0;
+	overflow: hidden;
 }
-#gsb2text {
+#gsbContent {
+	overflow: scroll;
+}
+.gsb2img img {
+	/*width: 100%; from code*/
+}
+.gsb2text {
+	margin-top: 10px;
+	overflow-y: scroll;
 	color: #fff;
 	text-align: center;
 }
@@ -633,19 +637,6 @@ div.loading .badge {
 	/*font-size: 11px;*/
 }
 /* ------------------------------------------------------------------------- */
-#gsbContent {
-	overflow: scroll;
-}
-#gsbContent2 {
-	overflow: hidden;
-}
-#gsb2img img {
-	width: 100%;
-}
-#gsb2text {
-	margin-top: 10px;
-	overflow-y: scroll;
-}
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
