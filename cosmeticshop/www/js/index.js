@@ -478,14 +478,17 @@ var app = {
 			"top" : "-" + (cHeight / 2) + "px"
 			//"display":"block"
 		});
-		
+
 		/* animPage background */
 		var styles = [];
 		styles.push("<style>");
 
 		var bgImage = (app.windowHeight / app.windowWidth) > 1.5 ? "animbg_iphone5.png" : "animbg.png";
-		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage+ '); }\r');
-		
+		if (platform_Android()) {
+			bgImage = "animbg.png";
+		}
+		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage + '); }\r');
+
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
 
@@ -559,7 +562,7 @@ var app = {
 		/* gsChild 1 */
 		var gsChildImgWH = (app.windowWidth * 100 / 320);
 		styles.push('#gsTemplateB  li img { width: ' + gsChildImgWH + 'px; height: ' + gsChildImgWH + 'px; }\r');
-		
+
 		/* footer buttons (size: 150x80) */
 		var buttonCount = 5;
 		var footerBtnWidth = app.windowWidth / 4;
