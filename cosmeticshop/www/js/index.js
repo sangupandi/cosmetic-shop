@@ -478,6 +478,17 @@ var app = {
 			"top" : "-" + (cHeight / 2) + "px"
 			//"display":"block"
 		});
+		
+		/* animPage background */
+		var styles = [];
+		styles.push("<style>");
+
+		var bgImage = (app.windowHeight / app.windowWidth) > 1.5 ? "animbg_iphone5.png" : "animbg.png";
+		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage+ '); }\r');
+		
+		styles.push("</style>");
+		$("html > head").append(styles.join(""));
+
 		glog.step("initLayoutAnimPage");
 	},
 

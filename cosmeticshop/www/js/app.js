@@ -1,5 +1,8 @@
-var internalVersion = "Version 1.0.0 Build:819";
-var serviceHost = "http://www.gtech.com.tr/cosmetica";
+var internalVersion = "Version 1.0.0 Build:820";
+//var serviceHost = "http://www.gtech.com.tr/cosmetica";
+var serviceHost = "http://www.cosmeticamobile.com";
+//var serviceHost = "http://37.230.108.2";
+
 appCodes = {
 	push : {
 		//pushWooshAppCode : "83E51-9B80D",
@@ -318,7 +321,7 @@ carouselObject.prototype = {
 		});
 		self.swiper.removeLastSlide();
 
-		//enableLinks(this.templateSelector);
+		enableLinks(this.templateSelector);
 
 		self.swiper.reInit();
 		self.onSlideChangeEnd(self, 0);
@@ -423,7 +426,7 @@ guzellikSirlariChild.prototype = {
 		var annUrl = "'" + self.row.RedirectUrl + "'";
 		var content = String.format(self.template, self.row.ChildImageUrl, self.row.ChildDescription, annUrl);
 		$(self.templateSelector).html(content);
-		//enableLinks(self.templateSelector);
+		enableLinks(self.templateSelector);
 		self.setReadInfo();
 	}
 };
