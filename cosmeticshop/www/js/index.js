@@ -451,6 +451,7 @@ var app = {
 
 	initLayoutHomePage : function() {
 		app.homeSwiper.create();
+		
 		$.mobile.changePage($("#home-page"), {
 			transition : "fade"
 		});
@@ -778,7 +779,7 @@ var app = {
 		});
 
 		$("#home-page").bind("pageshow", function(event) {
-			app.homeSwiper.load();
+			app.homeSwiper.readyForRender();
 			//app.preloadImages.load();
 		});
 
@@ -1307,6 +1308,9 @@ var app = {
 		 * Create Objects
 		 */
 		app.homeSwiper = new homeSwiperObject();
+		setTimeout(function() {
+			app.homeSwiper.load();
+		}, 1);
 		app.announcements = new announcementsObject();
 		app.carousel1 = new carouselObject("#carousel1", 1, "m1");
 		app.carousel2 = new carouselObject("#carousel2", 2, "m2");
@@ -1314,7 +1318,7 @@ var app = {
 		app.gsYuz = new guzellikSirlari(32, 'gsYuz');
 		app.gsDudak = new guzellikSirlari(33, 'gsDudak');
 		app.gsTirnak = new guzellikSirlari(34, 'gsTirnak');
-		app.preloadImages = new preloadObject("/Preload.ashx");
+		//app.preloadImages = new preloadObject("/Preload.ashx");
 		app.catalogue = new catalogueObject("/Catalogue.ashx");
 		app.shopList = new shopListObject();
 
@@ -1343,7 +1347,7 @@ var app = {
 		app.bindHomeMenuTapEvents();
 		app.bindFooterMenuTapEvents();
 		app.bindSubPagesTapEvents();
-		app.preloadImages.load();
+		//app.preloadImages.load();
 
 		$('#cbxSetting1').attr('checked', app.getSetting('set1', 'true') == 'true');
 		$('#cbxSetting2').attr('checked', app.getSetting('set2', 'true') == 'true');

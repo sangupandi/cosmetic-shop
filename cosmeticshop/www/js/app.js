@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.0 Build:825";
+var internalVersion = "Version 1.0.0 Build:828";
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
 //var serviceHost = "http://37.230.108.2";
@@ -93,6 +93,8 @@ function homeSwiperObject() {
 	this.template = '<img src="{0}" height="100%"/>';
 	this.svcurl = serviceHost + "/HomeSlidePictures.ashx?uuid=" + device.uuid;
 	this.loader = new jsonLoader(this.svcurl, this.successHandler, this.errorHandler);
+	this.rendered = false;
+	this.pageShowed = false;
 }
 
 homeSwiperObject.prototype = {
@@ -104,7 +106,9 @@ homeSwiperObject.prototype = {
 	successHandler : function(sender, result) {
 		if (result != null) {
 			sender.jsonData = result;
-			sender.render();
+			if (sender.pageShowed ) {
+				sender.render();
+			}
 
 			/*
 			 * Yeni cihazların kaydı sırasında
@@ -169,21 +173,34 @@ homeSwiperObject.prototype = {
 						break;
 				}
 			});
+
+			if (!self.rendered && self.jsonData != null) {
+				//self.render();
+			}
 		}
+	},
+
+	readyForRender : function() {
+		this.pageShowed = true;
+		this.render();
 	},
 
 	render : function() {
 		var self = this;
 
-		$.each(self.jsonData, function(i, row) {
-			var ns = self.swiper.createSlide(String.format(self.template, row.Url));
-			self.swiper.appendSlide(ns);
-		});
-		self.swiper.removeSlide(0);
-		//self.swiper.removeLastSlide();
+		if (!self.rendered && self.jsonData != null) {
+			self.rendered = true;
 
-		//self.swiper.resizeFix();
-		self.onSlideChangeEnd(self);
+			$.each(self.jsonData, function(i, row) {
+				var ns = self.swiper.createSlide(String.format(self.template, row.Url));
+				self.swiper.appendSlide(ns);
+			});
+			self.swiper.removeSlide(0);
+			//self.swiper.removeLastSlide();
+
+			//self.swiper.resizeFix();
+			self.onSlideChangeEnd(self);
+		}
 	},
 
 	load : function() {
