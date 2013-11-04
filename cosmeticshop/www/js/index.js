@@ -475,10 +475,12 @@ var app = {
 			"top" : "-" + cHeight + "px"
 		});
 
-		$('#ani-logo').css({
-			"top" : "-" + (cHeight / 2) + "px"
-			//"display":"block"
-		});
+		/*
+		 $('#ani-logo').css({
+		 "top" : "-" + (cHeight / 2) + "px"
+		 //"display":"block"
+		 });
+		 */
 
 		/* animPage background */
 		var styles = [];
@@ -489,6 +491,9 @@ var app = {
 			bgImage = "animbg.png";
 		}
 		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage + '); }\r');
+		styles.push('#ani-logo { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+		
+		$("#ani-logo img").attr("src", "img/" + bgImage);
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));
@@ -530,16 +535,16 @@ var app = {
 		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
 		/* set #home-page menu size (size: 147x901) */
-		var menuWidth = (app.windowHeight * 147 / 901).toFixed(0);
-		var menuHeight = (menuWidth * 106 / 147).toFixed(0);
-		console.warn("h: " + menuHeight + ", w: " + menuWidth);
-		var menuH = 106*8 + (106/2);
-		var menuW = (app.windowHeight * 147 / menuH).toFixed(0);
-		menuH = (menuW * 106/147).toFixed(0);
-		console.warn("h: " + menuH + ", w: " + menuW);
-		styles.push('#left-menu { width: ' + menuW + 'px; }\r');
-		styles.push('#left-menu a { height: ' + menuH + 'px; background-size: ' + menuW + 'px; }\r');
-		styles.push('#left-menu a:active { background-position: 0px -' + menuH + 'px; }\r');
+		var menuWidth = app.windowHeight * 147 / 901;
+		var menuHeight = menuWidth * 106 / 147;
+		//console.warn("h: " + menuHeight + ", w: " + menuWidth);
+		//var menuH = 106*8 + (106/2);
+		//var menuW = (app.windowHeight * 147 / menuH).toFixed(0);
+		//menuH = (menuW * 106/147).toFixed(0);
+		//console.warn("h: " + menuH + ", w: " + menuW);
+		styles.push('#left-menu { width: ' + menuWidth + 'px; }\r');
+		styles.push('#left-menu a { height: ' + menuHeight + 'px; background-size: ' + menuWidth + 'px; }\r');
+		styles.push('#left-menu a:active { background-position: 0px -' + menuHeight + 'px; }\r');
 
 		/* set #home-page logo size (size: 457x108) (design width: 601px)*/
 		var homeLogoWidth = app.windowWidth * 457 / 601;
