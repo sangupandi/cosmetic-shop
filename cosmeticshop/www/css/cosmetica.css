@@ -127,6 +127,7 @@ body {
 	right: 0;
 	left: auto;
 	z-index: 55;
+	top: 5px;
 }
 #home-page div[data-role="content"] {
 	height: 100%;
