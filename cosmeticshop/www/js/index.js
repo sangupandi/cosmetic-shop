@@ -491,7 +491,7 @@ var app = {
 			bgImage = "animbg.png";
 		}
 		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage + '); }\r');
-		styles.push('#ani-logo { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+		styles.push('#ani-logo, #ani-logo img { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
 		
 		$("#ani-logo img").attr("src", "img/" + bgImage);
 
