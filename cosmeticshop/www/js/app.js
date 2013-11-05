@@ -1,5 +1,4 @@
-
-var internalVersion = "Version 1.0.1 Build:839";
+var internalVersion = "Version 1.0.1 Build:841";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -108,7 +107,7 @@ homeSwiperObject.prototype = {
 	successHandler : function(sender, result) {
 		if (result != null) {
 			sender.jsonData = result;
-			if (sender.pageShowed ) {
+			if (sender.pageShowed) {
 				sender.render();
 			}
 
@@ -152,24 +151,31 @@ homeSwiperObject.prototype = {
 			$('#home-carousel-tap-image').bind('tap', function() {
 				var self = app.homeSwiper;
 				var pageId = self.jsonData[self.swiper.activeLoopIndex].CategoryID;
+				var annId = self.jsonData[self.swiper.activeLoopIndex].AnnID;
 				switch(pageId) {
 					case 1:
-						goPage("page-yeniurun");
+						app.carousel1.annIdForActivate = annId;
+						$.mobile.changePage($("#page-yeniurun"));
 						break;
 					case 2:
-						goPage("page-firsat");
+						app.carousel2.annIdForActivate = annId;
+						$.mobile.changePage($("#page-firsat"));
 						break;
 					case 31:
-						$('.b1-1').click();
+						//$('.b1-1').click();
+						app.gsGoz.load(annId);
 						break;
 					case 32:
-						$('.b2-1').click();
+						//$('.b2-1').click();
+						app.gsYuz.load(annId);
 						break;
 					case 33:
-						$('.b3-1').click();
+						//$('.b3-1').click();
+						app.gsDudak.load(annId);
 						break;
 					case 34:
-						$('.b4-1').click();
+						//$('.b4-1').click();
+						app.gsTirnak.load(annId);
 						break;
 					default:
 						break;
@@ -284,9 +290,11 @@ function carouselObject(_domId, _categoryId, _menuId) {
 
 	this.jsonData = null;
 	this.menuId = _menuId;
+	this.annIdForActivate = null;
 }
 
 carouselObject.prototype = {
+
 	onSlideChangeEnd : function(sender, slideIndex) {
 		var successFunc = function(obj, result) {
 			sender.jsonData[slideIndex].IsUnread = false;
@@ -308,6 +316,23 @@ carouselObject.prototype = {
 			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
 			jl.load();
 		}
+	},
+
+	locateSlide : function() {
+		var annId = this.annIdForActivate;
+		this.annIdForActivate = null;
+		/*
+		 var i = 0;
+		 while (annId != car.jsonData[car.swiper.activeLoopIndex].ID && i < car.swiper.slides.length) {
+		 car.swiper.swipeNext();
+		 i++;
+		 }
+		 */
+		for (var i = 0, j = this.jsonData.length; i < j; i++) {
+			if (annId == this.jsonData[i].ID) {
+				this.swiper.swipeTo(i, i, true);
+			}
+		};
 	},
 
 	render : function() {
@@ -356,6 +381,9 @@ carouselObject.prototype = {
 				this.jsonData = app.announcements.list(this.categoryId);
 				this.render();
 			};
+			if (this.annIdForActivate != null) {
+				this.locateSlide();
+			}
 		} catch(e) {
 		}
 	}
@@ -370,6 +398,7 @@ function guzellikSirlari(_categoryId, _appObjVarName) {
 	this.categoryId = _categoryId;
 	this.jsonData = null;
 	this.appObjVarName = _appObjVarName;
+	this.annIdForActivate = null;
 }
 
 guzellikSirlari.prototype = {
@@ -380,9 +409,25 @@ guzellikSirlari.prototype = {
 			arr.push(String.format(self.template, row.ImageUrl, row.Description, self.appObjVarName, i));
 		});
 		$(this.templateSelector).html(arr.join(''));
+
+		if (self.annIdForActivate != null) {
+			var n = 0;
+			$.each(self.jsonData, function(i, row) {
+				if (self.annIdForActivate == row.ID) {
+					n = i;
+				}
+			});
+
+			self.annIdForActivate = null;
+
+			var strFunc = String.format('goGsDetail(app.{0}, {1})', self.appObjVarName, n);
+			setTimeout(strFunc, 0);
+		}
 	},
 
-	load : function() {
+	load : function(annIdForActivate) {
+		this.annIdForActivate = annIdForActivate;
+
 		$(this.templateSelector).html("");
 
 		if (this.reloadRequested) {

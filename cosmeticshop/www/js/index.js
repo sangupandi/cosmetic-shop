@@ -1,3 +1,4 @@
+
 var badges = {
 	YeniUrun : 0,
 	Firsat : 0,
