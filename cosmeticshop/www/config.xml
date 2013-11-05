@@ -67,6 +67,7 @@
 	<gap:plugin name="com.simplec.plugins.localnotification" />
 	<!--
 	<plugin name="LocalNotification" value="LocalNotification" />
+
 	-->
 
 </widget>
