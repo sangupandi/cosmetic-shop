@@ -487,13 +487,12 @@ var app = {
 		styles.push("<style>");
 
 		var bgImage = (app.windowHeight / app.windowWidth) > 1.5 ? "animbg_iphone5.png" : "animbg.png";
-		if (platform_Android()) {
-			bgImage = "animbg.png";
-		}
-		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage + '); }\r');
-		styles.push('#ani-logo, #ani-logo img { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+		//if (platform_Android()) {			bgImage = "animbg.png";		}
 		
-		$("#ani-logo img").attr("src", "img/" + bgImage);
+		styles.push('#ani-page, #first-page { background-image: url(img/' + bgImage + '); }\r');
+		styles.push('.ani-logo, .ani-logo img { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+		
+		$(".ani-logo img").attr("src", "img/" + bgImage);
 
 		styles.push("</style>");
 		$("html > head").append(styles.join(""));

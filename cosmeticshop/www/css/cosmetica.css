@@ -113,7 +113,7 @@ body {
 	position: relative;
 	z-index:99;
 }
-#ani-logo {
+.ani-logo {
 	/*
 	 display: none;
 	 text-align: center;
