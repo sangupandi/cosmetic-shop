@@ -535,13 +535,13 @@ var app = {
 		/* set size of headers */
 		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
-		/* set #home-page menu size (size: 202x276) */
+		/* set #home-page menu size (size: 191x276) */
 		//var menuWidth = app.windowHeight * 147 / 901;
 		//var menuHeight = menuWidth * 106 / 147;
 		//console.warn("h: " + menuHeight + ", w: " + menuWidth);
 		var menuH = (276 / 2 * 8) + (276 / 2 / 2);
-		var menuW = (app.windowHeight * 202 / menuH).toFixed(0);
-		menuH = (menuW * (276 / 2 / 202)).toFixed(0);
+		var menuW = (app.windowHeight * 191 / menuH).toFixed(0);
+		menuH = (menuW * (276 / 2 / 191)).toFixed(0);
 		console.warn("h: " + menuH + ", w: " + menuW);
 		styles.push('#left-menu { width: ' + menuW + 'px; }\r');
 		styles.push('#left-menu a { height: ' + menuH + 'px; background-size: ' + menuW + 'px; }\r');
@@ -1201,9 +1201,9 @@ var app = {
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
 						if (imageUrl != "") {
-							window.plugins.socialsharing.share(html, subject, imageUrl);
+							window.plugins.socialsharing.share(body, subject, imageUrl);
 						} else {
-							window.plugins.socialsharing.share(html, subject);
+							window.plugins.socialsharing.share(body, subject);
 						}
 						//window.plugins.socialsharing.share(glog2.logString);
 
