@@ -532,13 +532,13 @@ var app = {
 		/* set size of headers */
 		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
-		/* set #home-page menu size (size: 188x268) */
+		/* set #home-page menu size (size: 202x276) */
 		//var menuWidth = app.windowHeight * 147 / 901;
 		//var menuHeight = menuWidth * 106 / 147;
 		//console.warn("h: " + menuHeight + ", w: " + menuWidth);
-		var menuH = (268/2*8) + (268/2/2);
-		var menuW = (app.windowHeight * 188 / menuH).toFixed(0);
-		menuH = (menuW * (268/2/188)).toFixed(0);
+		var menuH = (276 / 2 * 8) + (276 / 2 / 2);
+		var menuW = (app.windowHeight * 202 / menuH).toFixed(0);
+		menuH = (menuW * (276 / 2 / 202)).toFixed(0);
 		console.warn("h: " + menuH + ", w: " + menuW);
 		styles.push('#left-menu { width: ' + menuW + 'px; }\r');
 		styles.push('#left-menu a { height: ' + menuH + 'px; background-size: ' + menuW + 'px; }\r');
@@ -594,10 +594,9 @@ var app = {
 		/* -- center method 1 -- */
 		styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + carH + 'px; margin-top: ' + carTopMargin + 'px; }\r');
 		/* -- center method 2 --
-		  styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
-		  styles.push('.cat-slide { margin-top: ' + carTopMargin + 'px; }\r');
-		*/
-		
+		 styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+		 styles.push('.cat-slide { margin-top: ' + carTopMargin + 'px; }\r');
+		 */
 
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
@@ -1066,6 +1065,42 @@ var app = {
 
 		$('.fb-share').each(function() {
 			$(this).bind('tap', function() {
+				function getShareHtml(car) {
+					var html = "";
+					var annId = car.swiper.slides[car.swiper.activeLoopIndex].data("annId");
+
+					for (var i = 0, j = car.swiper.slides.length; i < j; i++) {
+						var n = car.swiper.slides[i].data("annId");
+						if (annId == n) {
+							var row = car.jsonData[car.swiper.activeLoopIndex];
+							var template = '<img src="{0}"/><br>{1}<br>';
+							html = String.format(template, row.ImageUrl, row.Description);
+							if (row.RedirectUrl != null && row.RedirectUrl != "") {
+								html += String.format('<a href="{0}">Detaylar için tıklayınız..</a>', row.RedirectUrl);
+							}
+						}
+					};
+					return html;
+				}
+
+				var html = "";
+				var subject = "Sizinle Cosmetica'dan bir içerik paylaşıldı";
+				//var imageUrl = "";
+
+				var htmlFooter = "<br><br>Kalbimdeki yer: http://www.cosmetica.com.tr";
+				var pageId = $.mobile.activePage.attr('id');
+				switch(pageId) {
+					case "page-yeniurun":
+						html = getShareHtml(app.carousel1);
+						break;
+					case "page-firsat":
+						html = getShareHtml(app.carousel2);
+						break;
+
+				}
+				html += htmlFooter;
+
+				console.log(html);
 				window.plugins.socialsharing.available(function(isAvailable) {
 					if (isAvailable) {/*
 						// use a local image from inside the www folder:
@@ -1085,8 +1120,9 @@ var app = {
 						// use '' instead of null for pre-2.0 versions of this plugin
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
-						window.plugins.socialsharing.share("Kalbimdeki yer: http://www.cosmetica.com.tr");
+						window.plugins.socialsharing.share(html, subject);
 						//window.plugins.socialsharing.share(glog2.logString);
+
 					}
 				});
 			});

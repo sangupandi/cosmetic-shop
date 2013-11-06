@@ -361,6 +361,7 @@ carouselObject.prototype = {
 			var annUrl = "'" + row.RedirectUrl + "'";
 			var divHtml = String.format(template, imgHtml, row.Description + '<br/><br/>', annUrl);
 			var ns = self.swiper.createSlide(divHtml);
+			ns.data('annId', row.ID);
 			self.swiper.prependSlide(ns);
 		});
 		self.swiper.removeLastSlide();
