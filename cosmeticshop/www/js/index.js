@@ -134,6 +134,8 @@ var app = {
 	shopList : null,
 	homeSwiper : null,
 	announcements : null,
+	lastShowedShop : null,
+	lastGsChildRow : null,
 
 	currentPageId : function() {
 		return $.mobile.activePage.attr('id');
@@ -323,6 +325,7 @@ var app = {
 	addMarkers : function() {
 
 		function openInfoWindow(marker, shop) {
+			app.lastShowedShop = shop;
 			console.warn("openInfoWindow");
 			var funcStr = String.format("shopInfoPage('{0}', '{1}', '{2}', '{3}');", shop.caption, shop.address, shop.phone, shop.distance);
 			var contentString = '<div onclick="' + funcStr + '" class="info-window"><h4>' + shop.caption + '</h4><div class="address">' + shop.address + '</div><div class="phone">' + shop.phone + '</div></div>';
@@ -1065,42 +1068,119 @@ var app = {
 
 		$('.fb-share').each(function() {
 			$(this).bind('tap', function() {
-				function getShareHtml(car) {
-					var html = "";
-					var annId = car.swiper.slides[car.swiper.activeLoopIndex].data("annId");
-
-					for (var i = 0, j = car.swiper.slides.length; i < j; i++) {
-						var n = car.swiper.slides[i].data("annId");
-						if (annId == n) {
-							var row = car.jsonData[car.swiper.activeLoopIndex];
-							var template = '<img src="{0}"/><br>{1}<br>';
-							html = String.format(template, row.ImageUrl, row.Description);
-							if (row.RedirectUrl != null && row.RedirectUrl != "") {
-								html += String.format('<a href="{0}">Detaylar için tıklayınız..</a>', row.RedirectUrl);
-							}
+				function getRow(car) {
+					var annId = car.swiper.slides[car.swiper.activeIndex].data("annId");
+					for (var i = 0, j = car.jsonData.length; i < j; i++) {
+						if (annId == car.jsonData[i].ID) {
+							return car.jsonData[i];
 						}
 					};
-					return html;
+					return null;
 				}
 
-				var html = "";
-				var subject = "Sizinle Cosmetica'dan bir içerik paylaşıldı";
-				//var imageUrl = "";
+				function hasChild(row) {
+					return (row.ChildDescription != null && row.ChildDescription != "");
+				}
 
-				var htmlFooter = "<br><br>Kalbimdeki yer: http://www.cosmetica.com.tr";
+				function getShareString(row) {
+					var ret = "";
+					if (hasChild(row)) {
+						ret = row.ChildDescription + "\r\n";
+					} else {
+						ret = row.Description + "\r\n";
+					}
+
+					if (row.RedirectUrl != null && row.RedirectUrl != "") {
+						ret += String.format('Detaylar için: {0}\r\n', row.RedirectUrl);
+					}
+					return ret;
+				}
+
+				function getShareImage(row) {
+					var ret = (hasChild(row)) ? row.ChildImageUrl : row.ImageUrl;
+					return ret;
+				}
+
+				var subject = "Sizinle Cosmetica'dan bir içerik paylaşıldı";
+				var body = "";
+				var imageUrl = "";
+				var row = null;
+
+				var bodyFooter = "\r\nKalbimdeki yer: http://www.cosmetica.com.tr\r\n";
 				var pageId = $.mobile.activePage.attr('id');
 				switch(pageId) {
 					case "page-yeniurun":
-						html = getShareHtml(app.carousel1);
+						row = getRow(app.carousel1);
+						body = getShareString(row);
+						imageUrl = getShareImage(row);
 						break;
 					case "page-firsat":
-						html = getShareHtml(app.carousel2);
+						row = getRow(app.carousel2);
+						body = getShareString(row);
+						imageUrl = getShareImage(row);
 						break;
-
+					case "page-guzellik":
+						break;
+					case "page-guzellik-b":
+						break;
+					case "page-guzellik-c":
+						row = app.lastGsChildRow;
+						body = getShareString(row);
+						imageUrl = getShareImage(row);
+						break;
+					case "page-sosyal":
+						body = "Cosmetica Sosyal Medya Hesapları:\r\n";
+						body += "\r\n";
+						body += "Facebook : http://www.facebook.com/cosmetica.com.tr\r\n";
+						body += "\r\n";
+						body += "Twitter : http://twitter.com/cosmeticaa\r\n";
+						body += "\r\n";
+						body += "Google+ : http://plus.google.com/100866141157931417846/posts\r\n";
+						body += "\r\n";
+						body += "Foursquare : https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc\r\n";
+						body += "\r\n";
+						break;
+					case "page-uygulama":
+						body = "Cosmetica mobil uygulamalarını iPhone için AppStore'dan ve Android cihazlar için GooglePlay'den ücretsiz indirebilirsiniz.\r\n";
+						break;
+					case "page-form":
+						break;
+					case "page-harita":
+						body = "Cosmetica Mağazaları:\r\n";
+						$.each(app.shopList.shops, function(i, shop) {
+							body += shop.caption + "\r\n";
+							body += String.format("https://maps.google.com/maps?q={0},{1}\r\n", shop.latitude, shop.longitude);
+							body += "\r\n";
+						});
+						break;
+					case "page-harita-detail":
+						var shop = app.lastShowedShop;
+						body = shop.caption + "\r\n";
+						body += "\r\n";
+						body += shop.address + "\r\n";
+						body += shop.phone + "\r\n";
+						body += "\r\n";
+						body += String.format("https://maps.google.com/maps?q={0},{1}\r\n", shop.latitude, shop.longitude);
+						body += "\r\n";
+						break;
+					case "page-ayarlar":
+						break;
+					case "page-gesture":
+						/*
+						 body = "Cosmetica Katalog:\r\n";
+						 body += "\r\n";
+						 body += "\r\n";
+						 */
+						break;
+					default:
+						break;
 				}
-				html += htmlFooter;
+				body += bodyFooter;
 
-				console.log(html);
+				console.log("subject : " + subject);
+				console.log("body : " + body);
+				console.log("imageUrl : " + imageUrl);
+
 				window.plugins.socialsharing.available(function(isAvailable) {
 					if (isAvailable) {/*
 						// use a local image from inside the www folder:
@@ -1120,7 +1200,11 @@ var app = {
 						// use '' instead of null for pre-2.0 versions of this plugin
 						*/
 						//window.plugins.socialsharing.share('My text with a link: serviceHost);
-						window.plugins.socialsharing.share(html, subject);
+						if (imageUrl != "") {
+							window.plugins.socialsharing.share(html, subject, imageUrl);
+						} else {
+							window.plugins.socialsharing.share(html, subject);
+						}
 						//window.plugins.socialsharing.share(glog2.logString);
 
 					}

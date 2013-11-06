@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:843";
+var internalVersion = "Version 1.0.1 Build:848";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -976,6 +976,7 @@ function goMap(shop) {
 
 function goGsDetail(sender, itemIndex) {
 	var row = sender.jsonData[itemIndex];
+	app.lastGsChildRow = row;
 	var child = new guzellikSirlariChild(row);
 	child.render();
 
