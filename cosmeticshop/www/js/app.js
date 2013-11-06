@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:841";
+var internalVersion = "Version 1.0.1 Build:842";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -579,8 +579,8 @@ shopListObject.prototype = {
  */
 function catalogueObject(_jsonDataUrl) {
 	this.jsonDataUrl = serviceHost + _jsonDataUrl;
-	this.templateDiv = '<div class="swiper-slide">{0}</div>';
-	this.templateImage = '<img id="zoom-image{1}" src="{0}" width="100%">';
+	this.templateDiv = '<div class="cat-slide">{0}</div>';
+	this.templateImage = '<img id="zoom-image{1}" class="ci" src="{0}" width="100%">';
 	this.trying = false;
 	this.loaded = false;
 	this.images = [];
