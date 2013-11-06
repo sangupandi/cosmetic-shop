@@ -532,17 +532,17 @@ var app = {
 		/* set size of headers */
 		styles.push('div[data-role="header"] { height: ' + app.headerHeight + 'px; }\r');
 
-		/* set #home-page menu size (size: 147x901) */
-		var menuWidth = app.windowHeight * 147 / 901;
-		var menuHeight = menuWidth * 106 / 147;
+		/* set #home-page menu size (size: 188x268) */
+		//var menuWidth = app.windowHeight * 147 / 901;
+		//var menuHeight = menuWidth * 106 / 147;
 		//console.warn("h: " + menuHeight + ", w: " + menuWidth);
-		//var menuH = 106*8 + (106/2);
-		//var menuW = (app.windowHeight * 147 / menuH).toFixed(0);
-		//menuH = (menuW * 106/147).toFixed(0);
-		//console.warn("h: " + menuH + ", w: " + menuW);
-		styles.push('#left-menu { width: ' + menuWidth + 'px; }\r');
-		styles.push('#left-menu a { height: ' + menuHeight + 'px; background-size: ' + menuWidth + 'px; }\r');
-		styles.push('#left-menu a:active { background-position: 0px -' + menuHeight + 'px; }\r');
+		var menuH = (268/2*8) + (268/2/2);
+		var menuW = (app.windowHeight * 188 / menuH).toFixed(0);
+		menuH = (menuW * (268/2/188)).toFixed(0);
+		console.warn("h: " + menuH + ", w: " + menuW);
+		styles.push('#left-menu { width: ' + menuW + 'px; }\r');
+		styles.push('#left-menu a { height: ' + menuH + 'px; background-size: ' + menuW + 'px; }\r');
+		styles.push('#left-menu a:active { background-position: 0px -' + menuH + 'px; }\r');
 
 		/* set #home-page logo size (size: 457x108) (design width: 601px)*/
 		var homeLogoWidth = app.windowWidth * 457 / 601;
