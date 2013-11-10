@@ -610,6 +610,7 @@ var app = {
 		if (platform_Android()) {
 			styles.push('.android-form-correction { display: block; }\r');
 			styles.push('#lbDogumTar span { display: inline; }\r');
+			$('#tbDogumTar').attr('type', 'text');
 		}
 
 		styles.push("</style>");
@@ -1024,8 +1025,11 @@ var app = {
 							// do something
 						};
 						// Show a custom alertDismissed
-						var ref = window.open(result.text, '_blank', 'location=yes,enableViewPortScale=yes');
-						navigator.notification.alert(result.text, alertDismissed, 'Barcode Okundu', 'Tamam');
+						var url = result.text;
+						setTimeout(function() {
+							window.open(url, '_blank', 'location=yes,enableViewPortScale=yes');
+						}, 1000);
+						navigator.notification.alert(result.text, alertDismissed, 'Barcode okundu', 'Tamam');
 					} else {
 						// alert dialog dismissed
 						var alertDismissed = function() {
@@ -1338,31 +1342,38 @@ var app = {
 	},
 	// iOS
 	onNotificationAPN : function(event) {
-		glog2.log("onNotificationAPN event", event);
-		glog2.log("onNotificationAPN event.alert", event.alert);
-		glog2.log("onNotificationAPN event.badge", event.badge);
-		glog2.log("onNotificationAPN event.sound", event.sound);
+		app.announcements.reload();
+		try {
+			glog2.log("onNotificationAPN event", event);
+			glog2.log("onNotificationAPN event.alert", event.alert);
+			glog2.log("onNotificationAPN event.badge", event.badge);
+			glog2.log("onNotificationAPN event.sound", event.sound);
 
-		var pushNotification = window.plugins.pushNotification;
-		console.log("Received a notification! " + event.alert);
-		console.log("event sound " + event.sound);
-		console.log("event badge " + event.badge);
-		console.log("event " + event);
+			var pushNotification = window.plugins.pushNotification;
+			console.log("Received a notification! " + event.alert);
+			console.log("event sound " + event.sound);
+			console.log("event badge " + event.badge);
+			console.log("event " + event);
+		} catch(e) {
+		}
+
 		if (event.alert) {
 			showMessage(event.alert, "Bildirim");
 		}
-		if (event.badge) {
-			//alert("Set badge on  " + pushNotification);
-			//alert("event.badge " + event.badge);
+		try {
+			if (event.badge) {
+				//alert("Set badge on  " + pushNotification);
+				//alert("event.badge " + event.badge);
 
-			//pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
-			pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
+				//pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
+				//pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
+			}
+			if (event.sound) {
+				var snd = new Media(event.sound);
+				snd.play();
+			}
+		} catch(e) {
 		}
-		if (event.sound) {
-			var snd = new Media(event.sound);
-			snd.play();
-		}
-		app.announcements.reload();
 	},
 	// Android
 	onNotificationGCM : function(e) {
