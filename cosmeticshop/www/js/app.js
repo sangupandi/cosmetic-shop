@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:850";
+var internalVersion = "Version 1.0.1 Build:853";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -916,7 +916,6 @@ function postCustomerInfoForm() {
 		showMessage("Geçerli bir eposta adresi giriniz.", "Uyarı");
 		return;
 	}
-
 	if (tel.length == 0 && eposta.length == 0) {
 		showMessage("Formu göndermek için telefon numarası ya da eposta adresi bilgilerinden en az birini giriniz.", "Uyarı");
 		return;

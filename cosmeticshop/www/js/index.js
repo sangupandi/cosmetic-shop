@@ -1110,7 +1110,10 @@ var app = {
 				var imageUrl = "";
 				var row = null;
 
-				var bodyFooter = "\r\nKalbimdeki yer: http://www.cosmetica.com.tr\r\n";
+				var bodyFooter = "\r\nApp Store: https://itunes.apple.com/tr/app/cosmetica/id737257893\r\n";
+				bodyFooter += "\r\nGoogle Play: https://play.google.com/store/apps/details?id=com.gtech.cosmetica\r\n";
+				bodyFooter += "\r\nKalbimdeki yer: http://www.cosmetica.com.tr\r\n";
+				
 				var pageId = $.mobile.activePage.attr('id');
 				switch(pageId) {
 					case "page-yeniurun":
@@ -1170,11 +1173,10 @@ var app = {
 					case "page-ayarlar":
 						break;
 					case "page-gesture":
-						/*
-						 body = "Cosmetica Katalog:\r\n";
-						 body += "\r\n";
-						 body += "\r\n";
-						 */
+						var pageIndex = app.catalogue.swiper.activeLoopIndex;
+						var pageUrl = app.catalogue.images[pageIndex].src;
+						body += pageUrl + "\r\n";
+						body += "\r\n";
 						break;
 					default:
 						break;
