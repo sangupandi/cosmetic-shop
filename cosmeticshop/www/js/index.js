@@ -1023,10 +1023,10 @@ var app = {
 						};
 						// Show a custom alertDismissed
 						var url = result.text;
+						navigator.notification.alert(url, alertDismissed, 'Barcode okundu', 'Tamam');
 						setTimeout(function() {
 							window.open(url, '_blank', 'location=yes,enableViewPortScale=yes');
 						}, 1000);
-						navigator.notification.alert(result.text, alertDismissed, 'Barcode okundu', 'Tamam');
 					} else {
 						// alert dialog dismissed
 						var alertDismissed = function() {
