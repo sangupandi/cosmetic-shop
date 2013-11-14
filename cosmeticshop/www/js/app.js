@@ -619,8 +619,15 @@ catalogueObject.prototype = {
 	},
 
 	onCloseCatalogue : function() {
-		var pageIndex = app.catalogue.swiper.activeLoopIndex;
-		$('#zoom-image' + pageIndex).smoothZoom('Reset');
+		/*
+		 * Katalog yüklenmeden çıkılacaksa exception oluşuyor ve bu
+		 * sebeple homePage'e dönemiyor diye try..catch diye eklendi.
+		 */
+		try {
+			var pageIndex = app.catalogue.swiper.activeLoopIndex;
+			$('#zoom-image' + pageIndex).smoothZoom('Reset');
+		} catch(e) {
+		}
 	},
 
 	setSlideHtml : function(pageIndex) {
@@ -634,6 +641,11 @@ catalogueObject.prototype = {
 				self.swiper.slides[pageIndex].html(slideHtml);
 
 				self.createSmoothZoom('#zoom-image' + pageIndex);
+				$('#zoom-image' + pageIndex).parent().css({
+					"height" : app.catalogueHeight + "px",
+					"width" : app.windowWidth + "px"
+				});
+				//console.log("h:" + $('#zoom-image' + pageIndex).css("height"));
 			} else {
 				$('#zoom-image' + pageIndex).smoothZoom('Reset');
 			}
