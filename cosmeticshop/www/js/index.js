@@ -592,10 +592,13 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size (page size: 856x1240) */
-		var carH = (app.windowWidth / 856) * 1240;
+		var carH = ((app.windowWidth / 856) * 1240).toFixed(0);
 		var carTopMargin = ((app.windowHeight - carH) / 2).toFixed(0);
 		/* -- center method 1 -- */
-		styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + carH + 'px; margin-top: ' + carTopMargin + 'px; }\r');
+		var ss = '#carousel4 { width: ' + app.windowWidth + 'px; height: ' + carH + 'px; margin-top: ' + carTopMargin + 'px; }\r';
+		alert("w" + app.windowWidth + "-h" + app.windowHeight);
+		alert(ss);
+		styles.push(ss);
 		/* -- center method 2 --
 		 styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
 		 styles.push('.cat-slide { margin-top: ' + carTopMargin + 'px; }\r');
@@ -1113,7 +1116,7 @@ var app = {
 				var bodyFooter = "\r\nApp Store: https://itunes.apple.com/tr/app/cosmetica/id737257893\r\n";
 				bodyFooter += "\r\nGoogle Play: https://play.google.com/store/apps/details?id=com.gtech.cosmetica\r\n";
 				bodyFooter += "\r\nKalbimdeki yer: http://www.cosmetica.com.tr\r\n";
-				
+
 				var pageId = $.mobile.activePage.attr('id');
 				switch(pageId) {
 					case "page-yeniurun":
