@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:860";
+var internalVersion = "Version 1.0.1 Build:864";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
