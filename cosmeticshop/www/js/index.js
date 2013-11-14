@@ -1016,20 +1016,22 @@ var app = {
 			scanner.scan(function(result) {
 				if (!result.cancelled) {
 					navigator.notification.vibrate();
-					if (result.text.startsWith("http://")) {
+					if (result.text.startsWith("http://") || result.text.startsWith("https://")) {
 						// alert dialog dismissed
 						var alertDismissed = function() {
 							// do something
 						};
 						// Show a custom alertDismissed
 						var url = result.text;
-						openInAppBrowser(url);
-						/*
-						navigator.notification.alert(url, alertDismissed, 'Barcode okundu', 'Tamam');
 						setTimeout(function() {
-							window.open(url, '_blank', 'location=yes,enableViewPortScale=yes');
-						}, 1000);
-						*/
+							openInAppBrowser(url);
+						}, 800);
+						/*
+						 navigator.notification.alert(url, alertDismissed, 'Barcode okundu', 'Tamam');
+						 setTimeout(function() {
+						 window.open(url, '_blank', 'location=yes,enableViewPortScale=yes');
+						 }, 1000);
+						 */
 					} else {
 						// alert dialog dismissed
 						var alertDismissed = function() {
