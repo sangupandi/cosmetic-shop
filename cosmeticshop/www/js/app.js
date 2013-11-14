@@ -643,8 +643,8 @@ catalogueObject.prototype = {
 				self.createSmoothZoom('#zoom-image' + pageIndex);
 				/*
 				$('#zoom-image' + pageIndex).parent().css({
-					"height" : app.catalogueHeight + "px",
-					"width" : app.windowWidth + "px"
+				"height" : app.catalogueHeight + "px",
+				"width" : app.windowWidth + "px"
 				});
 				*/
 				//console.log("h:" + $('#zoom-image' + pageIndex).css("height"));
@@ -698,10 +698,10 @@ catalogueObject.prototype = {
 	},
 	createSmoothZoom : function(imgId) {
 		$(imgId).smoothZoom({
-			width : '100%',
-			height : '100%',
-			responsive : true,
-			responsive_maintain_ratio : true,
+			width : app.windowWidth,
+			height : app.catalogueHeight,
+			responsive : false,
+			responsive_maintain_ratio : false,
 			zoom_MAX : 400,
 			zoom_OUT_TO_FIT : true,
 			zoom_BUTTONS_SHOW : false,

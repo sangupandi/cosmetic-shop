@@ -104,7 +104,7 @@ var app = {
 	headerHeight : 0,
 	windowHeight : 0,
 	windowWidth : 0,
-	catalogueHeight : 0, 
+	catalogueHeight : 0,
 
 	/*
 	 * other properties
@@ -605,6 +605,7 @@ var app = {
 
 		/* customerInfoForm Android corrections */
 		if (platform_Android()) {
+			styles.push('#carousel4 { margin-top: ' + carTopMargin + 'px; }\r');
 			styles.push('.android-form-correction { display: block; }\r');
 			styles.push('#lbDogumTar span { display: inline; }\r');
 			$('#tbDogumTar').attr('type', 'text');
