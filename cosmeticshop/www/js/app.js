@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:853";
+var internalVersion = "Version 1.0.1 Build:860";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -641,10 +641,12 @@ catalogueObject.prototype = {
 				self.swiper.slides[pageIndex].html(slideHtml);
 
 				self.createSmoothZoom('#zoom-image' + pageIndex);
+				/*
 				$('#zoom-image' + pageIndex).parent().css({
 					"height" : app.catalogueHeight + "px",
 					"width" : app.windowWidth + "px"
 				});
+				*/
 				//console.log("h:" + $('#zoom-image' + pageIndex).css("height"));
 			} else {
 				$('#zoom-image' + pageIndex).smoothZoom('Reset');
