@@ -592,17 +592,19 @@ var app = {
 		styles.push('.ui-footer a.fb-settings { background-position-x: -' + footerBtnWidth * 4 + 'px; }\r');
 
 		/* catalogue wrapper size (page size: 856x1240) */
-		var carH = ((app.windowWidth / 856) * 1240).toFixed(0);
+		var carH = ((app.windowWidth * 1240) / 856).toFixed(0);
 		var carTopMargin = ((app.windowHeight - carH) / 2).toFixed(0);
-		/* -- center method 1 -- */
-		var ss = '#carousel4 { width: ' + app.windowWidth + 'px; height: ' + carH + 'px; margin-top: ' + carTopMargin + 'px; }\r';
-		alert("w" + app.windowWidth + "-h" + app.windowHeight);
-		alert(ss);
-		styles.push(ss);
-		/* -- center method 2 --
-		 styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
-		 styles.push('.cat-slide { margin-top: ' + carTopMargin + 'px; }\r');
-		 */
+		//alert("carH:" + carH + "-carTopMargin:" + carTopMargin);
+		if (1==2 && app.windowHeight == 480) {
+			// iPhone4'te oluşan hata sebebiyle..
+			/* -- center method 2 -- */
+			styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');
+			styles.push('.cat-slide { margin-top: ' + carTopMargin + 'px; }\r');
+		} else {
+			/* -- center method 1 -- */
+			styles.push('#carousel4 { width: ' + app.windowWidth + 'px; height: ' + carH + 'px; }\r');
+			//styles.push('#carousel4 { margin-top: ' + carTopMargin + 'px; }\r');
+		}
 
 		/* map size (topButton size: 299x111) */
 		var mapTopButtonHeight = app.windowWidth * 111 / (299 * 2);
