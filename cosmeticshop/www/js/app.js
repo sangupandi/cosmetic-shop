@@ -321,18 +321,22 @@ carouselObject.prototype = {
 	locateSlide : function() {
 		var annId = this.annIdForActivate;
 		this.annIdForActivate = null;
-		/*
-		 var i = 0;
-		 while (annId != car.jsonData[car.swiper.activeLoopIndex].ID && i < car.swiper.slides.length) {
-		 car.swiper.swipeNext();
-		 i++;
-		 }
-		 */
-		for (var i = 0, j = this.jsonData.length; i < j; i++) {
-			if (annId == this.jsonData[i].ID) {
-				this.swiper.swipeTo(i, i, true);
+
+		var i = 0;
+		var j = this.swiper.activeIndex;
+		while (annId != this.swiper.slides[j].data("annId") && i < this.swiper.slides.length) {
+			//console.warn("i:" + i + ", j:" + j + ", compareAnnId:" + this.swiper.slides[j].data("annId") + ", annId:" + annId);
+			i++;
+			j++;
+			if (j == this.swiper.slides.length) {
+				j = 0;
 			}
-		};
+		}
+		if (j == 0) {
+			j = this.swiper.slides.length;
+		}
+
+		this.swiper.swipeTo(--j, 0, true);
 	},
 
 	render : function() {
