@@ -1277,6 +1277,36 @@ var app = {
 		$(document).bind('pageshow', eventTracker);
 		$(document).bind('pagebeforechange', eventTracker);
 	},
+
+	setPushNotifications : function() {
+		try {
+			var pushNotification = window.plugins.pushNotification;
+
+			// TODO: Enter your own GCM Sender ID in the register call for Android
+			if (device.platform == 'android' || device.platform == 'Android') {
+				glog2.log("pushNotification.register", "app.onNotificationGCM");
+
+				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
+					"senderID" : appCodes.push.androidSenderId,
+					"ecb"      : "app.onNotificationGCM"
+				});
+
+			} else {
+				glog2.log("pushNotification.register", "app.onNotificationAPN");
+
+				pushNotification.register(app.pushTokenHandler, app.pushErrorHandler, {
+					"badge" : "true",
+					"sound" : "true",
+					"alert" : "true",
+					"ecb"   : "app.onNotificationAPN"
+				});
+
+			}
+		} catch(e) {
+			// probably running on browser
+		}
+	},
+
 	// for iOS
 	pushTokenHandler : function(result) {
 		glog2.log("pushTokenHandler result", result);
@@ -1305,35 +1335,6 @@ var app = {
 		//alert('Success Handler : ' + result);
 	},
 
-	setPushNotifications : function() {
-		try {
-			var pushNotification = window.plugins.pushNotification;
-
-			// TODO: Enter your own GCM Sender ID in the register call for Android
-			if (device.platform == 'android' || device.platform == 'Android') {
-				glog2.log("pushNotification.register", "app.onNotificationGCM");
-
-				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
-					"senderID" : appCodes.push.androidSenderId,
-					"ecb" : "app.onNotificationGCM"
-				});
-
-			} else {
-				glog2.log("pushNotification.register", "app.onNotificationAPN");
-
-				pushNotification.register(app.pushTokenHandler, app.pushErrorHandler, {
-					"badge" : "true",
-					"sound" : "true",
-					"alert" : "true",
-					"ecb" : "app.onNotificationAPN"
-				});
-
-			}
-		} catch(e) {
-			// probably running on browser
-		}
-	},
-
 	// for both
 	registerPushWooshService : function(regId) {
 		glog2.log("registerPushWooshService regId", regId);
@@ -1347,6 +1348,7 @@ var app = {
 	// iOS
 	onNotificationAPN : function(event) {
 		app.announcements.reload();
+		/*
 		try {
 			glog2.log("onNotificationAPN event", event);
 			glog2.log("onNotificationAPN event.alert", event.alert);
@@ -1360,6 +1362,7 @@ var app = {
 			console.log("event " + event);
 		} catch(e) {
 		}
+		*/
 
 		if (event.alert) {
 			showMessage(event.alert, "Bildirim");
@@ -1381,12 +1384,15 @@ var app = {
 	},
 	// Android
 	onNotificationGCM : function(e) {
+		app.announcements.reload();
+		/*
 		glog2.log("onNotificationGCM e", e);
 		glog2.log("onNotificationGCM e.event", e.event);
 		glog2.log("onNotificationGCM e.regid", e.regid);
 		glog2.log("onNotificationGCM e.message", e.message);
 		glog2.log("onNotificationGCM e.error", e.error);
 		glog2.log("onNotificationGCM e.msg", e.msg);
+		*/
 
 		switch( e.event ) {
 			case 'registered':
@@ -1412,7 +1418,6 @@ var app = {
 				showMessage('An unknown GCM event has occurred', "Hata");
 				break;
 		}
-		app.announcements.reload();
 	},
 
 	setbadge : function(selector, value) {
