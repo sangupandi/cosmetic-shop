@@ -751,6 +751,7 @@ var app = {
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
+			/*
 			try {
 				//PushWoosh.sendBadge(badges.GuzellikSirlari);
 				var pushNotification = window.plugins.pushNotification;
@@ -759,6 +760,7 @@ var app = {
 				//alert("PushWoosh.sendBadge error");
 				//alert(e);
 			}
+			*/
 		};
 
 		var errorFunc = function(obj, request, error) {
