@@ -751,33 +751,21 @@ var app = {
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
-			var pushSuccH = function() {
-
-			};
-
 			try {
-				PushWoosh.sendBadge(badges.GuzellikSirlari);
-				/*
-				 var pushNotification = window.plugins.pushNotification;
-
-				 pushNotification.getPendingNotifications(function(notifications) {
-				 alert(JSON.stringify(['getPendingNotifications', notifications]) + "\n");
-				 });
-
-				 pushNotification.getRemoteNotificationStatus(function(status) {
-				 alert(JSON.stringify(['Registration check - getRemoteNotificationStatus', status]) + "\n");
-				 });
-				 */
+				//PushWoosh.sendBadge(badges.GuzellikSirlari);
+				var pushNotification = window.plugins.pushNotification;
+				pushNotification.setApplicationIconBadgeNumber(82);
 			} catch(e) {
 				//alert("PushWoosh.sendBadge error");
 				//alert(e);
 			}
-
 		};
+
 		var errorFunc = function(obj, request, error) {
 			console.warn(error);
 			// no action
 		};
+
 		var svcurl = serviceHost + "/GetBadges.ashx?uuid=" + device.uuid;
 		var jl = new jsonLoader(svcurl, successFunc, errorFunc);
 		jl.load();
@@ -1288,7 +1276,7 @@ var app = {
 
 				pushNotification.register(app.pushSuccessHandler, app.pushErrorHandler, {
 					"senderID" : appCodes.push.androidSenderId,
-					"ecb"      : "app.onNotificationGCM"
+					"ecb" : "app.onNotificationGCM"
 				});
 
 			} else {
@@ -1298,7 +1286,7 @@ var app = {
 					"badge" : "true",
 					"sound" : "true",
 					"alert" : "true",
-					"ecb"   : "app.onNotificationAPN"
+					"ecb" : "app.onNotificationAPN"
 				});
 
 			}
@@ -1349,20 +1337,20 @@ var app = {
 	onNotificationAPN : function(event) {
 		app.announcements.reload();
 		/*
-		try {
-			glog2.log("onNotificationAPN event", event);
-			glog2.log("onNotificationAPN event.alert", event.alert);
-			glog2.log("onNotificationAPN event.badge", event.badge);
-			glog2.log("onNotificationAPN event.sound", event.sound);
+		 try {
+		 glog2.log("onNotificationAPN event", event);
+		 glog2.log("onNotificationAPN event.alert", event.alert);
+		 glog2.log("onNotificationAPN event.badge", event.badge);
+		 glog2.log("onNotificationAPN event.sound", event.sound);
 
-			var pushNotification = window.plugins.pushNotification;
-			console.log("Received a notification! " + event.alert);
-			console.log("event sound " + event.sound);
-			console.log("event badge " + event.badge);
-			console.log("event " + event);
-		} catch(e) {
-		}
-		*/
+		 var pushNotification = window.plugins.pushNotification;
+		 console.log("Received a notification! " + event.alert);
+		 console.log("event sound " + event.sound);
+		 console.log("event badge " + event.badge);
+		 console.log("event " + event);
+		 } catch(e) {
+		 }
+		 */
 
 		if (event.alert) {
 			showMessage(event.alert, "Bildirim");
@@ -1386,13 +1374,13 @@ var app = {
 	onNotificationGCM : function(e) {
 		app.announcements.reload();
 		/*
-		glog2.log("onNotificationGCM e", e);
-		glog2.log("onNotificationGCM e.event", e.event);
-		glog2.log("onNotificationGCM e.regid", e.regid);
-		glog2.log("onNotificationGCM e.message", e.message);
-		glog2.log("onNotificationGCM e.error", e.error);
-		glog2.log("onNotificationGCM e.msg", e.msg);
-		*/
+		 glog2.log("onNotificationGCM e", e);
+		 glog2.log("onNotificationGCM e.event", e.event);
+		 glog2.log("onNotificationGCM e.regid", e.regid);
+		 glog2.log("onNotificationGCM e.message", e.message);
+		 glog2.log("onNotificationGCM e.error", e.error);
+		 glog2.log("onNotificationGCM e.msg", e.msg);
+		 */
 
 		switch( e.event ) {
 			case 'registered':

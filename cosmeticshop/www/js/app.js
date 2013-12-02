@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.1 Build:868";
+var internalVersion = "Version 1.0.1 Build:870";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -297,25 +297,51 @@ carouselObject.prototype = {
 
 	onSlideChangeEnd : function(sender, slideIndex) {
 		var successFunc = function(obj, result) {
-			sender.jsonData[slideIndex].IsUnread = false;
-			switch(sender.menuId) {
-				case "m1":
-					app.setbadge("#left-menu a#m1 span.badge", --app.badgeYeniUrun);
-					break;
-				case "m2":
-					app.setbadge("#left-menu a#m2 span.badge", --app.badgeFirsat);
-					break;
+			//sender.jsonData[slideIndex].IsUnread = false;
+			var annId = sender.swiper.slides[slideIndex].data("annId");
+	 		console.log("successFunc annId: " + annId);
+			for (var i = 0, j = sender.jsonData.length; i < j; i++) {
+				var row = sender.jsonData[i];
+				if (row.ID == annId && row.IsUnread) {
+					
+					row.IsUnread = false;
+					console.log("sender.menuId: " + sender.menuId);
+					console.log("badges.YeniUrun: " + badges.YeniUrun);
+					console.log("badges.Firsat: " + badges.Firsat);
+					switch(sender.menuId) {
+						case "m1":
+							app.setbadge("#left-menu a#m1 span.badge", --badges.YeniUrun);
+							break;
+						case "m2":
+							app.setbadge("#left-menu a#m2 span.badge", --badges.Firsat);
+							break;
+					}
+					
+				}
 			}
 		};
 		var errorFunc = function(obj, request, error) {
 			// no action
 		};
 
-		if (sender.jsonData[slideIndex].IsUnread) {
-			var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", sender.jsonData[slideIndex].ID, device.uuid);
-			var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
-			jl.load();
-		}
+		/*
+		 console.warn(sender.swiper);
+		 console.log("annId: " + sender.swiper.slides[sender.swiper.activeIndex].data("annId"));
+		 console.log("slideIndex: " + slideIndex);
+		 console.log(sender.jsonData[slideIndex]);
+		 console.log(sender.jsonData[sender.swiper.activeIndex]);
+		 */
+		var annId = sender.swiper.slides[slideIndex].data("annId");
+	 	console.log("onSlideChangeEnd annId: " + annId);
+		for (var i = 0, j = sender.jsonData.length; i < j; i++) {
+			var row = sender.jsonData[i];
+			if (row.ID == annId && row.IsUnread) {
+	 			console.log("AnnRead.ashx annId: " + annId);
+				var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", annId, device.uuid);
+				var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
+				jl.load();
+			}
+		};
 	},
 
 	locateSlide : function() {
@@ -350,7 +376,7 @@ carouselObject.prototype = {
 				grabCursor : true,
 				paginationClickable : false,
 				onSlideChangeEnd : function(e) {
-					self.onSlideChangeEnd(self, e.activeLoopIndex);
+					self.onSlideChangeEnd(self, e.activeIndex);
 				}
 			});
 		} else {
