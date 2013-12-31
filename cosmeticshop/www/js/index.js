@@ -752,15 +752,15 @@ var app = {
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
 			/*
-			try {
-				//PushWoosh.sendBadge(badges.GuzellikSirlari);
-				var pushNotification = window.plugins.pushNotification;
-				pushNotification.setApplicationIconBadgeNumber(82);
-			} catch(e) {
-				//alert("PushWoosh.sendBadge error");
-				//alert(e);
-			}
-			*/
+			 try {
+			 //PushWoosh.sendBadge(badges.GuzellikSirlari);
+			 var pushNotification = window.plugins.pushNotification;
+			 pushNotification.setApplicationIconBadgeNumber(82);
+			 } catch(e) {
+			 //alert("PushWoosh.sendBadge error");
+			 //alert(e);
+			 }
+			 */
 		};
 
 		var errorFunc = function(obj, request, error) {
@@ -1299,8 +1299,8 @@ var app = {
 
 	// for iOS
 	pushTokenHandler : function(result) {
-		glog2.log("pushTokenHandler result", result);
-		console.log("Token Handler " + result);
+		//glog2.log("pushTokenHandler result", result);
+		//console.log("Token Handler " + result);
 		//alert("Token Handler : " + result);
 
 		try {
@@ -1314,20 +1314,20 @@ var app = {
 
 	// for both
 	pushErrorHandler : function(error) {
-		glog2.log("pushErrorHandler error", error);
+		//glog2.log("pushErrorHandler error", error);
 		//console.log("Error Handler : " + error);
 		//alert("Error Handler : " + error);
 	},
 
 	// result contains any message sent from the plugin call
 	pushSuccessHandler : function(result) {
-		glog2.log("pushSuccessHandler result", result);
+		//glog2.log("pushSuccessHandler result", result);
 		//alert('Success Handler : ' + result);
 	},
 
 	// for both
 	registerPushWooshService : function(regId) {
-		glog2.log("registerPushWooshService regId", regId);
+		//glog2.log("registerPushWooshService regId", regId);
 		PushWoosh.appCode = appCodes.push.pushWooshAppCode;
 		PushWoosh.register(regId, function(data) {
 			//alert("PushWoosh register success: " + JSON.stringify(data));
@@ -1337,27 +1337,15 @@ var app = {
 	},
 	// iOS
 	onNotificationAPN : function(event) {
-		app.announcements.reload();
-		/*
-		 try {
-		 glog2.log("onNotificationAPN event", event);
-		 glog2.log("onNotificationAPN event.alert", event.alert);
-		 glog2.log("onNotificationAPN event.badge", event.badge);
-		 glog2.log("onNotificationAPN event.sound", event.sound);
-
-		 var pushNotification = window.plugins.pushNotification;
-		 console.log("Received a notification! " + event.alert);
-		 console.log("event sound " + event.sound);
-		 console.log("event badge " + event.badge);
-		 console.log("event " + event);
-		 } catch(e) {
-		 }
-		 */
-
-		if (event.alert) {
-			showMessage(event.alert, "Bildirim");
-		}
 		try {
+			setTimeout(function() {
+				app.announcements.reload();
+			}, 1000);
+
+			if (event.alert) {
+				showMessage(event.alert, "Bildirim");
+			}
+
 			if (event.badge) {
 				//alert("Set badge on  " + pushNotification);
 				//alert("event.badge " + event.badge);
@@ -1365,48 +1353,46 @@ var app = {
 				//pushNotification.setApplicationIconBadgeNumber(app.pushSuccessHandler, badges.YeniUrun);
 				//pushNotification.setApplicationIconBadgeNumber(badges.YeniUrun);
 			}
+
 			if (event.sound) {
 				var snd = new Media(event.sound);
 				snd.play();
 			}
 		} catch(e) {
+			showMessage("Bir istisna oluştu.", "Bildirim");
 		}
 	},
 	// Android
 	onNotificationGCM : function(e) {
-		app.announcements.reload();
-		/*
-		 glog2.log("onNotificationGCM e", e);
-		 glog2.log("onNotificationGCM e.event", e.event);
-		 glog2.log("onNotificationGCM e.regid", e.regid);
-		 glog2.log("onNotificationGCM e.message", e.message);
-		 glog2.log("onNotificationGCM e.error", e.error);
-		 glog2.log("onNotificationGCM e.msg", e.msg);
-		 */
+		try {
+			app.announcements.reload();
 
-		switch( e.event ) {
-			case 'registered':
-				if (e.regid.length > 0) {
-					// Your GCM push server needs to know the regID before it can push to this device
-					// here is where you might want to send it the regID for later use.
-					//alert('registration id = ' + e.regid);
-					app.registerPushWooshService(e.regid);
-				}
-				break;
+			switch( e.event ) {
+				case 'registered':
+					if (e.regid.length > 0) {
+						// Your GCM push server needs to know the regID before it can push to this device
+						// here is where you might want to send it the regID for later use.
+						//alert('registration id = ' + e.regid);
+						app.registerPushWooshService(e.regid);
+					}
+					break;
 
-			case 'message':
-				// this is the actual push notification. its format depends on the data model
-				// of the intermediary push server which must also be reflected in GCMIntentService.java
-				showMessage(e.message, "Bildirim");
-				break;
+				case 'message':
+					// this is the actual push notification. its format depends on the data model
+					// of the intermediary push server which must also be reflected in GCMIntentService.java
+					showMessage(e.message, "Bildirim");
+					break;
 
-			case 'error':
-				showMessage('GCM error = ' + e.msg, "Hata");
-				break;
+				case 'error':
+					showMessage('GCM error = ' + e.msg, "Hata");
+					break;
 
-			default:
-				showMessage('An unknown GCM event has occurred', "Hata");
-				break;
+				default:
+					showMessage('An unknown GCM event has occurred', "Hata");
+					break;
+			}
+		} catch(e) {
+			showMessage("Bir istisna oluştu.", "Bildirim");
 		}
 	},
 
