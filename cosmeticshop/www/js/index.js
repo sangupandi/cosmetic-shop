@@ -79,7 +79,6 @@ var glog = {
 var app = {
 	// Application Constructor
 	initialize : function() {
-		if (platform_iOS())	StatusBar.hide();
 		this.bindEvents();
 	},
 	// Bind Event Listeners
@@ -94,8 +93,9 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		//if (platform_iOS())	StatusBar.hide();
-
+		if (platform_iOS()) {
+			StatusBar.hide();
+		}
 		app.receivedEvent('deviceready');
 	},
 
