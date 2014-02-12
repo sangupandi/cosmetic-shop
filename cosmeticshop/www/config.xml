@@ -29,6 +29,10 @@
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="android-windowSoftInputMode" value="adjustResize" />
 
+	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+	    <false/>
+	</gap:config-file>
+
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="debug-server" required="true">
 	    <param name="domain" value="http://localhost:8080"/>
@@ -81,6 +85,7 @@
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="com.phonegap.plugin.statusbar" />
 	
 	<!--
 	<gap:plugin name="com.simplec.plugins.localnotification" />
