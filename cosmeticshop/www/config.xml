@@ -34,6 +34,9 @@
 	    <false/>
 	</gap:config-file>
 	-->
+	<gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+	    <true/>
+	</gap:config-file>
 	
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="debug-server" required="true">

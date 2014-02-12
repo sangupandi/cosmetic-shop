@@ -732,6 +732,12 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
+	setAppBadge : function() {
+		var unreadCount = badges.YeniUrun + badges.Firsat + badges.GuzellikSirlari + badges.GuzellikSirlariGoz + badges.GuzellikSirlariYuz + badges.GuzellikSirlariDudak + badges.GuzellikSirlariTirnak;
+
+		window.plugin.notification.badge.set(unreadCount);
+	},
+
 	getBadgesCount : function() {
 		var successFunc = function(obj, result) {
 			badges.isLoaded = true;
@@ -752,19 +758,7 @@ var app = {
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
-
-			window.plugin.notification.badge.set(8);			
-
-			/*
-			 try {
-			 //PushWoosh.sendBadge(badges.GuzellikSirlari);
-			 var pushNotification = window.plugins.pushNotification;
-			 pushNotification.setApplicationIconBadgeNumber(82);
-			 } catch(e) {
-			 //alert("PushWoosh.sendBadge error");
-			 //alert(e);
-			 }
-			 */
+			//setAppBadge();
 		};
 
 		var errorFunc = function(obj, request, error) {
@@ -1410,6 +1404,8 @@ var app = {
 			el.hide();
 		}
 		el.text(value);
+
+		app.setAppBadge();
 	},
 
 	// Update DOM on a Received Event
