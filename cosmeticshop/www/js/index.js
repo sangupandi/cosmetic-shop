@@ -93,6 +93,7 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
+		StatusBar.hide();
 		app.receivedEvent('deviceready');
 	},
 
@@ -750,6 +751,9 @@ var app = {
 			app.setbadge('.brick.b2-1 span.badge', badges.GuzellikSirlariYuz);
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
+
+
+			window.plugin.notification.badge.set(8);			
 
 			/*
 			 try {

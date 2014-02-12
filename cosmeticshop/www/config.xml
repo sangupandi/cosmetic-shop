@@ -17,7 +17,7 @@
 	<preference name="webviewbounce" value="false" />
 	<preference name="prerendered-icon" value="true" />
 	<preference name="stay-in-webview" value="true" />
-	<preference name="ios-statusbarstyle" value="black-opaque" />
+	<preference name="ios-statusbarstyle" value="translucent" />
 	<preference name="detect-data-types" value="true" />
 	<preference name="exit-on-suspend" value="false" />
 	<preference name="show-splash-screen-spinner" value="true" />
@@ -88,6 +88,7 @@
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	<gap:plugin name="de.appplant.cordova.plugin.badge" />
 	
 	<!--
 	<gap:plugin name="com.simplec.plugins.localnotification" />
