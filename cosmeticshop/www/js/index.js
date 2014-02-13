@@ -1269,11 +1269,13 @@ var app = {
 
 	setPushNotifications : function() {
 		try {
+			/*
 			alert("message");
 			debugWarn("message");
 
 			initPushwoosh();
 			return;
+			*/
 			
 			var pushNotification = window.plugins.pushNotification;
 

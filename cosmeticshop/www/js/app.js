@@ -43,7 +43,7 @@ debugHelper = {
 
 function debugWarn(msg) {
 	console.warn(msg);
-	if (debugHelper.isDebugDevice && debugHelper.showMessages)
+	if (debugHelper.isDebugDevice)// && debugHelper.showMessages)
 		alert(msg);
 }
 

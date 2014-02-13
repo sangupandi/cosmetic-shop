@@ -88,13 +88,13 @@ versionCode = "10" >
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="com.pushwoosh.plugins.pushwoosh"/>
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" />
 	<gap:plugin name="de.appplant.cordova.plugin.badge" />
 
 	<!--
-	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="com.simplec.plugins.localnotification" />
 	<plugin name="LocalNotification" value="LocalNotification" />
 	-->
