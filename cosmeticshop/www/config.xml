@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns = "http://www.w3.org/ns/widgets"
-        xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "com.gtech.cosmetica"
-        version     = "1.0.5"
-        versionCode = "10" >
+<widget xmlns = "http://www.w3.org/ns/widgets"
+xmlns:gap   = "http://phonegap.com/ns/1.0"
+id          = "com.gtech.cosmetica"
+version     = "1.0.5"
+versionCode = "10" >
 	<name>Cosmetica</name>
 	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
-	 
 	<preference name="phonegap-version" value="3.1.0" />
-	 
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
@@ -29,24 +27,27 @@
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="android-windowSoftInputMode" value="adjustResize" />
 	<preference name="StatusBarOverlaysWebView" value="false" />
-
+	<preference name="StatusBarBackgroundColor" value="#00FF00" />
+	<feature name="StatusBar">
+		<param name="ios-package" value="CDVStatusBar" onload="true" />
+	</feature>
 	<!--
 	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
-	    <false/>
+	<false/>
 	</gap:config-file>
 	<gap:config-file platform="ios" parent="UIStatusBarStyle" overwrite="true">
-	    <string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleLightContent</string>
 	</gap:config-file>
 	<gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
-	    <string>YES</string>
+	<string>YES</string>
 	</gap:config-file>
 	-->
-	
+
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="debug-server" required="true">
-	    <param name="domain" value="http://localhost:8080"/>
-	    <param name="key" value="cosmetica"/>
-  	</feature>
+		<param name="domain" value="http://localhost:8080"/>
+		<param name="key" value="cosmetica"/>
+	</feature>
 	<feature name="http://api.phonegap.com/1.0/device"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
@@ -69,15 +70,12 @@
 	<gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
 	<gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
 	<gap:splash gap:platform="ios" height="1136" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="640" />
-
-
 	<gap:platform name="android" />
 	<gap:platform name="ios" />
-
 	<access origin="http://127.0.0.1*" />
 	<access origin="*.pushwoosh.com"/>
 	<access origin="*" />
-	
+
 	<!--
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
@@ -87,16 +85,15 @@
 	-->
 	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.geolocation" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" />	
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />
-	
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" />
 	<gap:plugin name="de.appplant.cordova.plugin.badge" />
-	
+
 	<!--
 	<gap:plugin name="com.simplec.plugins.localnotification" />
 	<plugin name="LocalNotification" value="LocalNotification" />
