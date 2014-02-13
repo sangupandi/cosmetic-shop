@@ -3,6 +3,9 @@
 	<name>Cosmetica</name>
 	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
+	
+	<preference name="phonegap-version" value="2.9.0" />
+	
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
