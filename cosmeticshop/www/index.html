@@ -608,6 +608,11 @@
 					<label for="cbxSetting4">İndirim Kataloğu</label>
 					<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
 
+					<label for="cbxSetting4">OverlaysWebView</label>
+					<input type="checkbox" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="StatusBar.overlaysWebView(this.checked);"/>
+					<label for="cbxSetting4">Hide/Show</label>
+					<input type="checkbox" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="if(this.checked){ StatusBar.show(); }else{StatusBar.hide();}"/>
+
 					<div id="version-info"></div>
 				</div><!-- /content -->
 
