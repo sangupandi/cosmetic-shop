@@ -735,7 +735,7 @@ var app = {
 	},
 
 	setAppBadge : function() {
-		var unreadCount = badges.YeniUrun + badges.Firsat + badges.GuzellikSirlari + badges.GuzellikSirlariGoz + badges.GuzellikSirlariYuz + badges.GuzellikSirlariDudak + badges.GuzellikSirlariTirnak;
+		var unreadCount = badges.YeniUrun + badges.Firsat + badges.GuzellikSirlari;
 
 		window.plugin.notification.badge.set(unreadCount);
 	},

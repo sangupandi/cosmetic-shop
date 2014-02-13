@@ -28,6 +28,7 @@
 	<preference name="android-installLocation" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="android-windowSoftInputMode" value="adjustResize" />
+	<preference name="StatusBarOverlaysWebView" value="false" />
 
 	<!--
 	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
