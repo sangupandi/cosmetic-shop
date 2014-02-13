@@ -6,13 +6,13 @@ var serviceHost = "http://www.cosmeticamobile.com";
 appCodes = {
 	push : {
 		// ExpenseApp Account
-		pushWooshAppCode : "01AA9-EA887",
-		appName : "ExpenseForm",
-		androidSenderId : "268470725852",
+		//pushWooshAppCode : "01AA9-EA887",
+		//appName : "ExpenseForm",
+		//androidSenderId : "268470725852",
 
 		// Cosmetica Account
-		_pushWooshAppCode : "8929B-D7D16",
-		_androidSenderId : "449671850278"
+		pushWooshAppCode : "8929B-D7D16",
+		androidSenderId : "449671850278"
 	},
 	map : {
 		//keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
