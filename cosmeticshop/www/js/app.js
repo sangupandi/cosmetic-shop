@@ -1,22 +1,18 @@
-var internalVersion = "Version 1.0.5 Build:920";
+var internalVersion = "Version 1.0.3 Build:881";
 
+//var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
 //var serviceHost = "http://37.230.108.2";
 
 appCodes = {
 	push : {
-		// ExpenseApp Account
-		//pushWooshAppCode : "01AA9-EA887",
-		//appName : "ExpenseForm",
-		//androidSenderId : "268470725852",
-
-		// Cosmetica Account
+		//pushWooshAppCode : "83E51-9B80D",
+		//androidSenderId : "268470725852"
 		pushWooshAppCode : "8929B-D7D16",
 		androidSenderId : "449671850278"
 	},
 	map : {
 		//keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
-		// Cosmetica Account
 		keyForBrowser : 'AIzaSyBwH3SfcJdQu0Z-D_JbyfN4FQMt67Lo3V8'
 	}
 };
@@ -25,26 +21,15 @@ appCodes = {
  * 3E2B3DC7-9A40-4D29-AE81-702EA3A64A8D MY iPhpne 3Gs
  * BD7F2632-FB72-48B1-B67E-4F038D5E9780 GTech iPhone4
  */
-debugHelper = {
-	debuggerDevices : ["b58805c0606d742d", "1D457E0D-1433-4E4D-A274-B4288308AC7F"],
-	deviceID : null,
-	isDebugDevice : false,
-	showMessages: false,
-	
-	init:function(){
-		debugHelper.deviceID = device.uuid;
-		debugHelper.isDebugDevice = (jQuery.inArray(debugHelper.deviceID, debugHelper.debuggerDevices) != -1);
-		debugHelper.showMessages = debugHelper.isDebugDevice && (app.getSetting('set5', 'true') == 'true');
-		$('#cbxSetting5').attr('checked', debugHelper.showMessages);
-		if (!debugHelper.isDebugDevice)
-			$('#cbxSetting5').hide();
-	}
-};
+var debuggerDevices = ["b58805c0606d742d", "1D457E0D-1433-4E4D-A274-B4288308AC7F"];
 
-function debugWarn(msg) {
-	console.warn(msg);
-	if (debugHelper.isDebugDevice)// && debugHelper.showMessages)
-		alert(msg);
+var deviceID = null;
+function da(msg) {
+	if (deviceID == null)
+		deviceID = device.uuid;
+	if (jQuery.inArray(deviceID, debuggerDevices) != -1) {
+		//alert(msg);
+	}
 }
 
 /*
@@ -316,11 +301,11 @@ carouselObject.prototype = {
 		var successFunc = function(obj, result) {
 			//sender.jsonData[slideIndex].IsUnread = false;
 			var annId = sender.swiper.slides[slideIndex].data("annId");
-			console.log("successFunc annId: " + annId);
+	 		console.log("successFunc annId: " + annId);
 			for (var i = 0, j = sender.jsonData.length; i < j; i++) {
 				var row = sender.jsonData[i];
 				if (row.ID == annId && row.IsUnread) {
-
+					
 					row.IsUnread = false;
 					console.log("sender.menuId: " + sender.menuId);
 					console.log("badges.YeniUrun: " + badges.YeniUrun);
@@ -333,7 +318,7 @@ carouselObject.prototype = {
 							app.setbadge("#left-menu a#m2 span.badge", --badges.Firsat);
 							break;
 					}
-
+					
 				}
 			}
 		};
@@ -349,11 +334,11 @@ carouselObject.prototype = {
 		 console.log(sender.jsonData[sender.swiper.activeIndex]);
 		 */
 		var annId = sender.swiper.slides[slideIndex].data("annId");
-		console.log("onSlideChangeEnd annId: " + annId);
+	 	console.log("onSlideChangeEnd annId: " + annId);
 		for (var i = 0, j = sender.jsonData.length; i < j; i++) {
 			var row = sender.jsonData[i];
 			if (row.ID == annId && row.IsUnread) {
-				console.log("AnnRead.ashx annId: " + annId);
+	 			console.log("AnnRead.ashx annId: " + annId);
 				var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", annId, device.uuid);
 				var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
 				jl.load();

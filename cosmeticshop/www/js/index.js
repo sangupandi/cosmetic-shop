@@ -93,13 +93,9 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		if (platform_iOS()) {
-			StatusBar.hide();
-		}
 		app.receivedEvent('deviceready');
 	},
 
-	debugMessages : false,
 	/*
 	 * size properties
 	 */
@@ -735,12 +731,6 @@ var app = {
 		return (ret != null) ? ret : defaultValue;
 	},
 
-	setAppBadge : function() {
-		var unreadCount = badges.YeniUrun + badges.Firsat + badges.GuzellikSirlari;
-
-		window.plugin.notification.badge.set(unreadCount);
-	},
-
 	getBadgesCount : function() {
 		var successFunc = function(obj, result) {
 			badges.isLoaded = true;
@@ -761,7 +751,16 @@ var app = {
 			app.setbadge('.brick.b3-1 span.badge', badges.GuzellikSirlariDudak);
 			app.setbadge('.brick.b4-1 span.badge', badges.GuzellikSirlariTirnak);
 
-			//setAppBadge();
+			/*
+			 try {
+			 //PushWoosh.sendBadge(badges.GuzellikSirlari);
+			 var pushNotification = window.plugins.pushNotification;
+			 pushNotification.setApplicationIconBadgeNumber(82);
+			 } catch(e) {
+			 //alert("PushWoosh.sendBadge error");
+			 //alert(e);
+			 }
+			 */
 		};
 
 		var errorFunc = function(obj, request, error) {
@@ -856,6 +855,7 @@ var app = {
 		});
 
 		$("#page-gesture").bind("pageshow", function(event) {
+			da("pageshow");
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
 			$('#page-gesture-content').css({
@@ -875,6 +875,7 @@ var app = {
 			 });
 			 */
 			$('#page-gesture div[data-role="content"] .close').show();
+			da("call load");
 			app.catalogue.load();
 		});
 
@@ -1269,14 +1270,6 @@ var app = {
 
 	setPushNotifications : function() {
 		try {
-			/*
-			alert("message");
-			debugWarn("message");
-
-			initPushwoosh();
-			return;
-			*/
-			
 			var pushNotification = window.plugins.pushNotification;
 
 			// TODO: Enter your own GCM Sender ID in the register call for Android
@@ -1301,7 +1294,6 @@ var app = {
 			}
 		} catch(e) {
 			// probably running on browser
-			debugWarn(e.message);
 		}
 	},
 
@@ -1414,19 +1406,12 @@ var app = {
 			el.hide();
 		}
 		el.text(value);
-
-		app.setAppBadge();
 	},
 
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
 		glog.step('receivedEvent :' + id);
-
-		debugHelper.init();
-
-			alert("message");
-			debugWarn("message");
 
 		$.support.cors = true;
 		// Setting #container div as a jqm pageContainer
@@ -1536,6 +1521,35 @@ var app = {
 		glog2.log('internalVersion: ', internalVersion);
 
 		$("#version-info").html(internalVersion);
+	},
+
+	localNotificationTrigger : function() {
+		var d = new Date();
+		d = d.getTime() + (60 * 1000) / 10;
+		// 6 second
+		//60 seconds from now
+		d = new Date(d);
+
+		$('#debugLabel').html("adding notification");
+		window.plugins.localNotification.add({
+			date : d, // your set date object
+			message : 'Hello world!',
+			repeat : 'weekly', // will fire every week on this day
+			badge : 1,
+			foreground : 'foreground',
+			background : 'background',
+			sound : 'sub.caf'
+		});
+		$('#debugLabel').html("added notification");
+
+		function foreground(id) {
+			$('#debugLabel').html("I WAS RUNNING ID=" + id);
+		}
+
+		function background(id) {
+			$('#debugLabel').html("I WAS IN THE BACKGROUND ID=" + id);
+		}
+
 	}
 };
 
