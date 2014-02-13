@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns = "http://www.w3.org/ns/widgets"
 xmlns:gap   = "http://phonegap.com/ns/1.0"
-id          = "com.gtech.cosmetica"
+id          = "com.gtech.expenseform"
 version     = "1.0.5"
 versionCode = "10" >
 	<name>Cosmetica</name>
@@ -26,9 +26,9 @@ versionCode = "10" >
 	<preference name="android-installLocation" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="android-windowSoftInputMode" value="adjustResize" />
+	<!--
 	<preference name="StatusBarOverlaysWebView" value="false" />
 	<preference name="StatusBarBackgroundColor" value="#00FF00" />
-	<!--
 	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
 	<false/>
 	</gap:config-file>
@@ -67,10 +67,12 @@ versionCode = "10" >
 	<gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
 	<gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
 	<gap:splash gap:platform="ios" height="1136" src="res/screen/ios/screen-iphone-portrait-568h-2x.png" width="640" />
+
 	<gap:platform name="android" />
 	<gap:platform name="ios" />
+
 	<access origin="http://127.0.0.1*" />
-	<access origin="*.pushwoosh.com"/>
+	<access origin="https://cp.pushwoosh.com"/>
 	<access origin="*" />
 
 	<!--
@@ -86,12 +88,13 @@ versionCode = "10" >
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" />
+	<gap:plugin name="com.pushwoosh.plugins.pushwoosh"/>
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="com.phonegap.plugin.statusbar" />
 	<gap:plugin name="de.appplant.cordova.plugin.badge" />
 
 	<!--
+	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="com.simplec.plugins.localnotification" />
 	<plugin name="LocalNotification" value="LocalNotification" />
 	-->

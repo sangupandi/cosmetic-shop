@@ -26,6 +26,7 @@
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="js/String.js"></script>
+		<script type="text/javascript" src="js/pushwoosh-init.js"></script>
 		<script src="zoom_assets/jquery.smoothZoom.min.js"></script>
 		<script type="application/javascript" src="js/iscroll-zoom.js"></script>
 		<link rel="stylesheet" href="css/cosmetica.css" />
@@ -37,10 +38,10 @@
 		<script type="text/javascript" src="js/plugins/SocialSharing.js"></script>
 		<script type="text/javascript" src="SplashScreen.js"></script>
 		<script type="text/javascript" src="StatusBar.js"></script>
-		<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/pushwoosh.js"></script>
 
 		<!--
+		<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/pushwoosh.js"></script>
 		<script type="text/javascript" charset="utf-8" src="cordova.localNotification.js"></script>
 		<script type="text/javascript" src="PushNotification.js"></script>
 		<script src="pushwoosh.js" type="text/javascript"></script>
@@ -609,11 +610,8 @@
 					<label for="cbxSetting4">İndirim Kataloğu</label>
 					<input type="checkbox" id="cbxSetting4" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set4', this.checked);"/>
 
-					<label for="cbxSetting5">OverlaysWebView</label>
-					<input type="checkbox" id="cbxSetting5" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="StatusBar.overlaysWebView(this.checked);"/>
-					
-					<label for="cbxSetting6">Hide/Show</label>
-					<input type="checkbox" id="cbxSetting6" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="if(this.checked){ StatusBar.show(); }else{StatusBar.hide();}"/>
+					<label for="cbxSetting5">DebugMessages</label>
+					<input type="checkbox" id="cbxSetting5" data-theme="b" data-mini="false" data-iconpos="right" checked="checked" onclick="app.putSetting('set5', this.checked); debugHelper.debugMessages = this.checked;"/>
 
 					<div id="version-info"></div>
 				</div><!-- /content -->

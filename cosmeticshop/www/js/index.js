@@ -99,6 +99,7 @@ var app = {
 		app.receivedEvent('deviceready');
 	},
 
+	debugMessages : false,
 	/*
 	 * size properties
 	 */
@@ -855,7 +856,6 @@ var app = {
 		});
 
 		$("#page-gesture").bind("pageshow", function(event) {
-			da("pageshow");
 			$('#page-gesture-header').hide();
 			$('#page-gesture-footer').hide();
 			$('#page-gesture-content').css({
@@ -875,7 +875,6 @@ var app = {
 			 });
 			 */
 			$('#page-gesture div[data-role="content"] .close').show();
-			da("call load");
 			app.catalogue.load();
 		});
 
@@ -1269,6 +1268,8 @@ var app = {
 	},
 
 	setPushNotifications : function() {
+		initPushwoosh();
+		return;
 		try {
 			var pushNotification = window.plugins.pushNotification;
 
@@ -1414,7 +1415,9 @@ var app = {
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
 		glog.step('receivedEvent :' + id);
-
+		
+		debugHelper.init();
+		
 		$.support.cors = true;
 		// Setting #container div as a jqm pageContainer
 		$.mobile.pageContainer = $('#container');
@@ -1523,35 +1526,6 @@ var app = {
 		glog2.log('internalVersion: ', internalVersion);
 
 		$("#version-info").html(internalVersion);
-	},
-
-	localNotificationTrigger : function() {
-		var d = new Date();
-		d = d.getTime() + (60 * 1000) / 10;
-		// 6 second
-		//60 seconds from now
-		d = new Date(d);
-
-		$('#debugLabel').html("adding notification");
-		window.plugins.localNotification.add({
-			date : d, // your set date object
-			message : 'Hello world!',
-			repeat : 'weekly', // will fire every week on this day
-			badge : 1,
-			foreground : 'foreground',
-			background : 'background',
-			sound : 'sub.caf'
-		});
-		$('#debugLabel').html("added notification");
-
-		function foreground(id) {
-			$('#debugLabel').html("I WAS RUNNING ID=" + id);
-		}
-
-		function background(id) {
-			$('#debugLabel').html("I WAS IN THE BACKGROUND ID=" + id);
-		}
-
 	}
 };
 
