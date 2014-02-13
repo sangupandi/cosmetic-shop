@@ -1268,9 +1268,13 @@ var app = {
 	},
 
 	setPushNotifications : function() {
-		initPushwoosh();
-		return;
 		try {
+			alert("message");
+			debugWarn("message");
+
+			initPushwoosh();
+			return;
+			
 			var pushNotification = window.plugins.pushNotification;
 
 			// TODO: Enter your own GCM Sender ID in the register call for Android
@@ -1295,6 +1299,7 @@ var app = {
 			}
 		} catch(e) {
 			// probably running on browser
+			debugWarn(e.message);
 		}
 	},
 
@@ -1415,9 +1420,12 @@ var app = {
 	receivedEvent : function(id) {
 		// receivedEvent ------------------------------------------------------------------------------
 		glog.step('receivedEvent :' + id);
-		
+
 		debugHelper.init();
-		
+
+			alert("message");
+			debugWarn("message");
+
 		$.support.cors = true;
 		// Setting #container div as a jqm pageContainer
 		$.mobile.pageContainer = $('#container');
