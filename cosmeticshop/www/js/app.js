@@ -6,9 +6,9 @@ var serviceHost = "http://www.cosmeticamobile.com";
 
 appCodes = {
 	push : {
-		pushWooshAppCode : "0E936-6B053",
+		//pushWooshAppCode : "0E936-6B053",
 		//androidSenderId : "268470725852"
-		//pushWooshAppCode : "8929B-D7D16",
+		pushWooshAppCode : "8929B-D7D16",
 		androidSenderId : "449671850278"
 	},
 	map : {
