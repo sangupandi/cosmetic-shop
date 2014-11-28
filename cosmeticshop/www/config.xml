@@ -4,8 +4,18 @@
 	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
 	
-	<preference name="phonegap-version" value="2.9.0" />
+	<preference name="phonegap-version" value="3.6.3" />
 	
+	<name>Cosmetica's Config.xml</name>
+	
+	<description>
+        An example for phonegap build docs. 
+    </description>
+    
+    <author href="http://www.gtech.com.tr" email="mert.yerli@gtech.com.tr">
+        GTech Corp.
+    </author>
+        
 	<preference name="permissions" value="none" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="handset" />
@@ -59,19 +69,24 @@
 	<access origin="*.pushwoosh.com"/>
 	<access origin="*" />
 	
+		<gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
+		<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+		<gap:plugin name="org.li8.inappbrowser" version="0.1" />
+		<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+		<gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
+		<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+		<gap:plugin name="com.simplec.plugins.localnotification" version="0.3.5" />
+		
+		<gap:plugin name="org.apache.cordova.device" />
+	
+	<!--
+	<plugin name="Storage" value="org.apache.cordova.Storage" />
+	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
-	<plugin name="Storage" value="org.apache.cordova.Storage" />
-	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" />
-	
 	<gap:plugin name="com.simplec.plugins.localnotification" />
-	<!--
-	<plugin name="LocalNotification" value="LocalNotification" />
-
 	-->
 
 </widget>
