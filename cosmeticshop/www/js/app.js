@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.0.5 Build:930";
+var internalVersion = "Version 1.1 Build:931";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -6,7 +6,7 @@ var serviceHost = "http://www.cosmeticamobile.com";
 
 appCodes = {
 	push : {
-		//pushWooshAppCode : "0E936-6B053",
+		//pushWooshAppCode : "83E51-9B80D",
 		//androidSenderId : "268470725852"
 		pushWooshAppCode : "8929B-D7D16",
 		androidSenderId : "449671850278"

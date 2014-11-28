@@ -926,16 +926,31 @@ var app = {
 	bindSubPagesTapEvents : function() {
 		/* Sosyal medya */
 		$('.sfb').bind('tap', function() {
-			var ref = window.open("http://www.facebook.com/cosmetica.com.tr", '_blank', 'location=no,enableViewPortScale=yes');
+			var ref = window.open("https://www.facebook.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
 		$('.stw').bind('tap', function() {
-			var ref = window.open("http://twitter.com/cosmeticaa", '_blank', 'location=no,enableViewPortScale=yes');
+			var ref = window.open("https://twitter.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
+		$('.sig').bind('tap', function() {
+			var ref = window.open("http://instagram.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		/*
 		$('.sgp').bind('tap', function() {
 			var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
 		});
+		*/
 		$('.sfs').bind('tap', function() {
-			var ref = window.open("https://tr.foursquare.com/v/cosmetica/4e7c9c4b45dd91ac8a3734cc", '_blank', 'location=no,enableViewPortScale=yes');
+			var ref = window.open("https://tr.foursquare.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+
+		$('.syt').bind('tap', function() {
+			var ref = window.open(" http://www.youtube.com/user/KalbimdekiYer", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		$('.spi').bind('tap', function() {
+			var ref = window.open(" http://www.pinterest.com/Cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
+		});
+		$('.sli').bind('tap', function() {
+			var ref = window.open("https://www.linkedin.com/company/cosmetica", '_blank', 'location=no,enableViewPortScale=yes');
 		});
 
 		/* Güzellik Sırları B */
