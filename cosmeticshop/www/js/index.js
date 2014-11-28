@@ -934,15 +934,12 @@ var app = {
 		$('.sig').bind('tap', function() {
 			var ref = window.open("http://instagram.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		/*
 		$('.sgp').bind('tap', function() {
 			var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		*/
 		$('.sfs').bind('tap', function() {
 			var ref = window.open("https://tr.foursquare.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-
 		$('.syt').bind('tap', function() {
 			var ref = window.open(" http://www.youtube.com/user/KalbimdekiYer", '_blank', 'location=no,enableViewPortScale=yes');
 		});

@@ -260,9 +260,16 @@ div[data-role="footer"] img {
 	background-image: url(../img/footer.png);
 }
 /* ------------------------------------------------------------------------- */
-#page-yeniurun div[data-role="content"], #page-firsat div[data-role="content"], #page-guzellik div[data-role="content"], #page-sosyal [data-role="content"], #page-uygulama [data-role="content"], #page-harita [data-role="content"] {
+#page-yeniurun div[data-role="content"], 
+#page-firsat div[data-role="content"], 
+#page-guzellik div[data-role="content"], 
+#page-uygulama [data-role="content"], 
+#page-harita [data-role="content"] {
 	overflow: hidden;
 }
+ #page-sosyal [data-role="content"]{
+	overflow: auto; 	
+ }
 /* ------------------------------------------------------------------------- */
 #page-harita div[data-role="content"] {
 	padding: 0;
