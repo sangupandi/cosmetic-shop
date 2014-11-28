@@ -925,28 +925,28 @@ var app = {
 
 	bindSubPagesTapEvents : function() {
 		/* Sosyal medya */
-		$('.sfb').bind('tap', function() {
+		$('.sfb').bind('click', function() {
 			var ref = window.open("https://www.facebook.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.stw').bind('tap', function() {
+		$('.stw').bind('click', function() {
 			var ref = window.open("https://twitter.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.sig').bind('tap', function() {
+		$('.sig').bind('click', function() {
 			var ref = window.open("http://instagram.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.sgp').bind('tap', function() {
+		$('.sgp').bind('click', function() {
 			var ref = window.open("http://plus.google.com/100866141157931417846/posts", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.sfs').bind('tap', function() {
+		$('.sfs').bind('click', function() {
 			var ref = window.open("https://tr.foursquare.com/cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.syt').bind('tap', function() {
+		$('.syt').bind('click', function() {
 			var ref = window.open(" http://www.youtube.com/user/KalbimdekiYer", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.spi').bind('tap', function() {
+		$('.spi').bind('click', function() {
 			var ref = window.open(" http://www.pinterest.com/Cosmeticatr", '_blank', 'location=no,enableViewPortScale=yes');
 		});
-		$('.sli').bind('tap', function() {
+		$('.sli').bind('click', function() {
 			var ref = window.open("https://www.linkedin.com/company/cosmetica", '_blank', 'location=no,enableViewPortScale=yes');
 		});
 
