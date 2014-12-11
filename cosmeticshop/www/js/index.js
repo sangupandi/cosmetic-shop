@@ -553,7 +553,7 @@ var app = {
 		styles.push('#home-header-pic { width: ' + homeLogoWidth + 'px; }\r');
 
 		/* set #home-page swiper "tap image" size (size: 119x119) */
-		styles.push('#home-carousel-tap-image { width: ' + (app.windowHeight * 119 / 901) + 'px; }\r');
+		//styles.push('#home-carousel-tap-image { width: ' + (app.windowHeight * 119 / 901) + 'px; }\r');
 
 		/* set swiper container height and content height */
 		styles.push('#swiper-home, #swiper-home .swiper-slide { width: ' + app.windowWidth + 'px; height: ' + app.windowHeight + 'px; }\r');

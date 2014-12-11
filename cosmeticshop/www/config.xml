@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gtech.cosmetica" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.gtech.cosmetica" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 	<name>Cosmetica</name>
 	<description>Güncel kampanyalarımızdan anında haberdar olmak ve en yakın mağazamıza kolayca ulaşmak için uygulamayı şimdi indirin.</description>
 	<author email="mertyerli@gmail.com" href="http://www.gtech.com.tr">GTech Mobile Team</author>
@@ -9,7 +9,7 @@
 	<name>Cosmetica</name>
 	
 	<description>
-        An example for phonegap build docs. 
+        Cosmetica mobil uygulaması.
     </description>
     
     <author href="http://www.gtech.com.tr" email="mert.yerli@gtech.com.tr">

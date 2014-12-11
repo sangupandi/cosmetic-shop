@@ -1,4 +1,4 @@
-var internalVersion = "Version 1.1 Build:931";
+var internalVersion = "Version 1.1 Build:941";
 
 //var serviceHost = "http://www.gtech.com.tr/cosmetica";
 var serviceHost = "http://www.cosmeticamobile.com";
@@ -8,11 +8,12 @@ appCodes = {
 	push : {
 		//pushWooshAppCode : "83E51-9B80D",
 		//androidSenderId : "268470725852"
+		//pushNotification için kullanılan servis bilgileri
 		pushWooshAppCode : "8929B-D7D16",
 		androidSenderId : "449671850278"
 	},
 	map : {
-		//keyForBrowser : 'AIzaSyCA2xVgSRWf11kzDaO-KIA7QUQvGU1odFc'
+		//googleMaps için kullanılan key
 		keyForBrowser : 'AIzaSyBwH3SfcJdQu0Z-D_JbyfN4FQMt67Lo3V8'
 	}
 };
@@ -37,14 +38,14 @@ function da(msg) {
  */
 function shouldRotateToOrientation(rotation) {
 	switch (rotation) {
-		//Portrait or PortraitUpsideDown
-		case 0:
-		case 180:
-			return true;
-		//LandscapeRight or LandscapeLeft
-		case 90:
-		case -90:
-			return false;
+	//Portrait or PortraitUpsideDown
+	case 0:
+	case 180:
+		return true;
+	//LandscapeRight or LandscapeLeft
+	case 90:
+	case -90:
+		return false;
 	}
 }
 
@@ -127,13 +128,15 @@ homeSwiperObject.prototype = {
 	},
 
 	onSlideChangeEnd : function(sender) {
-		var pageId = sender.jsonData[sender.swiper.activeLoopIndex].CategoryID;
+		/*
+		 var pageId = sender.jsonData[sender.swiper.activeLoopIndex].CategoryID;
 
-		if (pageId) {
-			$('#home-carousel-tap-image').fadeIn(300);
-		} else {
-			$('#home-carousel-tap-image').fadeOut(300);
-		}
+		 if (pageId) {
+		 $('#home-carousel-tap-image').fadeIn(300);
+		 } else {
+		 $('#home-carousel-tap-image').fadeOut(300);
+		 }
+		 */
 	},
 
 	create : function() {
@@ -144,15 +147,14 @@ homeSwiperObject.prototype = {
 				paginationClickable : true,
 				loop : true,
 				onSlideChangeEnd : function(e) {
-					self.onSlideChangeEnd(self);
-				}
-			});
-
-			$('#home-carousel-tap-image').bind('tap', function() {
-				var self = app.homeSwiper;
-				var pageId = self.jsonData[self.swiper.activeLoopIndex].CategoryID;
-				var annId = self.jsonData[self.swiper.activeLoopIndex].AnnID;
-				switch(pageId) {
+					//self.onSlideChangeEnd(self);
+				},
+				onSlideClick : function(e) {
+					//console.log(e);
+					var self = app.homeSwiper;
+					var pageId = self.jsonData[self.swiper.activeLoopIndex].CategoryID;
+					var annId = self.jsonData[self.swiper.activeLoopIndex].AnnID;
+					switch(pageId) {
 					case 1:
 						app.carousel1.annIdForActivate = annId;
 						$.mobile.changePage($("#page-yeniurun"));
@@ -179,8 +181,11 @@ homeSwiperObject.prototype = {
 						break;
 					default:
 						break;
+					}
 				}
 			});
+
+			//$('#home-carousel-tap-image').bind('tap', function() {});
 
 			if (!self.rendered && self.jsonData != null) {
 				//self.render();
@@ -301,24 +306,24 @@ carouselObject.prototype = {
 		var successFunc = function(obj, result) {
 			//sender.jsonData[slideIndex].IsUnread = false;
 			var annId = sender.swiper.slides[slideIndex].data("annId");
-	 		console.log("successFunc annId: " + annId);
+			console.log("successFunc annId: " + annId);
 			for (var i = 0, j = sender.jsonData.length; i < j; i++) {
 				var row = sender.jsonData[i];
 				if (row.ID == annId && row.IsUnread) {
-					
+
 					row.IsUnread = false;
 					console.log("sender.menuId: " + sender.menuId);
 					console.log("badges.YeniUrun: " + badges.YeniUrun);
 					console.log("badges.Firsat: " + badges.Firsat);
 					switch(sender.menuId) {
-						case "m1":
-							app.setbadge("#left-menu a#m1 span.badge", --badges.YeniUrun);
-							break;
-						case "m2":
-							app.setbadge("#left-menu a#m2 span.badge", --badges.Firsat);
-							break;
+					case "m1":
+						app.setbadge("#left-menu a#m1 span.badge", --badges.YeniUrun);
+						break;
+					case "m2":
+						app.setbadge("#left-menu a#m2 span.badge", --badges.Firsat);
+						break;
 					}
-					
+
 				}
 			}
 		};
@@ -334,11 +339,11 @@ carouselObject.prototype = {
 		 console.log(sender.jsonData[sender.swiper.activeIndex]);
 		 */
 		var annId = sender.swiper.slides[slideIndex].data("annId");
-	 	console.log("onSlideChangeEnd annId: " + annId);
+		console.log("onSlideChangeEnd annId: " + annId);
 		for (var i = 0, j = sender.jsonData.length; i < j; i++) {
 			var row = sender.jsonData[i];
 			if (row.ID == annId && row.IsUnread) {
-	 			console.log("AnnRead.ashx annId: " + annId);
+				console.log("AnnRead.ashx annId: " + annId);
 				var svcurl = String.format("/AnnRead.ashx?annId={0}&uuid={1}", annId, device.uuid);
 				var jl = new jsonLoader(serviceHost + svcurl, successFunc, errorFunc);
 				jl.load();
@@ -491,18 +496,18 @@ guzellikSirlariChild.prototype = {
 			app.setbadge('#left-menu a#m3 span.badge', --badges.GuzellikSirlari);
 
 			switch(sender.row.CategoryID) {
-				case 31:
-					app.setbadge('.brick.b1-1 span.badge', --badges.GuzellikSirlariGoz);
-					break;
-				case 32:
-					app.setbadge('.brick.b2-1 span.badge', --badges.GuzellikSirlariYuz);
-					break;
-				case 33:
-					app.setbadge('.brick.b3-1 span.badge', --badges.GuzellikSirlariDudak);
-					break;
-				case 34:
-					app.setbadge('.brick.b4-1 span.badge', --badges.GuzellikSirlariTirnak);
-					break;
+			case 31:
+				app.setbadge('.brick.b1-1 span.badge', --badges.GuzellikSirlariGoz);
+				break;
+			case 32:
+				app.setbadge('.brick.b2-1 span.badge', --badges.GuzellikSirlariYuz);
+				break;
+			case 33:
+				app.setbadge('.brick.b3-1 span.badge', --badges.GuzellikSirlariDudak);
+				break;
+			case 34:
+				app.setbadge('.brick.b4-1 span.badge', --badges.GuzellikSirlariTirnak);
+				break;
 			}
 			//console.warn("okundu...");
 		};
