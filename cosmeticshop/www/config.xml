@@ -34,6 +34,7 @@
 	<preference name="android-installLocation" value="auto" />
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="android-windowSoftInputMode" value="adjustResize" />
+	<preference name="StatusBarOverlaysWebView" value="false" />
 
 	<!-- to enable individual permissions use the following examples -->
 	<feature name="http://api.phonegap.com/1.0/device"/>
@@ -77,9 +78,18 @@
 		<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
 		<gap:plugin name="com.simplec.plugins.localnotification" version="0.3.5" />
+		<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
 		
 		<gap:plugin name="org.apache.cordova.device" />
 	
+	<gap:config-file platform="ios" parent="UIStatusBarHidden">
+	    <true/>
+	</gap:config-file>
+	
+	<gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+	    <false/>
+	</gap:config-file>
+
 	<!--
 	<plugin name="Storage" value="org.apache.cordova.Storage" />
 	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
